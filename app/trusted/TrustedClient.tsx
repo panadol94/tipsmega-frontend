@@ -13,7 +13,7 @@ type Company = {
     storageUrl?: string;
 };
 
-const API_URL = "http://zgk0g8kck4o4oks0ok4s0kg8.209.97.175.214.sslip.io/api/companies";
+const API_URL = "https://api.tipsmega888.com/api/companies";
 
 // WhatsApp fallback bila link kosong
 const WHATSAPP_NUMBER = "60108691034";

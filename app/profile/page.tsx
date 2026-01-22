@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import BottomNav from "../ui/BottomNav";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 
-const API_BASE = "http://zgk0g8kck4o4oks0ok4s0kg8.209.97.175.214.sslip.io";
+const API_BASE = "https://api.tipsmega888.com";
 
 const mockHistory = [
   { ts: "Hari ini 11:12 PM", id: "01**01", rtp: 91 },

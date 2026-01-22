@@ -11,7 +11,7 @@ interface AuthModalProps {
     onLoginSuccess: (token: string, stars: number) => void;
 }
 
-const API_BASE = "http://zgk0g8kck4o4oks0ok4s0kg8.209.97.175.214.sslip.io";
+const API_BASE = "https://api.tipsmega888.com";
 const GROUP_LINK = "https://t.me/tipsmega888chat";
 
 
