@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "tipsmega888-prod"
+  },
+  "targets": {
+    "tipsmega888-prod": {
+      "hosting": {
+        "tipsmega888-prod": [
+          "tipsmega888-prod"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

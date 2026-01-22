@@ -1,0 +1,108 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import BottomNav from "../ui/BottomNav";
+
+type Company = {
+  name: string;
+  link: string;
+  caption: string;
+  mediaType: "photo" | "video";
+  storageUrl: string;
+};
+
+export default function Page() {
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://tipsmega-api-sbiami65sa-as.a.run.app/api/companies")
+      .then((r) => r.json())
+      .then((data) => {
+        setCompanies(data || []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  return (
+    <>
+      <header className="card p-5">
+        <div className="text-xs text-white/60">Trusted Companies</div>
+        <h1 className="mt-2 h1 title-font">
+          Verified <span style={{ color: "#ffd56a" }}>Partners</span>
+        </h1>
+        <div className="mt-2 subtle text-sm">
+          Company yang diupdate terus dari Telegram Bot.
+        </div>
+      </header>
+
+      {loading && (
+        <div className="card p-5 mt-4 text-center text-white/60">
+          Loading company list...
+        </div>
+      )}
+
+      {!loading && companies.length === 0 && (
+        <div className="card p-5 mt-4 text-center text-white/60">
+          Tiada company lagi. Sila tambah melalui bot Telegram.
+        </div>
+      )}
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: 14,
+          marginTop: 14,
+        }}
+      >
+        {companies.map((c, i) => (
+          <div key={i} className="card p-4 hover-card">
+            <div style={{ marginBottom: 10 }}>
+              {c.mediaType === "photo" ? (
+                <img
+                  src={c.storageUrl}
+                  alt={c.name}
+                  style={{
+                    width: "100%",
+                    borderRadius: 12,
+                    objectFit: "cover",
+                  }}
+                />
+              ) : (
+                <video
+                  src={c.storageUrl}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  style={{
+                    width: "100%",
+                    borderRadius: 12,
+                    objectFit: "cover",
+                  }}
+                />
+              )}
+            </div>
+
+            <div className="text-sm font-semibold mb-1">{c.name}</div>
+            <div className="text-xs text-white/60 mb-3">
+              {(c.caption || "").slice(0, 80)}
+            </div>
+
+            <a
+              href={c.link}
+              target="_blank"
+              className="btn-primary"
+            >
+              Register
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <BottomNav active="trusted" />
+    </>
+  );
+}

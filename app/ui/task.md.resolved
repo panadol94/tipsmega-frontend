@@ -1,0 +1,8 @@
+# Tasks
+
+- [/] Refactor and Cleanup
+  - [x] Remove duplicate CSS in [app/globals.css](file:///c:/Users/Acer/tipsmega-ui/app/globals.css)
+  - [x] Refactor [app/info/page.tsx](file:///c:/Users/Acer/tipsmega-ui/app/info/page.tsx) to remove inline styles and use Tailwind/Design System
+  - [x] Ensure [app/trusted/page.tsx](file:///c:/Users/Acer/tipsmega-ui/app/trusted/page.tsx) aligns with the Premium/Commander theme
+- [ ] Verification
+  - [/] Verify build references and styling

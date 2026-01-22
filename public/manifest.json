@@ -1,0 +1,22 @@
+{
+    "name": "Mega888 AI Tips RTP",
+    "short_name": "Mega888 AI",
+    "description": "Premium AI Scanner & RTP Calculator for Mega888",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#000000",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/mega888.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/mega888.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
