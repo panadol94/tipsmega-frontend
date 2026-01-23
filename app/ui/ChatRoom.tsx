@@ -2,9 +2,65 @@
 
 import { useEffect, useState, useRef } from "react";
 import io, { Socket } from "socket.io-client";
+import EmojiPicker, { Theme as EmojiTheme } from "emoji-picker-react";
+import { useSwipeable } from "react-swipeable";
+import { AnimatePresence, motion } from "framer-motion";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+
+// --- Sub-Component for Swipable Message ---
+const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply }: any) => {
+    // Swipe to Reply Logic
+    const handlers = useSwipeable({
+        onSwipedRight: () => onReply(m),
+        trackMouse: true, // Enable mouse swipe for desktop testing
+        preventScrollOnSwipe: true,
+        delta: 50, // Min distance
+    });
+
+    return (
+        <div {...handlers} className={`flex flex-col ${isMe ? "items-end" : "items-start"} animate-in slide-in-from-bottom-2 duration-300 relative group`}>
+            <div className="flex items-baseline gap-2 mb-1 px-1">
+                <span className={`text-[10px] font-bold tracking-wide ${isAdmin ? "text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" : "text-white/40"}`}>
+                    {isAdmin && "👑 "}{m.sender}
+                </span>
+            </div>
+
+            <div className={`relative max-w-[85%] border ${currentStyle.bubble} ${isMe ? currentStyle.me : isAdmin ? currentStyle.admin : currentStyle.other} transition-transform active:scale-[0.98]`}>
+
+                {/* Reply Context (If this message IS a reply) -- Future backend support */}
+                {/* For now, just standard bubble content */}
+
+                {/* Media Content */}
+                {m.mediaUrl && (
+                    <div className="rounded-t-lg overflow-hidden border-b border-black/5 -mx-[1px] -mt-[1px]">
+                        {m.mediaType === "video" ? (
+                            <video src={`${API_BASE}${m.mediaUrl}`} controls className="w-full h-auto object-cover max-h-[400px]" />
+                        ) : m.mediaType === "audio" ? (
+                            <div className="p-3 flex items-center gap-3 min-w-[200px]">
+                                <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center text-xl">🎤</div>
+                                <audio src={`${API_BASE}${m.mediaUrl}`} controls className="h-8 w-full max-w-[180px]" />
+                            </div>
+                        ) : (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img src={`${API_BASE}${m.mediaUrl}`} alt="media" className="w-full h-auto object-cover max-h-[400px]" />
+                        )}
+                    </div>
+                )}
+
+                {/* Text Content */}
+                {m.content && <p className={`text-sm break-words leading-relaxed px-2 pt-1 ${m.mediaUrl ? '' : 'pb-1'}`}>{m.content}</p>}
+
+                {/* Time & Ticks */}
+                <div className={`text-[9px] text-right font-mono px-2 pb-1 opacity-60 flex justify-end items-center gap-1 leading-none ${m.mediaUrl && !m.content ? "absolute bottom-1 right-1 bg-black/30 text-white rounded px-1" : "mt-0.5"}`}>
+                    {m.createdAt ? new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}
+                    {isMe && <span>✓✓</span>}
+                </div>
+            </div>
+        </div>
+    );
+};
 
 type Message = {
     id?: string;
@@ -23,6 +79,10 @@ export default function ChatRoom() {
     const [input, setInput] = useState("");
     const [user, setUser] = useState<{ username: string; token: string } | null>(null);
     const [isUploading, setIsUploading] = useState(false);
+
+    // WhatsApp Interactions
+    const [showEmoji, setShowEmoji] = useState(false);
+    const [replyTo, setReplyTo] = useState<Message | null>(null);
 
     // Voice Chat State
     const [isRecording, setIsRecording] = useState(false);
@@ -375,61 +435,93 @@ export default function ChatRoom() {
                     </div>
 
                     {/* Messages */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-black/0 via-black/10 to-black/30 scrollbar-thin scrollbar-thumb-white/10">
+                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-black/0 via-black/10 to-black/30 scrollbar-thin scrollbar-thumb-white/10 relative" onClick={() => setShowEmoji(false)}>
                         {messages.map((m, i) => {
                             const isMe = m.sender === user?.username;
                             const isAdmin = m.senderLevel === "ADMIN";
 
+                            // Date Divider Logic
+                            const prevM = messages[i - 1];
+                            const currDate = new Date(m.createdAt || Date.now()).toDateString();
+                            const prevDate = prevM ? new Date(prevM.createdAt || Date.now()).toDateString() : null;
+                            const showDate = currDate !== prevDate;
+
+                            let dateLabel = currDate;
+                            if (new Date().toDateString() === currDate) dateLabel = "Today";
+
                             return (
-                                <div key={i} className={`flex flex-col ${isMe ? "items-end" : "items-start"} animate-in slide-in-from-bottom-2 duration-300`}>
-                                    <div className="flex items-baseline gap-2 mb-1 px-1">
-                                        <span className={`text-[10px] font-bold tracking-wide ${isAdmin ? "text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" : "text-white/40"}`}>
-                                            {isAdmin && "👑 "}{m.sender}
-                                        </span>
-                                    </div>
-
-                                    <div className={`relative max-w-[85%] border ${currentStyle.bubble} ${isMe
-                                        ? currentStyle.me
-                                        : isAdmin
-                                            ? currentStyle.admin
-                                            : currentStyle.other
-                                        }`}>
-
-                                        {/* Media Content - Full Width, WhatsApp Style */}
-                                        {m.mediaUrl && (
-                                            <div className="rounded-t-lg overflow-hidden border-b border-black/5 -mx-[1px] -mt-[1px]">
-                                                {m.mediaType === "video" ? (
-                                                    <video src={`${API_BASE}${m.mediaUrl}`} controls className="w-full h-auto object-cover max-h-[400px]" />
-                                                ) : m.mediaType === "audio" ? (
-                                                    <div className="p-3 flex items-center gap-3 min-w-[200px]">
-                                                        <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center text-xl">🎤</div>
-                                                        <audio src={`${API_BASE}${m.mediaUrl}`} controls className="h-8 w-full max-w-[180px]" />
-                                                    </div>
-                                                ) : (
-                                                    /* eslint-disable-next-line @next/next/no-img-element */
-                                                    <img src={`${API_BASE}${m.mediaUrl}`} alt="media" className="w-full h-auto object-cover max-h-[400px]" />
-                                                )}
-                                            </div>
-                                        )}
-
-                                        {/* Text Content */}
-                                        {m.content && <p className={`text-sm break-words leading-relaxed px-2 pt-1 ${m.mediaUrl ? '' : 'pb-1'}`}>{m.content}</p>}
-
-                                        {/* Time & Ticks - Floating Bottom Right */}
-                                        <div className={`text-[9px] text-right font-mono px-2 pb-1 opacity-60 flex justify-end items-center gap-1 leading-none ${m.mediaUrl && !m.content ? "absolute bottom-1 right-1 bg-black/30 text-white rounded px-1" : "mt-0.5"}`}>
-                                            {new Date(m.createdAt || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                            {isMe && <span>✓✓</span>}
+                                <div key={i}>
+                                    {showDate && (
+                                        <div className="flex justify-center my-4 opacity-60">
+                                            <span className="text-[10px] font-bold bg-black/20 text-white/80 px-3 py-1 rounded-lg border border-white/5 backdrop-blur-sm shadow-sm">
+                                                {dateLabel}
+                                            </span>
                                         </div>
-                                    </div>
+                                    )}
+                                    <MessageItem
+                                        m={m}
+                                        isMe={isMe}
+                                        isAdmin={isAdmin}
+                                        currentStyle={currentStyle}
+                                        user={user}
+                                        onReply={setReplyTo}
+                                    />
                                 </div>
                             );
                         })}
                         <div ref={bottomRef} />
                     </div>
 
+                    {/* Reply Preview Bar */}
+                    <AnimatePresence>
+                        {replyTo && (
+                            <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                className="bg-[#1f2c34] border-l-4 border-emerald-500 flex justify-between items-center px-4 py-2 border-t border-white/5 relative z-10"
+                            >
+                                <div className="flex flex-col overflow-hidden">
+                                    <span className="text-[10px] font-bold text-emerald-400">Replying to {replyTo.sender}</span>
+                                    <span className="text-xs text-white/60 truncate max-w-[250px]">{replyTo.content || "Media"}</span>
+                                </div>
+                                <button onClick={() => setReplyTo(null)} className="text-white/40 hover:text-white">✕</button>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Emoji Picker */}
+                    <AnimatePresence>
+                        {showEmoji && (
+                            <motion.div
+                                initial={{ y: 20, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: 20, opacity: 0 }}
+                                className="absolute bottom-20 left-4 right-4 sm:right-auto sm:w-[320px] z-50 shadow-2xl rounded-2xl overflow-hidden border border-white/10"
+                            >
+                                <EmojiPicker
+                                    theme={"dark" as EmojiTheme}
+                                    onEmojiClick={(e) => setInput(prev => prev + e.emoji)}
+                                    width="100%"
+                                    height={350}
+                                    searchDisabled
+                                    skinTonesDisabled
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
                     {/* Input Area */}
                     <div className={`p-3 border-t border-white/5 backdrop-blur-md ${currentStyle.bg}`}>
                         <div className="flex items-center gap-2">
+                            {/* Emoji Toggle */}
+                            <button
+                                onClick={() => setShowEmoji(!showEmoji)}
+                                className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-yellow-400 transition-colors"
+                            >
+                                😊
+                            </button>
+
                             {/* File Upload */}
                             <button
                                 onClick={() => fileInputRef.current?.click()}
