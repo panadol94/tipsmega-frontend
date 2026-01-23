@@ -71,6 +71,24 @@ export default function ChatRoom() {
             accent: "fuchsia",
             bubble: "rounded-3xl rounded-br-none",
         },
+        whatsapp: {
+            bg: "bg-[#0b141a] border-[#005c4b]/30",
+            header: "bg-[#1f2c34] border-white/5",
+            me: "bg-[#005c4b] text-[#e9edef] shadow-sm",
+            other: "bg-[#1f2c34] text-[#e9edef] shadow-sm",
+            admin: "bg-[#1f2c34] text-yellow-400 border border-yellow-500/20",
+            accent: "emerald",
+            bubble: "rounded-lg shadow-sm",
+        },
+        telegram: {
+            bg: "bg-[#0e1621] border-[#17212b]",
+            header: "bg-[#17212b] border-white/5",
+            me: "bg-[#2b5278] text-white shadow-sm",
+            other: "bg-[#182533] text-white shadow-sm",
+            admin: "bg-[#182533] text-blue-300 border border-blue-500/30",
+            accent: "sky",
+            bubble: "rounded-2xl rounded-tr-none rounded-bl-none",
+        }
     };
 
     const currentStyle = themes[activeTheme] || themes.cyber;
@@ -264,12 +282,18 @@ export default function ChatRoom() {
                         <div className="flex items-center gap-2 mr-1">
                             {/* Theme Dots */}
                             <div className="flex gap-1.5 px-2 py-1 bg-black/40 rounded-full border border-white/5">
-                                {["cyber", "gold", "matrix", "neon"].map(t => (
+                                {["cyber", "gold", "matrix", "neon", "whatsapp", "telegram"].map(t => (
                                     <button
                                         key={t}
                                         onClick={() => setTheme(t)}
                                         className={`w-3 h-3 rounded-full transition-all duration-300 ${activeTheme === t ? "scale-125 ring-2 ring-white shadow-[0_0_10px_white]" : "opacity-40 hover:opacity-100"} 
-                                            ${t === 'cyber' ? 'bg-blue-600' : t === 'gold' ? 'bg-amber-500' : t === 'matrix' ? 'bg-green-500' : 'bg-fuchsia-500'}`}
+                                            ${t === 'cyber' ? 'bg-blue-600' :
+                                                t === 'gold' ? 'bg-amber-500' :
+                                                    t === 'matrix' ? 'bg-green-500' :
+                                                        t === 'neon' ? 'bg-fuchsia-500' :
+                                                            t === 'whatsapp' ? 'bg-emerald-600' :
+                                                                'bg-sky-500'}`} // telegram
+                                        title={t}
                                     />
                                 ))}
                             </div>
