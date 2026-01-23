@@ -88,6 +88,42 @@ export default function ChatRoom() {
             admin: "bg-[#182533] text-blue-300 border border-blue-500/30",
             accent: "sky",
             bubble: "rounded-2xl rounded-tr-none rounded-bl-none",
+        },
+        telegram_light: {
+            bg: "bg-[#8eafd3] border-[#517da2]",
+            header: "bg-[#517da2] border-[#517da2] shadow-md",
+            me: "bg-[#eeffde] text-black shadow-sm",
+            other: "bg-white text-black shadow-sm",
+            admin: "bg-white text-blue-600 border border-blue-500/20",
+            accent: "sky",
+            bubble: "rounded-2xl rounded-tr-none rounded-bl-none",
+        },
+        whatsapp_light: {
+            bg: "bg-[#efe7dd] border-[#008069]/20",
+            header: "bg-[#008069] border-[#008069] shadow-md",
+            me: "bg-[#d9fdd3] text-black shadow-sm",
+            other: "bg-white text-black shadow-sm",
+            admin: "bg-white text-orange-600 border border-orange-500/20",
+            accent: "emerald",
+            bubble: "rounded-lg shadow-sm",
+        },
+        sakura: {
+            bg: "bg-[#fff0f5] border-pink-300/50",
+            header: "bg-gradient-to-r from-pink-400 to-rose-400 border-pink-400 shadow-lg",
+            me: "bg-[#ffe4e1] text-pink-900 shadow-sm border border-pink-100",
+            other: "bg-white text-gray-800 shadow-sm",
+            admin: "bg-white text-rose-600 border border-rose-200",
+            accent: "pink",
+            bubble: "rounded-2xl rounded-br-none",
+        },
+        sky: {
+            bg: "bg-[#e0f2fe] border-sky-300/50",
+            header: "bg-gradient-to-r from-sky-500 to-blue-500 border-sky-500 shadow-lg",
+            me: "bg-[#dbeafe] text-blue-900 shadow-sm border border-blue-100",
+            other: "bg-white text-gray-800 shadow-sm",
+            admin: "bg-white text-blue-600 border border-blue-200",
+            accent: "cyan",
+            bubble: "rounded-2xl rounded-tr-none",
         }
     };
 
@@ -281,18 +317,22 @@ export default function ChatRoom() {
 
                         <div className="flex items-center gap-2 mr-1">
                             {/* Theme Dots */}
-                            <div className="flex gap-1.5 px-2 py-1 bg-black/40 rounded-full border border-white/5">
-                                {["cyber", "gold", "matrix", "neon", "whatsapp", "telegram"].map(t => (
+                            <div className="flex gap-1.5 px-2 py-1 bg-black/40 rounded-full border border-white/5 overflow-x-auto max-w-[150px] scrollbar-hide">
+                                {["cyber", "gold", "matrix", "neon", "whatsapp", "whatsapp_light", "telegram", "telegram_light", "sakura", "sky"].map(t => (
                                     <button
                                         key={t}
                                         onClick={() => setTheme(t)}
-                                        className={`w-3 h-3 rounded-full transition-all duration-300 ${activeTheme === t ? "scale-125 ring-2 ring-white shadow-[0_0_10px_white]" : "opacity-40 hover:opacity-100"} 
+                                        className={`w-3 h-3 shrink-0 rounded-full transition-all duration-300 ${activeTheme === t ? "scale-125 ring-2 ring-white shadow-[0_0_10px_white]" : "opacity-40 hover:opacity-100"} 
                                             ${t === 'cyber' ? 'bg-blue-600' :
                                                 t === 'gold' ? 'bg-amber-500' :
                                                     t === 'matrix' ? 'bg-green-500' :
                                                         t === 'neon' ? 'bg-fuchsia-500' :
-                                                            t === 'whatsapp' ? 'bg-emerald-600' :
-                                                                'bg-sky-500'}`} // telegram
+                                                            t === 'whatsapp' ? 'bg-[#005c4b]' :
+                                                                t === 'whatsapp_light' ? 'bg-[#25D366]' :
+                                                                    t === 'telegram' ? 'bg-[#2b5278]' :
+                                                                        t === 'telegram_light' ? 'bg-[#517da2]' :
+                                                                            t === 'sakura' ? 'bg-pink-400' :
+                                                                                'bg-sky-400'}`}
                                         title={t}
                                     />
                                 ))}
