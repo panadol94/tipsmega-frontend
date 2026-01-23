@@ -1,0 +1,33 @@
+# Stage 1: Builder
+# Use a specific version for stability, matching your local environment roughly if possible
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Install dependencies first for caching
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Build the project (result goes to /app/out)
+RUN npm run build
+
+# Stage 2: Runner (Nginx)
+FROM nginx:alpine AS runner
+
+# Copy custom Nginx config
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Clean default Nginx html files
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy static build output from builder stage
+COPY --from=builder /app/out /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
