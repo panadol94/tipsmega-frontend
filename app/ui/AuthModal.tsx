@@ -11,7 +11,7 @@ interface AuthModalProps {
     onLoginSuccess: (token: string, stars: number) => void;
 }
 
-const API_BASE = "https://api.tipsmega888.com";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
 const GROUP_LINK = "https://t.me/tipsmega888chat";
 
 
@@ -143,7 +143,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
             const { json, text } = await readJsonOrText(r);
 
             if (!r.ok) {
-                showErr(`❌ ${json?.error || text || "Register Failed"}`);
+                showErr(`❌ ${json?.error || "Register Failed"} ${json?.detail ? `(${json.detail})` : ""}`);
                 return;
             }
 
@@ -188,7 +188,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
             const { json, text } = await readJsonOrText(r);
 
             if (!r.ok) {
-                showErr(`❌ ${json?.error || text || "Login Failed"}`);
+                showErr(`❌ ${json?.error || "Login Failed"} ${json?.detail ? `(${json.detail})` : ""}`);
                 return;
             }
 
@@ -245,7 +245,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
             const { json, text } = await readJsonOrText(r);
 
             if (!r.ok) {
-                showErr(`❌ ${json?.error || text || "Reset Gagal"}`);
+                showErr(`❌ ${json?.error || "Reset Gagal"} ${json?.detail ? `(${json.detail})` : ""}`);
                 return;
             }
 

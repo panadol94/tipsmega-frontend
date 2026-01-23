@@ -1,5 +1,6 @@
 import MegaLogo from "./MegaLogo";
 import MatrixRain from "./MatrixRain";
+import ChatRoom from "./ChatRoom";
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   return (
@@ -27,6 +28,9 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       <div className="app-wrap">
         <div className="app-shell">{children}</div>
       </div>
+
+      {/* GLOBAL CHATROOM */}
+      <ChatRoom />
     </div>
   );
 }

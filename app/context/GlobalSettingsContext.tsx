@@ -16,6 +16,11 @@ type SettingsContextType = {
     toggleHaptic: () => void;
     playSound: (type?: "click" | "success" | "error") => void;
     triggerHaptic: (pattern?: number | number[]) => void;
+    // Chat
+    isChatOpen: boolean;
+    toggleChat: (open?: boolean) => void;
+    activeTheme: string;
+    setTheme: (t: string) => void;
 };
 
 const SettingsContext = createContext<SettingsContextType | null>(null);
@@ -23,6 +28,8 @@ const SettingsContext = createContext<SettingsContextType | null>(null);
 export function GlobalSettingsProvider({ children }: { children: React.ReactNode }) {
     const [soundEnabled, setSoundEnabled] = useState(true);
     const [hapticEnabled, setHapticEnabled] = useState(true);
+    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [activeTheme, setActiveTheme] = useState("cyber"); // cyber, matrix, neon, gold
     const [mounted, setMounted] = useState(false);
 
     // Audio Context Ref
@@ -34,8 +41,10 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
             // Load from local storage
             const s = localStorage.getItem("tipsmega_sound");
             const h = localStorage.getItem("tipsmega_haptic");
+            const t = localStorage.getItem("tipsmega_chat_theme");
             if (s !== null) setSoundEnabled(s === "true");
             if (h !== null) setHapticEnabled(h === "true");
+            if (t) setActiveTheme(t);
         }, 0);
 
         // Init Audio Context on first interaction usually, but we prep it here
@@ -56,6 +65,15 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
         setHapticEnabled(newVal);
         localStorage.setItem("tipsmega_haptic", String(newVal));
         if (newVal) triggerHaptic(50);
+    };
+
+    const toggleChat = (open?: boolean) => {
+        setIsChatOpen(prev => open ?? !prev);
+    };
+
+    const setTheme = (t: string) => {
+        setActiveTheme(t);
+        localStorage.setItem("tipsmega_chat_theme", t);
     };
 
     const playSound = (type: "click" | "success" | "error" = "click") => {
@@ -122,6 +140,10 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
                 toggleHaptic,
                 playSound,
                 triggerHaptic,
+                isChatOpen,
+                toggleChat,
+                activeTheme,
+                setTheme,
             }}
         >
             {children}

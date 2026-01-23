@@ -14,7 +14,7 @@ import { useGlobalSettings } from "./context/GlobalSettingsContext";
 type InitRes = { deviceId: string; stars: number; isNew: boolean };
 type ScanRes = { ok?: boolean; overallRtp?: number; stars?: number; error?: string; detail?: string };
 
-const API_BASE = "https://api.tipsmega888.com";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
 
 /** ---------- utils ---------- */
 function sleep(ms: number) {

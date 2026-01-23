@@ -13,7 +13,8 @@ type Company = {
     storageUrl?: string;
 };
 
-const API_URL = "https://api.tipsmega888.com/api/companies";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+const API_URL = `${API_BASE}/api/companies`;
 
 // WhatsApp fallback bila link kosong
 const WHATSAPP_NUMBER = "60108691034";
@@ -118,9 +119,9 @@ export default function TrustedClient() {
                                 <div className="trusted-media-box">
                                     {c.storageUrl ? (
                                         showVideo ? (
-                                            <video src={c.storageUrl} muted playsInline loop autoPlay />
+                                            <video src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`} muted playsInline loop autoPlay />
                                         ) : (
-                                            <img src={c.storageUrl} alt={c.name} loading="lazy" />
+                                            <img src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`} alt={c.name} loading="lazy" />
                                         )
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-white/20 uppercase tracking-widest">
