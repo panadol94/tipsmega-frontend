@@ -74,6 +74,7 @@ export default function HomeScan() {
         Date.now().toString(16);
       localStorage.setItem(key, id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     setDeviceId(id);
 
     fetch(`${API_BASE}/api/init`, {

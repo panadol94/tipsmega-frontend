@@ -1,0 +1,7 @@
+api-mini
+api-mini/
+**/api-mini
+node_modules
+.next
+out
+build

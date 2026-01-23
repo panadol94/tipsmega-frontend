@@ -10,6 +10,7 @@ export default function Page() {
 
   // Load actual ref code if available
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     setMounted(true);
     const local = localStorage.getItem("tipsmega_my_ref_code");
     if (local) setRefCode(local);

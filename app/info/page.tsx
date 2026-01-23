@@ -42,7 +42,7 @@ export default function Page() {
                 <strong>Mega888 AI Tips</strong> adalah sebuah platform berasaskan kecerdasan buatan (AI) yang direka khas untuk menganalisis corak kemenangan pada platform permainan digital.
               </p>
               <p>
-                Teknologi kami menggunakan <strong>Deep Learning</strong> untuk memproses beribu data transaksi setiap saat, membolehkan "Commander" melihat peratusan RTP secara visual.
+                Teknologi kami menggunakan <strong>Deep Learning</strong> untuk memproses beribu data transaksi setiap saat, membolehkan &quot;Commander&quot; melihat peratusan RTP secara visual.
               </p>
             </div>
           </div>
