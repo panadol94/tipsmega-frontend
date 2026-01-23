@@ -2,15 +2,17 @@
 
 import { useEffect, useState, useRef } from "react";
 import io, { Socket } from "socket.io-client";
-import EmojiPicker, { Theme as EmojiTheme } from "emoji-picker-react";
+import dynamic from "next/dynamic";
 import { useSwipeable } from "react-swipeable";
 import { AnimatePresence, motion } from "framer-motion";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 
+const EmojiPicker = dynamic(() => import("emoji-picker-react"), { ssr: false });
+
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
 
 // --- Sub-Component for Swipable Message ---
-const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply }: any) => {
+const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete }: any) => {
     // Swipe to Reply Logic
     const handlers = useSwipeable({
         onSwipedRight: () => onReply(m),
@@ -19,8 +21,44 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply }: any) => 
         delta: 50, // Min distance
     });
 
+    const [showMenu, setShowMenu] = useState(false);
+
+    const onContextMenu = (e: React.MouseEvent) => {
+        if (isMe) {
+            e.preventDefault();
+            setShowMenu(true);
+        }
+    };
+
     return (
-        <div {...handlers} className={`flex flex-col ${isMe ? "items-end" : "items-start"} animate-in slide-in-from-bottom-2 duration-300 relative group`}>
+        <div
+            {...handlers}
+            onContextMenu={onContextMenu}
+            className={`flex flex-col ${isMe ? "items-end" : "items-start"} animate-in slide-in-from-bottom-2 duration-300 relative group`}
+        >
+            {/* Context Menu */}
+            {showMenu && (
+                <>
+                    <div className="fixed inset-0 z-40" onClick={() => setShowMenu(false)} />
+                    <div className="absolute top-8 right-0 z-50 bg-[#233138] border border-white/5 shadow-2xl rounded-lg overflow-hidden py-1 min-w-[120px] animate-in fade-in zoom-in-95 duration-100">
+                        <button
+                            onClick={() => { onReply(m); setShowMenu(false); }}
+                            className="w-full text-left px-4 py-3 text-white hover:bg-white/5 text-xs font-medium"
+                        >
+                            Reply
+                        </button>
+                        {isMe && m.status !== "DELETED" && (
+                            <button
+                                onClick={() => { onDelete(m); setShowMenu(false); }}
+                                className="w-full text-left px-4 py-3 text-red-400 hover:bg-white/5 text-xs font-medium"
+                            >
+                                Delete Message
+                            </button>
+                        )}
+                    </div>
+                </>
+            )}
+
             <div className="flex items-baseline gap-2 mb-1 px-1">
                 <span className={`text-[10px] font-bold tracking-wide ${isAdmin ? "text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" : "text-white/40"}`}>
                     {isAdmin && "👑 "}{m.sender}
@@ -29,28 +67,34 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply }: any) => 
 
             <div className={`relative max-w-[85%] border ${currentStyle.bubble} ${isMe ? currentStyle.me : isAdmin ? currentStyle.admin : currentStyle.other} transition-transform active:scale-[0.98]`}>
 
-                {/* Reply Context (If this message IS a reply) -- Future backend support */}
-                {/* For now, just standard bubble content */}
-
-                {/* Media Content */}
-                {m.mediaUrl && (
-                    <div className="rounded-t-lg overflow-hidden border-b border-black/5 -mx-[1px] -mt-[1px]">
-                        {m.mediaType === "video" ? (
-                            <video src={`${API_BASE}${m.mediaUrl}`} controls className="w-full h-auto object-cover max-h-[400px]" />
-                        ) : m.mediaType === "audio" ? (
-                            <div className="p-3 flex items-center gap-3 min-w-[200px]">
-                                <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center text-xl">🎤</div>
-                                <audio src={`${API_BASE}${m.mediaUrl}`} controls className="h-8 w-full max-w-[180px]" />
-                            </div>
-                        ) : (
-                            /* eslint-disable-next-line @next/next/no-img-element */
-                            <img src={`${API_BASE}${m.mediaUrl}`} alt="media" className="w-full h-auto object-cover max-h-[400px]" />
-                        )}
+                {/* DELETED MESSAGE UI */}
+                {m.status === "DELETED" ? (
+                    <div className="flex items-center gap-2 p-2 italic text-white/50 text-xs">
+                        <span>🚫</span> This message was deleted
                     </div>
-                )}
+                ) : (
+                    <>
+                        {/* Media Content */}
+                        {m.mediaUrl && (
+                            <div className="rounded-t-lg overflow-hidden border-b border-black/5 -mx-[1px] -mt-[1px]">
+                                {m.mediaType === "video" ? (
+                                    <video src={`${API_BASE}${m.mediaUrl}`} controls className="w-full h-auto object-cover max-h-[400px]" />
+                                ) : m.mediaType === "audio" ? (
+                                    <div className="p-3 flex items-center gap-3 min-w-[200px]">
+                                        <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center text-xl">🎤</div>
+                                        <audio src={`${API_BASE}${m.mediaUrl}`} controls className="h-8 w-full max-w-[180px]" />
+                                    </div>
+                                ) : (
+                                    /* eslint-disable-next-line @next/next/no-img-element */
+                                    <img src={`${API_BASE}${m.mediaUrl}`} alt="media" className="w-full h-auto object-cover max-h-[400px]" />
+                                )}
+                            </div>
+                        )}
 
-                {/* Text Content */}
-                {m.content && <p className={`text-sm break-words leading-relaxed px-2 pt-1 ${m.mediaUrl ? '' : 'pb-1'}`}>{m.content}</p>}
+                        {/* Text Content */}
+                        {m.content && <p className={`text-sm break-words leading-relaxed px-2 pt-1 ${m.mediaUrl ? '' : 'pb-1'}`}>{m.content}</p>}
+                    </>
+                )}
 
                 {/* Time & Ticks */}
                 <div className={`text-[9px] text-right font-mono px-2 pb-1 opacity-60 flex justify-end items-center gap-1 leading-none ${m.mediaUrl && !m.content ? "absolute bottom-1 right-1 bg-black/30 text-white rounded px-1" : "mt-0.5"}`}>
@@ -70,6 +114,7 @@ type Message = {
     mediaUrl?: string;
     mediaType?: "image" | "video" | "audio";
     createdAt?: string;
+    status?: "ACTIVE" | "DELETED";
 };
 
 export default function ChatRoom() {
@@ -254,6 +299,14 @@ export default function ChatRoom() {
             scrollToBottom();
         });
 
+        s.on("message_deleted", ({ messageId }: { messageId: string }) => {
+            setMessages(prev => prev.map(m =>
+                m.id === messageId || (m as any)._id === messageId
+                    ? { ...m, status: "DELETED", content: "", mediaUrl: "" }
+                    : m
+            ));
+        });
+
         return () => {
             s.disconnect();
         };
@@ -272,6 +325,16 @@ export default function ChatRoom() {
             content: input,
         });
         setInput("");
+    };
+
+    const deleteMessage = (m: Message) => {
+        if (!socket || !m.id && !(m as any)._id) return;
+        if (confirm("Delete this message for everyone?")) {
+            socket.emit("delete_message", {
+                messageId: m.id || (m as any)._id,
+                sender: user?.username
+            });
+        }
     };
 
     // --- VOICE LOGIC ---
@@ -465,6 +528,7 @@ export default function ChatRoom() {
                                         currentStyle={currentStyle}
                                         user={user}
                                         onReply={setReplyTo}
+                                        onDelete={deleteMessage}
                                     />
                                 </div>
                             );
