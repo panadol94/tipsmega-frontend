@@ -564,7 +564,7 @@ export default function ChatRoom() {
                                 className="absolute bottom-20 left-4 right-4 sm:right-auto sm:w-[320px] z-50 shadow-2xl rounded-2xl overflow-hidden border border-white/10"
                             >
                                 <EmojiPicker
-                                    theme={"dark" as EmojiTheme}
+                                    theme={"dark" as any}
                                     onEmojiClick={(e) => setInput(prev => prev + e.emoji)}
                                     width="100%"
                                     height={350}
