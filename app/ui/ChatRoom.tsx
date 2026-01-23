@@ -131,6 +131,7 @@ export default function ChatRoom() {
 
     // 1. Auth Check (Load User) - Fixed Dependency Array
     useEffect(() => {
+        console.log("🔌 ChatRoom mounted. API_BASE:", API_BASE);
         const token = localStorage.getItem("tipsmega_token");
         if (token) {
             fetch(`${API_BASE}/api/auth/me`, {
@@ -150,13 +151,37 @@ export default function ChatRoom() {
         }
     }, [isChatOpen]); // Re-check whenever chat opens
 
+    const [isConnected, setIsConnected] = useState(false);
+
     // 2. Socket Connection
     useEffect(() => {
-        const s = io(API_BASE);
+        // Force websocket transport to avoid polling issues & CORS preflight complexity
+        const s = io(API_BASE, {
+            transports: ["websocket"],
+            reconnectionAttempts: 5,
+        });
         setSocket(s);
 
         s.on("connect", () => {
+            console.log("✅ Socket connected:", s.id);
+            setIsConnected(true);
             s.emit("join_global");
+        });
+
+        s.on("connect_error", (err) => {
+            console.error("❌ Socket connection error:", err);
+            setIsConnected(false);
+            // alert("Connection Error: " + err.message); // Too noisy if retrying
+        });
+
+        s.on("disconnect", (reason) => {
+            console.warn("⚠️ Socket disconnected:", reason);
+            setIsConnected(false);
+        });
+
+        s.on("error", (err: any) => {
+            console.error("Socket error:", err);
+            alert("Chat Error: " + err);
         });
 
         s.on("history", (msgs: Message[]) => {
@@ -284,10 +309,12 @@ export default function ChatRoom() {
                     mediaType: json.type
                 });
             } else {
-                alert("Upload Failed: " + (json.error || "Unknown"));
+                console.error("Upload failed server response:", json);
+                alert("Upload Failed: " + (json.error || "Unknown error from server"));
             }
-        } catch (_err) {
-            alert("Upload Error");
+        } catch (err: any) {
+            console.error("Upload fetch error:", err);
+            alert("Upload Network Error: " + (err.message || String(err)));
         } finally {
             setIsUploading(false);
             if (fileInputRef.current) fileInputRef.current.value = "";
@@ -298,14 +325,15 @@ export default function ChatRoom() {
         <>
             {/* Chat Window */}
             {isChatOpen && (
-                <div className={`fixed inset-0 z-50 flex flex-col sm:inset-auto sm:bottom-20 sm:right-4 sm:w-[380px] sm:h-[600px] sm:rounded-2xl sm:border sm:shadow-2xl overflow-hidden font-sans border-opacity-50 ring-1 ring-white/10 animate-in fade-in slide-in-from-bottom-4 duration-300 ${currentStyle.bg}`}>
+                <div className={`fixed inset-x-0 top-0 bottom-24 z-50 flex flex-col sm:inset-auto sm:bottom-20 sm:right-4 sm:w-[380px] sm:h-[600px] sm:rounded-2xl sm:border sm:shadow-2xl overflow-hidden font-sans border-opacity-50 ring-1 ring-white/10 animate-in fade-in slide-in-from-bottom-4 duration-300 ${currentStyle.bg}`}>
 
                     {/* Header */}
                     <div className={`flex items-center justify-between p-3 border-b shadow-lg ${currentStyle.header}`}>
                         <div className="flex items-center gap-3">
                             <div className="relative">
-                                <div className={`w-3 h-3 rounded-full bg-${currentStyle.accent}-500 animate-pulse`} />
-                                <div className={`absolute inset-0 w-3 h-3 rounded-full bg-${currentStyle.accent}-500 animate-ping opacity-50`} />
+                                {/* Status Indicator: Green=Connected, Red=Disconnected/Pulse */}
+                                <div className={`w-3 h-3 rounded-full ${isConnected ? "bg-emerald-500 shadow-[0_0_10px_#10b981]" : "bg-red-500 animate-pulse shadow-[0_0_10px_#ef4444]"}`} />
+                                {isConnected && <div className="absolute inset-0 w-3 h-3 rounded-full bg-emerald-400 animate-ping opacity-50" />}
                             </div>
                             <div>
                                 <h3 className="font-black text-white text-xs tracking-widest uppercase bg-gradient-to-r from-white to-white/50 bg-clip-text text-transparent">
