@@ -59,7 +59,7 @@ export default function InfoClient() {
       </section>
 
       {/* ✅ penting: supaya button Info menyala gold */}
-      <BottomNav active="info" />
+      <BottomNav />
     </Shell>
   );
 }

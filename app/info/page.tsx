@@ -94,7 +94,7 @@ export default function Page() {
         </div>
 
       </div>
-      <BottomNav active="info" />
+      <BottomNav />
     </div>
   );
 }

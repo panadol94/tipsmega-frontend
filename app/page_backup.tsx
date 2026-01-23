@@ -85,7 +85,7 @@ export default function HomeScan() {
       .then((d) => {
         if (typeof d?.stars === "number") setStars(d.stars);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   function pushLine(text: string, tone: Line["tone"] = "dim") {
@@ -120,7 +120,7 @@ export default function HomeScan() {
       const d = await r.json();
       if (typeof d?.overallRtp === "number") apiOverall = d.overallRtp;
       if (typeof d?.stars === "number") apiStars = d.stars;
-    } catch {}
+    } catch { }
 
     // fake decrypt progress (lebih suspense)
     pushLine(">> decrypting game tables...", "dim");
@@ -207,9 +207,8 @@ export default function HomeScan() {
         </div>
 
         <button
-          className={`mt-4 w-full ${
-            isValid && !running ? "btn-primary" : "btn-ghost opacity-60"
-          }`}
+          className={`mt-4 w-full ${isValid && !running ? "btn-primary" : "btn-ghost opacity-60"
+            }`}
           disabled={!isValid || running || stars <= 0}
           onClick={runScan}
         >
@@ -245,10 +244,10 @@ export default function HomeScan() {
                     l.tone === "red"
                       ? "text-rose-300"
                       : l.tone === "gold"
-                      ? "text-amber-200"
-                      : l.tone === "green"
-                      ? "text-emerald-300"
-                      : "text-white/70"
+                        ? "text-amber-200"
+                        : l.tone === "green"
+                          ? "text-emerald-300"
+                          : "text-white/70"
                   }
                 >
                   {l.text}
@@ -265,7 +264,7 @@ export default function HomeScan() {
         </div>
       </section>
 
-      <BottomNav active="home" />
+      <BottomNav />
     </Shell>
   );
 }
