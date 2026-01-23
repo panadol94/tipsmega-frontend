@@ -1,17 +1,15 @@
-"use client";
-
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 
 type NavKey = "home" | "trusted" | "share" | "chat" | "profile";
 
 export default function BottomNav({
-  active,
   isBusy,
 }: {
-  active: NavKey;
   isBusy?: boolean;
 }) {
+  const pathname = usePathname();
   const { toggleChat, isChatOpen } = useGlobalSettings();
 
   const items: { key: NavKey; label: string; href: string }[] = [
@@ -26,14 +24,16 @@ export default function BottomNav({
     <nav className="bottom-nav" role="navigation" aria-label="Bottom navigation">
       <div className="nav-row">
         {items.map((it) => {
-          // If chat is open, mark chat as active (optional visual cue)
-          // But usually we want to keep the underlying page active. 
-          // Let's just highlight Chat if isOpen? 
-          // The USER probably wants it to feel like a "page" or "popup". 
-          // If popup, maybe don't highlight as active page, but highlight button.
-
           const isChat = it.key === "chat";
-          const isActive = active === it.key || (isChat && isChatOpen);
+
+          let isActive = false;
+          if (isChat) {
+            isActive = isChatOpen;
+          } else {
+            // Exact match for home, startsWith for others
+            if (it.href === "/") isActive = pathname === "/";
+            else isActive = pathname.startsWith(it.href);
+          }
 
           return (
             <Link
@@ -48,7 +48,11 @@ export default function BottomNav({
                 }
                 if (isChat) {
                   e.preventDefault();
+                  // Toggle: Open if closed, Close if open
                   toggleChat();
+                } else {
+                  // If we are clicking another tab, close chat if it's open
+                  if (isChatOpen) toggleChat(false);
                 }
               }}
             >

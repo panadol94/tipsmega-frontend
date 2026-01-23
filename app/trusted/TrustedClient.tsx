@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import BottomNav from "../ui/BottomNav";
+
 
 type Company = {
     id?: string;
@@ -166,7 +166,7 @@ export default function TrustedClient() {
                 )}
 
             </div>
-            <BottomNav active="trusted" />
+
         </div>
     );
 }

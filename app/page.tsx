@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Toast, { ToastType } from "./ui/Toast";
 import TypewriterText from "./ui/TypewriterText";
-import BottomNav from "./ui/BottomNav";
+
 import TerminalScan from "./ui/TerminalScan";
 import AuthModal from "./ui/AuthModal";
 import InstallPrompt from "./ui/InstallPrompt";
@@ -313,10 +313,7 @@ export default function Page() {
         />
       )}
 
-      <BottomNav
-        active="home"
-        isBusy={busy}
-      />
+
     </>
   );
 }

@@ -72,40 +72,40 @@ export default function ChatRoom() {
             bubble: "rounded-3xl rounded-br-none",
         },
         whatsapp: {
-            bg: "bg-[#0b141a] border-[#005c4b]/30",
+            bg: "bg-[#0b141a] border-[#0b141a]", // Dark background (almost black)
             header: "bg-[#1f2c34] border-white/5",
-            me: "bg-[#005c4b] text-[#e9edef] shadow-sm",
-            other: "bg-[#1f2c34] text-[#e9edef] shadow-sm",
-            admin: "bg-[#1f2c34] text-yellow-400 border border-yellow-500/20",
+            me: "bg-[#005c4b] text-[#e9edef] shadow-sm rounded-tr-none min-w-[120px]", // Dark Green
+            other: "bg-[#202c33] text-[#e9edef] shadow-sm rounded-tl-none min-w-[120px]", // Dark Grey
+            admin: "bg-[#202c33] text-yellow-400 border border-yellow-500/20",
             accent: "emerald",
-            bubble: "rounded-lg shadow-sm",
+            bubble: "rounded-lg pb-1", // Reduced padding bottom
         },
         telegram: {
             bg: "bg-[#0e1621] border-[#17212b]",
             header: "bg-[#17212b] border-white/5",
-            me: "bg-[#2b5278] text-white shadow-sm",
-            other: "bg-[#182533] text-white shadow-sm",
+            me: "bg-[#2b5278] text-white shadow-sm rounded-tr-none min-w-[120px]",
+            other: "bg-[#182533] text-white shadow-sm rounded-tl-none min-w-[120px]",
             admin: "bg-[#182533] text-blue-300 border border-blue-500/30",
             accent: "sky",
-            bubble: "rounded-2xl rounded-tr-none rounded-bl-none",
+            bubble: "rounded-2xl",
         },
         telegram_light: {
             bg: "bg-[#8eafd3] border-[#517da2]",
             header: "bg-[#517da2] border-[#517da2] shadow-md",
-            me: "bg-[#eeffde] text-black shadow-sm",
-            other: "bg-white text-black shadow-sm",
+            me: "bg-[#eeffde] text-black shadow-sm rounded-tr-none min-w-[120px]",
+            other: "bg-white text-black shadow-sm rounded-tl-none min-w-[120px]",
             admin: "bg-white text-blue-600 border border-blue-500/20",
             accent: "sky",
-            bubble: "rounded-2xl rounded-tr-none rounded-bl-none",
+            bubble: "rounded-2xl",
         },
         whatsapp_light: {
-            bg: "bg-[#efe7dd] border-[#008069]/20",
+            bg: "bg-[#efe7dd] border-[#d1d7db]", // Beige
             header: "bg-[#008069] border-[#008069] shadow-md",
-            me: "bg-[#d9fdd3] text-black shadow-sm",
-            other: "bg-white text-black shadow-sm",
+            me: "bg-[#d9fdd3] text-[#111b21] shadow-sm rounded-tr-none min-w-[120px]", // Light Green
+            other: "bg-white text-[#111b21] shadow-sm rounded-tl-none min-w-[120px]", // White
             admin: "bg-white text-orange-600 border border-orange-500/20",
             accent: "emerald",
-            bubble: "rounded-lg shadow-sm",
+            bubble: "rounded-lg pb-1",
         },
         sakura: {
             bg: "bg-[#fff0f5] border-pink-300/50",
@@ -388,36 +388,37 @@ export default function ChatRoom() {
                                         </span>
                                     </div>
 
-                                    <div className={`max-w-[85%] p-3 border ${currentStyle.bubble} ${isMe
+                                    <div className={`relative max-w-[85%] border ${currentStyle.bubble} ${isMe
                                         ? currentStyle.me
                                         : isAdmin
                                             ? currentStyle.admin
                                             : currentStyle.other
                                         }`}>
 
-                                        {/* Media Content */}
+                                        {/* Media Content - Full Width, WhatsApp Style */}
                                         {m.mediaUrl && (
-                                            <div className="mb-2 rounded-lg overflow-hidden border border-white/10 bg-black/40 shadow-inner">
+                                            <div className="rounded-t-lg overflow-hidden border-b border-black/5 -mx-[1px] -mt-[1px]">
                                                 {m.mediaType === "video" ? (
-                                                    <video src={`${API_BASE}${m.mediaUrl}`} controls className="w-full max-h-48 object-cover" />
+                                                    <video src={`${API_BASE}${m.mediaUrl}`} controls className="w-full h-auto object-cover max-h-[400px]" />
                                                 ) : m.mediaType === "audio" ? (
-                                                    <div className="p-2 flex items-center gap-2 min-w-[200px]">
-                                                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">🎤</div>
+                                                    <div className="p-3 flex items-center gap-3 min-w-[200px]">
+                                                        <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center text-xl">🎤</div>
                                                         <audio src={`${API_BASE}${m.mediaUrl}`} controls className="h-8 w-full max-w-[180px]" />
                                                     </div>
                                                 ) : (
                                                     /* eslint-disable-next-line @next/next/no-img-element */
-                                                    <img src={`${API_BASE}${m.mediaUrl}`} alt="media" className="w-full max-h-48 object-cover hover:scale-105 transition-transform" />
+                                                    <img src={`${API_BASE}${m.mediaUrl}`} alt="media" className="w-full h-auto object-cover max-h-[400px]" />
                                                 )}
                                             </div>
                                         )}
 
                                         {/* Text Content */}
-                                        {m.content && <p className="text-xs break-words leading-relaxed font-medium">{m.content}</p>}
+                                        {m.content && <p className={`text-sm break-words leading-relaxed px-2 pt-1 ${m.mediaUrl ? '' : 'pb-1'}`}>{m.content}</p>}
 
-                                        {/* Time */}
-                                        <div className="text-[9px] text-white/30 text-right mt-1 font-mono">
+                                        {/* Time & Ticks - Floating Bottom Right */}
+                                        <div className={`text-[9px] text-right font-mono px-2 pb-1 opacity-60 flex justify-end items-center gap-1 leading-none ${m.mediaUrl && !m.content ? "absolute bottom-1 right-1 bg-black/30 text-white rounded px-1" : "mt-0.5"}`}>
                                             {new Date(m.createdAt || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                            {isMe && <span>✓✓</span>}
                                         </div>
                                     </div>
                                 </div>

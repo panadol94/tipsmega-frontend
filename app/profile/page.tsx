@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import BottomNav from "../ui/BottomNav";
+
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 
 const API_BASE = "https://api.tipsmega888.com";
@@ -192,7 +192,7 @@ export default function Page() {
         </section>
 
       </div>
-      <BottomNav active="profile" />
+
     </div>
   );
 }

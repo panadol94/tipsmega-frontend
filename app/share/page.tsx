@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
-import BottomNav from "../ui/BottomNav";
+
 
 export default function Page() {
   const [copied, setCopied] = useState(false);
@@ -129,7 +129,7 @@ export default function Page() {
         </div>
 
       </div>
-      <BottomNav active="share" />
+
     </div>
   );
 }
