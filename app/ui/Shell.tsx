@@ -1,6 +1,5 @@
 import MegaLogo from "./MegaLogo";
 import MatrixRain from "./MatrixRain";
-import ChatRoom from "./ChatRoom";
 import BottomNav from "./BottomNav";
 
 export default function Shell({ children }: { children: React.ReactNode }) {
@@ -31,7 +30,6 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* GLOBAL CHATROOM & NAV */}
-      <ChatRoom />
       <BottomNav />
     </div>
   );

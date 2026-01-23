@@ -119,7 +119,7 @@ type Message = {
 };
 
 export default function ChatRoom() {
-    const { isChatOpen, toggleChat, activeTheme, setTheme } = useGlobalSettings();
+    const { activeTheme, setTheme } = useGlobalSettings();
     const [socket, setSocket] = useState<Socket | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState("");
@@ -255,7 +255,7 @@ export default function ChatRoom() {
         } else {
             setUser({ username: "Guest", token: "" });
         }
-    }, [isChatOpen]); // Re-check whenever chat opens
+    }, []); // Re-check on mount
 
     const [isConnected, setIsConnected] = useState(false);
 
@@ -450,218 +450,207 @@ export default function ChatRoom() {
     };
 
     return (
-        <>
-            {/* Chat Window */}
-            {isChatOpen && (
-                <div className={`fixed inset-x-0 top-0 bottom-24 z-50 flex flex-col sm:inset-auto sm:bottom-20 sm:right-4 sm:w-[380px] sm:h-[600px] sm:rounded-2xl sm:border sm:shadow-2xl overflow-hidden font-sans border-opacity-50 ring-1 ring-white/10 animate-in fade-in slide-in-from-bottom-4 duration-300 ${currentStyle.bg}`}>
+        <div className={`flex flex-col w-full h-full font-sans border-opacity-50 relative ${currentStyle.bg}`}>
 
-                    {/* Header */}
-                    <div className={`flex items-center justify-between p-3 border-b shadow-lg ${currentStyle.header}`}>
-                        <div className="flex items-center gap-3">
-                            <div className="relative">
-                                {/* Status Indicator: Green=Connected, Red=Disconnected/Pulse */}
-                                <div className={`w-3 h-3 rounded-full ${isConnected ? "bg-emerald-500 shadow-[0_0_10px_#10b981]" : "bg-red-500 animate-pulse shadow-[0_0_10px_#ef4444]"}`} />
-                                {isConnected && <div className="absolute inset-0 w-3 h-3 rounded-full bg-emerald-400 animate-ping opacity-50" />}
-                            </div>
-                            <div>
-                                <h3 className="font-black text-white text-xs tracking-widest uppercase bg-gradient-to-r from-white to-white/50 bg-clip-text text-transparent">
-                                    Sembang Santai
-                                </h3>
-                                <div className="text-[9px] text-white/50 tracking-wider">TIPS MEGA888</div>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-2 mr-1">
-                            {/* Theme Dots */}
-                            <div className="flex gap-1.5 px-2 py-1 bg-black/40 rounded-full border border-white/5 overflow-x-auto max-w-[150px] scrollbar-hide">
-                                {["cyber", "gold", "matrix", "neon", "whatsapp", "whatsapp_light", "telegram", "telegram_light", "sakura", "sky"].map(t => (
-                                    <button
-                                        key={t}
-                                        onClick={() => setTheme(t)}
-                                        className={`w-3 h-3 shrink-0 rounded-full transition-all duration-300 ${activeTheme === t ? "scale-125 ring-2 ring-white shadow-[0_0_10px_white]" : "opacity-40 hover:opacity-100"} 
-                                            ${t === 'cyber' ? 'bg-blue-600' :
-                                                t === 'gold' ? 'bg-amber-500' :
-                                                    t === 'matrix' ? 'bg-green-500' :
-                                                        t === 'neon' ? 'bg-fuchsia-500' :
-                                                            t === 'whatsapp' ? 'bg-[#005c4b]' :
-                                                                t === 'whatsapp_light' ? 'bg-[#25D366]' :
-                                                                    t === 'telegram' ? 'bg-[#2b5278]' :
-                                                                        t === 'telegram_light' ? 'bg-[#517da2]' :
-                                                                            t === 'sakura' ? 'bg-pink-400' :
-                                                                                'bg-sky-400'}`}
-                                        title={t}
-                                    />
-                                ))}
-                            </div>
-                            <button
-                                onClick={() => toggleChat(false)}
-                                className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white/10 text-white/50 hover:text-white transition-all"
-                            >
-                                ✕
-                            </button>
-                        </div>
+            {/* Header */}
+            <div className={`flex items-center justify-between p-3 border-b shadow-lg ${currentStyle.header}`}>
+                <div className="flex items-center gap-3">
+                    <div className="relative">
+                        {/* Status Indicator: Green=Connected, Red=Disconnected/Pulse */}
+                        <div className={`w-3 h-3 rounded-full ${isConnected ? "bg-emerald-500 shadow-[0_0_10px_#10b981]" : "bg-red-500 animate-pulse shadow-[0_0_10px_#ef4444]"}`} />
+                        {isConnected && <div className="absolute inset-0 w-3 h-3 rounded-full bg-emerald-400 animate-ping opacity-50" />}
                     </div>
-
-                    {/* Messages */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-black/0 via-black/10 to-black/30 scrollbar-thin scrollbar-thumb-white/10 relative" onClick={() => setShowEmoji(false)}>
-                        {messages.map((m, i) => {
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                            const isMe = m.sender === user?.username;
-                            const isAdmin = m.senderLevel === "ADMIN";
-
-                            // Date Divider Logic
-                            const prevM = messages[i - 1];
-                            const currDate = new Date(m.createdAt || Date.now()).toDateString();
-                            const prevDate = prevM ? new Date(prevM.createdAt || Date.now()).toDateString() : null;
-                            const showDate = currDate !== prevDate;
-
-                            let dateLabel = currDate;
-                            if (new Date().toDateString() === currDate) dateLabel = "Today";
-
-                            return (
-                                <div key={i}>
-                                    {showDate && (
-                                        <div className="flex justify-center my-4 opacity-60">
-                                            <span className="text-[10px] font-bold bg-black/20 text-white/80 px-3 py-1 rounded-lg border border-white/5 backdrop-blur-sm shadow-sm">
-                                                {dateLabel}
-                                            </span>
-                                        </div>
-                                    )}
-                                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                                    <MessageItem
-                                        m={m}
-                                        isMe={isMe}
-                                        isAdmin={isAdmin}
-                                        currentStyle={currentStyle}
-                                        user={user}
-                                        onReply={setReplyTo}
-                                        onDelete={deleteMessage}
-                                    />
-                                </div>
-                            );
-                        })}
-                        <div ref={bottomRef} />
-                    </div>
-
-                    {/* Reply Preview Bar */}
-                    <AnimatePresence>
-                        {replyTo && (
-                            <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: "auto", opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                className="bg-[#1f2c34] border-l-4 border-emerald-500 flex justify-between items-center px-4 py-2 border-t border-white/5 relative z-10"
-                            >
-                                <div className="flex flex-col overflow-hidden">
-                                    <span className="text-[10px] font-bold text-emerald-400">Replying to {replyTo.sender}</span>
-                                    <span className="text-xs text-white/60 truncate max-w-[250px]">{replyTo.content || "Media"}</span>
-                                </div>
-                                <button onClick={() => setReplyTo(null)} className="text-white/40 hover:text-white">✕</button>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-
-                    {/* Emoji Picker */}
-                    <AnimatePresence>
-                        {showEmoji && (
-                            <motion.div
-                                initial={{ y: 20, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                exit={{ y: 20, opacity: 0 }}
-                                className="absolute bottom-20 left-4 right-4 sm:right-auto sm:w-[320px] z-50 shadow-2xl rounded-2xl overflow-hidden border border-white/10"
-                            >
-                                <EmojiPicker
-                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                    theme={"dark" as any}
-                                    onEmojiClick={(e) => setInput(prev => prev + e.emoji)}
-                                    width="100%"
-                                    height={350}
-                                    searchDisabled
-                                    skinTonesDisabled
-                                />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-
-                    {/* Input Area */}
-                    <div className={`p-3 border-t border-white/5 backdrop-blur-md ${currentStyle.bg}`}>
-                        <div className="flex items-center gap-2">
-                            {/* Emoji Toggle */}
-                            <button
-                                onClick={() => setShowEmoji(!showEmoji)}
-                                className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-yellow-400 transition-colors"
-                            >
-                                😊
-                            </button>
-
-                            {/* File Upload */}
-                            <button
-                                onClick={() => fileInputRef.current?.click()}
-                                className={`p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-blue-400 transition-colors ${isUploading ? "animate-spin" : ""}`}
-                                disabled={isUploading}
-                                title="Send Image/Video"
-                            >
-                                {isUploading ? "⏳" : "📷"}
-                            </button>
-                            <input
-                                type="file"
-                                ref={fileInputRef}
-                                className="hidden"
-                                accept="image/*,video/*"
-                                onChange={handleFileUpload}
-                            />
-
-                            {/* Voice Record */}
-                            <button
-                                onMouseDown={startRecording}
-                                onMouseUp={stopRecording}
-                                onTouchStart={startRecording} // Mobile support
-                                onTouchEnd={stopRecording}
-                                className={`p-2 rounded-full transition-all duration-200 ${isRecording
-                                    ? "bg-red-500 text-white animate-pulse scale-110 shadow-[0_0_15px_red]"
-                                    : "bg-white/5 text-white/50 hover:text-red-400 hover:bg-white/10"
-                                    }`}
-                                title="Hold to Record"
-                                disabled={!user || user.username === "Guest"}
-                            >
-                                🎤
-                            </button>
-
-                            {/* Text Input */}
-                            <input
-                                className="flex-1 bg-black/40 border border-white/10 rounded-full h-10 px-4 text-xs text-white placeholder-white/20 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/20 transition-all"
-                                placeholder={user?.username === "Guest" ? "Login to chat..." : isRecording ? "Recording..." : "Type message..."}
-                                value={input}
-                                onChange={e => setInput(e.target.value)}
-                                onKeyDown={e => e.key === "Enter" && sendMessage()}
-                                disabled={!user || user.username === "Guest" || isRecording}
-                            />
-
-                            {/* Send Button */}
-                            <button
-                                onClick={sendMessage}
-                                disabled={!user || user.username === "Guest" || !input.trim()}
-                                className={`p-2 rounded-full text-white shadow-lg transition-all transform active:scale-95 disabled:opacity-50 disabled:shadow-none bg-${currentStyle.accent}-600 shadow-${currentStyle.accent}-600/20 hover:shadow-${currentStyle.accent}-600/40`}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="-ml-0.5">
-                                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                                </svg>
-                            </button>
-                        </div>
-
-                        {user?.username === "Guest" && (
-                            <div className="text-center mt-2 animate-pulse">
-                                <span className="text-[10px] text-yellow-400/90 font-semibold bg-yellow-400/10 px-3 py-1 rounded-full border border-yellow-400/20">
-                                    🔒 Login required to join the conversation
-                                </span>
-                            </div>
-                        )}
+                    <div>
+                        <h3 className="font-black text-white text-xs tracking-widest uppercase bg-gradient-to-r from-white to-white/50 bg-clip-text text-transparent">
+                            Sembang Santai
+                        </h3>
+                        <div className="text-[9px] text-white/50 tracking-wider">TIPS MEGA888</div>
                     </div>
                 </div>
-            )}
-        </>
+
+                <div className="flex items-center gap-2 mr-1">
+                    {/* Theme Dots */}
+                    <div className="flex gap-1.5 px-2 py-1 bg-black/40 rounded-full border border-white/5 overflow-x-auto max-w-[150px] scrollbar-hide">
+                        {["cyber", "gold", "matrix", "neon", "whatsapp", "whatsapp_light", "telegram", "telegram_light", "sakura", "sky"].map(t => (
+                            <button
+                                key={t}
+                                onClick={() => setTheme(t)}
+                                className={`w-3 h-3 shrink-0 rounded-full transition-all duration-300 ${activeTheme === t ? "scale-125 ring-2 ring-white shadow-[0_0_10px_white]" : "opacity-40 hover:opacity-100"} 
+                                            ${t === 'cyber' ? 'bg-blue-600' :
+                                        t === 'gold' ? 'bg-amber-500' :
+                                            t === 'matrix' ? 'bg-green-500' :
+                                                t === 'neon' ? 'bg-fuchsia-500' :
+                                                    t === 'whatsapp' ? 'bg-[#005c4b]' :
+                                                        t === 'whatsapp_light' ? 'bg-[#25D366]' :
+                                                            t === 'telegram' ? 'bg-[#2b5278]' :
+                                                                t === 'telegram_light' ? 'bg-[#517da2]' :
+                                                                    t === 'sakura' ? 'bg-pink-400' :
+                                                                        'bg-sky-400'}`}
+                                title={t}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-black/0 via-black/10 to-black/30 scrollbar-thin scrollbar-thumb-white/10 relative pb-24" onClick={() => setShowEmoji(false)}>
+                {messages.map((m, i) => {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    const isMe = m.sender === user?.username;
+                    const isAdmin = m.senderLevel === "ADMIN";
+
+                    // Date Divider Logic
+                    const prevM = messages[i - 1];
+                    const currDate = new Date(m.createdAt || Date.now()).toDateString();
+                    const prevDate = prevM ? new Date(prevM.createdAt || Date.now()).toDateString() : null;
+                    const showDate = currDate !== prevDate;
+
+                    let dateLabel = currDate;
+                    if (new Date().toDateString() === currDate) dateLabel = "Today";
+
+                    return (
+                        <div key={i}>
+                            {showDate && (
+                                <div className="flex justify-center my-4 opacity-60">
+                                    <span className="text-[10px] font-bold bg-black/20 text-white/80 px-3 py-1 rounded-lg border border-white/5 backdrop-blur-sm shadow-sm">
+                                        {dateLabel}
+                                    </span>
+                                </div>
+                            )}
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            <MessageItem
+                                m={m}
+                                isMe={isMe}
+                                isAdmin={isAdmin}
+                                currentStyle={currentStyle}
+                                user={user}
+                                onReply={setReplyTo}
+                                onDelete={deleteMessage}
+                            />
+                        </div>
+                    );
+                })}
+                <div ref={bottomRef} className="pb-10" />
+            </div>
+
+            {/* Reply Preview Bar */}
+            <AnimatePresence>
+                {replyTo && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="bg-[#1f2c34] border-l-4 border-emerald-500 flex justify-between items-center px-4 py-2 border-t border-white/5 relative z-10"
+                    >
+                        <div className="flex flex-col overflow-hidden">
+                            <span className="text-[10px] font-bold text-emerald-400">Replying to {replyTo.sender}</span>
+                            <span className="text-xs text-white/60 truncate max-w-[250px]">{replyTo.content || "Media"}</span>
+                        </div>
+                        <button onClick={() => setReplyTo(null)} className="text-white/40 hover:text-white">✕</button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Emoji Picker */}
+            <AnimatePresence>
+                {showEmoji && (
+                    <motion.div
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: 20, opacity: 0 }}
+                        className="absolute bottom-20 left-4 right-4 sm:right-auto sm:w-[320px] z-50 shadow-2xl rounded-2xl overflow-hidden border border-white/10"
+                    >
+                        <EmojiPicker
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            theme={"dark" as any}
+                            onEmojiClick={(e) => setInput(prev => prev + e.emoji)}
+                            width="100%"
+                            height={350}
+                            searchDisabled
+                            skinTonesDisabled
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Input Area */}
+            <div className={`p-3 border-t border-white/5 backdrop-blur-md ${currentStyle.bg} shrink-0`}>
+                <div className="flex items-center gap-2">
+                    {/* Emoji Toggle */}
+                    <button
+                        onClick={() => setShowEmoji(!showEmoji)}
+                        className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-yellow-400 transition-colors"
+                    >
+                        😊
+                    </button>
+
+                    {/* File Upload */}
+                    <button
+                        onClick={() => fileInputRef.current?.click()}
+                        className={`p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-blue-400 transition-colors ${isUploading ? "animate-spin" : ""}`}
+                        disabled={isUploading}
+                        title="Send Image/Video"
+                    >
+                        {isUploading ? "⏳" : "📷"}
+                    </button>
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        className="hidden"
+                        accept="image/*,video/*"
+                        onChange={handleFileUpload}
+                    />
+
+                    {/* Voice Record */}
+                    <button
+                        onMouseDown={startRecording}
+                        onMouseUp={stopRecording}
+                        onTouchStart={startRecording} // Mobile support
+                        onTouchEnd={stopRecording}
+                        className={`p-2 rounded-full transition-all duration-200 ${isRecording
+                            ? "bg-red-500 text-white animate-pulse scale-110 shadow-[0_0_15px_red]"
+                            : "bg-white/5 text-white/50 hover:text-red-400 hover:bg-white/10"
+                            }`}
+                        title="Hold to Record"
+                        disabled={!user || user.username === "Guest"}
+                    >
+                        🎤
+                    </button>
+
+                    {/* Text Input */}
+                    <input
+                        className="flex-1 bg-black/40 border border-white/10 rounded-full h-10 px-4 text-xs text-white placeholder-white/20 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/20 transition-all"
+                        placeholder={user?.username === "Guest" ? "Login to chat..." : isRecording ? "Recording..." : "Type message..."}
+                        value={input}
+                        onChange={e => setInput(e.target.value)}
+                        onKeyDown={e => e.key === "Enter" && sendMessage()}
+                        disabled={!user || user.username === "Guest" || isRecording}
+                    />
+
+                    {/* Send Button */}
+                    <button
+                        onClick={sendMessage}
+                        disabled={!user || user.username === "Guest" || !input.trim()}
+                        className={`p-2 rounded-full text-white shadow-lg transition-all transform active:scale-95 disabled:opacity-50 disabled:shadow-none bg-${currentStyle.accent}-600 shadow-${currentStyle.accent}-600/20 hover:shadow-${currentStyle.accent}-600/40`}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="-ml-0.5">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+
+                {user?.username === "Guest" && (
+                    <div className="text-center mt-2 animate-pulse">
+                        <span className="text-[10px] text-yellow-400/90 font-semibold bg-yellow-400/10 px-3 py-1 rounded-full border border-yellow-400/20">
+                            🔒 Login required to join the conversation
+                        </span>
+                    </div>
+                )}
+            </div>
+        </div>
     );
 }
