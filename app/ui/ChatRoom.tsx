@@ -27,8 +27,10 @@ export default function ChatRoom() {
     const bottomRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
+    type Theme = { bg: string; header: string; me: string; other: string; admin: string; accent: string };
+
     // Theme Styles Map
-    const themes: Record<string, any> = {
+    const themes: Record<string, Theme> = {
         cyber: {
             bg: "bg-[#0c1223] border-white/10",
             header: "bg-[#111827] border-white/5",
@@ -160,7 +162,7 @@ export default function ChatRoom() {
             } else {
                 alert("Upload Failed: " + (json.error || "Unknown"));
             }
-        } catch (err) {
+        } catch (_err) {
             alert("Upload Error");
         } finally {
             setIsUploading(false);
@@ -227,6 +229,7 @@ export default function ChatRoom() {
                                                 {m.mediaType === "video" ? (
                                                     <video src={`${API_BASE}${m.mediaUrl}`} controls className="w-full max-h-48 object-cover" />
                                                 ) : (
+                                                    /* eslint-disable-next-line @next/next/no-img-element */
                                                     <img src={`${API_BASE}${m.mediaUrl}`} alt="media" className="w-full max-h-48 object-cover" />
                                                 )}
                                             </div>
