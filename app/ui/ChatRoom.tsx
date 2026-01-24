@@ -15,17 +15,26 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.co
 // --- Linkify Component ---
 // --- Linkify Component ---
 const Linkify = ({ text }: { text: string }) => {
-    // Regex for splitting: matches http://, https://, or www.
-    const splitRegex = /((?:https?:\/\/|www\.)[^\s]+)/g;
+    // Improved Regex:
+    // 1. Protocol (http/s) OR
+    // 2. www. OR
+    // 3. Domain-like (something.com, net, org, etc) - simplified to word.word
+    // Note: This regex is greedy for [^\s]*, so it includes trailing dots. We handle that in href cleanup.
+    const splitRegex = /((?:https?:\/\/|www\.|[\w-]+\.[\w]{2,})[^\s]*)/g;
     const parts = text.split(splitRegex);
 
     return (
         <>
             {parts.map((part, i) => {
-                if (part.match(/^(https?:\/\/|www\.)/)) {
+                // Check if part looks like a url
+                if (part.match(/^(?:https?:\/\/|www\.|[\w-]+\.[\w]{2,})/)) {
                     let href = part;
-                    if (part.startsWith("www.")) {
-                        href = "https://" + part;
+                    // Remove trailing punctuation (.,!?) from href usually found in chat
+                    href = href.replace(/[.,!?]+$/, "");
+
+                    // Ensure protocol
+                    if (!href.startsWith("http")) {
+                        href = "https://" + href;
                     }
                     return (
                         <a
@@ -33,10 +42,14 @@ const Linkify = ({ text }: { text: string }) => {
                             href={href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-400 underline hover:text-blue-300 break-all relative z-50 pointer-events-auto"
-                            onClick={(e) => e.stopPropagation()}
+                            className="text-blue-400 underline hover:text-blue-300 break-all relative z-50 cursor-pointer"
+                            style={{ pointerEvents: 'auto' }}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                            }}
                             onMouseDown={(e) => e.stopPropagation()}
                             onTouchStart={(e) => e.stopPropagation()}
+                            onTouchEnd={(e) => e.stopPropagation()}
                         >
                             {part}
                         </a>

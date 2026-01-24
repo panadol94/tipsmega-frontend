@@ -32,7 +32,7 @@ export default function BottomNav({
             <Link
               key={it.key}
               href={isBusy ? "#" : it.href}
-              className={`nav-btn ${isActive ? "active btn-red-spin" : ""} ${isBusy ? "opacity-40 grayscale pointer-events-none" : ""}`}
+              className={`nav-btn ${isActive ? "active" : ""} ${isBusy ? "opacity-40 grayscale pointer-events-none" : ""}`}
               prefetch={false}
               onClick={(e) => {
                 if (isBusy) {
@@ -41,7 +41,7 @@ export default function BottomNav({
                 }
               }}
             >
-              <span className={isActive ? "btn-red-spin-content" : ""}>{it.label}</span>
+              <span>{it.label}</span>
             </Link>
           );
         })}
