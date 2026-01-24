@@ -196,68 +196,74 @@ export default function Page() {
 
   return (
     <>
-      <header className="card p-5 relative overflow-hidden flex flex-col">
-        <div className="mt-2 text-xs text-white/60">TipsMega888 • Mega888 AI • RTP Scanner</div>
-        <div className="mt-4 flex justify-center relative">
-          <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full animate-pulse-slow pointer-events-none" />
+      <header className="card relative overflow-hidden flex flex-col min-h-[300px] justify-between p-0 group border-amber-500/20">
+
+        {/* VIDEO BACKGROUND (Full Fill) */}
+        <div className="absolute inset-0 z-0">
           <video
             src="/mega-loop.mp4"
             autoPlay
             loop
             muted
             playsInline
-            className="h-28 w-auto object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.6)] mix-blend-screen"
+            className="w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-105 transition-transform duration-1000"
           />
+          {/* Gradient Overlay for Readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/20 to-black/90" />
         </div>
 
-        <div className="badge" style={{ marginTop: 12 }}>
-          <span style={{ fontSize: 18 }}>★</span>
-          <div>
-            <div className="text-sm" style={{ fontWeight: 900 }}>
-              [ACCESS] Stars: {Math.max(0, stars)}
+        {/* TOP CONTENT */}
+        <div className="relative z-10 p-5 pb-0">
+          <div className="text-[10px] text-white/60 font-mono tracking-widest uppercase mb-1">TipsMega888 AI System</div>
+          <h1 className="text-4xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50 drop-shadow-lg">
+            MEGA888
+          </h1>
+        </div>
+
+        {/* BOTTOM CONTENT (Badge + Buttons) */}
+        <div className="relative z-10 p-5 mt-auto bg-gradient-to-t from-black to-transparent pt-10">
+          <div className="badge border border-white/10 bg-white/5 backdrop-blur-md mb-4 shadow-lg">
+            <span style={{ fontSize: 18 }} className="animate-pulse text-yellow-400">★</span>
+            <div>
+              <div className="text-sm" style={{ fontWeight: 900 }}>
+                [ACCESS] Stars: {Math.max(0, stars)}
+              </div>
+              <div className="text-xs text-white/60">[STATUS] Device Online</div>
             </div>
-            <div className="text-xs text-white/60">[STATUS] Device Online</div>
           </div>
-        </div>
 
-        {!isLoggedIn ? (
-          <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
-            <button
-              className="btn-ghost btn-red-spin"
-              style={{ flex: 1, height: 52 }}
-              onClick={() => {
-                setAuthOpen("register");
-              }}
-            >
-              <span className="btn-red-spin-content">REGISTER</span>
-            </button>
-            <button
-              className="btn-ghost btn-red-spin"
-              style={{ flex: 1, height: 52 }}
-              onClick={() => {
-                setAuthOpen("login");
-              }}
-            >
-              <span className="btn-red-spin-content">LOGIN</span>
-            </button>
-          </div>
-        ) : (
-          <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
-            <button
-              className="btn-ghost"
-              style={{ flex: 1, height: 52, borderColor: "rgba(255,255,255,0.2)" }}
-              onClick={() => {
-                if (confirm("Log out?")) {
-                  localStorage.removeItem(tokenKey);
-                  setIsLoggedIn(false);
-                  window.location.reload();
-                }
-              }}
-            >
-              LOGOUT
-            </button>
-          </div>
-        )}
+          {!isLoggedIn ? (
+            <div className="flex gap-3">
+              <button
+                className="btn-ghost btn-red-spin backdrop-blur-sm flex-1 h-[52px] bg-red-500/10 border-red-500/30"
+                onClick={() => setAuthOpen("register")}
+              >
+                <span className="btn-red-spin-content font-black tracking-widest">REGISTER</span>
+              </button>
+              <button
+                className="btn-ghost btn-red-spin backdrop-blur-sm flex-1 h-[52px] bg-blue-500/10 border-blue-500/30"
+                onClick={() => setAuthOpen("login")}
+              >
+                <span className="btn-red-spin-content font-black tracking-widest">LOGIN</span>
+              </button>
+            </div>
+          ) : (
+            <div className="flex gap-3">
+              <button
+                className="btn-ghost backdrop-blur-md hover:bg-white/10 flex-1 h-[52px] border-white/20"
+                onClick={() => {
+                  if (confirm("Log out?")) {
+                    localStorage.removeItem(tokenKey);
+                    setIsLoggedIn(false);
+                    window.location.reload();
+                  }
+                }}
+              >
+                LOGOUT
+              </button>
+            </div>
+          )}
+        </div>
       </header>
 
       <InstallPrompt />
