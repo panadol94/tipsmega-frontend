@@ -45,48 +45,81 @@ export default function InstallPrompt() {
     if (!show) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-end justify-center px-4 pb-20 sm:items-center sm:pb-0">
+        <div className="fixed inset-0 z-[100] flex items-end justify-center px-4 pb-6 sm:items-center sm:pb-0 font-sans">
             {/* Backdrop */}
             <div
-                className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+                className="fixed inset-0 bg-black/90 backdrop-blur-md transition-opacity duration-500"
                 onClick={() => setShow(false)}
             />
 
             {/* Popup Card */}
-            <div className="relative transform overflow-hidden rounded-2xl border border-blue-500/30 bg-[#0f162a] p-6 shadow-2xl transition-all sm:w-full sm:max-w-sm animate-pop">
-                {/* Glow */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-500" />
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative w-full max-w-sm overflow-hidden rounded-3xl border border-amber-500/20 bg-[#0b101b] p-6 shadow-2xl animate-in slide-in-from-bottom-10 fade-in duration-500">
 
+                {/* Ambient Background */}
+                <div className="absolute inset-0 bg-[url('/img/noise.png')] opacity-10 pointer-events-none" />
+                <div className="absolute -top-20 -right-20 w-64 h-64 bg-amber-600/10 rounded-full blur-[80px]" />
+                <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-yellow-600/10 rounded-full blur-[80px]" />
+
+                {/* Close Button */}
                 <button
                     onClick={() => setShow(false)}
-                    className="absolute right-4 top-4 text-white/40 hover:text-white transition-colors"
+                    className="absolute right-4 top-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all z-20"
                 >
                     ✕
                 </button>
 
-                <div className="flex flex-col items-center text-center">
-                    <div className="mb-5 relative group">
-                        <div className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full group-hover:bg-blue-500/30 transition-all" />
-                        <img
-                            src="/mega888.png"
-                            alt="Mega888 Logo"
-                            className="relative w-20 h-20 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.5)] transform group-hover:scale-105 transition-transform duration-300"
-                        />
+                <div className="relative z-10 flex flex-col items-center text-center pt-2">
+
+                    {/* Icon with Ring Animation */}
+                    <div className="mb-6 relative group">
+                        <div className="absolute inset-0 bg-amber-500/20 blur-xl rounded-full animate-pulse-slow" />
+                        <div className="relative w-24 h-24 rounded-2xl bg-gradient-to-b from-[#1a1f2e] to-[#0f121a] border border-amber-500/30 flex items-center justify-center shadow-[0_0_30px_rgba(245,158,11,0.15)] group-hover:scale-105 transition-transform duration-500">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src="/mega888.png"
+                                alt="App Icon"
+                                className="w-14 h-14 object-contain drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]"
+                            />
+                            {/* Shiny border effect */}
+                            <div className="absolute inset-0 rounded-2xl border border-white/5" />
+                        </div>
+                        {/* Notify Badge */}
+                        <div className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 border-2 border-[#0b101b] shadow-lg animate-bounce">
+                            <span className="text-[10px] font-bold text-white">1</span>
+                        </div>
                     </div>
 
-                    <h3 className="mb-2 text-xl font-black text-white tracking-wide uppercase drop-shadow-md">
-                        Install Application
-                    </h3>
-                    <p className="mb-6 text-xs font-medium text-white/60 leading-relaxed max-w-[260px]">
-                        Install <span className="text-blue-400 font-bold">TipsMega888</span> untuk akses pantas, notifikasi RTP live, dan pengalaman commander yang lebih lancar.
-                    </p>
+                    <div className="space-y-1 mb-6">
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                            <span className="h-[1px] w-8 bg-gradient-to-r from-transparent to-amber-500/50" />
+                            <span className="text-[9px] font-black tracking-[0.3em] text-amber-500 uppercase">System Upgrade</span>
+                            <span className="h-[1px] w-8 bg-gradient-to-l from-transparent to-amber-500/50" />
+                        </div>
+                        <h3 className="text-xl font-black text-white tracking-wide uppercase">
+                            Install <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600">Commander App</span>
+                        </h3>
+                        <p className="text-xs text-slate-400 leading-relaxed max-w-[280px] mx-auto">
+                            Dapatkan akses <span className="text-amber-300 font-bold">VVIP Network</span> tanpa lag. Lebih pantas, lebih stabil, dan auto-update database RTP.
+                        </p>
+                    </div>
 
                     <button
                         onClick={handleInstall}
-                        className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 border border-blue-400/30 py-3.5 text-xs font-black text-white tracking-[0.1em] shadow-[0_0_20px_rgba(37,99,235,0.3)] transition-all active:scale-95 uppercase"
+                        className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 p-[1px] shadow-[0_10px_40px_-10px_rgba(245,158,11,0.5)] active:scale-98 transition-transform"
                     >
-                        Install System Now
+                        <div className="relative flex items-center justify-center gap-2 rounded-[11px] bg-[#1a1f2e]/90 backdrop-blur-sm px-4 py-3.5 transition-all group-hover:bg-transparent">
+                            <span className="font-black text-xs uppercase tracking-widest text-white group-hover:text-black transition-colors">Install Now</span>
+                            <svg className="w-4 h-4 text-white group-hover:text-black transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </div>
+                    </button>
+
+                    <button
+                        onClick={() => setShow(false)}
+                        className="mt-4 text-[10px] font-bold text-white/20 hover:text-white/50 tracking-widest uppercase transition-colors"
+                    >
+                        Incognito Mode (Web Only)
                     </button>
                 </div>
             </div>
