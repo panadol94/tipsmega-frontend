@@ -12,6 +12,26 @@ const EmojiPicker = dynamic(() => import("emoji-picker-react"), { ssr: false });
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
 
+// --- Avatar Helpers ---
+const AVATAR_COLORS = [
+    "bg-red-500", "bg-orange-500", "bg-amber-500", "bg-yellow-500", "bg-lime-500",
+    "bg-green-500", "bg-emerald-500", "bg-teal-500", "bg-cyan-500", "bg-sky-500",
+    "bg-blue-500", "bg-indigo-500", "bg-violet-500", "bg-purple-500", "bg-fuchsia-500", "bg-pink-500", "bg-rose-500"
+];
+
+function getAvatarColor(name: string) {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) {
+        hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const index = Math.abs(hash) % AVATAR_COLORS.length;
+    return AVATAR_COLORS[index];
+}
+
+function getAvatarInitials(name: string) {
+    return name.substring(0, 2).toUpperCase();
+}
+
 // --- Linkify Component ---
 // --- Linkify Component ---
 const Linkify = ({ text }: { text: string }) => {
@@ -74,7 +94,7 @@ type Message = {
 
 // --- Sub-Component for Swipable Message ---
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete }: any) => {
+const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, groupPosition }: any) => {
     const handlers = useSwipeable({
         onSwipedRight: () => onReply(m),
         trackMouse: true,
@@ -91,80 +111,113 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete }
         }
     };
 
+    // Grouping Logic for Border Radius
+    // single: rounded all
+    // start: rounded top, flat bottom-side
+    // middle: flat side
+    // end: flat top-side, rounded bottom (with tail)
+
+    let borderRadiusClass = "rounded-2xl"; // default single
+    if (isMe) {
+        if (groupPosition === "start") borderRadiusClass = "rounded-2xl rounded-br-none";
+        else if (groupPosition === "middle") borderRadiusClass = "rounded-2xl rounded-r-none";
+        else if (groupPosition === "end") borderRadiusClass = "rounded-2xl rounded-tr-none";
+    } else {
+        if (groupPosition === "start") borderRadiusClass = "rounded-2xl rounded-bl-none";
+        else if (groupPosition === "middle") borderRadiusClass = "rounded-2xl rounded-l-none";
+        else if (groupPosition === "end") borderRadiusClass = "rounded-2xl rounded-tl-none";
+    }
+
+    const showAvatar = !isMe && (groupPosition === "end" || groupPosition === "single");
+    const showName = !isMe && (groupPosition === "start" || groupPosition === "single");
+
     return (
         <div
             {...handlers}
             onContextMenu={onContextMenu}
-            className={`flex flex-col ${isMe ? "items-end" : "items-start"} animate-in slide-in-from-bottom-2 duration-300 relative group`}
+            className={`flex ${isMe ? "justify-end" : "justify-start"} items-end gap-2 animate-in slide-in-from-bottom-1 duration-200 relative group w-full ${groupPosition === "middle" ? "mb-0.5" : "mb-2"}`}
         >
+            {/* Context Menu Overlay */}
             {showMenu && (
                 <>
                     <div className="fixed inset-0 z-40" onClick={() => setShowMenu(false)} />
-                    <div className="absolute top-8 right-0 z-50 bg-[#233138] border border-white/5 shadow-2xl rounded-lg overflow-hidden py-1 min-w-[120px] animate-in fade-in zoom-in-95 duration-100">
-                        <button
-                            onClick={() => { onReply(m); setShowMenu(false); }}
-                            className="w-full text-left px-4 py-3 text-white hover:bg-white/5 text-xs font-medium"
-                        >
-                            Reply
-                        </button>
+                    <div className="absolute top-0 right-0 z-50 bg-[#233138] border border-white/5 shadow-2xl rounded-lg overflow-hidden py-1 min-w-[120px] animate-in fade-in zoom-in-95 duration-100">
+                        <button onClick={() => { onReply(m); setShowMenu(false); }} className="w-full text-left px-4 py-3 text-white hover:bg-white/5 text-xs font-medium">Reply</button>
                         {isMe && m.status !== "DELETED" && (
-                            <button
-                                onClick={() => { onDelete(m); setShowMenu(false); }}
-                                className="w-full text-left px-4 py-3 text-red-400 hover:bg-white/5 text-xs font-medium"
-                            >
-                                Delete Message
-                            </button>
+                            <button onClick={() => { onDelete(m); setShowMenu(false); }} className="w-full text-left px-4 py-3 text-red-400 hover:bg-white/5 text-xs font-medium">Delete</button>
                         )}
                     </div>
                 </>
             )}
 
-            <div className="flex items-baseline gap-2 mb-1 px-1">
-                <span className={`text-[10px] font-bold tracking-wide ${isAdmin ? "text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" : "text-white/40"}`}>
-                    {isAdmin && "👑 "}{m.sender}
-                </span>
-            </div>
+            {/* Avatar Column (Left side only) */}
+            {!isMe && (
+                <div className="w-8 shrink-0 flex flex-col justify-end">
+                    {showAvatar ? (
+                        <div className={`w-8 h-8 rounded-full ${getAvatarColor(m.sender)} flex items-center justify-center text-[10px] font-black text-white border border-white/10 shadow-sm`}>
+                            {getAvatarInitials(m.sender)}
+                        </div>
+                    ) : <div className="w-8" />}
+                </div>
+            )}
 
-            <div className={`relative max-w-[85%] border ${currentStyle.bubble} ${isMe ? currentStyle.me : isAdmin ? currentStyle.admin : currentStyle.other} transition-transform active:scale-[0.98]`}>
-                {m.status === "DELETED" ? (
-                    <div className="flex items-center gap-2 p-2 italic text-white/50 text-xs">
-                        <span>🚫</span> This message was deleted
-                    </div>
-                ) : (
-                    <>
-                        {m.mediaUrl && (
-                            <div className="rounded-t-lg overflow-hidden border-b border-black/5 -mx-[1px] -mt-[1px]">
-                                {m.mediaType === "video" ? (
-                                    <video src={`${API_BASE}${m.mediaUrl}`} controls className="w-full h-auto object-cover max-h-[400px]" />
-                                ) : m.mediaType === "audio" ? (
-                                    <div className="p-3 flex items-center gap-3 min-w-[200px]">
-                                        <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center text-xl">🎤</div>
-                                        <audio src={`${API_BASE}${m.mediaUrl}`} controls className="h-8 w-full max-w-[180px]" />
-                                    </div>
-                                ) : (
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    <img src={`${API_BASE}${m.mediaUrl}`} alt="media" className="w-full h-auto object-cover max-h-[400px]" />
-                                )}
-                            </div>
-                        )}
-                        {m.content && (
-                            <div className={`text-sm break-words leading-relaxed px-2 pt-1 ${m.mediaUrl ? '' : 'pb-1'}`}>
-                                <Linkify text={m.content} />
-                            </div>
-                        )}
-                    </>
+            <div className={`flex flex-col max-w-[75%] ${isMe ? "items-end" : "items-start"}`}>
+
+                {showName && (
+                    <span className={`text-[10px] font-bold tracking-wide mb-1 px-1 ${isAdmin ? "text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" : "text-white/40"}`}>
+                        {isAdmin && "👑 "}{m.sender}
+                    </span>
                 )}
 
-                <div className={`text-[9px] text-right font-mono px-2 pb-1 opacity-60 flex justify-end items-center gap-1 leading-none ${m.mediaUrl && !m.content ? "absolute bottom-1 right-1 bg-black/30 text-white rounded px-1" : "mt-0.5"}`}>
-                    {m.createdAt ? new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}
-                    {isMe && <span>✓✓</span>}
+                <div className={`relative border ${currentStyle.bubble} ${isMe ? currentStyle.me : isAdmin ? currentStyle.admin : currentStyle.other} ${borderRadiusClass} transition-all active:scale-[0.98] overflow-hidden`}>
+
+                    {/* Tail Pseudo-element simulation */}
+                    {(groupPosition === "end" || groupPosition === "single") && (
+                        <div className={`absolute bottom-0 w-3 h-3 ${isMe ? "-right-1.5 bg-[#c5a028]" : "-left-1.5 bg-[#1e293b]"} clip-tail hidden`} />
+                        // Note: Real tail needs complex CSS masking, stick to rounding logic for now for cleaner look
+                    )}
+
+                    {m.status === "DELETED" ? (
+                        <div className="flex items-center gap-2 p-2 italic text-white/50 text-xs">
+                            <span>🚫</span> Deleted
+                        </div>
+                    ) : (
+                        <>
+                            {m.mediaUrl && (
+                                <div className="-mx-4 -mt-2 mb-2 border-b border-black/5">
+                                    {m.mediaType === "video" ? (
+                                        <video src={`${API_BASE}${m.mediaUrl}`} controls className="w-full h-auto object-cover max-h-[350px]" />
+                                    ) : m.mediaType === "audio" ? (
+                                        <div className="p-3 flex items-center gap-3 w-[200px]">
+                                            <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center text-xl">🎤</div>
+                                            <audio src={`${API_BASE}${m.mediaUrl}`} controls className="h-8 w-full" />
+                                        </div>
+                                    ) : (
+                                        // eslint-disable-next-line @next/next/no-img-element
+                                        <img src={`${API_BASE}${m.mediaUrl}`} alt="media" className="w-full h-auto object-cover max-h-[350px]" />
+                                    )}
+                                </div>
+                            )}
+                            {m.content && (
+                                <div className="text-sm break-words leading-relaxed px-1">
+                                    <Linkify text={m.content} />
+                                </div>
+                            )}
+                        </>
+                    )}
+
+                    <div className={`text-[9px] text-right font-mono mt-1 opacity-60 flex justify-end items-center gap-1 leading-none ${m.mediaUrl && !m.content ? "absolute bottom-2 right-2 bg-black/40 text-white rounded px-1 py-0.5 backdrop-blur-sm" : ""}`}>
+                        {m.createdAt ? new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}
+                        {isMe && <span>✓✓</span>}
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
 
-export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
+export default function ChatRoom({ roomId = "global", onBack }: { roomId?: string; onBack?: () => void }) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { activeTheme, setTheme } = useGlobalSettings();
     const [socket, setSocket] = useState<Socket | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
@@ -181,20 +234,20 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
     const bottomRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // Updated Single Premium Theme
+    // Updated NATIVE APP Theme (Lighter)
     type Theme = { bg: string; header: string; me: string; other: string; admin: string; accent: string; bubble: string };
 
     const currentStyle: Theme = {
-        bg: "bg-[#0b101b]", // Deep luxurious blue-black
-        header: "bg-[#0f172a]/80 backdrop-blur-md border-b border-white/5 shadow-2xl",
-        me: "bg-gradient-to-br from-[#d4af37] to-[#c5a028] text-black shadow-lg shadow-amber-900/20 font-medium", // Gold Gradient
-        other: "bg-[#1e293b]/60 border border-white/5 text-slate-200 shadow-sm backdrop-blur-sm", // Classy dark glass
-        admin: "bg-red-500/10 border border-red-500/20 text-red-200 shadow-[0_0_15px_rgba(220,38,38,0.1)]",
-        accent: "amber",
-        bubble: "rounded-2xl px-4 py-2",
+        bg: "bg-[#111827]", // Gray-900 (Lighter than black)
+        header: "bg-[#1f2937]/90 backdrop-blur-md border-b border-white/5 shadow-sm sticky top-0 z-30",
+        me: "bg-emerald-600 text-white shadow-md font-medium border-emerald-500", // WhatsApp-like Green
+        other: "bg-[#1f2937] border border-white/5 text-gray-200 shadow-md", // Standard dark bubble
+        admin: "bg-amber-500/10 border border-amber-500/20 text-amber-200",
+        accent: "emerald",
+        bubble: "px-3 py-2 shadow-sm border-0",
     };
 
-    // 1. Auth Check (Load User) - Fixed Dependency Array
+    // 1. Auth Check (Load User)
     useEffect(() => {
         console.log("🔌 ChatRoom mounted. API_BASE:", API_BASE);
         const token = localStorage.getItem("tipsmega_token");
@@ -421,6 +474,14 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
             {/* Header */}
             <div className={`flex items-center justify-between p-4 border-b shadow-lg ${currentStyle.header}`}>
                 <div className="flex items-center gap-3">
+                    {onBack && (
+                        <button
+                            onClick={onBack}
+                            className="mr-1 md:hidden p-2 -ml-2 rounded-full text-white/70 hover:text-white hover:bg-white/10 active:scale-90 transition-all"
+                        >
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+                        </button>
+                    )}
                     <div className="relative">
                         {/* Status Indicator: Green=Connected, Red=Disconnected/Pulse */}
                         <div className={`w-2.5 h-2.5 rounded-full ${isConnected ? "bg-emerald-500 shadow-[0_0_10px_#10b981]" : "bg-red-500 animate-pulse shadow-[0_0_10px_#ef4444]"}`} />
@@ -450,9 +511,20 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
                     const isAdmin = m.senderLevel === "ADMIN";
 
                     const prevM = messages[i - 1];
+                    const nextM = messages[i + 1];
+
                     const currDate = new Date(m.createdAt || Date.now()).toDateString();
                     const prevDate = prevM ? new Date(prevM.createdAt || Date.now()).toDateString() : null;
                     const showDate = currDate !== prevDate;
+
+                    // Grouping Logic
+                    const isSameSenderPrev = prevM && prevM.sender === m.sender && !showDate;
+                    const isSameSenderNext = nextM && nextM.sender === m.sender && (new Date(nextM.createdAt || Date.now()).toDateString() === currDate);
+
+                    let pos = "single";
+                    if (!isSameSenderPrev && isSameSenderNext) pos = "start";
+                    else if (isSameSenderPrev && isSameSenderNext) pos = "middle";
+                    else if (isSameSenderPrev && !isSameSenderNext) pos = "end";
 
                     let dateLabel = currDate;
                     if (new Date().toDateString() === currDate) dateLabel = "Today";
@@ -460,8 +532,8 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
                     return (
                         <div key={i}>
                             {showDate && (
-                                <div className="flex justify-center my-4 opacity-60">
-                                    <span className="text-[10px] font-bold bg-black/20 text-white/80 px-3 py-1 rounded-lg border border-white/5 backdrop-blur-sm shadow-sm">
+                                <div className="flex justify-center my-6 sticky top-2 z-20">
+                                    <span className="text-[10px] font-bold bg-[#1f2937]/90 text-white/90 px-3 py-1 rounded-full border border-white/10 shadow-lg backdrop-blur-md">
                                         {dateLabel}
                                     </span>
                                 </div>
@@ -474,6 +546,7 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
                                 user={user}
                                 onReply={setReplyTo}
                                 onDelete={deleteMessage}
+                                groupPosition={pos}
                             />
                         </div>
                     );

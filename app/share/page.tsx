@@ -8,12 +8,29 @@ export default function Page() {
   const [refCode, setRefCode] = useState("YOURCODE");
   const [mounted, setMounted] = useState(false);
 
-  // Load actual ref code if available
+  // Load actual ref code
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     setMounted(true);
     const local = localStorage.getItem("tipsmega_my_ref_code");
-    if (local) setRefCode(local);
+    if (local && local !== "undefined") {
+      setRefCode(local);
+    } else {
+      // Fetch if missing
+      const token = localStorage.getItem("tipsmega_token");
+      if (token) {
+        fetch("https://api.tipsmega888.com/api/auth/me", {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+          .then(r => r.json())
+          .then(d => {
+            if (d.ok && d.referralCode) {
+              setRefCode(d.referralCode);
+              localStorage.setItem("tipsmega_my_ref_code", d.referralCode);
+            }
+          })
+          .catch(() => { });
+      }
+    }
   }, []);
 
   const link = useMemo(() => {

@@ -159,9 +159,13 @@ export default function TrustedClient() {
                                                 />
                                             )
                                         ) : (
-                                            <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black">
-                                                <span className="text-lg opacity-20">💎</span>
-                                            </div>
+                                            // Fallback to branded image
+                                            // eslint-disable-next-line @next/next/no-img-element
+                                            <img
+                                                src="/mega888.png"
+                                                alt="Default"
+                                                className="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-500"
+                                            />
                                         )}
 
                                         {/* Status Badge - Mini */}

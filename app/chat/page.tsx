@@ -25,16 +25,10 @@ export default function ChatPage() {
             <div className={`${!selectedId ? "hidden md:flex" : "flex"} flex-1 relative`}>
                 {selectedId ? (
                     <div className="w-full h-full flex flex-col">
-                        {/* Mobile Back Button (Overlay or part of header) */}
-                        <div className="md:hidden absolute top-3 left-2 z-50">
-                            <button
-                                onClick={() => setSelectedId(null)}
-                                className="bg-black/50 p-2 rounded-full text-white backdrop-blur-md"
-                            >
-                                ← Back
-                            </button>
-                        </div>
-                        <ChatRoom roomId={selectedId} />
+                        <ChatRoom
+                            roomId={selectedId}
+                            onBack={() => setSelectedId(null)}
+                        />
                     </div>
                 ) : (
                     <div className="w-full h-full flex items-center justify-center text-white/30 hidden md:flex">
