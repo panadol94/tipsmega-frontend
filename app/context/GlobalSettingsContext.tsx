@@ -23,6 +23,7 @@ type SettingsContextType = {
     setTheme: (t: string) => void;
     user: { username: string; token: string; friends?: string[] } | null;
     setUser: (u: { username: string; token: string; friends?: string[] } | null) => void;
+    refreshUser: () => void;
 };
 
 const SettingsContext = createContext<SettingsContextType | null>(null);
@@ -151,6 +152,23 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
         }
     };
 
+    const refreshUser = () => {
+        const token = localStorage.getItem("tipsmega_token");
+        if (token) {
+            const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+            fetch(`${API_BASE}/api/auth/me`, {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+                .then(r => r.json())
+                .then(d => {
+                    if (d.ok) {
+                        setUser({ username: d.username, token, friends: d.friends || [] });
+                    }
+                })
+                .catch(console.error);
+        }
+    };
+
     return (
         <SettingsContext.Provider
             value={{
@@ -165,7 +183,8 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
                 activeTheme,
                 setTheme,
                 user,
-                setUser
+                setUser,
+                refreshUser
             }}
         >
             {children}

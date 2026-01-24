@@ -138,8 +138,8 @@ export default function Page() {
       return;
     }
     if (stars <= 0) {
-      setAuthOpen("login");
-      showToast("Login diperlukan untuk unlock stars.", "error");
+      // Just show toast, don't force login modal
+      showToast("Stars tidak mencukupi. Sila login untuk claim bonus harian.", "error");
       playSound("error");
       triggerHaptic(200);
       return;
@@ -157,8 +157,8 @@ export default function Page() {
 
       if (out?.error) {
         if (out.error.includes("no stars")) {
-          setAuthOpen("login");
-          showToast("Stars tidak mencukupi. Sila login untuk claim bonus.", "error");
+          // Just show toast
+          showToast("Stars habis! Login sekarang untuk refresh limit.", "error");
         } else {
           showToast(trimText(out.error || out.detail || "Scan failed", 140), "error");
         }

@@ -16,6 +16,9 @@ export default function CreateGroupModal({
     friends?: string[];
 }) {
     const { user } = useGlobalSettings();
+
+    // Prefer friends prop if passed, otherwise fallback to user context friends
+    const effectiveFriends = friends.length > 0 ? friends : (user?.friends || []);
     const [groupName, setGroupName] = useState("");
     const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
 
@@ -59,16 +62,16 @@ export default function CreateGroupModal({
                     <div>
                         <label className="text-xs text-white/50 uppercase tracking-wider font-bold mb-2 block">Select Members</label>
                         <div className="max-h-[150px] overflow-y-auto space-y-2 pr-1 scrollbar-thin scrollbar-thumb-white/10">
-                            {friends.length === 0 ? (
+                            {effectiveFriends.length === 0 ? (
                                 <p className="text-white/30 text-sm italic text-center py-4">No friends found. Add friends first!</p>
                             ) : (
-                                friends.map(friend => (
+                                effectiveFriends.map(friend => (
                                     <div
                                         key={friend}
                                         onClick={() => toggleMember(friend)}
                                         className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all ${selectedMembers.includes(friend)
-                                                ? "bg-emerald-500/20 border-emerald-500/50"
-                                                : "bg-black/20 border-white/5 hover:bg-white/5"
+                                            ? "bg-emerald-500/20 border-emerald-500/50"
+                                            : "bg-black/20 border-white/5 hover:bg-white/5"
                                             }`}
                                     >
                                         <span className="text-sm font-bold text-white">{friend}</span>

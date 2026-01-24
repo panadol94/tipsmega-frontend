@@ -15,29 +15,35 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.co
 // --- Linkify Component ---
 // --- Linkify Component ---
 const Linkify = ({ text }: { text: string }) => {
-    // Regex for splitting (keep capturing group to include URL in parts)
-    const splitRegex = /(https?:\/\/[^\s]+)/g;
+    // Regex for splitting: matches http://, https://, or www.
+    const splitRegex = /((?:https?:\/\/|www\.)[^\s]+)/g;
     const parts = text.split(splitRegex);
 
     return (
         <>
-            {parts.map((part, i) =>
-                // Check if part starts with http/https to identify it as a link
-                part.match(/^https?:\/\//) ? (
-                    <a
-                        key={i}
-                        href={part}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-400 underline hover:text-blue-300 break-all"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        {part}
-                    </a>
-                ) : (
-                    part
-                )
-            )}
+            {parts.map((part, i) => {
+                if (part.match(/^(https?:\/\/|www\.)/)) {
+                    let href = part;
+                    if (part.startsWith("www.")) {
+                        href = "https://" + part;
+                    }
+                    return (
+                        <a
+                            key={i}
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-400 underline hover:text-blue-300 break-all relative z-50 pointer-events-auto"
+                            onClick={(e) => e.stopPropagation()}
+                            onMouseDown={(e) => e.stopPropagation()}
+                            onTouchStart={(e) => e.stopPropagation()}
+                        >
+                            {part}
+                        </a>
+                    );
+                }
+                return part;
+            })}
         </>
     );
 };

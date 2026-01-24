@@ -20,7 +20,7 @@ export default function Page() {
   const [stars, setStars] = useState(0);
   const [deviceId, setDeviceId] = useState("");
 
-  const { soundEnabled, hapticEnabled, toggleSound, toggleHaptic } = useGlobalSettings();
+  const { soundEnabled, hapticEnabled, toggleSound, toggleHaptic, refreshUser } = useGlobalSettings();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [friendRequests, setFriendRequests] = useState<any[]>([]);
@@ -94,9 +94,13 @@ export default function Page() {
       });
       const json = await res.json();
       if (json.ok) {
-        // Remove from list
         setFriendRequests(prev => prev.filter(r => r._id !== requestId));
-        alert(action === "accept" ? "Friend Accepted!" : "Request Rejected");
+        if (action === "accept") {
+          refreshUser();
+          alert("Friend Accepted!");
+        } else {
+          alert("Request Rejected");
+        }
       } else {
         alert("Action failed: " + (json.error || "Unknown"));
       }
