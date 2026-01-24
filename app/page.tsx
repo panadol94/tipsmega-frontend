@@ -198,8 +198,16 @@ export default function Page() {
     <>
       <header className="card p-5 relative overflow-hidden flex flex-col">
         <div className="mt-2 text-xs text-white/60">TipsMega888 • Mega888 AI • RTP Scanner</div>
-        <div className="mt-2">
-          <GlitchTitle text="MEGA888" />
+        <div className="mt-4 flex justify-center relative">
+          <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full animate-pulse-slow pointer-events-none" />
+          <video
+            src="/mega-loop.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="h-28 w-auto object-contain drop-shadow-[0_0_20px_rgba(59,130,246,0.6)] mix-blend-screen"
+          />
         </div>
 
         <div className="badge" style={{ marginTop: 12 }}>
