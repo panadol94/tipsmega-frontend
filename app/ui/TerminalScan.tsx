@@ -66,7 +66,7 @@ export default function TerminalScan({
   // auto scroll
   useEffect(() => {
     if (boxRef.current) boxRef.current.scrollTop = boxRef.current.scrollHeight;
-  }, [lines, cursorOn]);
+  }, [lines]);
 
   useEffect(() => {
     const ts = new Date().toLocaleString();

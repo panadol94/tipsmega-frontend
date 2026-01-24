@@ -22,6 +22,9 @@ export default function Page() {
 
   const { soundEnabled, hapticEnabled, toggleSound, toggleHaptic } = useGlobalSettings();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [friendRequests, setFriendRequests] = useState<any[]>([]);
+
   useEffect(() => {
     setTimeout(() => {
       setMounted(true);
@@ -40,6 +43,18 @@ export default function Page() {
             if (d.username) setUsername(d.username);
           })
           .catch(e => console.error("Me fetch error", e));
+
+        // Fetch Pending Friend Requests
+        fetch(`${API_BASE}/api/friend-requests`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        })
+          .then(r => r.json())
+          .then(d => {
+            if (d.ok && Array.isArray(d.requests)) {
+              setFriendRequests(d.requests);
+            }
+          })
+          .catch(e => console.error("Friend req fetch error", e));
       }
 
       if (localDid) {
@@ -63,6 +78,33 @@ export default function Page() {
       window.location.href = "/";
     }
   }
+
+  const handleFriendAction = async (requestId: string, action: "accept" | "reject") => {
+    const token = localStorage.getItem("tipsmega_token");
+    if (!token) return;
+
+    try {
+      const res = await fetch(`${API_BASE}/api/friend-requests/${action}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ requestId })
+      });
+      const json = await res.json();
+      if (json.ok) {
+        // Remove from list
+        setFriendRequests(prev => prev.filter(r => r._id !== requestId));
+        alert(action === "accept" ? "Friend Accepted!" : "Request Rejected");
+      } else {
+        alert("Action failed: " + (json.error || "Unknown"));
+      }
+    } catch (e) {
+      console.error("Friend action error", e);
+      alert("Network error");
+    }
+  };
 
   if (!mounted) return null;
 
@@ -114,8 +156,47 @@ export default function Page() {
           </div>
         </header>
 
+        {/* FRIEND REQUESTS NOTIFICATION AREA */}
+        {friendRequests.length > 0 && (
+          <section className="card p-5 mt-4 bg-blue-900/20 border-blue-500/30 animate-pulse-slow">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-2 h-2 rounded-full bg-blue-400 animate-ping" />
+              <h3 className="text-xs font-black tracking-widest text-blue-300 uppercase">Incoming Transmissions ({friendRequests.length})</h3>
+            </div>
+            <div className="space-y-3">
+              {friendRequests.map(req => (
+                <div key={req._id} className="bg-black/40 border border-white/10 rounded-xl p-3 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-blue-600/30 flex items-center justify-center text-blue-200 text-xs font-bold">
+                      {req.from.substring(0, 1).toUpperCase()}
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-white uppercase">{req.from}</div>
+                      <div className="text-[9px] text-white/40">Requesting connection...</div>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleFriendAction(req._id, "reject")}
+                      className="p-2 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-colors"
+                    >
+                      ✕
+                    </button>
+                    <button
+                      onClick={() => handleFriendAction(req._id, "accept")}
+                      className="p-2 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30 transition-colors"
+                    >
+                      ✓ Accept
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* SYSTEM SETTINGS */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 mt-4">
           <button
             onClick={toggleSound}
             className="card flex items-center justify-between p-4 active:scale-95 transition-all group bg-slate-900/70 border-white/5"
@@ -137,7 +218,7 @@ export default function Page() {
         </div>
 
         {/* QUICK ACTIONS */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 mt-4">
           {status !== "Member" && (
             <Link href="/" className="btn-red-spin h-14 flex items-center justify-center font-black italic tracking-widest rounded-[18px]">
               <span className="btn-red-spin-content">INITIATE SYSTEM ACCESS</span>
@@ -157,7 +238,7 @@ export default function Page() {
         </div>
 
         {/* SCAN LOGS */}
-        <section className="card p-6 bg-slate-900/90 border-white/10">
+        <section className="card p-6 bg-slate-900/90 border-white/10 mt-4">
           <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/5">
             <div className="flex items-center gap-3">
               <div className="h-2 w-2 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse" />

@@ -13,14 +13,17 @@ const EmojiPicker = dynamic(() => import("emoji-picker-react"), { ssr: false });
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
 
 // --- Linkify Component ---
+// --- Linkify Component ---
 const Linkify = ({ text }: { text: string }) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const parts = text.split(urlRegex);
+    // Regex for splitting (keep capturing group to include URL in parts)
+    const splitRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(splitRegex);
 
     return (
         <>
             {parts.map((part, i) =>
-                urlRegex.test(part) ? (
+                // Check if part starts with http/https to identify it as a link
+                part.match(/^https?:\/\//) ? (
                     <a
                         key={i}
                         href={part}
@@ -159,105 +162,22 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
     const bottomRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+    // Updated Single Premium Theme
     type Theme = { bg: string; header: string; me: string; other: string; admin: string; accent: string; bubble: string };
 
-    const themes: Record<string, Theme> = {
-        cyber: {
-            bg: "bg-[#0c1223] border-white/10 shadow-blue-500/20",
-            header: "bg-gradient-to-r from-[#111827] to-[#0c1223] border-white/5",
-            me: "bg-blue-600/20 border-blue-500/30 text-blue-50 shadow-[0_0_15px_rgba(37,99,235,0.2)]",
-            other: "bg-white/5 border-white/5 text-gray-200",
-            admin: "bg-yellow-500/10 border-yellow-500/20 text-yellow-50 shadow-[0_0_15px_rgba(234,179,8,0.1)]",
-            accent: "blue",
-            bubble: "rounded-2xl backdrop-blur-sm",
-        },
-        gold: {
-            bg: "bg-black border-amber-500/30 shadow-amber-500/20",
-            header: "bg-gradient-to-r from-black via-amber-900/30 to-black border-amber-500/30",
-            me: "bg-amber-500/20 border-amber-500/50 text-amber-50 shadow-[0_0_15px_rgba(245,158,11,0.2)]",
-            other: "bg-zinc-900 border-zinc-800 text-gray-300",
-            admin: "bg-red-900/40 border-red-500/40 text-red-50 shadow-[0_0_15px_rgba(239,68,68,0.2)]",
-            accent: "amber",
-            bubble: "rounded-xl",
-        },
-        matrix: {
-            bg: "bg-black border-green-500/30 shadow-green-500/20",
-            header: "bg-black border-green-500/20",
-            me: "bg-green-900/30 border-green-500/50 text-green-50 font-mono shadow-[0_0_10px_rgba(34,197,94,0.3)]",
-            other: "bg-zinc-900 border-zinc-800 text-green-200/70 font-mono",
-            admin: "bg-green-950/80 border-green-400/50 text-white font-mono shadow-[0_0_20px_rgba(74,222,128,0.2)]",
-            accent: "green",
-            bubble: "rounded-none border-l-2",
-        },
-        neon: {
-            bg: "bg-[#1a0b2e] border-fuchsia-500/40 shadow-fuchsia-500/30",
-            header: "bg-gradient-to-r from-[#2d1b4e] to-[#1a0b2e] border-fuchsia-500/30",
-            me: "bg-fuchsia-600/20 border-fuchsia-500/60 text-fuchsia-50 shadow-[0_0_15px_rgba(217,70,239,0.3)]",
-            other: "bg-white/5 border-white/5 text-gray-200",
-            admin: "bg-cyan-500/20 border-cyan-500/40 text-cyan-50 shadow-[0_0_15px_rgba(6,182,212,0.2)]",
-            accent: "fuchsia",
-            bubble: "rounded-3xl rounded-br-none",
-        },
-        whatsapp: {
-            bg: "bg-[#0b141a] border-[#0b141a]",
-            header: "bg-[#1f2c34] border-white/5",
-            me: "bg-[#005c4b] text-[#e9edef] shadow-sm rounded-tr-none min-w-[120px]",
-            other: "bg-[#202c33] text-[#e9edef] shadow-sm rounded-tl-none min-w-[120px]",
-            admin: "bg-[#202c33] text-yellow-400 border border-yellow-500/20",
-            accent: "emerald",
-            bubble: "rounded-lg pb-1",
-        },
-        telegram: {
-            bg: "bg-[#0e1621] border-[#17212b]",
-            header: "bg-[#17212b] border-white/5",
-            me: "bg-[#2b5278] text-white shadow-sm rounded-tr-none min-w-[120px]",
-            other: "bg-[#182533] text-white shadow-sm rounded-tl-none min-w-[120px]",
-            admin: "bg-[#182533] text-blue-300 border border-blue-500/30",
-            accent: "sky",
-            bubble: "rounded-2xl",
-        },
-        telegram_light: {
-            bg: "bg-[#8eafd3] border-[#517da2]",
-            header: "bg-[#517da2] border-[#517da2] shadow-md",
-            me: "bg-[#eeffde] text-black shadow-sm rounded-tr-none min-w-[120px]",
-            other: "bg-white text-black shadow-sm rounded-tl-none min-w-[120px]",
-            admin: "bg-white text-blue-600 border border-blue-500/20",
-            accent: "sky",
-            bubble: "rounded-2xl",
-        },
-        whatsapp_light: {
-            bg: "bg-[#efe7dd] border-[#d1d7db]",
-            header: "bg-[#008069] border-[#008069] shadow-md",
-            me: "bg-[#d9fdd3] text-[#111b21] shadow-sm rounded-tr-none min-w-[120px]",
-            other: "bg-white text-[#111b21] shadow-sm rounded-tl-none min-w-[120px]",
-            admin: "bg-white text-orange-600 border border-orange-500/20",
-            accent: "emerald",
-            bubble: "rounded-lg pb-1",
-        },
-        sakura: {
-            bg: "bg-[#fff0f5] border-pink-300/50",
-            header: "bg-gradient-to-r from-pink-400 to-rose-400 border-pink-400 shadow-lg",
-            me: "bg-[#ffe4e1] text-pink-900 shadow-sm border border-pink-100",
-            other: "bg-white text-gray-800 shadow-sm",
-            admin: "bg-white text-rose-600 border border-rose-200",
-            accent: "pink",
-            bubble: "rounded-2xl rounded-br-none",
-        },
-        sky: {
-            bg: "bg-[#e0f2fe] border-sky-300/50",
-            header: "bg-gradient-to-r from-sky-500 to-blue-500 border-sky-500 shadow-lg",
-            me: "bg-[#dbeafe] text-blue-900 shadow-sm border border-blue-100",
-            other: "bg-white text-gray-800 shadow-sm",
-            admin: "bg-white text-blue-600 border border-blue-200",
-            accent: "cyan",
-            bubble: "rounded-2xl rounded-tr-none",
-        }
+    const currentStyle: Theme = {
+        bg: "bg-[#0b101b]", // Deep luxurious blue-black
+        header: "bg-[#0f172a]/80 backdrop-blur-md border-b border-white/5 shadow-2xl",
+        me: "bg-gradient-to-br from-[#d4af37] to-[#c5a028] text-black shadow-lg shadow-amber-900/20 font-medium", // Gold Gradient
+        other: "bg-[#1e293b]/60 border border-white/5 text-slate-200 shadow-sm backdrop-blur-sm", // Classy dark glass
+        admin: "bg-red-500/10 border border-red-500/20 text-red-200 shadow-[0_0_15px_rgba(220,38,38,0.1)]",
+        accent: "amber",
+        bubble: "rounded-2xl px-4 py-2",
     };
 
-    const currentStyle = themes[activeTheme] || themes.cyber;
-
+    // 1. Auth Check (Load User) - Fixed Dependency Array
     useEffect(() => {
+        console.log("🔌 ChatRoom mounted. API_BASE:", API_BASE);
         const token = localStorage.getItem("tipsmega_token");
         if (token) {
             fetch(`${API_BASE}/api/auth/me`, {
@@ -275,11 +195,13 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
         } else {
             setUser({ username: "Guest", token: "" });
         }
-    }, []);
+    }, []); // Re-check on mount
 
     const [isConnected, setIsConnected] = useState(false);
 
+    // 2. Socket Connection
     useEffect(() => {
+        // Force websocket transport to avoid polling issues & CORS preflight complexity
         const s = io(API_BASE, {
             transports: ["websocket"],
             reconnectionAttempts: 5,
@@ -290,6 +212,12 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
             console.log("✅ Socket connected:", s.id);
             setIsConnected(true);
             s.emit("join_room", { roomId, username: user?.username || "Guest" });
+        });
+
+        s.on("connect_error", (err) => {
+            console.error("❌ Socket connection error:", err);
+            setIsConnected(false);
+            // alert("Connection Error: " + err.message); // Too noisy if retrying
         });
 
         s.on("disconnect", (reason) => {
@@ -356,6 +284,7 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
         }
     };
 
+    // --- VOICE LOGIC ---
     const startRecording = async () => {
         if (!navigator.mediaDevices) {
             alert("Mic not supported/allowed");
@@ -371,7 +300,7 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
             recorder.onstop = () => {
                 const blob = new Blob(chunks, { type: "audio/webm" });
                 uploadAudio(blob);
-                stream.getTracks().forEach(t => t.stop());
+                stream.getTracks().forEach(t => t.stop()); // release mic
             };
 
             recorder.start();
@@ -393,6 +322,7 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
     const uploadAudio = async (blob: Blob) => {
         setIsUploading(true);
         const formData = new FormData();
+        // Create a dummy filename for audio
         const file = new File([blob], "voice.webm", { type: "audio/webm" });
         formData.append("file", file);
 
@@ -406,7 +336,7 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
                 socket.emit("send_message", {
                     roomId,
                     sender: user?.username || "Guest",
-                    content: "",
+                    content: "", // Voice message
                     mediaUrl: json.url,
                     mediaType: "audio",
                 });
@@ -419,6 +349,7 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
             setIsUploading(false);
         }
     };
+    // -------------------
 
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -469,46 +400,32 @@ export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
     return (
         <div className={`flex flex-col w-full h-full font-sans border-opacity-50 relative ${currentStyle.bg}`}>
             {/* Header */}
-            <div className={`flex items-center justify-between p-3 border-b shadow-lg ${currentStyle.header}`}>
+            <div className={`flex items-center justify-between p-4 border-b shadow-lg ${currentStyle.header}`}>
                 <div className="flex items-center gap-3">
                     <div className="relative">
-                        <div className={`w-3 h-3 rounded-full ${isConnected ? "bg-emerald-500 shadow-[0_0_10px_#10b981]" : "bg-red-500 animate-pulse shadow-[0_0_10px_#ef4444]"}`} />
-                        {isConnected && <div className="absolute inset-0 w-3 h-3 rounded-full bg-emerald-400 animate-ping opacity-50" />}
+                        {/* Status Indicator: Green=Connected, Red=Disconnected/Pulse */}
+                        <div className={`w-2.5 h-2.5 rounded-full ${isConnected ? "bg-emerald-500 shadow-[0_0_10px_#10b981]" : "bg-red-500 animate-pulse shadow-[0_0_10px_#ef4444]"}`} />
+                        {isConnected && <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping opacity-50" />}
                     </div>
-                    <div>
-                        <h3 className="font-black text-white text-xs tracking-widest uppercase bg-gradient-to-r from-white to-white/50 bg-clip-text text-transparent">
-                            Sembang Santai
+                    <div className="flex flex-col">
+                        <h3 className="font-bold text-white text-sm tracking-wide uppercase bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(245,158,11,0.2)]">
+                            VVIP LOUNGE
                         </h3>
-                        <div className="text-[9px] text-white/50 tracking-wider">TIPS MEGA888</div>
+                        <div className="text-[10px] text-amber-500/60 font-mono tracking-widest">PREMIUM NETWORK</div>
                     </div>
                 </div>
 
-                <div className="flex items-center gap-2 mr-1">
-                    <div className="flex gap-1.5 px-2 py-1 bg-black/40 rounded-full border border-white/5 overflow-x-auto max-w-[150px] scrollbar-hide">
-                        {["cyber", "gold", "matrix", "neon", "whatsapp", "whatsapp_light", "telegram", "telegram_light", "sakura", "sky"].map(t => (
-                            <button
-                                key={t}
-                                onClick={() => setTheme(t)}
-                                className={`w-3 h-3 shrink-0 rounded-full transition-all duration-300 ${activeTheme === t ? "scale-125 ring-2 ring-white shadow-[0_0_10px_white]" : "opacity-40 hover:opacity-100"} 
-                                            ${t === 'cyber' ? 'bg-blue-600' :
-                                        t === 'gold' ? 'bg-amber-500' :
-                                            t === 'matrix' ? 'bg-green-500' :
-                                                t === 'neon' ? 'bg-fuchsia-500' :
-                                                    t === 'whatsapp' ? 'bg-[#005c4b]' :
-                                                        t === 'whatsapp_light' ? 'bg-[#25D366]' :
-                                                            t === 'telegram' ? 'bg-[#2b5278]' :
-                                                                t === 'telegram_light' ? 'bg-[#517da2]' :
-                                                                    t === 'sakura' ? 'bg-pink-400' :
-                                                                        'bg-sky-400'}`}
-                                title={t}
-                            />
-                        ))}
-                    </div>
+                {/* Removed Theme Switcher */}
+                <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-white/20 font-mono">ENCRYPTED</span>
                 </div>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-black/0 via-black/10 to-black/30 scrollbar-thin scrollbar-thumb-white/10 relative pb-24" onClick={() => setShowEmoji(false)}>
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[url('/img/noise.png')] bg-opacity-5 relative pb-28" onClick={() => setShowEmoji(false)}>
+                {/* Background Glow */}
+                <div className="absolute inset-0 bg-gradient-to-b from-amber-900/5 via-transparent to-blue-900/5 pointer-events-none" />
+
                 {messages.map((m, i) => {
                     const isMe = m.sender === user?.username;
                     const isAdmin = m.senderLevel === "ADMIN";

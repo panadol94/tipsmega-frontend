@@ -31,7 +31,7 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
     const [soundEnabled, setSoundEnabled] = useState(true);
     const [hapticEnabled, setHapticEnabled] = useState(true);
     const [isChatOpen, setIsChatOpen] = useState(false);
-    const [activeTheme, setActiveTheme] = useState("cyber"); // cyber, matrix, neon, gold
+    const [activeTheme, setActiveTheme] = useState("premium");
     const [mounted, setMounted] = useState(false);
 
     // Audio Context Ref
