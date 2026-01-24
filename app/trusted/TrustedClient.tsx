@@ -119,17 +119,17 @@ export default function TrustedClient() {
                     </div>
                 )}
 
-                <div className="grid grid-cols-1 gap-6">
+                <div className="grid grid-cols-3 gap-3">
                     {loading ? (
-                        Array.from({ length: 3 }).map((_, i) => (
-                            <div key={i} className="bg-white/5 border border-white/10 rounded-2xl h-[200px] animate-pulse relative overflow-hidden">
+                        Array.from({ length: 6 }).map((_, i) => (
+                            <div key={i} className="bg-white/5 border border-white/10 rounded-xl h-[160px] animate-pulse relative overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent shimmer" />
                             </div>
                         ))
                     ) : list.length === 0 && !err ? (
-                        <div className="text-center py-20 opacity-40">
+                        <div className="col-span-3 text-center py-20 opacity-40">
                             <div className="text-4xl mb-4 grayscale">📭</div>
-                            <p className="text-xs font-bold tracking-widest uppercase">No Partners Listed</p>
+                            <p className="text-[10px] font-bold tracking-widest uppercase">No Partners Listed</p>
                         </div>
                     ) : (
                         list.map((c, idx) => {
@@ -138,16 +138,16 @@ export default function TrustedClient() {
                             const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`${WHATSAPP_TEXT}${c.name}`)}`;
 
                             return (
-                                <article key={c.id || idx} className="group relative bg-[#151c27] border border-white/10 rounded-2xl overflow-hidden shadow-2xl transition-transform hover:scale-[1.01]">
+                                <article key={c.id || idx} className="group relative bg-[#151c27] border border-white/10 rounded-xl overflow-hidden shadow-lg transition-transform active:scale-95">
 
-                                    {/* Media Section */}
-                                    <div className="h-48 w-full bg-black relative overflow-hidden">
+                                    {/* Media Section - Compact */}
+                                    <div className="h-24 w-full bg-black relative overflow-hidden">
                                         {c.storageUrl ? (
                                             showVideo ? (
                                                 <video
                                                     src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
                                                     muted playsInline loop autoPlay
-                                                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                                                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100"
                                                 />
                                             ) : (
                                                 // eslint-disable-next-line @next/next/no-img-element
@@ -155,52 +155,45 @@ export default function TrustedClient() {
                                                     src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
                                                     alt={c.name}
                                                     loading="lazy"
-                                                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-105 transform"
+                                                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100"
                                                 />
                                             )
                                         ) : (
                                             <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black">
-                                                <span className="text-4xl mb-2 opacity-20">💎</span>
-                                                <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest">Premium Partner</span>
+                                                <span className="text-lg opacity-20">💎</span>
                                             </div>
                                         )}
 
-                                        {/* Status Badge */}
-                                        <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-md border border-emerald-500/30 px-3 py-1 rounded-full flex items-center gap-1.5">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]" />
-                                            <span className="text-[8px] font-black text-emerald-400 tracking-wider uppercase">VERIFIED</span>
+                                        {/* Status Badge - Mini */}
+                                        <div className="absolute top-1 right-1">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_5px_#10b981]" />
                                         </div>
                                     </div>
 
-                                    {/* Content Section */}
-                                    <div className="p-5 relative">
+                                    {/* Content Section - Compact */}
+                                    <div className="p-2 relative flex flex-col items-center text-center">
                                         {/* Glow Effect */}
-                                        <div className="absolute -top-10 left-0 right-0 h-20 bg-gradient-to-b from-black via-[#151c27] to-[#151c27]" />
+                                        <div className="absolute -top-6 left-0 right-0 h-10 bg-gradient-to-b from-black via-[#151c27] to-[#151c27]" />
 
-                                        <div className="relative z-10 -mt-2">
-                                            <h2 className="text-xl font-black italic text-white uppercase tracking-wide mb-2 drop-shadow-md">
+                                        <div className="relative z-10 -mt-1 w-full">
+                                            <h2 className="text-[10px] font-black italic text-white uppercase tracking-wide truncate w-full">
                                                 {c.name}
                                             </h2>
-                                            <p className="text-[11px] text-white/60 leading-relaxed min-h-[40px]">
-                                                {c.caption?.trim() ? c.caption : "Recommended high-RTP platform secured by TipsMega guarantee."}
-                                            </p>
 
-                                            <div className="mt-5 pt-4 border-t border-white/5 flex gap-3">
+                                            <div className="mt-2 w-full">
                                                 {url ? (
                                                     <button
                                                         onClick={() => handleAction(url)}
-                                                        className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-600 border-t border-white/20 text-white font-black text-xs uppercase tracking-wider py-3.5 rounded-xl shadow-lg shadow-amber-900/40 hover:shadow-amber-500/20 active:scale-95 transition-all flex items-center justify-center gap-2 group-btn"
+                                                        className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 border border-white/10 text-white font-bold text-[9px] uppercase py-1.5 rounded-lg shadow-md active:scale-95"
                                                     >
-                                                        <span>ACCESS NOW</span>
-                                                        <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                                        PLAY
                                                     </button>
                                                 ) : (
                                                     <button
                                                         onClick={() => handleAction(waHref)}
-                                                        className="flex-1 bg-white/5 border border-white/10 text-white/70 font-bold text-xs uppercase tracking-wider py-3.5 rounded-xl hover:bg-white/10 active:scale-95 transition-all flex items-center justify-center gap-2"
+                                                        className="w-full bg-white/5 border border-white/10 text-white/70 font-bold text-[9px] uppercase py-1.5 rounded-lg active:scale-95"
                                                     >
-                                                        <span>REQUEST LINK</span>
-                                                        <span className="text-lg leading-none">💬</span>
+                                                        LINK
                                                     </button>
                                                 )}
                                             </div>
