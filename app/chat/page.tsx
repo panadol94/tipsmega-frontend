@@ -1,9 +1,47 @@
+"use client";
+
+import { useState } from "react";
 import ChatRoom from "../ui/ChatRoom";
+import ChatList from "../ui/ChatList";
 
 export default function ChatPage() {
+    // Mobile View Logic:
+    // If selectedId is null -> Show List
+    // If selectedId is present -> Show Room
+    // Desktop: Always show both
+    const [selectedId, setSelectedId] = useState<string | null>("global");
+
     return (
-        <main className="w-full flex flex-col h-[calc(100vh-140px)] min-h-[500px]">
-            <ChatRoom />
+        <main className="w-full flex flex-row h-[calc(100vh-140px)] min-h-[500px]">
+            {/* Sidebar (List) - Hidden on mobile if chat selected */}
+            <div className={`${selectedId ? "hidden md:flex" : "flex"} w-full md:w-[320px] shrink-0 border-r border-white/10`}>
+                <ChatList
+                    selectedIds={selectedId || ""}
+                    onSelect={(id) => setSelectedId(id)}
+                />
+            </div>
+
+            {/* Chat Room Area - Hidden on mobile if no chat selected */}
+            <div className={`${!selectedId ? "hidden md:flex" : "flex"} flex-1 relative`}>
+                {selectedId ? (
+                    <div className="w-full h-full flex flex-col">
+                        {/* Mobile Back Button (Overlay or part of header) */}
+                        <div className="md:hidden absolute top-3 left-2 z-50">
+                            <button
+                                onClick={() => setSelectedId(null)}
+                                className="bg-black/50 p-2 rounded-full text-white backdrop-blur-md"
+                            >
+                                ← Back
+                            </button>
+                        </div>
+                        <ChatRoom roomId={selectedId} />
+                    </div>
+                ) : (
+                    <div className="w-full h-full flex items-center justify-center text-white/30 hidden md:flex">
+                        Select a chat to start messaging
+                    </div>
+                )}
+            </div>
         </main>
     );
 }

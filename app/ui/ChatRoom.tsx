@@ -6,20 +6,58 @@ import dynamic from "next/dynamic";
 import { useSwipeable } from "react-swipeable";
 import { AnimatePresence, motion } from "framer-motion";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
+import MediaPreviewModal from "./MediaPreviewModal";
 
 const EmojiPicker = dynamic(() => import("emoji-picker-react"), { ssr: false });
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
 
+// --- Linkify Component ---
+const Linkify = ({ text }: { text: string }) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
+
+    return (
+        <>
+            {parts.map((part, i) =>
+                urlRegex.test(part) ? (
+                    <a
+                        key={i}
+                        href={part}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-400 underline hover:text-blue-300 break-all"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {part}
+                    </a>
+                ) : (
+                    part
+                )
+            )}
+        </>
+    );
+};
+
+type Message = {
+    id?: string;
+    sender: string;
+    senderLevel: "MEMBER" | "ADMIN";
+    content: string;
+    mediaUrl?: string;
+    mediaType?: "image" | "video" | "audio";
+    createdAt?: string;
+    status?: "ACTIVE" | "DELETED";
+};
+
 // --- Sub-Component for Swipable Message ---
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
 const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete }: any) => {
-    // Swipe to Reply Logic
     const handlers = useSwipeable({
         onSwipedRight: () => onReply(m),
-        trackMouse: true, // Enable mouse swipe for desktop testing
+        trackMouse: true,
         preventScrollOnSwipe: true,
-        delta: 50, // Min distance
+        delta: 50,
     });
 
     const [showMenu, setShowMenu] = useState(false);
@@ -37,7 +75,6 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete }
             onContextMenu={onContextMenu}
             className={`flex flex-col ${isMe ? "items-end" : "items-start"} animate-in slide-in-from-bottom-2 duration-300 relative group`}
         >
-            {/* Context Menu */}
             {showMenu && (
                 <>
                     <div className="fixed inset-0 z-40" onClick={() => setShowMenu(false)} />
@@ -67,15 +104,12 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete }
             </div>
 
             <div className={`relative max-w-[85%] border ${currentStyle.bubble} ${isMe ? currentStyle.me : isAdmin ? currentStyle.admin : currentStyle.other} transition-transform active:scale-[0.98]`}>
-
-                {/* DELETED MESSAGE UI */}
                 {m.status === "DELETED" ? (
                     <div className="flex items-center gap-2 p-2 italic text-white/50 text-xs">
                         <span>🚫</span> This message was deleted
                     </div>
                 ) : (
                     <>
-                        {/* Media Content */}
                         {m.mediaUrl && (
                             <div className="rounded-t-lg overflow-hidden border-b border-black/5 -mx-[1px] -mt-[1px]">
                                 {m.mediaType === "video" ? (
@@ -86,18 +120,19 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete }
                                         <audio src={`${API_BASE}${m.mediaUrl}`} controls className="h-8 w-full max-w-[180px]" />
                                     </div>
                                 ) : (
-                                    /* eslint-disable-next-line @next/next/no-img-element */
+                                    // eslint-disable-next-line @next/next/no-img-element
                                     <img src={`${API_BASE}${m.mediaUrl}`} alt="media" className="w-full h-auto object-cover max-h-[400px]" />
                                 )}
                             </div>
                         )}
-
-                        {/* Text Content */}
-                        {m.content && <p className={`text-sm break-words leading-relaxed px-2 pt-1 ${m.mediaUrl ? '' : 'pb-1'}`}>{m.content}</p>}
+                        {m.content && (
+                            <div className={`text-sm break-words leading-relaxed px-2 pt-1 ${m.mediaUrl ? '' : 'pb-1'}`}>
+                                <Linkify text={m.content} />
+                            </div>
+                        )}
                     </>
                 )}
 
-                {/* Time & Ticks */}
                 <div className={`text-[9px] text-right font-mono px-2 pb-1 opacity-60 flex justify-end items-center gap-1 leading-none ${m.mediaUrl && !m.content ? "absolute bottom-1 right-1 bg-black/30 text-white rounded px-1" : "mt-0.5"}`}>
                     {m.createdAt ? new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}
                     {isMe && <span>✓✓</span>}
@@ -107,32 +142,19 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete }
     );
 };
 
-type Message = {
-    id?: string;
-    sender: string;
-    senderLevel: "MEMBER" | "ADMIN";
-    content: string;
-    mediaUrl?: string;
-    mediaType?: "image" | "video" | "audio";
-    createdAt?: string;
-    status?: "ACTIVE" | "DELETED";
-};
-
-export default function ChatRoom() {
+export default function ChatRoom({ roomId = "global" }: { roomId?: string }) {
     const { activeTheme, setTheme } = useGlobalSettings();
     const [socket, setSocket] = useState<Socket | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState("");
     const [user, setUser] = useState<{ username: string; token: string } | null>(null);
     const [isUploading, setIsUploading] = useState(false);
-
-    // WhatsApp Interactions
     const [showEmoji, setShowEmoji] = useState(false);
     const [replyTo, setReplyTo] = useState<Message | null>(null);
-
-    // Voice Chat State
     const [isRecording, setIsRecording] = useState(false);
     const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [showPreview, setShowPreview] = useState(false);
 
     const bottomRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -178,13 +200,13 @@ export default function ChatRoom() {
             bubble: "rounded-3xl rounded-br-none",
         },
         whatsapp: {
-            bg: "bg-[#0b141a] border-[#0b141a]", // Dark background (almost black)
+            bg: "bg-[#0b141a] border-[#0b141a]",
             header: "bg-[#1f2c34] border-white/5",
-            me: "bg-[#005c4b] text-[#e9edef] shadow-sm rounded-tr-none min-w-[120px]", // Dark Green
-            other: "bg-[#202c33] text-[#e9edef] shadow-sm rounded-tl-none min-w-[120px]", // Dark Grey
+            me: "bg-[#005c4b] text-[#e9edef] shadow-sm rounded-tr-none min-w-[120px]",
+            other: "bg-[#202c33] text-[#e9edef] shadow-sm rounded-tl-none min-w-[120px]",
             admin: "bg-[#202c33] text-yellow-400 border border-yellow-500/20",
             accent: "emerald",
-            bubble: "rounded-lg pb-1", // Reduced padding bottom
+            bubble: "rounded-lg pb-1",
         },
         telegram: {
             bg: "bg-[#0e1621] border-[#17212b]",
@@ -205,10 +227,10 @@ export default function ChatRoom() {
             bubble: "rounded-2xl",
         },
         whatsapp_light: {
-            bg: "bg-[#efe7dd] border-[#d1d7db]", // Beige
+            bg: "bg-[#efe7dd] border-[#d1d7db]",
             header: "bg-[#008069] border-[#008069] shadow-md",
-            me: "bg-[#d9fdd3] text-[#111b21] shadow-sm rounded-tr-none min-w-[120px]", // Light Green
-            other: "bg-white text-[#111b21] shadow-sm rounded-tl-none min-w-[120px]", // White
+            me: "bg-[#d9fdd3] text-[#111b21] shadow-sm rounded-tr-none min-w-[120px]",
+            other: "bg-white text-[#111b21] shadow-sm rounded-tl-none min-w-[120px]",
             admin: "bg-white text-orange-600 border border-orange-500/20",
             accent: "emerald",
             bubble: "rounded-lg pb-1",
@@ -235,9 +257,7 @@ export default function ChatRoom() {
 
     const currentStyle = themes[activeTheme] || themes.cyber;
 
-    // 1. Auth Check (Load User) - Fixed Dependency Array
     useEffect(() => {
-        console.log("🔌 ChatRoom mounted. API_BASE:", API_BASE);
         const token = localStorage.getItem("tipsmega_token");
         if (token) {
             fetch(`${API_BASE}/api/auth/me`, {
@@ -255,13 +275,11 @@ export default function ChatRoom() {
         } else {
             setUser({ username: "Guest", token: "" });
         }
-    }, []); // Re-check on mount
+    }, []);
 
     const [isConnected, setIsConnected] = useState(false);
 
-    // 2. Socket Connection
     useEffect(() => {
-        // Force websocket transport to avoid polling issues & CORS preflight complexity
         const s = io(API_BASE, {
             transports: ["websocket"],
             reconnectionAttempts: 5,
@@ -271,13 +289,7 @@ export default function ChatRoom() {
         s.on("connect", () => {
             console.log("✅ Socket connected:", s.id);
             setIsConnected(true);
-            s.emit("join_global");
-        });
-
-        s.on("connect_error", (err) => {
-            console.error("❌ Socket connection error:", err);
-            setIsConnected(false);
-            // alert("Connection Error: " + err.message); // Too noisy if retrying
+            s.emit("join_room", { roomId, username: user?.username || "Guest" });
         });
 
         s.on("disconnect", (reason) => {
@@ -314,7 +326,7 @@ export default function ChatRoom() {
         return () => {
             s.disconnect();
         };
-    }, []);
+    }, [user, roomId]);
 
     const scrollToBottom = () => {
         setTimeout(() => {
@@ -325,6 +337,7 @@ export default function ChatRoom() {
     const sendMessage = () => {
         if (!input.trim() || !socket) return;
         socket.emit("send_message", {
+            roomId,
             sender: user?.username || "Guest",
             content: input,
         });
@@ -343,7 +356,6 @@ export default function ChatRoom() {
         }
     };
 
-    // --- VOICE LOGIC ---
     const startRecording = async () => {
         if (!navigator.mediaDevices) {
             alert("Mic not supported/allowed");
@@ -359,7 +371,7 @@ export default function ChatRoom() {
             recorder.onstop = () => {
                 const blob = new Blob(chunks, { type: "audio/webm" });
                 uploadAudio(blob);
-                stream.getTracks().forEach(t => t.stop()); // release mic
+                stream.getTracks().forEach(t => t.stop());
             };
 
             recorder.start();
@@ -381,7 +393,6 @@ export default function ChatRoom() {
     const uploadAudio = async (blob: Blob) => {
         setIsUploading(true);
         const formData = new FormData();
-        // Create a dummy filename for audio
         const file = new File([blob], "voice.webm", { type: "audio/webm" });
         formData.append("file", file);
 
@@ -393,8 +404,9 @@ export default function ChatRoom() {
             const json = await res.json();
             if (json.ok && socket) {
                 socket.emit("send_message", {
+                    roomId,
                     sender: user?.username || "Guest",
-                    content: "", // Voice message
+                    content: "",
                     mediaUrl: json.url,
                     mediaType: "audio",
                 });
@@ -407,18 +419,23 @@ export default function ChatRoom() {
             setIsUploading(false);
         }
     };
-    // -------------------
 
-    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
-
         if (file.size > 50 * 1024 * 1024) {
             alert("File too large (Max 50MB)");
             return;
         }
+        setSelectedFile(file);
+        setShowPreview(true);
+        if (fileInputRef.current) fileInputRef.current.value = "";
+    };
 
+    const handleSendMedia = async (file: File, caption: string) => {
         setIsUploading(true);
+        setShowPreview(false);
+
         const formData = new FormData();
         formData.append("file", file);
 
@@ -431,32 +448,30 @@ export default function ChatRoom() {
 
             if (json.ok && socket) {
                 socket.emit("send_message", {
+                    roomId,
                     sender: user?.username || "Guest",
-                    content: "",
+                    content: caption,
                     mediaUrl: json.url,
                     mediaType: json.type
                 });
             } else {
-                console.error("Upload failed server response:", json);
-                alert("Upload Failed: " + (json.error || "Unknown error from server"));
+                alert("Upload Failed: " + (json.error || "Unknown error"));
             }
         } catch (err: any) {
-            console.error("Upload fetch error:", err);
-            alert("Upload Network Error: " + (err.message || String(err)));
+            console.error("Upload error:", err);
+            alert("Upload Network Error");
         } finally {
             setIsUploading(false);
-            if (fileInputRef.current) fileInputRef.current.value = "";
+            setSelectedFile(null);
         }
     };
 
     return (
         <div className={`flex flex-col w-full h-full font-sans border-opacity-50 relative ${currentStyle.bg}`}>
-
             {/* Header */}
             <div className={`flex items-center justify-between p-3 border-b shadow-lg ${currentStyle.header}`}>
                 <div className="flex items-center gap-3">
                     <div className="relative">
-                        {/* Status Indicator: Green=Connected, Red=Disconnected/Pulse */}
                         <div className={`w-3 h-3 rounded-full ${isConnected ? "bg-emerald-500 shadow-[0_0_10px_#10b981]" : "bg-red-500 animate-pulse shadow-[0_0_10px_#ef4444]"}`} />
                         {isConnected && <div className="absolute inset-0 w-3 h-3 rounded-full bg-emerald-400 animate-ping opacity-50" />}
                     </div>
@@ -469,7 +484,6 @@ export default function ChatRoom() {
                 </div>
 
                 <div className="flex items-center gap-2 mr-1">
-                    {/* Theme Dots */}
                     <div className="flex gap-1.5 px-2 py-1 bg-black/40 rounded-full border border-white/5 overflow-x-auto max-w-[150px] scrollbar-hide">
                         {["cyber", "gold", "matrix", "neon", "whatsapp", "whatsapp_light", "telegram", "telegram_light", "sakura", "sky"].map(t => (
                             <button
@@ -496,13 +510,9 @@ export default function ChatRoom() {
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-black/0 via-black/10 to-black/30 scrollbar-thin scrollbar-thumb-white/10 relative pb-24" onClick={() => setShowEmoji(false)}>
                 {messages.map((m, i) => {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     const isMe = m.sender === user?.username;
                     const isAdmin = m.senderLevel === "ADMIN";
 
-                    // Date Divider Logic
                     const prevM = messages[i - 1];
                     const currDate = new Date(m.createdAt || Date.now()).toDateString();
                     const prevDate = prevM ? new Date(prevM.createdAt || Date.now()).toDateString() : null;
@@ -520,7 +530,6 @@ export default function ChatRoom() {
                                     </span>
                                 </div>
                             )}
-                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                             <MessageItem
                                 m={m}
                                 isMe={isMe}
@@ -579,7 +588,6 @@ export default function ChatRoom() {
             {/* Input Area */}
             <div className={`p-3 border-t border-white/5 backdrop-blur-md ${currentStyle.bg} shrink-0`}>
                 <div className="flex items-center gap-2">
-                    {/* Emoji Toggle */}
                     <button
                         onClick={() => setShowEmoji(!showEmoji)}
                         className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-yellow-400 transition-colors"
@@ -587,7 +595,6 @@ export default function ChatRoom() {
                         😊
                     </button>
 
-                    {/* File Upload */}
                     <button
                         onClick={() => fileInputRef.current?.click()}
                         className={`p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-blue-400 transition-colors ${isUploading ? "animate-spin" : ""}`}
@@ -601,14 +608,13 @@ export default function ChatRoom() {
                         ref={fileInputRef}
                         className="hidden"
                         accept="image/*,video/*"
-                        onChange={handleFileUpload}
+                        onChange={handleFileSelect}
                     />
 
-                    {/* Voice Record */}
                     <button
                         onMouseDown={startRecording}
                         onMouseUp={stopRecording}
-                        onTouchStart={startRecording} // Mobile support
+                        onTouchStart={startRecording}
                         onTouchEnd={stopRecording}
                         className={`p-2 rounded-full transition-all duration-200 ${isRecording
                             ? "bg-red-500 text-white animate-pulse scale-110 shadow-[0_0_15px_red]"
@@ -620,7 +626,6 @@ export default function ChatRoom() {
                         🎤
                     </button>
 
-                    {/* Text Input */}
                     <input
                         className="flex-1 bg-black/40 border border-white/10 rounded-full h-10 px-4 text-xs text-white placeholder-white/20 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/20 transition-all"
                         placeholder={user?.username === "Guest" ? "Login to chat..." : isRecording ? "Recording..." : "Type message..."}
@@ -630,7 +635,6 @@ export default function ChatRoom() {
                         disabled={!user || user.username === "Guest" || isRecording}
                     />
 
-                    {/* Send Button */}
                     <button
                         onClick={sendMessage}
                         disabled={!user || user.username === "Guest" || !input.trim()}
@@ -651,6 +655,13 @@ export default function ChatRoom() {
                     </div>
                 )}
             </div>
+
+            <MediaPreviewModal
+                isOpen={showPreview}
+                file={selectedFile}
+                onClose={() => setShowPreview(false)}
+                onSend={handleSendMedia}
+            />
         </div>
     );
 }

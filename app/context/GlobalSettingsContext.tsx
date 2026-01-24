@@ -21,6 +21,8 @@ type SettingsContextType = {
     toggleChat: (open?: boolean) => void;
     activeTheme: string;
     setTheme: (t: string) => void;
+    user: { username: string; token: string; friends?: string[] } | null;
+    setUser: (u: { username: string; token: string; friends?: string[] } | null) => void;
 };
 
 const SettingsContext = createContext<SettingsContextType | null>(null);
@@ -35,6 +37,9 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
     // Audio Context Ref
     const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
 
+    // User Auth State
+    const [user, setUser] = useState<{ username: string; token: string; friends?: string[] } | null>(null);
+
     useEffect(() => {
         setTimeout(() => {
             setMounted(true);
@@ -45,13 +50,28 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
             if (s !== null) setSoundEnabled(s === "true");
             if (h !== null) setHapticEnabled(h === "true");
             if (t) setActiveTheme(t);
-        }, 0);
 
-        // Init Audio Context on first interaction usually, but we prep it here
-        if (typeof window !== "undefined" && window.AudioContext) {
-            setTimeout(() => setAudioCtx(new window.AudioContext()), 0);
-        }
+            // Fetch User
+            const token = localStorage.getItem("tipsmega_token");
+            if (token) {
+                const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+                fetch(`${API_BASE}/api/auth/me`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                })
+                    .then(r => r.json())
+                    .then(d => {
+                        if (d.ok) {
+                            setUser({ username: d.username, token, friends: d.friends || [] });
+                        }
+                    })
+                    .catch(console.error);
+            }
+        }, 0);
     }, []);
+
+    // ... (rest of audio/haptic code) ...
+
+
 
     const toggleSound = () => {
         const newVal = !soundEnabled;
@@ -144,6 +164,8 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
                 toggleChat,
                 activeTheme,
                 setTheme,
+                user,
+                setUser
             }}
         >
             {children}
