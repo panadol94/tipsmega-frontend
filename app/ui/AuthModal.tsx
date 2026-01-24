@@ -283,7 +283,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
             />
 
             {/* Main Card */}
-            <div className="relative w-full max-w-md bg-[#0f162a] border border-white/10 rounded-2xl shadow-2xl p-6 overflow-hidden animate-pop">
+            <div className="relative w-full max-w-md bg-[#0f162a] border border-white/10 rounded-2xl shadow-2xl p-6 max-h-[90vh] overflow-y-auto animate-pop scrollbar-hide">
 
                 {/* Glow Effects */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
@@ -358,10 +358,11 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                             <h3 className="text-xs font-black text-white/50 uppercase tracking-widest pl-1">Langkah 3: Dapatkan OTP</h3>
                             <div className="flex gap-2">
                                 <input
-                                    className="flex-1 h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-yellow-500/50 transition-all font-mono"
+                                    className={`flex-1 h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-yellow-500/50 transition-all font-mono ${otpSent ? "opacity-50 cursor-not-allowed" : ""}`}
                                     placeholder="No. Tel (e.g. 0123456789)"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
+                                    disabled={otpSent || busy}
                                 />
                                 <button
                                     onClick={requestOtp}
@@ -374,7 +375,21 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                                     {busy ? "..." : otpSent ? "OTP SENT ✓" : "MINTA OTP"}
                                 </button>
                             </div>
-                            {otpSent && <p className="text-[10px] text-green-400 pl-1">✅ OTP telah dihantar ke Telegram bot!</p>}
+                            {otpSent && (
+                                <div className="flex items-center justify-between pl-1">
+                                    <p className="text-[10px] text-green-400">✅ OTP telah dihantar!</p>
+                                    <button
+                                        onClick={() => {
+                                            setOtpSent(false);
+                                            setOtp("");
+                                            setBusy(false);
+                                        }}
+                                        className="text-[10px] text-yellow-400 underline hover:text-yellow-300"
+                                    >
+                                        Tukar Nombor?
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
                         {/* STEP 4: FILL DETAILS */}
@@ -413,7 +428,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                             <button
                                 disabled={busy}
                                 onClick={handleRegister}
-                                className={`w-full h-12 rounded-xl font-black tracking-widest text-xs uppercase transition-all shadow-lg ${busy ? "bg-gray-600 text-gray-400 cursor-not-allowed" :
+                                className={`w-full h-12 rounded-xl font-black tracking-widest text-xs uppercase transition-all shadow-lg relative z-10 ${busy ? "bg-gray-600 text-gray-400 cursor-not-allowed" :
                                     "bg-gradient-to-r from-emerald-500 to-emerald-700 border border-emerald-400 text-white shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:-translate-y-0.5"
                                     }`}
                             >

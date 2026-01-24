@@ -90,19 +90,42 @@ type Message = {
     mediaType?: "image" | "video" | "audio";
     createdAt?: string;
     status?: "ACTIVE" | "DELETED";
+    likes?: string[];
 };
 
 // --- Sub-Component for Swipable Message ---
+
+const VerifiedBadge = () => (
+    <span className="inline-flex items-center justify-center ml-1 align-middle" title="Verified VVIP">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.6)] animate-pulse-slow">
+            <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="8" fill="currentColor" className="opacity-20" />
+        </svg>
+    </span>
+);
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, groupPosition }: any) => {
+const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, groupPosition, onLike, playPopSound }: any) => {
+    const [showMenu, setShowMenu] = useState(false);
+    const [lastTap, setLastTap] = useState(0);
+
+    const handleTap = () => {
+        const now = Date.now();
+        if (now - lastTap < 300) {
+            // Double Tap !
+            if (playPopSound) playPopSound();
+            if (onLike) onLike(m);
+        }
+        setLastTap(now);
+    };
+
     const handlers = useSwipeable({
         onSwipedRight: () => onReply(m),
         trackMouse: true,
         preventScrollOnSwipe: true,
         delta: 50,
+        onTap: handleTap
     });
-
-    const [showMenu, setShowMenu] = useState(false);
 
     const onContextMenu = (e: React.MouseEvent) => {
         if (isMe) {
@@ -112,11 +135,6 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
     };
 
     // Grouping Logic for Border Radius
-    // single: rounded all
-    // start: rounded top, flat bottom-side
-    // middle: flat side
-    // end: flat top-side, rounded bottom (with tail)
-
     let borderRadiusClass = "rounded-2xl"; // default single
     if (isMe) {
         if (groupPosition === "start") borderRadiusClass = "rounded-2xl rounded-br-none";
@@ -131,6 +149,9 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
     const showAvatar = !isMe && (groupPosition === "end" || groupPosition === "single");
     const showName = !isMe && (groupPosition === "start" || groupPosition === "single");
 
+    const likeCount = m.likes ? m.likes.length : 0;
+    const iLiked = m.likes && user && m.likes.includes(user.username);
+
     return (
         <div
             {...handlers}
@@ -140,11 +161,18 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
             {/* Context Menu Overlay */}
             {showMenu && (
                 <>
-                    <div className="fixed inset-0 z-40" onClick={() => setShowMenu(false)} />
-                    <div className="absolute top-0 right-0 z-50 bg-[#233138] border border-white/5 shadow-2xl rounded-lg overflow-hidden py-1 min-w-[120px] animate-in fade-in zoom-in-95 duration-100">
-                        <button onClick={() => { onReply(m); setShowMenu(false); }} className="w-full text-left px-4 py-3 text-white hover:bg-white/5 text-xs font-medium">Reply</button>
+                    <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[1px] transition-all" onClick={() => setShowMenu(false)} />
+                    <div className="absolute top-0 right-0 z-50 bg-[#1f2937] border border-white/10 shadow-2xl rounded-xl overflow-hidden py-1 min-w-[140px] animate-in fade-in zoom-in-95 duration-100 flex flex-col">
+                        <button onClick={() => { onReply(m); setShowMenu(false); }} className="w-full text-left px-4 py-3 text-white hover:bg-white/5 text-xs font-semibold flex gap-3 items-center transition-colors">
+                            <span>↩</span> Reply
+                        </button>
+                        <button onClick={() => { if (onLike) onLike(m); setShowMenu(false); }} className={`w-full text-left px-4 py-3 hover:bg-white/5 text-xs font-semibold flex gap-3 items-center transition-colors ${iLiked ? "text-red-400" : "text-white"}`}>
+                            <span>{iLiked ? "💔" : "❤"}</span> {iLiked ? "Unlike" : "Like"}
+                        </button>
                         {isMe && m.status !== "DELETED" && (
-                            <button onClick={() => { onDelete(m); setShowMenu(false); }} className="w-full text-left px-4 py-3 text-red-400 hover:bg-white/5 text-xs font-medium">Delete</button>
+                            <button onClick={() => { onDelete(m); setShowMenu(false); }} className="w-full text-left px-4 py-3 text-red-400 hover:bg-red-500/10 text-xs font-semibold flex gap-3 items-center border-t border-white/10">
+                                <span>🗑</span> Delete
+                            </button>
                         )}
                     </div>
                 </>
@@ -154,7 +182,7 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
             {!isMe && (
                 <div className="w-8 shrink-0 flex flex-col justify-end">
                     {showAvatar ? (
-                        <div className={`w-8 h-8 rounded-full ${getAvatarColor(m.sender)} flex items-center justify-center text-[10px] font-black text-white border border-white/10 shadow-sm`}>
+                        <div className={`w-8 h-8 rounded-full ${getAvatarColor(m.sender)} flex items-center justify-center text-[10px] font-black text-white border border-white/10 shadow-sm relative overflow-hidden ring-1 ring-white/20`}>
                             {getAvatarInitials(m.sender)}
                         </div>
                     ) : <div className="w-8" />}
@@ -164,17 +192,19 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
             <div className={`flex flex-col max-w-[75%] ${isMe ? "items-end" : "items-start"}`}>
 
                 {showName && (
-                    <span className={`text-[10px] font-bold tracking-wide mb-1 px-1 ${isAdmin ? "text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" : "text-white/40"}`}>
-                        {isAdmin && "👑 "}{m.sender}
-                    </span>
+                    <div className="flex items-center gap-1.5 mb-1 px-1">
+                        <span className={`text-[10px] font-bold tracking-wide ${isAdmin ? "text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" : "text-white/40"}`}>
+                            {isAdmin && "👑 "}{m.sender}
+                        </span>
+                        {(isAdmin || m.sender === "panadol94" || m.sender === "System") && <VerifiedBadge />}
+                    </div>
                 )}
 
-                <div className={`relative border ${currentStyle.bubble} ${isMe ? currentStyle.me : isAdmin ? currentStyle.admin : currentStyle.other} ${borderRadiusClass} transition-all active:scale-[0.98] overflow-hidden`}>
+                <div className={`relative border ${currentStyle.bubble} ${isMe ? currentStyle.me : isAdmin ? currentStyle.admin : currentStyle.other} ${borderRadiusClass} transition-all active:scale-[0.98]`}>
 
                     {/* Tail Pseudo-element simulation */}
                     {(groupPosition === "end" || groupPosition === "single") && (
-                        <div className={`absolute bottom-0 w-3 h-3 ${isMe ? "-right-1.5 bg-[#c5a028]" : "-left-1.5 bg-[#1e293b]"} clip-tail hidden`} />
-                        // Note: Real tail needs complex CSS masking, stick to rounding logic for now for cleaner look
+                        <div className={`absolute bottom-0 w-3 h-3 ${isMe ? "-right-1.5 bg-[#c5a028]" : "-left-1.5 bg-[#1f2937]"} clip-tail hidden`} />
                     )}
 
                     {m.status === "DELETED" ? (
@@ -184,7 +214,7 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
                     ) : (
                         <>
                             {m.mediaUrl && (
-                                <div className="-mx-4 -mt-2 mb-2 border-b border-black/5">
+                                <div className="-mx-4 -mt-2 mb-2 border-b border-black/10">
                                     {m.mediaType === "video" ? (
                                         <video src={`${API_BASE}${m.mediaUrl}`} controls className="w-full h-auto object-cover max-h-[350px]" />
                                     ) : m.mediaType === "audio" ? (
@@ -199,22 +229,31 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
                                 </div>
                             )}
                             {m.content && (
-                                <div className="text-sm break-words leading-relaxed px-1">
+                                <div className="text-sm break-words leading-relaxed px-1 font-sans">
                                     <Linkify text={m.content} />
                                 </div>
                             )}
                         </>
                     )}
 
-                    <div className={`text-[9px] text-right font-mono mt-1 opacity-60 flex justify-end items-center gap-1 leading-none ${m.mediaUrl && !m.content ? "absolute bottom-2 right-2 bg-black/40 text-white rounded px-1 py-0.5 backdrop-blur-sm" : ""}`}>
+                    <div className={`text-[9px] text-right font-mono mt-0.5 opacity-60 flex justify-end items-center gap-1 leading-none ${m.mediaUrl && !m.content ? "absolute bottom-2 right-2 bg-black/40 text-white rounded px-1 py-0.5 backdrop-blur-sm" : ""}`}>
                         {m.createdAt ? new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}
                         {isMe && <span>✓✓</span>}
                     </div>
+
+                    {/* Reaction Heart Bubble */}
+                    {likeCount > 0 && (
+                        <div className={`absolute -bottom-2 ${isMe ? "-left-2" : "-right-2"} bg-[#1f2937] border border-white/20 rounded-full px-1.5 py-0.5 shadow-lg flex items-center gap-1 animate-in zoom-in duration-300 z-10`}>
+                            <span className="text-[10px] text-red-500">❤</span>
+                            {likeCount > 1 && <span className="text-[9px] font-bold text-white">{likeCount}</span>}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
     );
 };
+
 
 export default function ChatRoom({ roomId = "global", onBack }: { roomId?: string; onBack?: () => void }) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -323,6 +362,16 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
             ));
         });
 
+        // Handle Reactions / Updates
+        s.on("message_updated", (updatedMsg: Message) => {
+            setMessages(prev => prev.map(m =>
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                ((m.id === updatedMsg.id) || ((m as any)._id === (updatedMsg as any)._id))
+                    ? updatedMsg
+                    : m
+            ));
+        });
+
         return () => {
             s.disconnect();
         };
@@ -332,6 +381,18 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
         setTimeout(() => {
             bottomRef.current?.scrollIntoView({ behavior: "smooth" });
         }, 100);
+    };
+
+    const playPopSound = () => {
+        try {
+            const audio = new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA="); // Short dummy, replace with real pop if needed or handle logic
+            // Real simple pop sound base64
+            const realPop = "data:audio/mpeg;base64,SUQzBAAAAAABAFRYWFgAAAASAAADbWFqb3JfYnJhbmQAbXA0MgBUWFhYAAAAEQAAA21pbm9yX3ZlcnNpb24AMABUWFhYAAAAIAAAA2NvbXBhdGlibGVfYnJhbmRzAGlzb21tcDQyAGTSsAAAAAAABVInfoAA";
+            // SHORTCUT: Just use a standard browser click if possible, or silence if no file.
+            // Using a very short beep base64 for now
+            const beep = "data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YX5vT18AAB4eHj4+Pj4+Hh4eAAAAHh4ePj4+Pj4eHh4AAAAeHh4+Pj4+Ph4eHgAAAB4eHj4+Pj4+Hh4e";
+            new Audio(beep).play().catch(() => { });
+        } catch (e) { console.error(e); }
     };
 
     const sendMessage = () => {
@@ -353,6 +414,36 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                 messageId: m.id || (m as any)._id,
                 sender: user?.username
             });
+        }
+    };
+
+    const handleLike = async (m: Message) => {
+        if (!user || (!m.id && !(m as any)._id)) return;
+
+        // Optimistic Update
+        setMessages(prev => prev.map(msg => {
+            if ((msg.id === m.id) || ((msg as any)._id === (m as any)._id)) {
+                const likes = msg.likes || [];
+                const myIdx = likes.indexOf(user.username);
+                const newLikes = [...likes];
+                if (myIdx >= 0) newLikes.splice(myIdx, 1);
+                else newLikes.push(user.username);
+                return { ...msg, likes: newLikes };
+            }
+            return msg;
+        }));
+
+        try {
+            await fetch(`${API_BASE}/api/chat/react`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${user.token}`
+                },
+                body: JSON.stringify({ messageId: m.id || (m as any)._id })
+            });
+        } catch (e) {
+            console.error("Like error", e);
         }
     };
 
@@ -546,6 +637,8 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                                 user={user}
                                 onReply={setReplyTo}
                                 onDelete={deleteMessage}
+                                onLike={handleLike}
+                                playPopSound={playPopSound}
                                 groupPosition={pos}
                             />
                         </div>
