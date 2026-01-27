@@ -140,14 +140,14 @@ export default function TrustedClient() {
                             return (
                                 <article key={c.id || idx} className="group relative bg-[#151c27] border border-white/10 rounded-xl overflow-hidden shadow-lg transition-transform active:scale-95">
 
-                                    {/* Media Section - Compact */}
-                                    <div className="h-24 w-full bg-black relative overflow-hidden">
+                                    {/* Media Section - Enhanced */}
+                                    <div className="h-32 w-full bg-black relative overflow-hidden">
                                         {c.storageUrl ? (
                                             showVideo ? (
                                                 <video
                                                     src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
                                                     muted playsInline loop autoPlay
-                                                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100"
+                                                    className="w-full h-full object-cover object-center opacity-90 group-hover:opacity-100 transition-opacity"
                                                 />
                                             ) : (
                                                 // eslint-disable-next-line @next/next/no-img-element
@@ -155,7 +155,7 @@ export default function TrustedClient() {
                                                     src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
                                                     alt={c.name}
                                                     loading="lazy"
-                                                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100"
+                                                    className="w-full h-full object-cover object-center opacity-90 group-hover:opacity-100 transition-opacity"
                                                 />
                                             )
                                         ) : (
@@ -174,30 +174,41 @@ export default function TrustedClient() {
                                         </div>
                                     </div>
 
-                                    {/* Content Section - Compact */}
+                                    {/* Content Section - Enhanced with Caption & Bonuses */}
                                     <div className="p-2 relative flex flex-col items-center text-center">
                                         {/* Glow Effect */}
                                         <div className="absolute -top-6 left-0 right-0 h-10 bg-gradient-to-b from-black via-[#151c27] to-[#151c27]" />
 
-                                        <div className="relative z-10 -mt-1 w-full">
+                                        <div className="relative z-10 -mt-1 w-full space-y-1.5">
+                                            {/* Company Name */}
                                             <h2 className="text-[10px] font-black italic text-white uppercase tracking-wide truncate w-full">
                                                 {c.name}
                                             </h2>
 
-                                            <div className="mt-2 w-full">
+                                            {/* Caption - Bonus/Promo Display */}
+                                            {c.caption && (
+                                                <div className="min-h-[28px] flex items-center justify-center">
+                                                    <p className="text-[9px] font-bold text-amber-400 leading-tight px-1 animate-pulse">
+                                                        🎁 {c.caption}
+                                                    </p>
+                                                </div>
+                                            )}
+
+                                            {/* Action Button */}
+                                            <div className="w-full">
                                                 {url ? (
                                                     <button
                                                         onClick={() => handleAction(url)}
-                                                        className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 border border-white/10 text-white font-bold text-[9px] uppercase py-1.5 rounded-lg shadow-md active:scale-95"
+                                                        className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 border border-white/10 text-white font-bold text-[9px] uppercase py-1.5 rounded-lg shadow-md active:scale-95 hover:shadow-amber-500/50 transition-all"
                                                     >
-                                                        PLAY
+                                                        🚀 PLAY NOW
                                                     </button>
                                                 ) : (
                                                     <button
                                                         onClick={() => handleAction(waHref)}
                                                         className="w-full bg-white/5 border border-white/10 text-white/70 font-bold text-[9px] uppercase py-1.5 rounded-lg active:scale-95"
                                                     >
-                                                        LINK
+                                                        📱 GET LINK
                                                     </button>
                                                 )}
                                             </div>

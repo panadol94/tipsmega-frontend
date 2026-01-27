@@ -7,7 +7,7 @@ import TypewriterText from "./ui/TypewriterText";
 import TerminalScan from "./ui/TerminalScan";
 import AuthModal from "./ui/AuthModal";
 import InstallPrompt from "./ui/InstallPrompt";
-import GlitchTitle from "./ui/GlitchTitle";
+import FAQSection from "./ui/FAQSection";
 import { MEGA888_GAMES } from "./data/mega888Games";
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
 
@@ -302,6 +302,9 @@ export default function Page() {
           onComplete={() => setBusy(false)}
         />
       ) : null}
+
+      {/* FAQ SECTION - SEO Optimized */}
+      <FAQSection />
 
       {/* AUTH MODAL */}
       {authOpen && (
