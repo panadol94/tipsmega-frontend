@@ -33,14 +33,21 @@ export default function CreateGroupModal({
     };
 
     const handleCreate = () => {
-        if (!groupName.trim() || selectedMembers.length === 0 || !socket) return;
+        if (!groupName.trim() || !socket) return;
+
+        // Allow creating groups with or without members
+        const members = selectedMembers.length > 0
+            ? [...selectedMembers, user?.username]
+            : [user?.username];
 
         socket.emit("create_group", {
             name: groupName,
-            members: [...selectedMembers, user?.username], // Include self
+            members,
             admins: [user?.username]
         });
         onClose();
+        setGroupName("");
+        setSelectedMembers([]);
     };
 
     return (
@@ -60,10 +67,10 @@ export default function CreateGroupModal({
                     </div>
 
                     <div>
-                        <label className="text-xs text-white/50 uppercase tracking-wider font-bold mb-2 block">Select Members</label>
+                        <label className="text-xs text-white/50 uppercase tracking-wider font-bold mb-2 block">Select Members (Optional)</label>
                         <div className="max-h-[150px] overflow-y-auto space-y-2 pr-1 scrollbar-thin scrollbar-thumb-white/10">
                             {effectiveFriends.length === 0 ? (
-                                <p className="text-white/30 text-sm italic text-center py-4">No friends found. Add friends first!</p>
+                                <p className="text-white/30 text-sm italic text-center py-4">No friends yet. You can create a group anyway!</p>
                             ) : (
                                 effectiveFriends.map(friend => (
                                     <div
@@ -91,7 +98,7 @@ export default function CreateGroupModal({
                         </button>
                         <button
                             onClick={handleCreate}
-                            disabled={!groupName.trim() || selectedMembers.length === 0}
+                            disabled={!groupName.trim()}
                             className="flex-1 py-3 rounded-xl bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-900/20 hover:bg-emerald-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Create Group

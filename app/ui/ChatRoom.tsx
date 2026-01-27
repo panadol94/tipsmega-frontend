@@ -326,9 +326,8 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
         });
 
         s.on("connect_error", (err) => {
-            console.error("❌ Socket connection error:", err);
+            console.warn("⚠️ Socket connection error (retrying...):", err.message);
             setIsConnected(false);
-            // alert("Connection Error: " + err.message); // Too noisy if retrying
         });
 
         s.on("disconnect", (reason) => {
@@ -580,9 +579,11 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                     </div>
                     <div className="flex flex-col">
                         <h3 className="font-bold text-white text-sm tracking-wide uppercase bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(245,158,11,0.2)]">
-                            VVIP LOUNGE
+                            {roomId === "global" ? "SEMBANG SANTAI (GLOBAL)" : roomId.toUpperCase()}
                         </h3>
-                        <div className="text-[10px] text-amber-500/60 font-mono tracking-widest">PREMIUM NETWORK</div>
+                        <div className="text-[10px] text-amber-500/60 font-mono tracking-widest">
+                            {roomId === "global" ? "PUBLIC CHAT" : "PREMIUM NETWORK"}
+                        </div>
                     </div>
                 </div>
 
@@ -593,7 +594,10 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[url('/img/noise.png')] bg-opacity-5 relative pb-28" onClick={() => setShowEmoji(false)}>
+            <div
+                className="flex-1 overflow-y-auto p-4 space-y-4 relative pb-28"
+                onClick={() => setShowEmoji(false)}
+            >
                 {/* Background Glow */}
                 <div className="absolute inset-0 bg-gradient-to-b from-amber-900/5 via-transparent to-blue-900/5 pointer-events-none" />
 
