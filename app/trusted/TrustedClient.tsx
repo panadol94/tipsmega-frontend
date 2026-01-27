@@ -138,7 +138,7 @@ export default function TrustedClient() {
                             const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`${WHATSAPP_TEXT}${c.name}`)}`;
 
                             return (
-                                <article key={c.id || idx} className="group relative bg-[#151c27] border border-white/10 rounded-xl overflow-hidden shadow-lg transition-transform active:scale-95">
+                                <article key={c.id || idx} className="neon-border-card group relative bg-[#151c27] border border-white/10 rounded-xl overflow-hidden shadow-lg transition-transform active:scale-95">
 
                                     {/* Media Section - Enhanced */}
                                     <div className="h-32 w-full bg-black relative overflow-hidden">
