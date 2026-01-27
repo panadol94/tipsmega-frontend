@@ -53,9 +53,40 @@ export default function TerminalScan({
   const [lines, setLines] = useState<Line[]>([]);
   const [isRunning, setIsRunning] = useState(false);
   const [cursorOn, setCursorOn] = useState(true);
+  const [showShareBtn, setShowShareBtn] = useState(false);
   const boxRef = useRef<HTMLDivElement | null>(null);
 
   const deck = useMemo(() => shuffle(games), [games]);
+
+  // Share function with copyright
+  const handleShare = async () => {
+    const shareText = `🎰 MEGA888 RTP SCAN RESULTS\n\n` +
+      `📊 Overall RTP: ${overallRtp}%\n` +
+      `🎮 Games Scanned: ${games.length}\n` +
+      `🆔 ID: ${idMasked}\n` +
+      `⏰ ${new Date().toLocaleString()}\n\n` +
+      `━━━━━━━━━━━━━━━━━━━━━━\n` +
+      `Top 5 Results:\n` +
+      lines.slice(-10, -1).filter(l => l.text.includes('%')).slice(0, 5).map(l => `${l.text}`).join('\n') +
+      `\n━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+      `© Powered by www.tipsmega888.com\n` +
+      `🔗 Get your scan: https://www.tipsmega888.com`;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: '🎰 MEGA888 RTP Scan Results',
+          text: shareText,
+        });
+      } else {
+        await navigator.clipboard.writeText(shareText);
+        alert('✅ Result copied to clipboard!');
+      }
+    } catch (err) {
+      console.error('Share failed:', err);
+    }
+  };
+
 
   // cursor blink
   useEffect(() => {
@@ -112,6 +143,7 @@ export default function TerminalScan({
           pushLine({ text: "--------------------------------", tone: "sys" });
           pushLine({ text: ">>> DONE. STREAM COMPLETE.", tone: "sys" });
           setIsRunning(false);
+          setShowShareBtn(true);
           if (onComplete) onComplete();
           return;
         }
@@ -177,7 +209,25 @@ export default function TerminalScan({
         <div style={{ color: textColor }}>{cursorOn ? "█" : " "}</div>
       </div>
 
-      <div className="mt-3 text-xs text-white/55">Use carefully ! Do Not Spam Our Server</div>
+      <div className="mt-3 flex items-center justify-between gap-3">
+        <div className="text-xs text-white/55">Use carefully ! Do Not Spam Our Server</div>
+
+        {showShareBtn && (
+          <button
+            onClick={handleShare}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-bold rounded-lg shadow-md transition-all active:scale-95"
+          >
+            <span>📤</span>
+            <span>SHARE RESULT</span>
+          </button>
+        )}
+      </div>
+
+      {showShareBtn && (
+        <div className="mt-2 text-center text-[10px] text-white/40">
+          © Powered by www.tipsmega888.com
+        </div>
+      )}
     </section>
   );
 }
