@@ -199,7 +199,7 @@ export default function TrustedClient() {
                                                 {url ? (
                                                     <button
                                                         onClick={() => handleAction(url)}
-                                                        className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 border border-white/10 text-white font-bold text-[9px] uppercase py-1.5 rounded-lg shadow-md active:scale-95 hover:shadow-amber-500/50 transition-all"
+                                                        className="btn-play-glow w-full bg-gradient-to-r from-amber-600 to-yellow-600 border border-white/10 text-white font-bold text-[9px] uppercase py-1.5 rounded-lg shadow-md active:scale-95 hover:shadow-amber-500/50 transition-all"
                                                     >
                                                         🚀 PLAY NOW
                                                     </button>
