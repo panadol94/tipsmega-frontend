@@ -156,7 +156,7 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
         <div
             {...handlers}
             onContextMenu={onContextMenu}
-            className={`flex ${isMe ? "justify-end" : "justify-start"} items-end gap-2 animate-in slide-in-from-bottom-1 duration-200 relative group w-full ${groupPosition === "middle" ? "mb-0.5" : "mb-2"}`}
+            className={`message-animate flex ${isMe ? "justify-end" : "justify-start"} items-end gap-2 relative group w-full ${groupPosition === "middle" ? "mb-0.5" : "mb-2"}`}
         >
             {/* Context Menu Overlay */}
             {showMenu && (
@@ -182,7 +182,7 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
             {!isMe && (
                 <div className="w-8 shrink-0 flex flex-col justify-end">
                     {showAvatar ? (
-                        <div className={`w-8 h-8 rounded-full ${getAvatarColor(m.sender)} flex items-center justify-center text-[10px] font-black text-white border border-white/10 shadow-sm relative overflow-hidden ring-1 ring-white/20`}>
+                        <div className={`chat-avatar w-8 h-8 rounded-full ${getAvatarColor(m.sender)} flex items-center justify-center text-[10px] font-black text-white border border-white/10 shadow-sm relative overflow-hidden ring-1 ring-white/20`}>
                             {getAvatarInitials(m.sender)}
                         </div>
                     ) : <div className="w-8" />}
@@ -243,7 +243,7 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
 
                     {/* Reaction Heart Bubble */}
                     {likeCount > 0 && (
-                        <div className={`absolute -bottom-2 ${isMe ? "-left-2" : "-right-2"} bg-[#1f2937] border border-white/20 rounded-full px-1.5 py-0.5 shadow-lg flex items-center gap-1 animate-in zoom-in duration-300 z-10`}>
+                        <div className={`reaction-animate absolute -bottom-2 ${isMe ? "-left-2" : "-right-2"} bg-[#1f2937] border border-white/20 rounded-full px-1.5 py-0.5 shadow-lg flex items-center gap-1 z-10`}>
                             <span className="text-[10px] text-red-500">❤</span>
                             {likeCount > 1 && <span className="text-[9px] font-bold text-white">{likeCount}</span>}
                         </div>
@@ -578,7 +578,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                         {isConnected && <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping opacity-50" />}
                     </div>
                     <div className="flex flex-col">
-                        <h3 className="font-bold text-white text-sm tracking-wide uppercase bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(245,158,11,0.2)]">
+                        <h3 className="chat-header-gradient font-bold text-white text-sm tracking-wide uppercase drop-shadow-[0_2px_10px_rgba(245,158,11,0.2)]">
                             {roomId === "global" ? "SEMBANG SANTAI (GLOBAL)" : roomId.toUpperCase()}
                         </h3>
                         <div className="text-[10px] text-amber-500/60 font-mono tracking-widest">
@@ -595,7 +595,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
 
             {/* Messages */}
             <div
-                className="flex-1 overflow-y-auto p-4 space-y-4 relative pb-28"
+                className="chat-messages-container flex-1 overflow-y-auto p-4 space-y-4 relative pb-28"
                 onClick={() => setShowEmoji(false)}
             >
                 {/* Background Glow */}
@@ -696,14 +696,14 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                 <div className="flex items-center gap-2">
                     <button
                         onClick={() => setShowEmoji(!showEmoji)}
-                        className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-yellow-400 transition-colors"
+                        className="chat-button-press p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-yellow-400 transition-colors"
                     >
                         😊
                     </button>
 
                     <button
                         onClick={() => fileInputRef.current?.click()}
-                        className={`p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-blue-400 transition-colors ${isUploading ? "animate-spin" : ""}`}
+                        className={`chat-button-press p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-blue-400 transition-colors ${isUploading ? "animate-spin" : ""}`}
                         disabled={isUploading}
                         title="Send Image/Video"
                     >
@@ -744,7 +744,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                     <button
                         onClick={sendMessage}
                         disabled={!user || user.username === "Guest" || !input.trim()}
-                        className={`p-2 rounded-full text-white shadow-lg transition-all transform active:scale-95 disabled:opacity-50 disabled:shadow-none bg-${currentStyle.accent}-600 shadow-${currentStyle.accent}-600/20 hover:shadow-${currentStyle.accent}-600/40`}
+                        className={`chat-button-press p-2 rounded-full text-white shadow-lg transition-all disabled:opacity-50 disabled:shadow-none bg-${currentStyle.accent}-600 shadow-${currentStyle.accent}-600/20 hover:shadow-${currentStyle.accent}-600/40`}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="-ml-0.5">
                             <line x1="22" y1="2" x2="11" y2="13"></line>
