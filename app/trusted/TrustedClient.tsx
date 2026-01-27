@@ -147,7 +147,7 @@ export default function TrustedClient() {
                                                 <video
                                                     src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
                                                     muted playsInline loop autoPlay
-                                                    className="w-full h-full object-cover object-center opacity-90 group-hover:opacity-100 transition-opacity"
+                                                    className="w-full h-full object-cover object-center transition-opacity"
                                                 />
                                             ) : (
                                                 // eslint-disable-next-line @next/next/no-img-element
@@ -155,7 +155,7 @@ export default function TrustedClient() {
                                                     src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
                                                     alt={c.name}
                                                     loading="lazy"
-                                                    className="w-full h-full object-cover object-center opacity-90 group-hover:opacity-100 transition-opacity"
+                                                    className="w-full h-full object-cover object-center transition-opacity"
                                                 />
                                             )
                                         ) : (
