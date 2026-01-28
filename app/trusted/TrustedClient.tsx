@@ -328,8 +328,10 @@ export default function TrustedClient() {
                                                     muted
                                                     playsInline
                                                     loop
-                                                    autoPlay
-                                                    className="w-full h-full object-cover object-center transition-opacity"
+                                                    preload="metadata"
+                                                    className="w-full h-full object-cover object-center transition-opacity hover:opacity-90"
+                                                    onMouseEnter={(e) => e.currentTarget.play()}
+                                                    onMouseLeave={(e) => e.currentTarget.pause()}
                                                 />
                                             ) : (
                                                 // eslint-disable-next-line @next/next/no-img-element
