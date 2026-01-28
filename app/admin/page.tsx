@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
@@ -32,11 +32,7 @@ export default function AdminDashboard() {
     const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchStats();
-    }, []);
-
-    const fetchStats = async () => {
+    const fetchStats = useCallback(async () => {
         try {
             const token = localStorage.getItem("admin_token");
             const res = await fetch(`${API_BASE}/api/admin/stats`, {
@@ -44,7 +40,14 @@ export default function AdminDashboard() {
             });
             if (res.ok) {
                 const data = await res.json();
-                setStats(data.stats || stats);
+                setStats(data.stats || {
+                    totalUsers: 0,
+                    activeToday: 0,
+                    totalScans: 0,
+                    totalGames: 0,
+                    totalCompanies: 0,
+                    chatMessages24h: 0
+                });
                 setRecentActivity(data.recentActivity || []);
             }
         } catch (err) {
@@ -52,7 +55,11 @@ export default function AdminDashboard() {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        fetchStats();
+    }, [fetchStats]);
 
     const statCards = [
         { label: "Total Users", value: stats.totalUsers, icon: "👥", color: "blue", href: "/admin/users" },
@@ -85,28 +92,48 @@ export default function AdminDashboard() {
         <div className="space-y-6">
             {/* Stats Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                {statCards.map((stat) => (
-                    <Link
-                        key={stat.label}
-                        href={stat.href}
-                        className={`
-                            bg-slate-800 border border-slate-700 rounded-2xl p-4
-                            hover:border-${stat.color}-500/50 hover:shadow-lg hover:shadow-${stat.color}-500/10
-                            transition-all duration-300 group
-                        `}
-                    >
-                        <div className="flex items-center justify-between mb-2">
-                            <span className="text-2xl">{stat.icon}</span>
-                            <span className={`text-xs font-bold uppercase text-${stat.color}-400`}>
-                                {stat.label.split(" ")[0]}
-                            </span>
-                        </div>
-                        <div className="text-2xl font-bold text-white group-hover:scale-105 transition-transform">
-                            {stat.value.toLocaleString()}
-                        </div>
-                        <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
-                    </Link>
-                ))}
+                {statCards.map((stat) => {
+                    const hoverClasses = {
+                        blue: "hover:border-blue-500/50 hover:shadow-blue-500/10",
+                        emerald: "hover:border-emerald-500/50 hover:shadow-emerald-500/10",
+                        purple: "hover:border-purple-500/50 hover:shadow-purple-500/10",
+                        amber: "hover:border-amber-500/50 hover:shadow-amber-500/10",
+                        pink: "hover:border-pink-500/50 hover:shadow-pink-500/10",
+                        cyan: "hover:border-cyan-500/50 hover:shadow-cyan-500/10",
+                    }[stat.color] || "hover:border-slate-500/50";
+
+                    const textColorClasses = {
+                        blue: "text-blue-400",
+                        emerald: "text-emerald-400",
+                        purple: "text-purple-400",
+                        amber: "text-amber-400",
+                        pink: "text-pink-400",
+                        cyan: "text-cyan-400",
+                    }[stat.color] || "text-slate-400";
+
+                    return (
+                        <Link
+                            key={stat.label}
+                            href={stat.href}
+                            className={`
+                                bg-slate-800 border border-slate-700 rounded-2xl p-4
+                                ${hoverClasses} hover:shadow-lg
+                                transition-all duration-300 group
+                            `}
+                        >
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-2xl">{stat.icon}</span>
+                                <span className={`text-xs font-bold uppercase ${textColorClasses}`}>
+                                    {stat.label.split(" ")[0]}
+                                </span>
+                            </div>
+                            <div className="text-2xl font-bold text-white group-hover:scale-105 transition-transform">
+                                {stat.value.toLocaleString()}
+                            </div>
+                            <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
+                        </Link>
+                    );
+                })}
             </div>
 
             {/* Quick Actions */}
