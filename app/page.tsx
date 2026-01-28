@@ -316,7 +316,7 @@ export default function Page() {
               <div className="text-sm" style={{ fontWeight: 900 }}>
                 [ACCESS] Stars: {Math.max(0, stars)}
               </div>
-              <div className="text-xs text-white/60">[STATUS] Device Online</div>
+              <p className="text-xs text-white/55">Use carefully ! Do Not Spam Our Server</p>
             </div>
           </div>
 
@@ -464,7 +464,7 @@ export default function Page() {
                 <h3 className="text-white font-bold mb-2 flex items-center gap-2">
                   <span className="text-cyan-400">4️⃣</span> Smart Recommendations
                 </h3>
-                <p className="leading-relaxed">AI suggest game mana yang paling 'hot' untuk ID anda based on current RTP status. Play smart, win more!</p>
+                <p className="leading-relaxed">AI suggest game mana yang paling hot untuk ID anda based on current RTP status. Play smart, win more!</p>
               </div>
             </div>
           </article>
