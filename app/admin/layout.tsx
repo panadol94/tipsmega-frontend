@@ -24,7 +24,16 @@ export default function AdminLayout({
     const [isLoading, setIsLoading] = useState(true);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
+    // Check if we're on login page
+    const isLoginPage = pathname === "/admin/login";
+
     useEffect(() => {
+        // Skip auth check for login page
+        if (isLoginPage) {
+            setIsLoading(false);
+            return;
+        }
+
         // Check admin auth
         const token = localStorage.getItem("admin_token");
         if (!token) {
@@ -33,7 +42,7 @@ export default function AdminLayout({
             setIsAuthenticated(true);
         }
         setIsLoading(false);
-    }, [router]);
+    }, [router, isLoginPage, pathname]);
 
     const handleLogout = () => {
         localStorage.removeItem("admin_token");
@@ -46,6 +55,11 @@ export default function AdminLayout({
                 <div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full" />
             </div>
         );
+    }
+
+    // Login page should render without admin layout
+    if (isLoginPage) {
+        return <>{children}</>;
     }
 
     if (!isAuthenticated) {
