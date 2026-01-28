@@ -192,11 +192,11 @@ export default function TrustedClient() {
 
                                     {/* Dynamic Status Badges */}
                                     {badges.length > 0 && (
-                                        <div className="absolute top-2 left-2 z-20 flex gap-1">
+                                        <div className="absolute top-2 left-2 z-20 flex flex-wrap gap-1 max-w-[80%]">
                                             {badges.map((badge, i) => (
                                                 <span
                                                     key={i}
-                                                    className={`${badge.color} text-white text-[8px] font-black px-2 py-0.5 rounded-full shadow-lg animate-pulse backdrop-blur-sm`}
+                                                    className={`${badge.color} text-white text-[7px] font-black px-1.5 py-0.5 rounded-full shadow-lg animate-pulse backdrop-blur-sm whitespace-nowrap`}
                                                 >
                                                     {badge.icon} {badge.text}
                                                 </span>
