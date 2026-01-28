@@ -28,11 +28,6 @@ function normalizeUrl(url?: string) {
     return `https://${t.replace(/^\/+/, "")}`;
 }
 
-function isVideo(c: Company) {
-    const mt = (c.mediaType || "").toLowerCase();
-    const u = (c.storageUrl || "").toLowerCase();
-    return mt.includes("video") || u.endsWith(".mp4") || u.endsWith(".webm") || u.endsWith(".mov");
-}
 
 function openNewTab(url: string) {
     if (!url) return;
