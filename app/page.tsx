@@ -176,7 +176,7 @@ export default function Page() {
           // IP changed! Show warning
           showToast(
             `⚠️ IP berubah! Lama: ${storedIp.substring(0, 8)}... → Baru: ${currentIp.substring(0, 8)}... Cooldown masih aktif per device.`,
-            "warning"
+            "error"
           );
           playSound("error");
           triggerHaptic(300);
