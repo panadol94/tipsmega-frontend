@@ -81,8 +81,7 @@ export default function TerminalScan({
       `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
       gameResults.map((g, i) => `${i + 1}. ${g.text.trim()}`).join('\n') +
       `\n\n━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `© Powered by www.tipsmega888.com\n` +
-      `🔗 Get your scan: https://www.tipsmega888.com`;
+      `© Powered by www.tipsmega888.com`;
 
     try {
       if (navigator.share) {
