@@ -97,8 +97,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ms" suppressHydrationWarning>
-      <body className={exo2.className}>
+    <html lang="ms" suppressHydrationWarning className={exo2.className}>
+      <head>
+        {/* DNS Prefetch & Preconnect for faster font loading */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body>
         <GlobalSettingsProvider>
           <Shell>{children}</Shell>
         </GlobalSettingsProvider>
