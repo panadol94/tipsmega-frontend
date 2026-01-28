@@ -1860,3 +1860,18 @@ a {
     opacity: 0.3;
 }
 
+
+/* 3D Card Tilt Effect */
+.card-3d-tilt {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.card-3d-tilt:hover {
+    transform: perspective(1000px) 
+               rotateX(var(--rotate-x, 0deg)) 
+               rotateY(var(--rotate-y, 0deg)) 
+               translateY(-8px) 
+               scale(1.02);
+}
+

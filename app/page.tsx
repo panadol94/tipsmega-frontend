@@ -9,6 +9,7 @@ import AuthModal from "./ui/AuthModal";
 import InstallPrompt from "./ui/InstallPrompt";
 import { MEGA888_GAMES } from "./data/mega888Games";
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
+import confetti from "canvas-confetti";
 
 type InitRes = { deviceId: string; stars: number; isNew: boolean };
 type ScanRes = { ok?: boolean; overallRtp?: number; stars?: number; error?: string; detail?: string };
@@ -186,6 +187,18 @@ export default function Page() {
         // We can play a "computer processing" sound here or just wait.
         playSound("success");
         triggerHaptic([50, 50, 50]);
+
+        // 🎉 Confetti on high RTP (>80%)
+        if (sig > 80) {
+          setTimeout(() => {
+            confetti({
+              particleCount: 100,
+              spread: 70,
+              origin: { y: 0.6 },
+              colors: ['#00d9ff', '#a855f7', '#ff00ff', '#fbbf24'],
+            });
+          }, 800);
+        }
       }
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "Network failure.";
