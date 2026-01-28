@@ -137,11 +137,44 @@ export default function TrustedClient() {
                             const showVideo = isVideo(c);
                             const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`${WHATSAPP_TEXT}${c.name}`)}`;
 
-                            return (
-                                <article key={c.id || idx} className="neon-border-card group relative bg-[#151c27] border border-white/10 rounded-xl shadow-lg transition-transform active:scale-95">
+                            // Dynamic badge assignment
+                            const badges = [];
+                            if (idx === 0) badges.push({ icon: '🔥', text: 'TRENDING', color: 'bg-red-500/90' });
+                            else if (idx === 1) badges.push({ icon: '⚡', text: 'FAST', color: 'bg-yellow-500/90' });
+                            else if (c.caption) badges.push({ icon: '🎁', text: 'BONUS', color: 'bg-purple-500/90' });
 
-                                    {/* Media Section - Enhanced */}
-                                    <div className="h-32 w-full bg-black relative overflow-hidden">
+                            // Mock live player count
+                            const playerCount = Math.floor(Math.random() * 2000) + 500;
+
+                            // Trust rating (hardcoded premium values)
+                            const rating = idx === 0 ? 5.0 : (4.5 + Math.random() * 0.4);
+                            const stars = Math.round(rating);
+
+                            return (
+                                <article
+                                    key={c.id || idx}
+                                    className="neon-border-card group relative bg-[#151c27] border border-white/10 rounded-xl shadow-lg transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,217,255,0.3),0_0_80px_rgba(255,0,255,0.2)] active:scale-95"
+                                    style={{
+                                        animationDelay: `${idx * 100}ms`,
+                                    }}
+                                >
+
+                                    {/* Dynamic Status Badges */}
+                                    {badges.length > 0 && (
+                                        <div className="absolute top-2 left-2 z-20 flex gap-1">
+                                            {badges.map((badge, i) => (
+                                                <span
+                                                    key={i}
+                                                    className={`${badge.color} text-white text-[8px] font-black px-2 py-0.5 rounded-full shadow-lg animate-pulse backdrop-blur-sm`}
+                                                >
+                                                    {badge.icon} {badge.text}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {/* Media Section - Enhanced with Gradient Overlay */}
+                                    <div className="h-32 w-full bg-black relative overflow-hidden group-hover:after:opacity-100 after:absolute after:inset-0 after:bg-gradient-to-br after:from-cyan-500/10 after:to-purple-500/10 after:opacity-0 after:transition-opacity after:duration-500">
                                         {c.storageUrl ? (
                                             showVideo ? (
                                                 <video
@@ -168,9 +201,10 @@ export default function TrustedClient() {
                                             />
                                         )}
 
-                                        {/* Status Badge - Mini */}
-                                        <div className="absolute top-1 right-1">
+                                        {/* Live Status Indicator */}
+                                        <div className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full border border-emerald-500/30">
                                             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_5px_#10b981]" />
+                                            <span className="text-emerald-400 text-[8px] font-mono font-bold">{playerCount.toLocaleString()}</span>
                                         </div>
                                     </div>
 
@@ -184,6 +218,16 @@ export default function TrustedClient() {
                                             <h2 className="text-[10px] font-black italic text-white uppercase tracking-wide truncate w-full">
                                                 {c.name}
                                             </h2>
+
+                                            {/* Trust Rating */}
+                                            <div className="flex items-center justify-center gap-1">
+                                                <div className="flex">
+                                                    {[...Array(5)].map((_, i) => (
+                                                        <span key={i} className={`text-[10px] ${i < stars ? 'text-amber-400' : 'text-white/20'}`}>⭐</span>
+                                                    ))}
+                                                </div>
+                                                <span className="text-white/50 text-[8px] font-mono">({rating.toFixed(1)})</span>
+                                            </div>
 
                                             {/* Caption - Bonus/Promo Display */}
                                             {c.caption && (

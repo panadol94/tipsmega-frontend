@@ -1593,31 +1593,33 @@ a {
     background-size: 200% 100%;
     animation: badgeShimmer 3s infinite;
 }
+
 /* ========================= */
 /*  RESPONSIVE CHAT STYLES   */
 /* ========================= */
 
 /* Desktop: Constrain chat width untuk avoid very wide messages */
 @media (min-width: 768px) {
+
     /* Message bubbles max-width - prevent stretching across full screen */
     .chat-messages-container {
         max-width: 900px;
         margin: 0 auto;
         padding: 20px 24px;
     }
-    
+
     /* Larger message text on desktop */
     .chat-messages-container .text-sm {
         font-size: 15px;
     }
-    
+
     /* Larger avatars on desktop */
     .chat-avatar {
         width: 36px !important;
         height: 36px !important;
         font-size: 12px !important;
     }
-    
+
     /* Better spacing for desktop */
     .message-animate {
         margin: 0.75rem 0;
@@ -1625,14 +1627,113 @@ a {
 }
 
 @media (min-width: 1024px) {
+
     /* Even wider messages container on large desktop */
     .chat-messages-container {
         max-width: 1000px;
         padding: 24px 32px;
     }
-    
+
     /* Max width for individual message bubbles */
-    .message-animate > div:last-child {
-        max-width:  !important;
+    .message-animate>div:last-child {
+        max-width: 700px !important;
+    }
+}
+
+/* ========================= */
+/*  PREMIUM TRUSTED PAGE     */
+/* ========================= */
+
+/* Stagger Card Entrance Animation */
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.neon-border-card {
+    animation: cardFadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+/* Floating Particles Animation */
+@keyframes floatParticle {
+
+    0%,
+    100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.3;
+    }
+
+    25% {
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translateY(-20px) translateX(10px);
+        opacity: 0.8;
+    }
+
+    75% {
+        opacity: 0.4;
+    }
+}
+
+/* Badge Pulse Enhanced */
+@keyframes badgePulseGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px currentColor;
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+        transform: scale(1.05);
+    }
+}
+
+/* Rating Star Twinkle */
+@keyframes starTwinkle {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(0.9);
+    }
+}
+
+/* Live Counter Pulse */
+@keyframes counterPulse {
+
+    0%,
+    100% {
+        color: rgb(52, 211, 153);
+    }
+
+    50% {
+        color: rgb(16, 185, 129);
+    }
+}
+
+/* Featured Card Shimmer */
+@keyframes featuredShimmer {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
     }
 }
