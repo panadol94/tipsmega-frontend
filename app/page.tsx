@@ -72,6 +72,7 @@ export default function Page() {
 
   const [megaId, setMegaId] = useState("");
   const [busy, setBusy] = useState(false);
+  const [inputError, setInputError] = useState(false);
 
   // ✅ TerminalScan (animated)
   const [runKey, setRunKey] = useState<string>("");
@@ -129,7 +130,9 @@ export default function Page() {
 
     const id = megaId.trim();
     if (!/^(?:[12]\d{11}|09\d{10})$/.test(id)) {
+      setInputError(true);
       showToast("ID Invalid! Must start with 1, 2 or 09 (Total 12 digits)", "error");
+      setTimeout(() => setInputError(false), 500);
       return;
     }
     if (!resolvedDeviceId) {
@@ -234,13 +237,13 @@ export default function Page() {
           {!isLoggedIn ? (
             <div className="flex gap-3">
               <button
-                className="btn-ghost btn-red-spin backdrop-blur-sm flex-1 h-[52px] bg-red-500/10 border-red-500/30"
+                className="btn-ghost btn-red-spin backdrop-blur-sm flex-1 h-[52px] bg-red-500/10 border-red-500/30 ripple-effect"
                 onClick={() => setAuthOpen("register")}
               >
                 <span className="btn-red-spin-content font-black tracking-widest">REGISTER</span>
               </button>
               <button
-                className="btn-ghost btn-red-spin backdrop-blur-sm flex-1 h-[52px] bg-blue-500/10 border-blue-500/30"
+                className="btn-ghost btn-red-spin backdrop-blur-sm flex-1 h-[52px] bg-blue-500/10 border-blue-500/30 ripple-effect"
                 onClick={() => setAuthOpen("login")}
               >
                 <span className="btn-red-spin-content font-black tracking-widest">LOGIN</span>
@@ -270,7 +273,7 @@ export default function Page() {
       <section className="card p-5">
 
         <input
-          className="input"
+          className={`input ${inputError ? 'shake-error' : ''}`}
           value={megaId}
           onChange={(e) => setMegaId(e.target.value)}
           inputMode="numeric"
@@ -280,7 +283,7 @@ export default function Page() {
         <TypewriterText text="[AI SCANNER] INTERCEPTING LIVE RTP SIGNALS FROM SERVER..." speed={30} />
 
         <button
-          className="btn-green-spin"
+          className="btn-green-spin ripple-effect"
           style={{ marginTop: 24, marginBottom: 12, opacity: (!/^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim()) || busy) ? 0.6 : 1 }}
           onClick={runScan}
           disabled={busy || !/^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim())}
