@@ -306,28 +306,40 @@ export default function TrustedClient() {
                                     {/* Media Section - Enhanced with Gradient Overlay */}
                                     <div className="h-32 w-full bg-black relative overflow-hidden group-hover:after:opacity-100 after:absolute after:inset-0 after:bg-gradient-to-br after:from-cyan-500/10 after:to-purple-500/10 after:opacity-0 after:transition-opacity after:duration-500">
                                         {c.storageUrl ? (
-                                            (c.mediaType?.toLowerCase() === "video" || c.storageUrl.match(/\.(mp4|webm|mov)$/i)) ? (
-                                                <video
-                                                    src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
-                                                    title={`${c.name} - Trusted Mega888 Platform Video | Verified Agent ${new Date().getFullYear()}`}
-                                                    aria-label={`${c.name} promotional video - Verified Mega888 gaming platform`}
-                                                    muted
-                                                    playsInline
-                                                    loop
-                                                    preload="none"
-                                                    className="w-full h-full object-cover object-center transition-opacity hover:opacity-90"
-                                                    onMouseEnter={(e) => e.currentTarget.play()}
-                                                    onMouseLeave={(e) => e.currentTarget.pause()}
-                                                />
-                                            ) : (
-                                                // eslint-disable-next-line @next/next/no-img-element
-                                                <img
-                                                    src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
-                                                    alt={`${c.name} - Trusted Mega888 Agent Logo | Verified Platform ${new Date().getFullYear()}`}
-                                                    loading="lazy"
-                                                    className="w-full h-full object-cover object-center transition-opacity"
-                                                />
-                                            )
+                                            // Enhanced video detection: check mediaType OR file extension
+                                            (() => {
+                                                const isVideo =
+                                                    c.mediaType?.toLowerCase() === "video" ||
+                                                    c.storageUrl.match(/\.(mp4|webm|mov|avi|mkv|m4v|flv)$/i);
+
+                                                // Debug log - comment out in production
+                                                if (process.env.NODE_ENV === 'development') {
+                                                    console.log('Media Debug:', { name: c.name, mediaType: c.mediaType, storageUrl: c.storageUrl, isVideo });
+                                                }
+
+                                                return isVideo ? (
+                                                    <video
+                                                        src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
+                                                        title={`${c.name} - Trusted Mega888 Platform Video | Verified Agent ${new Date().getFullYear()}`}
+                                                        aria-label={`${c.name} promotional video - Verified Mega888 gaming platform`}
+                                                        muted
+                                                        playsInline
+                                                        loop
+                                                        preload="none"
+                                                        className="w-full h-full object-cover object-center transition-opacity hover:opacity-90"
+                                                        onMouseEnter={(e) => e.currentTarget.play()}
+                                                        onMouseLeave={(e) => e.currentTarget.pause()}
+                                                    />
+                                                ) : (
+                                                    // eslint-disable-next-line @next/next/no-img-element
+                                                    <img
+                                                        src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
+                                                        alt={`${c.name} - Trusted Mega888 Agent Logo | Verified Platform ${new Date().getFullYear()}`}
+                                                        loading="lazy"
+                                                        className="w-full h-full object-cover object-center transition-opacity"
+                                                    />
+                                                );
+                                            })()
                                         ) : (
                                             // Fallback to branded image
                                             // eslint-disable-next-line @next/next/no-img-element

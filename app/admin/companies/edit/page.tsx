@@ -133,23 +133,30 @@ function EditCompanyContent() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-bold text-slate-400 mb-2">Media</label>
+                    <label className="block text-sm font-bold text-slate-400 mb-2">🎬 Media Upload (Video / Photo)</label>
                     <div className="border-2 border-dashed border-slate-600 rounded-xl p-6 text-center">
                         {form.media ? (
                             <div className="space-y-4">
                                 {form.mediaType === "video" ? (
-                                    <video src={form.media} className="max-h-40 mx-auto rounded-lg" controls />
+                                    <div>
+                                        <div className="text-green-400 text-xs font-bold mb-2">✅ VIDEO UPLOADED</div>
+                                        <video src={form.media} className="max-h-40 mx-auto rounded-lg" controls />
+                                    </div>
                                 ) : (
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    <img src={form.media} alt="Preview" className="max-h-40 mx-auto rounded-lg" />
+                                    <div>
+                                        <div className="text-blue-400 text-xs font-bold mb-2">✅ PHOTO UPLOADED</div>
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img src={form.media} alt="Preview" className="max-h-40 mx-auto rounded-lg" />
+                                    </div>
                                 )}
-                                <button type="button" onClick={() => setForm({ ...form, media: "", mediaType: "video" })} className="text-red-400 text-sm hover:underline">Remove</button>
+                                <button type="button" onClick={() => setForm({ ...form, media: "", mediaType: "video" })} className="text-red-400 text-sm hover:underline">🗑️ Remove & Upload New</button>
                             </div>
                         ) : (
                             <label className="cursor-pointer">
                                 <input type="file" accept="video/*,image/*" onChange={handleMediaUpload} className="hidden" />
-                                <div className="text-4xl mb-2">{uploading ? "⏳" : "📁"}</div>
-                                <div className="text-slate-400">{uploading ? "Uploading..." : "Click to upload"}</div>
+                                <div className="text-4xl mb-2">{uploading ? "⏳" : "🎬📸"}</div>
+                                <div className="text-slate-400 font-bold">{uploading ? "Uploading..." : "Click to Upload VIDEO or PHOTO"}</div>
+                                <div className="text-xs text-amber-400 mt-2 font-medium">✅ Supports: MP4, MOV, WebM (Video) | JPG, PNG, WebP (Photo)</div>
                             </label>
                         )}
                     </div>
