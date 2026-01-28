@@ -163,6 +163,35 @@ export default function Page() {
       console.log("Ref detected:", ref);
     }
 
+    // ⚡ IP Change Detection
+    const checkIpChange = async () => {
+      try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        const currentIp = data.ip;
+
+        const storedIp = localStorage.getItem('user_last_ip');
+
+        if (storedIp && storedIp !== currentIp) {
+          // IP changed! Show warning
+          showToast(
+            `⚠️ IP berubah! Lama: ${storedIp.substring(0, 8)}... → Baru: ${currentIp.substring(0, 8)}... Cooldown masih aktif per device.`,
+            "warning"
+          );
+          playSound("error");
+          triggerHaptic(300);
+        }
+
+        // Update stored IP
+        localStorage.setItem('user_last_ip', currentIp);
+        setUserIp(currentIp);
+      } catch (error) {
+        console.error('IP check failed:', error);
+      }
+    };
+
+    checkIpChange();
+
     apiInit(did)
       .then((d) => setStars(d?.stars ?? 0))
       .catch(() => setStars(0));
