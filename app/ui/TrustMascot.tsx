@@ -62,30 +62,25 @@ export default function TrustMascot() {
                 </div>
             )}
 
-            {/* Chibi Character */}
-            <div
-                className="relative w-20 h-20 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center shadow-2xl"
-                style={{ animation: "pulse 2s ease-in-out infinite" }}
-            >
-                {/* Face */}
-                <div className="relative">
-                    {/* Eyes */}
-                    <div className="flex gap-2 mb-1">
-                        <div className="w-2 h-2 bg-white rounded-full" style={{ animation: "blink 3s infinite" }} />
-                        <div className="w-2 h-2 bg-white rounded-full" style={{ animation: "blink 3s infinite" }} />
-                    </div>
-                    {/* Smile */}
-                    <div className="w-4 h-2 border-b-2 border-white rounded-full mx-auto" />
-                </div>
+            {/* Chibi Character - Actual Image with Animations */}
+            <div className="relative w-24 h-24">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                    src="/chibi-mascot.png"
+                    alt="Trust Mascot"
+                    className="w-full h-full object-contain drop-shadow-2xl"
+                    style={{
+                        animation: "bounce 2s ease-in-out infinite, sway 3s ease-in-out infinite",
+                        filter: "drop-shadow(0 4px 20px rgba(147, 51, 234, 0.4))"
+                    }}
+                />
 
-                {/* Crown/Star decoration */}
-                <div className="absolute -top-2 right-0 text-2xl" style={{ animation: "spin 4s linear infinite" }}>
-                    ⭐
+                {/* Sparkle effects around character */}
+                <div className="absolute -top-1 -right-1 text-xl animate-ping" style={{ animationDuration: "2s" }}>
+                    ✨
                 </div>
-
-                {/* Thumbs up hand */}
-                <div className="absolute -right-2 bottom-2 text-xl" style={{ animation: "wave 1s ease-in-out infinite" }}>
-                    👍
+                <div className="absolute -bottom-1 -left-1 text-lg" style={{ animation: "twinkle 3s ease-in-out infinite" }}>
+                    💫
                 </div>
             </div>
 
@@ -93,6 +88,16 @@ export default function TrustMascot() {
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-10px); }
+        }
+
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-15px) scale(1.05); }
+        }
+
+        @keyframes sway {
+          0%, 100% { transform: rotate(-3deg); }
+          50% { transform: rotate(3deg); }
         }
 
         @keyframes pulse {
@@ -119,6 +124,11 @@ export default function TrustMascot() {
         @keyframes blink {
           0%, 90%, 100% { opacity: 1; }
           95% { opacity: 0; }
+        }
+
+        @keyframes twinkle {
+          0%, 100% { opacity: 0.3; transform: scale(0.8); }
+          50% { opacity: 1; transform: scale(1.2); }
         }
 
         @media (max-width: 640px) {
