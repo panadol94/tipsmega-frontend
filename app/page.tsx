@@ -496,11 +496,60 @@ export default function Page() {
           <p className="text-sm text-white/60 mb-4 max-w-md mx-auto">
             Senarai verified agents yang dijamin scam-free, fast withdrawal, dan RTP fair. Semua platform monitored 24/7!
           </p>
+          {/* 🔥 FIRE BUTTON - VIEW TRUSTED LIST */}
           <Link
             href="/trusted"
-            className="inline-block px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 text-white font-black rounded-xl hover:scale-105 transition-transform active:scale-95 shadow-lg hover:shadow-amber-500/50"
+            className="group relative block overflow-hidden rounded-2xl shadow-2xl transition-all hover:scale-105 active:scale-95"
+            onClick={() => {
+              playSound("click");
+              triggerHaptic(50);
+            }}
+            style={{
+              background: 'linear-gradient(135deg, #ff4500 0%, #ff8c00 25%, #ffa500 50%, #ff8c00 75%, #ff4500 100%)',
+              backgroundSize: '200% 200%',
+              animation: 'fireGradient 3s ease infinite',
+            }}
           >
-            VIEW TRUSTED LIST →
+            {/* Animated glow effect */}
+            <div className="absolute inset-0 opacity-50" style={{
+              background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, transparent 70%)',
+              animation: 'fireGlow 2s ease-in-out infinite',
+            }} />
+
+            {/* Shimmer effect */}
+            <div className="absolute inset-0 opacity-30" style={{
+              background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%)',
+              backgroundSize: '200% 100%',
+              animation: 'shimmer 3s linear infinite',
+            }} />
+
+            <div className="relative flex items-center justify-center gap-2 py-5 px-6">
+              <span className="text-xl animate-pulse">🔥</span>
+              <span className="text-white font-black tracking-wider drop-shadow-lg" style={{
+                fontSize: 16,
+                textShadow: '0 0 10px rgba(0,0,0,0.5), 0 0 20px rgba(255,100,0,0.8)'
+              }}>
+                VIEW TRUSTED LIST →
+              </span>
+              <span className="text-xl animate-pulse" style={{ animationDelay: '0.5s' }}>🔥</span>
+            </div>
+
+            <style jsx>{`
+            @keyframes fireGradient {
+              0%, 100% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+            }
+
+            @keyframes fireGlow {
+              0%, 100% { transform: scale(1); opacity: 0.5; }
+              50% { transform: scale(1.2); opacity: 0.8; }
+            }
+
+            @keyframes shimmer {
+              0% { background-position: -200% 0; }
+              100% { background-position: 200% 0; }
+            }
+          `}</style>
           </Link>
         </section>
       )}
