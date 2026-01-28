@@ -154,6 +154,14 @@ export default function Page() {
     playSound("click");
     triggerHaptic(40);
 
+    // ⚡ Vibrate phone when scan starts
+    if (navigator.vibrate) {
+      navigator.vibrate([200, 100, 200]); // Pattern: vibrate 200ms, pause 100ms, vibrate 200ms
+    }
+
+    // ⚡ Show connection warning
+    showToast("⚡ High-speed connection recommended for best results", "info");
+
     try {
       await sleep(450);
 
