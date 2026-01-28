@@ -325,6 +325,8 @@ export default function TrustedClient() {
                                             (c.mediaType?.toLowerCase() === "video" || c.storageUrl.match(/\.(mp4|webm|mov)$/i)) ? (
                                                 <video
                                                     src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
+                                                    title={`${c.name} - Trusted Mega888 Platform Video | Verified Agent ${new Date().getFullYear()}`}
+                                                    aria-label={`${c.name} promotional video - Verified Mega888 gaming platform`}
                                                     muted
                                                     playsInline
                                                     loop

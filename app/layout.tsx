@@ -53,7 +53,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.webp',
         width: 1200,
         height: 630,
         alt: 'Mega888 AI RTP Scanner 2026 - 4.9 Rating',
@@ -64,7 +64,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Mega888 AI Tips RTP",
     description: "Scan RTP Mega888 sekarang dengan AI kami.",
-    images: ['/og-image.png'],
+    images: ['/og-image.webp'],
   },
   robots: {
     index: true,

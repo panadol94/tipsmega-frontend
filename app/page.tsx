@@ -363,14 +363,16 @@ export default function Page() {
 
       <header className="card relative overflow-hidden flex flex-col min-h-[300px] justify-between p-0 group border-amber-500/20">
 
-        {/* VIDEO BACKGROUND (Full Fill) */}
+        {/* VIDEO BACKGROUND (Full Fill) - Hover-to-Play Pattern */}
         <div className="absolute inset-0 z-0">
           <video
             src="/mega-loop.mp4"
-            autoPlay
             loop
             muted
             playsInline
+            preload="metadata"
+            onMouseEnter={(e) => e.currentTarget.play()}
+            onMouseLeave={(e) => e.currentTarget.pause()}
             className="w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-105 transition-transform duration-1000"
           />
           {/* Gradient Overlay for Readability */}

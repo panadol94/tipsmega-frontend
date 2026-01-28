@@ -7,6 +7,7 @@ import { useSwipeable } from "react-swipeable";
 import { AnimatePresence, motion } from "framer-motion";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 import MediaPreviewModal from "./MediaPreviewModal";
+import { useAutoMessages } from "../hooks/useAutoMessages";
 
 const EmojiPicker = dynamic(() => import("emoji-picker-react"), { ssr: false });
 
@@ -104,7 +105,7 @@ const VerifiedBadge = () => (
     </span>
 );
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, groupPosition, onLike, playPopSound }: any) => {
     const [showMenu, setShowMenu] = useState(false);
     const [lastTap, setLastTap] = useState(0);
@@ -383,7 +384,6 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
             scrollToBottom();
         });
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         s.on("message_deleted", ({ messageId }: { messageId: string }) => {
             setMessages(prev => prev.map(m =>
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -408,6 +408,9 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
         };
     }, [user, roomId]);
 
+    // Auto-generate chat messages for social proof
+    useAutoMessages(socket, roomId, user);
+
     const scrollToBottom = () => {
         setTimeout(() => {
             bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -416,11 +419,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
 
     const playPopSound = () => {
         try {
-            const audio = new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA="); // Short dummy, replace with real pop if needed or handle logic
-            // Real simple pop sound base64
-            const realPop = "data:audio/mpeg;base64,SUQzBAAAAAABAFRYWFgAAAASAAADbWFqb3JfYnJhbmQAbXA0MgBUWFhYAAAAEQAAA21pbm9yX3ZlcnNpb24AMABUWFhYAAAAIAAAA2NvbXBhdGlibGVfYnJhbmRzAGlzb21tcDQyAGTSsAAAAAAABVInfoAA";
-            // SHORTCUT: Just use a standard browser click if possible, or silence if no file.
-            // Using a very short beep base64 for now
+            // Using a very short beep base64
             const beep = "data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YX5vT18AAB4eHj4+Pj4+Hh4eAAAAHh4ePj4+Pj4eHh4AAAAeHh4+Pj4+Ph4eHgAAAB4eHj4+Pj4+Hh4e";
             new Audio(beep).play().catch(() => { });
         } catch (e) { console.error(e); }
@@ -454,10 +453,12 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
     };
 
     const handleLike = async (m: Message) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (!user || (!m.id && !(m as any)._id)) return;
 
         // Optimistic Update
         setMessages(prev => prev.map(msg => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             if ((msg.id === m.id) || ((msg as any)._id === (m as any)._id)) {
                 const likes = msg.likes || [];
                 const myIdx = likes.indexOf(user.username);
@@ -476,6 +477,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${user.token}`
                 },
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 body: JSON.stringify({ messageId: m.id || (m as any)._id })
             });
         } catch (e) {
@@ -587,6 +589,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
             } else {
                 alert("Upload Failed: " + (json.error || "Unknown error"));
             }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             console.error("Upload error:", err);
             alert("Upload Network Error");
