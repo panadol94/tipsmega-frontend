@@ -58,17 +58,29 @@ export default function TerminalScan({
 
   const deck = useMemo(() => shuffle(games), [games]);
 
-  // Share function with copyright
+  // Share function with copyright - Top 20 games
   const handleShare = async () => {
+    // Extract all game results with percentage
+    const gameResults = lines
+      .filter(l => l.text.includes('%') && l.text.includes('│'))
+      .map(l => {
+        const match = l.text.match(/(\d+\.?\d*)%/);
+        const percentage = match ? parseFloat(match[1]) : 0;
+        return { text: l.text, percentage };
+      })
+      .sort((a, b) => b.percentage - a.percentage) // Sort highest first
+      .slice(0, 20); // Top 20
+
     const shareText = `🎰 MEGA888 RTP SCAN RESULTS\n\n` +
       `📊 Overall RTP: ${overallRtp}%\n` +
       `🎮 Games Scanned: ${games.length}\n` +
       `🆔 ID: ${idMasked}\n` +
       `⏰ ${new Date().toLocaleString()}\n\n` +
       `━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `Top 5 Results:\n` +
-      lines.slice(-10, -1).filter(l => l.text.includes('%')).slice(0, 5).map(l => `${l.text}`).join('\n') +
-      `\n━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+      `🔥 TOP 20 HIGHEST RTP GAMES:\n` +
+      `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+      gameResults.map((g, i) => `${i + 1}. ${g.text.trim()}`).join('\n') +
+      `\n\n━━━━━━━━━━━━━━━━━━━━━━\n` +
       `© Powered by www.tipsmega888.com\n` +
       `🔗 Get your scan: https://www.tipsmega888.com`;
 
