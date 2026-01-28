@@ -24,6 +24,9 @@ type SettingsContextType = {
     user: { username: string; token: string; friends?: string[] } | null;
     setUser: (u: { username: string; token: string; friends?: string[] } | null) => void;
     refreshUser: () => void;
+    // Scan active state
+    scanActive: boolean;
+    setScanActive: (active: boolean) => void;
 };
 
 const SettingsContext = createContext<SettingsContextType | null>(null);
@@ -34,6 +37,7 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [activeTheme, setActiveTheme] = useState("premium");
     const [mounted, setMounted] = useState(false);
+    const [scanActive, setScanActive] = useState(false);
 
     // Audio Context Ref
     const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
@@ -184,7 +188,9 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
                 setTheme,
                 user,
                 setUser,
-                refreshUser
+                refreshUser,
+                scanActive,
+                setScanActive
             }}
         >
             {children}

@@ -2,6 +2,8 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useGlobalSettings } from "../context/GlobalSettingsContext";
+
 
 // --- Inline Icons (Lucide Style) ---
 const HomeIcon = ({ className }: { className?: string }) => (
@@ -53,6 +55,7 @@ type NavKey = "home" | "trusted" | "chat" | "share" | "profile" | "info";
 
 export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
   const pathname = usePathname();
+  const { scanActive } = useGlobalSettings();
 
   const items: { key: NavKey; label: string; href: string; icon: React.FC<{ className?: string }> }[] = [
     { key: "home", label: "Home", href: "/", icon: HomeIcon },
@@ -62,6 +65,8 @@ export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
     { key: "info", label: "Info", href: "/info", icon: InfoIcon },
     { key: "profile", label: "Profile", href: "/profile", icon: ProfileIcon },
   ];
+
+  const isDisabled = isBusy || scanActive;
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-[100] flex justify-center pb-4 px-4 pointer-events-none">
@@ -84,10 +89,10 @@ export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
           return (
             <Link
               key={it.key}
-              href={isBusy ? "#" : it.href}
-              className={`relative z-10 flex-1 flex flex-col items-center justify-center py-2 px-1 transition-all duration-300 ${isBusy ? "opacity-40 grayscale pointer-events-none" : ""
+              href={isDisabled ? "#" : it.href}
+              className={`relative z-10 flex-1 flex flex-col items-center justify-center py-2 px-1 transition-all duration-300 ${isDisabled ? "opacity-40 grayscale pointer-events-none" : ""
                 }`}
-              onClick={(e) => isBusy && e.preventDefault()}
+              onClick={(e) => isDisabled && e.preventDefault()}
             >
               {isActive && (
                 <motion.div

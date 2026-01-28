@@ -85,7 +85,7 @@ export default function Page() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [toast, setToast] = useState<{ msg: string; type: ToastType } | null>(null);
 
-  const { playSound, triggerHaptic } = useGlobalSettings();
+  const { playSound, triggerHaptic, setScanActive } = useGlobalSettings();
 
   const showToast = (msg: string, type: ToastType = "info") => {
     setToast({ msg, type });
@@ -180,6 +180,9 @@ export default function Page() {
 
         // ✅ trigger TerminalScan rerun
         setRunKey(`${Date.now()}_${id}`);
+
+        // 🔒 Block navigation while showing results
+        setScanActive(true);
 
         // Success effects - Delayed slightly to match terminal start if needed, 
         // but here it indicates "Data Received".
@@ -316,13 +319,28 @@ export default function Page() {
 
       {/* ✅ TERMINAL STREAM (pakai TerminalScan, bukan lines/setLines) */}
       {runKey ? (
-        <TerminalScan
-          key={runKey}
-          games={MEGA888_GAMES}
-          overallRtp={lastRtp ?? 0}
-          idMasked={idMasked || "---"}
-          onComplete={() => setBusy(false)}
-        />
+        <div className="relative">
+          <TerminalScan
+            key={runKey}
+            games={MEGA888_GAMES}
+            overallRtp={lastRtp ?? 0}
+            idMasked={idMasked || "---"}
+            onComplete={() => setBusy(false)}
+          />
+          {/* Close Button */}
+          <button
+            onClick={() => {
+              setRunKey("");
+              setLastRtp(null);
+              setIdMasked("");
+              setScanActive(false);
+              playSound("click");
+            }}
+            className="absolute top-2 right-2 w-8 h-8 bg-red-500/20 hover:bg-red-500/40 border border-red-500/50 rounded-full flex items-center justify-center text-red-300 text-sm font-bold transition-all active:scale-95"
+          >
+            ✕
+          </button>
+        </div>
       ) : null}
 
       {/* AUTH MODAL */}
