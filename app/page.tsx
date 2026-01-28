@@ -240,6 +240,10 @@ export default function Page() {
         // 🔒 Block navigation while showing results
         setScanActive(true);
 
+        // ⏱️ Start 2-minute cooldown
+        localStorage.setItem("last_scan_time", Date.now().toString());
+        setCooldownRemaining(COOLDOWN_DURATION);
+
         // Success effects - Delayed slightly to match terminal start if needed, 
         // but here it indicates "Data Received".
         // The TerminalScan will handle the visual duration.
@@ -416,15 +420,40 @@ export default function Page() {
         <TypewriterText text="[AI SCANNER] INTERCEPTING LIVE RTP SIGNALS FROM SERVER..." speed={30} />
 
         <button
-          className="btn-green-spin ripple-effect"
-          style={{ marginTop: 24, marginBottom: 12, opacity: (!/^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim()) || busy) ? 0.6 : 1 }}
+          className={cooldownRemaining > 0 ? "btn-cooldown" : "btn-green-spin ripple-effect"}
+          style={{ marginTop: 24, marginBottom: 12, opacity: (!/^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim()) || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
           onClick={runScan}
-          disabled={busy || !/^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim())}
+          disabled={busy || cooldownRemaining > 0 || !/^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim())}
         >
-          <span className="btn-green-spin-content">
-            {busy ? "SEARCHING TARGET..." : "SCAN NETWORK"}
+          <span className={cooldownRemaining > 0 ? "" : "btn-green-spin-content"}>
+            {busy ? "SEARCHING TARGET..." :
+              cooldownRemaining > 0 ? `⏱️ COOLDOWN: ${Math.floor(cooldownRemaining / 60)}:${(cooldownRemaining % 60).toString().padStart(2, '0')}` :
+                "SCAN NETWORK"}
           </span>
         </button>
+
+        {/* Add cooldown button style */}
+        <style jsx>{`
+          .btn-cooldown {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: not-allowed;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+            animation: pulse-cooldown 2s ease-in-out infinite;
+          }
+          
+          @keyframes pulse-cooldown {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(0.98); }
+          }
+        `}</style>
 
         {/* Progress Bar */}
         {busy && (
