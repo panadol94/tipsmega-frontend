@@ -90,9 +90,6 @@ export default function Page() {
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
   const COOLDOWN_DURATION = 120; // 2 minutes in seconds
 
-  // IP tracking state
-  const [userIp, setUserIp] = useState<string>("");
-
   const { playSound, triggerHaptic, setScanActive } = useGlobalSettings();
 
   const showToast = (msg: string, type: ToastType = "info") => {
@@ -107,11 +104,9 @@ export default function Page() {
     return deviceId || localStorage.getItem(storageKey) || "";
   }, [deviceId]);
 
-  // Check cooldown on mount
-  const [cooldownInitialized, setCooldownInitialized] = useState(false);
-
+  // Check cooldown on mount - calculate initial value
   useEffect(() => {
-    if (typeof window === "undefined" || cooldownInitialized) return;
+    if (typeof window === "undefined") return;
 
     const lastScanTime = localStorage.getItem("last_scan_time");
     if (lastScanTime) {
@@ -121,8 +116,7 @@ export default function Page() {
         setCooldownRemaining(remaining);
       }
     }
-    setCooldownInitialized(true);
-  }, [cooldownInitialized, COOLDOWN_DURATION]);
+  }, [COOLDOWN_DURATION]);
 
   // Cooldown ticker
   useEffect(() => {
@@ -184,7 +178,6 @@ export default function Page() {
 
         // Update stored IP
         localStorage.setItem('user_last_ip', currentIp);
-        setUserIp(currentIp);
       } catch (error) {
         console.error('IP check failed:', error);
       }
@@ -195,6 +188,7 @@ export default function Page() {
     apiInit(did)
       .then((d) => setStars(d?.stars ?? 0))
       .catch(() => setStars(0));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function runScan() {
@@ -442,7 +436,7 @@ export default function Page() {
       <section className="card p-5">
 
         <input
-          className={`input ${inputError ? 'shake-error' : ''}`}
+          className={`input input-premium ${inputError ? 'shake-error' : ''}`}
           value={megaId}
           onChange={(e) => setMegaId(e.target.value)}
           inputMode="numeric"
@@ -526,7 +520,7 @@ export default function Page() {
       {!runKey && (
         <section className="mt-6 space-y-6">
           {/* What is RTP Scanner */}
-          <article className="card p-6 border-cyan-500/20 bg-cyan-500/5">
+          <article className="card p-6 border-cyan-500/20 bg-cyan-500/5 stagger-fade-1 card-lift">
             <h2 className="text-xl font-black text-cyan-400 mb-4 flex items-center gap-2">
               <span>🤖</span>
               <span>Apa Itu AI RTP Scanner?</span>
@@ -545,7 +539,7 @@ export default function Page() {
           </article>
 
           {/* How AI Scanner Works */}
-          <article className="card p-6 border-purple-500/20 bg-purple-500/5">
+          <article className="card p-6 border-purple-500/20 bg-purple-500/5 stagger-fade-2 card-lift">
             <h2 className="text-xl font-black text-purple-400 mb-4 flex items-center gap-2">
               <span>⚙️</span>
               <span>Bagaimana AI Scanner Berfungsi?</span>
@@ -579,7 +573,7 @@ export default function Page() {
           </article>
 
           {/* Why Use AI Scanner */}
-          <article className="card p-6 border-green-500/20 bg-green-500/5">
+          <article className="card p-6 border-green-500/20 bg-green-500/5 stagger-fade-3 card-lift">
             <h2 className="text-xl font-black text-green-400 mb-4 flex items-center gap-2">
               <span>✅</span>
               <span>Kenapa Guna AI Scanner?</span>
@@ -597,7 +591,7 @@ export default function Page() {
 
       {/* Internal Linking - Trusted Companies CTA */}
       {!runKey && (
-        <section className="card mt-6 p-6 border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-purple-500/5 text-center">
+        <section className="card mt-6 p-6 border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-purple-500/5 text-center stagger-fade-4 card-lift">
           <div className="text-xs text-amber-400/80 font-black tracking-widest uppercase mb-2">🔒 Safe Gaming</div>
           <h2 className="text-xl font-black text-white mb-3">
             Browse <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500">Trusted Companies</span>

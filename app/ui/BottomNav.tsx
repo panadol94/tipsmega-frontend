@@ -70,16 +70,13 @@ export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-[100] flex justify-center pb-4 px-4 pointer-events-none">
-      {/* 
-            Gempak Container: 
-            - Floating (pb-4)
-            - Glassmorphism (backdrop-blur-xl) 
-            - Border Glow 
-            */}
-      <div className="pointer-events-auto bg-[#0f162a]/80 backdrop-blur-2xl border border-white/10 rounded-2xl flex items-center p-1.5 shadow-[0_10px_40px_rgba(0,0,0,0.6)] relative overflow-hidden ring-1 ring-white/5 mx-auto max-w-md w-full justify-between">
+      {/* Gempak Container: Floating glassmorphism navigation */}
+      <div className="pointer-events-auto bg-[#0f162a]/90 backdrop-blur-2xl border border-white/15 rounded-2xl flex items-center p-1.5 shadow-[0_10px_40px_rgba(0,0,0,0.6)] relative overflow-hidden ring-1 ring-white/5 mx-auto max-w-md w-full justify-between glass-premium">
+
 
         {/* Background Glow Effect */}
         <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/10 to-transparent pointer-events-none" />
+
 
         {items.map((it) => {
           let isActive = false;
@@ -97,7 +94,7 @@ export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
               {isActive && (
                 <motion.div
                   layoutId="nav-blob"
-                  className="absolute inset-0 bg-gradient-to-tr from-emerald-600 to-teal-400 rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.4)]"
+                  className="absolute inset-0 bg-gradient-to-tr from-emerald-600 to-teal-400 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.6),0_0_15px_rgba(16,185,129,0.4)]"
                   transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   style={{ borderRadius: 12 }}
                 />
