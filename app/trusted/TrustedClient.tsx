@@ -77,6 +77,31 @@ export default function TrustedClient() {
 
     return (
         <div className="min-h-screen bg-[#07090f] text-white app-bg relative overflow-x-hidden">
+            {/* JSON-LD Structured Data for SEO */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "WebPage",
+                        "name": "Trusted Company Mega888",
+                        "description": "Senarai company Mega888 yang trusted dan verified. Elakkan scammer, main di platform yang disahkan selamat.",
+                        "url": "https://tipsmega888.com/trusted",
+                        "inLanguage": "ms-MY",
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": "TipsMega AI Scanner",
+                            "url": "https://tipsmega888.com"
+                        },
+                        "mainEntity": {
+                            "@type": "ItemList",
+                            "name": "Verified Mega888 Agents",
+                            "description": "List of verified and trusted Mega888 platform agents",
+                            "numberOfItems": companies.length,
+                        }
+                    })
+                }}
+            />
             {/* Ambient Background */}
             <div className="fixed inset-0 bg-[url('/img/noise.png')] opacity-5 pointer-events-none" />
             <div className="fixed -top-40 -right-40 w-96 h-96 bg-purple-900/20 rounded-full blur-[100px] pointer-events-none" />
