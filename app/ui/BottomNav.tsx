@@ -41,16 +41,25 @@ const ProfileIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-type NavKey = "home" | "trusted" | "chat" | "share" | "profile";
+const InfoIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10" />
+    <line x1="12" y1="16" x2="12" y2="12" />
+    <line x1="12" y1="8" x2="12.01" y2="8" />
+  </svg>
+);
+
+type NavKey = "home" | "trusted" | "chat" | "share" | "profile" | "info";
 
 export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
   const pathname = usePathname();
 
-  const items: { key: NavKey; label: string; href: string; icon: any }[] = [
+  const items: { key: NavKey; label: string; href: string; icon: React.FC<{ className?: string }> }[] = [
     { key: "home", label: "Home", href: "/", icon: HomeIcon },
     { key: "trusted", label: "Trusted", href: "/trusted", icon: TrustedIcon },
     { key: "chat", label: "Chat", href: "/chat", icon: ChatIcon },
     { key: "share", label: "Share", href: "/share", icon: ShareIcon },
+    { key: "info", label: "Info", href: "/info", icon: InfoIcon },
     { key: "profile", label: "Profile", href: "/profile", icon: ProfileIcon },
   ];
 
