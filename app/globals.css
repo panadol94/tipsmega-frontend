@@ -1737,6 +1737,7 @@ a {
         background-position: 200% center;
     }
 }
+
 /* ========================= */
 /*  PHASE 1 UX ANIMATIONS    */
 /* ========================= */
@@ -1755,7 +1756,7 @@ a {
     width: 0;
     height: 0;
     border-radius: 50%;
-    background: rgba(255,255,255,0.6);
+    background: rgba(255, 255, 255, 0.6);
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
 }
@@ -1774,9 +1775,26 @@ a {
 }
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
-    20%, 40%, 60%, 80% { transform: translateX(10px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-10px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(10px);
+    }
 }
 
 /* Skeleton Loader Animation */
@@ -1789,25 +1807,35 @@ a {
 
 .skeleton-media,
 .skeleton-text {
-    background: linear-gradient(
-        90deg,
-        rgba(255,255,255,0.05) 25%,
-        rgba(255,255,255,0.1) 50%,
-        rgba(255,255,255,0.05) 75%
-    );
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.05) 25%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0.05) 75%);
     background-size: 200% 100%;
     animation: skeleton-shimmer 1.5s infinite;
     border-radius: 8px;
 }
 
 @keyframes skeleton-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
 }
 
 @keyframes skeleton-shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
 }
 
 
@@ -1815,7 +1843,7 @@ a {
 .progress-bar {
     width: 100%;
     height: 3px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 999px;
     overflow: hidden;
     margin-top: 8px;
@@ -1829,14 +1857,16 @@ a {
 }
 
 @keyframes progressSlide {
-    0% { 
+    0% {
         width: 0%;
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
-    100% { 
+
+    100% {
         width: 100%;
         background-position: 200% 50%;
     }
@@ -1868,11 +1898,7 @@ a {
 }
 
 .card-3d-tilt:hover {
-    transform: perspective(1000px) 
-               rotateX(var(--rotate-x, 0deg)) 
-               rotateY(var(--rotate-y, 0deg)) 
-               translateY(-8px) 
-               scale(1.02);
+    transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg)) translateY(-8px) scale(1.02);
 }
 
 
@@ -1883,10 +1909,13 @@ a {
 }
 
 @keyframes eliteGlow {
-    0%, 100% {
+
+    0%,
+    100% {
         filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.5));
         text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
     }
+
     50% {
         filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.8));
         text-shadow: 0 0 30px rgba(251, 191, 36, 0.6), 0 0 40px rgba(251, 191, 36, 0.4);
@@ -1894,14 +1923,12 @@ a {
 }
 
 .elite-gradient-shift {
-    background: linear-gradient(
-        90deg,
-        #fbbf24,
-        #fcd34d,
-        #fef3c7,
-        #fcd34d,
-        #fbbf24
-    );
+    background: linear-gradient(90deg,
+            #fbbf24,
+            #fcd34d,
+            #fef3c7,
+            #fcd34d,
+            #fbbf24);
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
@@ -1910,30 +1937,42 @@ a {
 }
 
 @keyframes gradientShift {
-    0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
 }
 
 
 /* ========================= */
 /*  PREMIUM UI ENHANCEMENTS  */
-/* ========================= */ 
+/* ========================= */
 
 /* Vibrant Gradient Backgrounds */
 .gradient-vibrant {
-    background: linear-gradient(135deg, 
-        #667eea 0%, 
-        #764ba2 25%, 
-        #f093fb 50%, 
-        #667eea 75%, 
-        #667eea 100%);
+    background: linear-gradient(135deg,
+            #667eea 0%,
+            #764ba2 25%,
+            #f093fb 50%,
+            #667eea 75%,
+            #667eea 100%);
     background-size: 200% 200%;
     animation: gradientFlow 8s ease infinite;
 }
 
 @keyframes gradientFlow {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 /* Enhanced Glassmorphism */
@@ -1953,8 +1992,15 @@ a {
 
 /* Floating Animation */
 @keyframes float {
-    0%, 100% { transform: translateY(0px) scale(1); }
-    50% { transform: translateY(-10px) scale(1.02); }
+
+    0%,
+    100% {
+        transform: translateY(0px) scale(1);
+    }
+
+    50% {
+        transform: translateY(-10px) scale(1.02);
+    }
 }
 
 .float-anim {
@@ -1964,20 +2010,23 @@ a {
 /* Glow Text Effect */
 .text-glow {
     text-shadow: 0 0 20px currentColor,
-                 0 0 40px currentColor,
-                 0 0 60px currentColor;
+        0 0 40px currentColor,
+        0 0 60px currentColor;
     animation: glowPulse 2s ease-in-out infinite;
 }
 
 @keyframes glowPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         text-shadow: 0 0 20px currentColor,
-                     0 0 40px currentColor;
+            0 0 40px currentColor;
     }
+
     50% {
         text-shadow: 0 0 30px currentColor,
-                     0 0 60px currentColor,
-                     0 0 90px currentColor;
+            0 0 60px currentColor,
+            0 0 90px currentColor;
     }
 }
 
@@ -1991,7 +2040,7 @@ a {
 
 .btn-glow-cyan:hover {
     box-shadow: 0 8px 30px rgba(6, 182, 212, 0.6),
-                0 0 40px rgba(6, 182, 212, 0.3);
+        0 0 40px rgba(6, 182, 212, 0.3);
     transform: translateY(-2px) scale(1.02);
 }
 
@@ -1999,7 +2048,7 @@ a {
 .input-premium:focus {
     border-color: rgb(6, 182, 212);
     box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1),
-                0 0 20px rgba(6, 182, 212, 0.2);
+        0 0 20px rgba(6, 182, 212, 0.2);
     background: rgba(6, 182, 212, 0.02);
 }
 
@@ -2024,7 +2073,7 @@ a {
 .card-lift:hover {
     transform: translateY(-8px) rotateX(2deg);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
-                0 0 30px rgba(6, 182, 212, 0.1);
+        0 0 30px rgba(6, 182, 212, 0.1);
 }
 
 /* Stagger Fade In */
@@ -2033,6 +2082,7 @@ a {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -2056,9 +2106,29 @@ a {
 }
 
 
-/* ===== CUSTOM DARK SCROLLBAR FOR CHAT ===== */
-.chat-messages-container::-webkit-scrollbar { width: 8px; }
-.chat-messages-container::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
-.chat-messages-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; transition: background 0.2s ease; }
-.chat-messages-container::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
-.chat-messages-container { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.15) rgba(0,0,0,0.2); }
+/* ===== CUSTOM DARK SCROLLBAR (GLOBAL + CHAT) ===== */
+/* WebKit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) rgba(0, 0, 0, 0.2);
+}
