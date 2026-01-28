@@ -90,6 +90,9 @@ export default function Page() {
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
   const COOLDOWN_DURATION = 120; // 2 minutes in seconds
 
+  // IP tracking state
+  const [userIp, setUserIp] = useState<string>("");
+
   const { playSound, triggerHaptic, setScanActive } = useGlobalSettings();
 
   const showToast = (msg: string, type: ToastType = "info") => {
