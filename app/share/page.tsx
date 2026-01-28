@@ -6,11 +6,9 @@ import { useMemo, useState, useEffect } from "react";
 export default function Page() {
   const [copied, setCopied] = useState(false);
   const [refCode, setRefCode] = useState("YOURCODE");
-  const [mounted, setMounted] = useState(false);
 
   // Load actual ref code
   useEffect(() => {
-    setMounted(true);
     const local = localStorage.getItem("tipsmega_my_ref_code");
     if (local && local !== "undefined") {
       setRefCode(local);
