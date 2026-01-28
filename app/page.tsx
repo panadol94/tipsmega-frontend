@@ -86,6 +86,10 @@ export default function Page() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [toast, setToast] = useState<{ msg: string; type: ToastType } | null>(null);
 
+  // Cooldown state (2 minutes)
+  const [cooldownRemaining, setCooldownRemaining] = useState(0);
+  const COOLDOWN_DURATION = 120; // 2 minutes in seconds
+
   const { playSound, triggerHaptic, setScanActive } = useGlobalSettings();
 
   const showToast = (msg: string, type: ToastType = "info") => {
@@ -99,6 +103,40 @@ export default function Page() {
     if (typeof window === "undefined") return "";
     return deviceId || localStorage.getItem(storageKey) || "";
   }, [deviceId]);
+
+  // Check cooldown on mount
+  const [cooldownInitialized, setCooldownInitialized] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || cooldownInitialized) return;
+
+    const lastScanTime = localStorage.getItem("last_scan_time");
+    if (lastScanTime) {
+      const elapsed = Math.floor((Date.now() - parseInt(lastScanTime)) / 1000);
+      const remaining = COOLDOWN_DURATION - elapsed;
+      if (remaining > 0) {
+        setCooldownRemaining(remaining);
+      }
+    }
+    setCooldownInitialized(true);
+  }, [cooldownInitialized, COOLDOWN_DURATION]);
+
+  // Cooldown ticker
+  useEffect(() => {
+    if (cooldownRemaining <= 0) return;
+
+    const interval = setInterval(() => {
+      setCooldownRemaining((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [cooldownRemaining]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -129,6 +167,15 @@ export default function Page() {
 
   async function runScan() {
     if (busy) return;
+
+    // Check cooldown
+    if (cooldownRemaining > 0) {
+      const minutes = Math.floor(cooldownRemaining / 60);
+      const seconds = cooldownRemaining % 60;
+      showToast(`⏱️ Cooldown active: ${minutes}:${seconds.toString().padStart(2, '0')} remaining`, "error");
+      playSound("error");
+      return;
+    }
 
     const id = megaId.trim();
     if (!/^(?:[12]\d{11}|09\d{10})$/.test(id)) {
