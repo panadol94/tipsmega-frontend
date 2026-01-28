@@ -436,10 +436,20 @@ export default function TrustedClient() {
 
                     {/* How We Verify */}
                     <article className="card p-6 border-cyan-500/20 bg-cyan-500/5">
-                        <h2 className="text-xl font-black text-cyan-400 mb-4 flex items-center gap-2">
-                            <span>🔍</span>
-                            <span>Bagaimana Kami Verify Company?</span>
+                        <div className="text-sm uppercase tracking-wider text-amber-400 font-bold flex items-center justify-center gap-2">
+                            <span>🔒</span>
+                            <span>SAFE GAMING</span>
+                        </div>
+                        <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-white via-amber-200 to-white bg-clip-text text-transparent">
+                            🔥 Withdrawal On Fire 🔥
+                        </h1>
+                        <h2 className="mt-2 text-2xl sm:text-3xl font-bold text-amber-400">
+                            Lightning Fast Trusted Companies
                         </h2>
+                        <p className="mt-4 max-w-3xl mx-auto text-white/70 leading-relaxed">
+                            Agent terpanas dengan <strong className="text-amber-400">instant withdraw</strong>! Menang terus dapat, <br className="hidden sm:inline" />
+                            RTP certified 24/7. Money in your pocket <strong className="text-green-400">dalam minit</strong>!
+                        </p>
                         <div className="grid md:grid-cols-2 gap-4 text-sm text-white/70">
                             <div>
                                 <h3 className="text-white font-bold mb-2">✅ Financial Check</h3>
