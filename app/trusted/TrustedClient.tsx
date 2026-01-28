@@ -109,7 +109,7 @@ export default function TrustedClient() {
                                 <span className="text-[10px] font-black tracking-[0.3em] text-amber-400/80 uppercase">VVIP PARTNERS</span>
                             </div>
                             <h1 className="text-3xl font-black italic text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
-                                TRUSTED <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500">ELITE</span>
+                                TRUSTED <span className="elite-gradient-shift elite-glow">ELITE</span>
                             </h1>
                         </div>
                         <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center animate-pulse-slow">

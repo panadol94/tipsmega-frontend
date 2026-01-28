@@ -1875,3 +1875,42 @@ a {
                scale(1.02);
 }
 
+
+/* Trusted Elite Text Animation */
+.elite-glow {
+    animation: eliteGlow 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.5));
+}
+
+@keyframes eliteGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.5));
+        text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.8));
+        text-shadow: 0 0 30px rgba(251, 191, 36, 0.6), 0 0 40px rgba(251, 191, 36, 0.4);
+    }
+}
+
+.elite-gradient-shift {
+    background: linear-gradient(
+        90deg,
+        #fbbf24,
+        #fcd34d,
+        #fef3c7,
+        #fcd34d,
+        #fbbf24
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 4s linear infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
