@@ -47,15 +47,24 @@ export const metadata = {
     title: "Mega888 AI Tips RTP 2026",
     description:
       "Analisis RTP Mega888 Live dengan AI. Dapatkan tips kemenangan tertinggi hari ini.",
-    url: "https://www.tipsmega888.com",
+    url: "https://tipsmega888.com",
     siteName: "TipsMega888 AI",
     locale: "ms_MY",
     type: "website",
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Mega888 AI RTP Scanner 2026 - 4.9 Rating',
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Mega888 AI Tips RTP",
     description: "Scan RTP Mega888 sekarang dengan AI kami.",
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -67,6 +76,9 @@ export const metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  alternates: {
+    canonical: 'https://tipsmega888.com',
   },
   manifest: "/manifest.json",
 };

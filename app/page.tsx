@@ -215,7 +215,7 @@ export default function Page() {
         <div className="relative z-10 p-5 pb-0">
           <div className="text-[10px] text-white/60 font-mono tracking-widest uppercase mb-1">TipsMega888 AI System</div>
           <h1 className="text-4xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50 drop-shadow-lg">
-            MEGA888
+            MEGA888 AI RTP SCANNER
           </h1>
         </div>
 
