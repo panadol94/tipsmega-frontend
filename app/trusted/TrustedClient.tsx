@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 import Link from "next/link";
 
@@ -271,7 +270,6 @@ export default function TrustedClient() {
                     ) : (
                         list.map((c, idx) => {
                             const url = normalizeUrl(c.link);
-                            const showVideo = isVideo(c);
                             const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`${WHATSAPP_TEXT}${c.name}`)}`;
 
                             // Dynamic badge assignment
@@ -328,20 +326,22 @@ export default function TrustedClient() {
                                     {/* Media Section - Enhanced with Gradient Overlay */}
                                     <div className="h-32 w-full bg-black relative overflow-hidden group-hover:after:opacity-100 after:absolute after:inset-0 after:bg-gradient-to-br after:from-cyan-500/10 after:to-purple-500/10 after:opacity-0 after:transition-opacity after:duration-500">
                                         {c.storageUrl ? (
-                                            showVideo ? (
+                                            c.mediaType === "video" ? (
                                                 <video
                                                     src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
-                                                    muted playsInline loop autoPlay
+                                                    muted
+                                                    playsInline
+                                                    loop
+                                                    autoPlay
                                                     className="w-full h-full object-cover object-center transition-opacity"
                                                 />
                                             ) : (
-                                                <Image
+                                                // eslint-disable-next-line @next/next/no-img-element
+                                                <img
                                                     src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
                                                     alt={`${c.name} - Trusted Mega888 Agent Logo | Verified Platform ${new Date().getFullYear()}`}
-                                                    fill
-                                                    sizes="(max-width: 768px) 100px, 120px"
-                                                    className="object-cover object-center transition-opacity"
                                                     loading="lazy"
+                                                    className="w-full h-full object-cover object-center transition-opacity"
                                                 />
                                             )
                                         ) : (
