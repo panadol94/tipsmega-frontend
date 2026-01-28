@@ -292,6 +292,13 @@ export default function Page() {
             {busy ? "SEARCHING TARGET..." : "SCAN NETWORK"}
           </span>
         </button>
+
+        {/* Progress Bar */}
+        {busy && (
+          <div className="progress-bar">
+            <div className="progress-bar-fill" />
+          </div>
+        )}
       </section>
 
       {/* ✅ TERMINAL STREAM (pakai TerminalScan, bukan lines/setLines) */}

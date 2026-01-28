@@ -82,6 +82,22 @@ export default function TrustedClient() {
             <div className="fixed -top-40 -right-40 w-96 h-96 bg-purple-900/20 rounded-full blur-[100px] pointer-events-none" />
             <div className="fixed bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none" />
 
+            {/* Floating Particles */}
+            <div className="particle-container fixed">
+                {[...Array(15)].map((_, i) => (
+                    <div
+                        key={i}
+                        className="particle text-cyan-500"
+                        style={{
+                            left: `${Math.random() * 100}%`,
+                            top: `${Math.random() * 100}%`,
+                            animation: `floatParticle ${3 + Math.random() * 4}s ease-in-out infinite`,
+                            animationDelay: `${Math.random() * 5}s`,
+                        }}
+                    />
+                ))}
+            </div>
+
             <div className="app-shell mx-auto px-4 py-8 pb-32 relative z-10">
 
                 {/* HEADER SECTION */}
