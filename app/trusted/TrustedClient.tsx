@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 import Link from "next/link";
-import TrustMascot from "../ui/TrustMascot";
 
 type Company = {
     id?: string;
@@ -490,8 +489,6 @@ export default function TrustedClient() {
                     </article>
                 </section>
 
-                {/* Trust Mascot Character */}
-                <TrustMascot />
 
             </div>
         </div>
