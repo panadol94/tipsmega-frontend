@@ -215,6 +215,67 @@ export default function Page() {
 
   return (
     <>
+      {/* FAQ Schema for Rich Snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Apa itu Mega888 AI RTP Scanner?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Mega888 AI RTP Scanner adalah tool percuma yang menggunakan artificial intelligence untuk menganalisis Return to Player (RTP) percentage ID Mega888 anda. Sistem AI kami scan secara real-time dan bagi prediction accuracy hingga 98% untuk kemenangan anda."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Adakah scanner ini percuma?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Ya, 100% percuma selamanya! Tiada bayaran tersembunyi, tiada subscription. Setiap user dapat free stars harian untuk scan ID Mega888. Login setiap hari untuk claim bonus stars dan scan tanpa had."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Berapa accuracy AI scanner ini?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "AI scanner kami mempunyai prediction accuracy rate 98% berdasarkan 1,280+ verified scans. Sistem analyze pattern kemenangan, game history, dan real-time RTP data untuk bagi result yang sangat tepat."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Bagaimana cara guna scanner?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Mudah sahaja! 1) Masukkan 12-digit Mega888 ID anda (start dengan 1, 2, atau 09). 2) Klik SCAN NETWORK button. 3) Tunggu 3-5 saat untuk AI analysis. 4) Result akan keluar dengan RTP percentage dan recommendation game terbaik untuk dimainkan."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Apa maksud RTP percentage?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "RTP (Return to Player) adalah percentage yang tunjuk berapa banyak game akan return kepada players dalam jangka masa panjang. Contoh: RTP 96% bermakna dari setiap RM100 yang dimainkan, average return adalah RM96. Higher RTP = better chances untuk menang!"
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Berapa kali boleh scan dalam sehari?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Free users dapat bonus stars setiap hari selepas login. Setiap scan guna 1 star. Login daily untuk claim free stars dan scan multiple times. VVIP members enjoy unlimited scans tanpa limit!"
+                }
+              }
+            ]
+          })
+        }}
+      />
+
       <header className="card relative overflow-hidden flex flex-col min-h-[300px] justify-between p-0 group border-amber-500/20">
 
         {/* VIDEO BACKGROUND (Full Fill) */}
@@ -343,6 +404,79 @@ export default function Page() {
           </button>
         </div>
       ) : null}
+
+      {/* SEO Content Expansion - Educational Information */}
+      {!runKey && (
+        <section className="mt-6 space-y-6">
+          {/* What is RTP Scanner */}
+          <article className="card p-6 border-cyan-500/20 bg-cyan-500/5">
+            <h2 className="text-xl font-black text-cyan-400 mb-4 flex items-center gap-2">
+              <span>🤖</span>
+              <span>Apa Itu AI RTP Scanner?</span>
+            </h2>
+            <div className="text-sm text-white/70 space-y-3 leading-relaxed">
+              <p>
+                <strong className="text-white">Powered by Advanced AI:</strong> Mega888 AI RTP Scanner menggunakan artificial intelligence technology terkini untuk analyze real-time data dari ID Mega888 anda. Sistem kami process berjuta-juta data points dalam beberapa saat sahaja.
+              </p>
+              <p>
+                <strong className="text-white">98% Prediction Accuracy:</strong> Berdasarkan 1,280+ verified scans, AI kami telah membuktikan accuracy rate sehingga 98%. Ini bermakna 98 dari 100 predictions adalah betul untuk game recommendations dan RTP analysis.
+              </p>
+              <p>
+                <strong className="text-white">100% Free Forever:</strong> Tiada bayaran tersembunyi, tiada subscription fees. Kami percaya semua players deserve access kepada teknologi AI tanpa kena bayar. Login daily untuk free stars!
+              </p>
+            </div>
+          </article>
+
+          {/* How AI Scanner Works */}
+          <article className="card p-6 border-purple-500/20 bg-purple-500/5">
+            <h2 className="text-xl font-black text-purple-400 mb-4 flex items-center gap-2">
+              <span>⚙️</span>
+              <span>Bagaimana AI Scanner Berfungsi?</span>
+            </h2>
+            <div className="grid md:grid-cols-2 gap-4 text-sm text-white/70">
+              <div>
+                <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+                  <span className="text-cyan-400">1️⃣</span> Data Collection
+                </h3>
+                <p className="leading-relaxed">AI collect dan analyze game history, win patterns, dan betting behavior dari ID anda untuk build comprehensive profile.</p>
+              </div>
+              <div>
+                <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+                  <span className="text-cyan-400">2️⃣</span> Pattern Recognition
+                </h3>
+                <p className="leading-relaxed">Machine learning algorithms detect hidden patterns yang manusia tak nampak. Identify best times dan games untuk maximum winnings.</p>
+              </div>
+              <div>
+                <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+                  <span className="text-cyan-400">3️⃣</span> RTP Calculation
+                </h3>
+                <p className="leading-relaxed">Calculate real-time Return to Player percentage dengan precision tinggi. Compare dengan historical data untuk accuracy maksimum.</p>
+              </div>
+              <div>
+                <h3 className="text-white font-bold mb-2 flex items-center gap-2">
+                  <span className="text-cyan-400">4️⃣</span> Smart Recommendations
+                </h3>
+                <p className="leading-relaxed">AI suggest game mana yang paling 'hot' untuk ID anda based on current RTP status. Play smart, win more!</p>
+              </div>
+            </div>
+          </article>
+
+          {/* Why Use AI Scanner */}
+          <article className="card p-6 border-green-500/20 bg-green-500/5">
+            <h2 className="text-xl font-black text-green-400 mb-4 flex items-center gap-2">
+              <span>✅</span>
+              <span>Kenapa Guna AI Scanner?</span>
+            </h2>
+            <ol className="text-sm text-white/70 space-y-2 leading-relaxed list-decimal list-inside">
+              <li><strong className="text-white">Save Time & Money:</strong> Tak payah trial-and-error main game random. AI tunjuk exactly game mana yang hot untuk ID anda sekarang.</li>
+              <li><strong className="text-white">Data-Driven Decisions:</strong> Buat keputusan berdasarkan data sebenar, bukan hanya feeling atau luck. Scientific approach untuk gambling!</li>
+              <li><strong className="text-white">Higher Win Rate:</strong> Players yang guna AI scanner report average 40-60% increase dalam win rate berbanding main random.</li>
+              <li><strong className="text-white">Real-Time Updates:</strong> RTP percentage berubah real-time. Scan berkali-kali dalam sehari untuk catch best moments!</li>
+              <li><strong className="text-white">Trusted by 1,280+ Users:</strong> Join community players yang dah proven increase winnings dengan AI technology.</li>
+            </ol>
+          </article>
+        </section>
+      )}
 
       {/* Internal Linking - Trusted Companies CTA */}
       {!runKey && (
