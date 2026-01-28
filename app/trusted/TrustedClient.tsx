@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
+import Link from "next/link";
 
 type Company = {
     id?: string;
@@ -102,6 +103,84 @@ export default function TrustedClient() {
                     })
                 }}
             />
+
+            {/* FAQ Schema for Rich Snippets */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "FAQPage",
+                        "mainEntity": [
+                            {
+                                "@type": "Question",
+                                "name": "Apa itu Trusted Company Mega888?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Trusted Company Mega888 adalah senarai platform dan agent yang telah disahkan selamat oleh TipsMega AI Scanner. Semua company yang tersenarai telah diverifikasi untuk elakkan scammer dan pastikan withdrawal cepat."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "Bagaimana cara memilih company yang betul?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Pilih company yang ada badge TRENDING atau FAST untuk service terbaik. Semua company dalam senarai ini adalah verified dan bayar penuh. Klik PLAY NOW untuk register dengan WhatsApp admin."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "Adakah semua company ini selamat?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Ya, 100% selamat. Semua company telah melalui verification process oleh TipsMega AI. Kami hanya senaraikan platform yang terbukti bayar penuh dan tidak scam. VVIP partners dijamin fast withdrawal."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "Berapa lama masa withdrawal?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Company dengan badge FAST biasanya process withdrawal dalam 5-15 minit. VVIP partners guarantee withdrawal dalam masa kurang dari 30 minit. Semua platform menggunakan sistem auto-withdrawal untuk kelajuan maksimum."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "Bagaimana cara register?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Klik butang PLAY NOW pada company pilihan anda. System akan auto-forward ke WhatsApp admin. Hantar message dan admin akan bagi link register terus. Proses registration hanya ambil 2-3 minit sahaja."
+                                }
+                            }
+                        ]
+                    })
+                }}
+            />
+
+            {/* Breadcrumb Schema */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                            {
+                                "@type": "ListItem",
+                                "position": 1,
+                                "name": "Home",
+                                "item": "https://tipsmega888.com"
+                            },
+                            {
+                                "@type": "ListItem",
+                                "position": 2,
+                                "name": "Trusted Companies",
+                                "item": "https://tipsmega888.com/trusted"
+                            }
+                        ]
+                    })
+                }}
+            />
             {/* Ambient Background */}
             <div className="fixed inset-0 bg-[url('/img/noise.png')] opacity-5 pointer-events-none" />
             <div className="fixed -top-40 -right-40 w-96 h-96 bg-purple-900/20 rounded-full blur-[100px] pointer-events-none" />
@@ -124,6 +203,22 @@ export default function TrustedClient() {
             </div>
 
             <div className="app-shell mx-auto px-4 py-8 pb-32 relative z-10">
+
+                {/* Breadcrumb Navigation */}
+                <nav className="mb-4" aria-label="Breadcrumb">
+                    <ol className="flex items-center gap-2 text-xs text-white/40">
+                        <li>
+                            <Link href="/" className="hover:text-cyan-400 transition-colors flex items-center gap-1">
+                                <span>🏠</span>
+                                <span>Home</span>
+                            </Link>
+                        </li>
+                        <li className="text-white/20">/</li>
+                        <li className="text-amber-400 font-bold" aria-current="page">
+                            Trusted Companies
+                        </li>
+                    </ol>
+                </nav>
 
                 {/* HEADER SECTION */}
                 <header className="mb-8 relative">
@@ -242,7 +337,7 @@ export default function TrustedClient() {
                                                 // eslint-disable-next-line @next/next/no-img-element
                                                 <img
                                                     src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
-                                                    alt={c.name}
+                                                    alt={`${c.name} - Trusted Mega888 Agent Logo | Verified Platform ${new Date().getFullYear()}`}
                                                     loading="lazy"
                                                     className="w-full h-full object-cover object-center transition-opacity"
                                                 />
@@ -252,7 +347,7 @@ export default function TrustedClient() {
                                             // eslint-disable-next-line @next/next/no-img-element
                                             <img
                                                 src="/mega888.png"
-                                                alt="Default"
+                                                alt="Mega888 Default Logo | Verified Gaming Platform"
                                                 className="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-500"
                                             />
                                         )}
@@ -319,6 +414,69 @@ export default function TrustedClient() {
                         })
                     )}
                 </div>
+
+                {/* SEO Content Expansion - Educational Information */}
+                <section className="mt-12 space-y-8">
+                    {/* Why Choose Trusted Companies */}
+                    <article className="card p-6 border-amber-500/20 bg-amber-500/5">
+                        <h2 className="text-xl font-black text-amber-400 mb-4 flex items-center gap-2">
+                            <span>🛡️</span>
+                            <span>Kenapa Pilih Trusted Company?</span>
+                        </h2>
+                        <div className="text-sm text-white/70 space-y-3 leading-relaxed">
+                            <p>
+                                <strong className="text-white">Verified 24/7:</strong> Semua company dalam senarai ini melalui verification process yang ketat oleh TipsMega AI Scanner. Kami monitor real-time untuk pastikan payout speed, RTP fairness, dan customer service quality.
+                            </p>
+                            <p>
+                                <strong className="text-white">No Scammer Guarantee:</strong> Hanya platform yang terbukti bayar penuh akan disenaraikan. Company yang ada complaint akan dikeluarkan serta-merta dari verified list.
+                            </p>
+                            <p>
+                                <strong className="text-white">Fast Withdrawal:</strong> VVIP Partners dijamin process withdrawal dalam masa kurang 30 minit. Company dengan badge FAST purata 5-15 minit sahaja menggunakan auto-withdrawal system.
+                            </p>
+                        </div>
+                    </article>
+
+                    {/* How We Verify */}
+                    <article className="card p-6 border-cyan-500/20 bg-cyan-500/5">
+                        <h2 className="text-xl font-black text-cyan-400 mb-4 flex items-center gap-2">
+                            <span>🔍</span>
+                            <span>Bagaimana Kami Verify Company?</span>
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-4 text-sm text-white/70">
+                            <div>
+                                <h3 className="text-white font-bold mb-2">✅ Financial Check</h3>
+                                <p className="leading-relaxed">Verify company balance dan track record pembayaran kepada members. Pastikan ada liquidity untuk support semua withdrawal requests.</p>
+                            </div>
+                            <div>
+                                <h3 className="text-white font-bold mb-2">⚡ Speed Test</h3>
+                                <p className="leading-relaxed">Monitor average withdrawal processing time. Auto-reject company yang lambat atau banyak pending payments.</p>
+                            </div>
+                            <div>
+                                <h3 className="text-white font-bold mb-2">🎯 RTP Monitoring</h3>
+                                <p className="leading-relaxed">Scan game RTP rates untuk ensure fairness. Company yang manipulate RTP akan blacklisted permanently.</p>
+                            </div>
+                            <div>
+                                <h3 className="text-white font-bold mb-2">💬 Customer Feedback</h3>
+                                <p className="leading-relaxed">Analyze reviews dan complaints dari real members. Company dengan bad rating akan removed dari trusted list.</p>
+                            </div>
+                        </div>
+                    </article>
+
+                    {/* Quick Start Guide */}
+                    <article className="card p-6 border-purple-500/20 bg-purple-500/5">
+                        <h2 className="text-xl font-black text-purple-400 mb-4 flex items-center gap-2">
+                            <span>🚀</span>
+                            <span>Cara Register &amp; Mula Main</span>
+                        </h2>
+                        <ol className="text-sm text-white/70 space-y-2 leading-relaxed list-decimal list-inside">
+                            <li><strong className="text-white">Pilih Company:</strong> Browse senarai dan pilih company yang sesuai. Recommend TRENDING atau FAST badge untuk service terbaik.</li>
+                            <li><strong className="text-white">Klik PLAY NOW:</strong> System auto-forward ke WhatsApp admin company tersebut dengan message template.</li>
+                            <li><strong className="text-white">Terima Link:</strong> Admin akan reply dengan link register dan bonus details dalam 1-2 minit.</li>
+                            <li><strong className="text-white">Complete Registration:</strong> Fill in details, deposit minimum amount (biasanya RM10-50), dan mula main!</li>
+                            <li><strong className="text-white">Enjoy Gaming:</strong> Semua games Mega888 available dengan fair RTP. Withdrawal anytime bila menang!</li>
+                        </ol>
+                    </article>
+                </section>
 
             </div>
         </div>

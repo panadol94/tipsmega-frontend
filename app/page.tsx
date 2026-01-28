@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import Toast, { ToastType } from "./ui/Toast";
 import TypewriterText from "./ui/TypewriterText";
 
@@ -342,6 +343,25 @@ export default function Page() {
           </button>
         </div>
       ) : null}
+
+      {/* Internal Linking - Trusted Companies CTA */}
+      {!runKey && (
+        <section className="card mt-6 p-6 border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-purple-500/5 text-center">
+          <div className="text-xs text-amber-400/80 font-black tracking-widest uppercase mb-2">🔒 Safe Gaming</div>
+          <h2 className="text-xl font-black text-white mb-3">
+            Browse <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500">Trusted Companies</span>
+          </h2>
+          <p className="text-sm text-white/60 mb-4 max-w-md mx-auto">
+            Senarai verified agents yang dijamin scam-free, fast withdrawal, dan RTP fair. Semua platform monitored 24/7!
+          </p>
+          <Link
+            href="/trusted"
+            className="inline-block px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 text-white font-black rounded-xl hover:scale-105 transition-transform active:scale-95 shadow-lg hover:shadow-amber-500/50"
+          >
+            VIEW TRUSTED LIST →
+          </Link>
+        </section>
+      )}
 
       {/* AUTH MODAL */}
       {authOpen && (
