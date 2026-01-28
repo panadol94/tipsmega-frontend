@@ -46,10 +46,6 @@ body {
         linear-gradient(180deg, var(--bg1), var(--bg0));
 }
 
-/* stylelint-disable-next-line at-rule-no-unknown */
-@theme {
-    --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
 
 /* ===== carbon texture overlay ===== */
 .app-bg {
