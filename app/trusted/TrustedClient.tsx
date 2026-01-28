@@ -312,14 +312,23 @@ export default function TrustedClient() {
                                                     c.mediaType?.toLowerCase() === "video" ||
                                                     c.storageUrl.match(/\.(mp4|webm|mov|avi|mkv|m4v|flv)$/i);
 
-                                                // Debug log - comment out in production
-                                                if (process.env.NODE_ENV === 'development') {
-                                                    console.log('Media Debug:', { name: c.name, mediaType: c.mediaType, storageUrl: c.storageUrl, isVideo });
-                                                }
+                                                // Build proper URL (handle leading slash)
+                                                const mediaUrl = c.storageUrl.startsWith("http")
+                                                    ? c.storageUrl
+                                                    : `${API_BASE.replace(/\/$/, "")}${c.storageUrl.startsWith("/") ? "" : "/"}${c.storageUrl}`;
+
+                                                // Debug log - ALWAYS show in console
+                                                console.log('🎬 Media Debug:', {
+                                                    name: c.name,
+                                                    mediaType: c.mediaType,
+                                                    storageUrl: c.storageUrl,
+                                                    finalUrl: mediaUrl,
+                                                    isVideo
+                                                });
 
                                                 return isVideo ? (
                                                     <video
-                                                        src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
+                                                        src={mediaUrl}
                                                         title={`${c.name} - Trusted Mega888 Platform Video | Verified Agent ${new Date().getFullYear()}`}
                                                         aria-label={`${c.name} promotional video - Verified Mega888 gaming platform`}
                                                         muted
@@ -333,7 +342,7 @@ export default function TrustedClient() {
                                                 ) : (
                                                     // eslint-disable-next-line @next/next/no-img-element
                                                     <img
-                                                        src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
+                                                        src={mediaUrl}
                                                         alt={`${c.name} - Trusted Mega888 Agent Logo | Verified Platform ${new Date().getFullYear()}`}
                                                         loading="lazy"
                                                         className="w-full h-full object-cover object-center transition-opacity"
