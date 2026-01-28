@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 import Link from "next/link";
 
@@ -334,19 +335,20 @@ export default function TrustedClient() {
                                                     className="w-full h-full object-cover object-center transition-opacity"
                                                 />
                                             ) : (
-                                                // eslint-disable-next-line @next/next/no-img-element
-                                                <img
+                                                <Image
                                                     src={c.storageUrl.startsWith("http") ? c.storageUrl : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.replace(/^\/+/, "")}`}
                                                     alt={`${c.name} - Trusted Mega888 Agent Logo | Verified Platform ${new Date().getFullYear()}`}
+                                                    fill
+                                                    sizes="(max-width: 768px) 100px, 120px"
+                                                    className="object-cover object-center transition-opacity"
                                                     loading="lazy"
-                                                    className="w-full h-full object-cover object-center transition-opacity"
                                                 />
                                             )
                                         ) : (
                                             // Fallback to branded image
                                             // eslint-disable-next-line @next/next/no-img-element
                                             <img
-                                                src="/mega888.png"
+                                                src="/mega888.webp"
                                                 alt="Mega888 Default Logo | Verified Gaming Platform"
                                                 className="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-500"
                                             />

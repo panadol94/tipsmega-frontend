@@ -125,7 +125,6 @@ export default function Page() {
         </div>
       </div>
       <BottomNav />
-    </div >
     </>
   );
 }
