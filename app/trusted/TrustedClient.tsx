@@ -331,13 +331,12 @@ export default function TrustedClient() {
                                                         src={mediaUrl}
                                                         title={`${c.name} - Trusted Mega888 Platform Video | Verified Agent ${new Date().getFullYear()}`}
                                                         aria-label={`${c.name} promotional video - Verified Mega888 gaming platform`}
+                                                        autoPlay
                                                         muted
                                                         playsInline
                                                         loop
-                                                        preload="none"
+                                                        preload="metadata"
                                                         className="w-full h-full object-cover object-center transition-opacity hover:opacity-90"
-                                                        onMouseEnter={(e) => e.currentTarget.play()}
-                                                        onMouseLeave={(e) => e.currentTarget.pause()}
                                                     />
                                                 ) : (
                                                     // eslint-disable-next-line @next/next/no-img-element
