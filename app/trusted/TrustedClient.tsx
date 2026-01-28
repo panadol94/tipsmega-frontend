@@ -283,24 +283,9 @@ export default function TrustedClient() {
                             return (
                                 <article
                                     key={c.id || idx}
-                                    className="neon-border-card card-3d-tilt group relative bg-[#151c27] border border-white/10 rounded-xl shadow-lg transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,217,255,0.3),0_0_80px_rgba(255,0,255,0.2)] active:scale-95"
+                                    className="group relative bg-[#151c27] border border-white/10 rounded-xl shadow-lg transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,217,255,0.2)] hover:-translate-y-1 active:scale-95"
                                     style={{
                                         animationDelay: `${idx * 100}ms`,
-                                    }}
-                                    onMouseMove={(e) => {
-                                        const rect = e.currentTarget.getBoundingClientRect();
-                                        const x = e.clientX - rect.left;
-                                        const y = e.clientY - rect.top;
-                                        const centerX = rect.width / 2;
-                                        const centerY = rect.height / 2;
-                                        const rotateX = ((y - centerY) / centerY) * -10;
-                                        const rotateY = ((x - centerX) / centerX) * 10;
-                                        e.currentTarget.style.setProperty('--rotate-x', `${rotateX}deg`);
-                                        e.currentTarget.style.setProperty('--rotate-y', `${rotateY}deg`);
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.setProperty('--rotate-x', '0deg');
-                                        e.currentTarget.style.setProperty('--rotate-y', '0deg');
                                     }}
                                 >
 
@@ -395,9 +380,9 @@ export default function TrustedClient() {
                                                 {url ? (
                                                     <button
                                                         onClick={() => handleAction(url)}
-                                                        className="btn-play-glow btn-rocket-boost w-full bg-gradient-to-r from-amber-600 to-yellow-600 border border-white/10 text-white font-bold text-[9px] uppercase py-1.5 rounded-lg shadow-md active:scale-95 hover:shadow-amber-500/50 transition-all"
+                                                        className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 border border-white/10 text-white font-bold text-[9px] uppercase py-1.5 rounded-lg shadow-md hover:scale-105 hover:shadow-amber-500/50 active:scale-95 transition-all duration-200"
                                                     >
-                                                        <span className="rocket-icon">🚀</span> PLAY NOW
+                                                        🚀 PLAY NOW
                                                     </button>
                                                 ) : (
                                                     <button
