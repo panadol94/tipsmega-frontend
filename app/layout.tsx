@@ -99,11 +99,7 @@ export default function RootLayout({
   return (
     <html lang="ms" suppressHydrationWarning className={exo2.className}>
       <head>
-        {/* DNS Prefetch & Preconnect for faster font loading */}
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Relying on Next.js Exo_2 built-in font optimization */}
       </head>
       <body>
         <GlobalSettingsProvider>
