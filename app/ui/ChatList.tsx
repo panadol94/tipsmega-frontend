@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 import io, { Socket } from "socket.io-client";
 import AddFriendModal from "./AddFriendModal";
@@ -100,14 +101,36 @@ export default function ChatList({
 
             {/* List */}
             <div className="flex-1 overflow-y-auto">
-                {chats.map(chat => (
-                    <div
+                {chats.map((chat, index) => (
+                    <motion.div
                         key={chat.id}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                            delay: index * 0.05,
+                            duration: 0.3,
+                            ease: "easeOut"
+                        }}
+                        whileHover={{
+                            scale: 1.02,
+                            backgroundColor: "rgba(255, 255, 255, 0.08)",
+                            transition: { duration: 0.2 }
+                        }}
+                        whileTap={{ scale: 0.98 }}
                         onClick={() => onSelect(chat.id)}
-                        className={`p-4 border-b border-white/5 cursor-pointer hover:bg-white/5 transition-colors ${selectedIds === chat.id ? "bg-white/10" : ""}`}
+                        className={`p-4 border-b border-white/5 cursor-pointer transition-all duration-200 ${selectedIds === chat.id
+                                ? "bg-gradient-to-r from-emerald-600/20 to-blue-600/20 border-l-4 border-l-emerald-500 shadow-lg shadow-emerald-500/10"
+                                : "hover:border-l-2 hover:border-l-white/20"
+                            }`}
+                        style={{
+                            backdropFilter: selectedIds === chat.id ? "blur(10px)" : "blur(5px)"
+                        }}
                     >
                         <div className="flex justify-between items-start">
-                            <h3 className="font-semibold text-white text-sm">{chat.name}</h3>
+                            <h3 className={`font-semibold text-sm ${selectedIds === chat.id ? "text-emerald-400" : "text-white"
+                                }`}>
+                                {chat.name}
+                            </h3>
                             {chat.lastMessage && chat.lastMessage.createdAt && (
                                 <span className="text-[10px] text-white/40">
                                     {new Date(chat.lastMessage.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -119,7 +142,7 @@ export default function ChatList({
                                 ? `${chat.lastMessage.sender}: ${chat.lastMessage.content}`
                                 : "Tap to chat..."}
                         </p>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
 

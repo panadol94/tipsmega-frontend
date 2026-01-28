@@ -153,7 +153,21 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
     const iLiked = m.likes && user && m.likes.includes(user.username);
 
     return (
-        <div
+        <motion.div
+            initial={{
+                opacity: 0,
+                x: isMe ? 20 : -20,
+                scale: 0.95
+            }}
+            animate={{
+                opacity: 1,
+                x: 0,
+                scale: 1
+            }}
+            transition={{
+                duration: 0.3,
+                ease: "easeOut"
+            }}
             {...handlers}
             onContextMenu={onContextMenu}
             className={`message-animate flex ${isMe ? "justify-end" : "justify-start"} items-end gap-2 relative group w-full ${groupPosition === "middle" ? "mb-0.5" : "mb-2"}`}
@@ -243,14 +257,31 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
 
                     {/* Reaction Heart Bubble */}
                     {likeCount > 0 && (
-                        <div className={`reaction-animate absolute -bottom-2 ${isMe ? "-left-2" : "-right-2"} bg-[#1f2937] border border-white/20 rounded-full px-1.5 py-0.5 shadow-lg flex items-center gap-1 z-10`}>
-                            <span className="text-[10px] text-red-500">❤</span>
+                        <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                            className={`reaction-animate absolute -bottom-2 ${isMe ? "-left-2" : "-right-2"} bg-[#1f2937] border border-white/20 rounded-full px-1.5 py-0.5 shadow-lg flex items-center gap-1 z-10`}
+                        >
+                            <motion.span
+                                animate={{
+                                    scale: [1, 1.3, 1],
+                                }}
+                                transition={{
+                                    duration: 0.4,
+                                    repeat: Infinity,
+                                    repeatDelay: 2
+                                }}
+                                className="text-[10px] text-red-500"
+                            >
+                                ❤
+                            </motion.span>
                             {likeCount > 1 && <span className="text-[9px] font-bold text-white">{likeCount}</span>}
-                        </div>
+                        </motion.div>
                     )}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
@@ -269,6 +300,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
     const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [showPreview, setShowPreview] = useState(false);
+    const [justSent, setJustSent] = useState(false);
 
     const bottomRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -396,6 +428,11 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
 
     const sendMessage = () => {
         if (!input.trim() || !socket) return;
+
+        // Celebration effect
+        setJustSent(true);
+        setTimeout(() => setJustSent(false), 600);
+
         socket.emit("send_message", {
             roomId,
             sender: user?.username || "Guest",
@@ -741,16 +778,25 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                         disabled={!user || user.username === "Guest" || isRecording}
                     />
 
-                    <button
+
+                    <motion.button
                         onClick={sendMessage}
                         disabled={!user || user.username === "Guest" || !input.trim()}
+                        animate={justSent ? {
+                            scale: [1, 1.2, 1],
+                            rotate: [0, -10, 10, 0]
+                        } : {}}
+                        transition={{
+                            duration: 0.6,
+                            ease: "easeOut"
+                        }}
                         className={`chat-button-press p-2 rounded-full text-white shadow-lg transition-all disabled:opacity-50 disabled:shadow-none bg-${currentStyle.accent}-600 shadow-${currentStyle.accent}-600/20 hover:shadow-${currentStyle.accent}-600/40`}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="-ml-0.5">
                             <line x1="22" y1="2" x2="11" y2="13"></line>
                             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                         </svg>
-                    </button>
+                    </motion.button>
                 </div>
 
                 {user?.username === "Guest" && (

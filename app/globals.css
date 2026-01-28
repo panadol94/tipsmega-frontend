@@ -79,12 +79,34 @@ body {
     /* bottom space for nav */
 }
 
+/* Responsive padding untuk desktop */
+@media (min-width: 768px) {
+    .app-wrap {
+        padding: 20px 24px 92px;
+    }
+}
+
 .app-shell {
     width: 100%;
     max-width: 520px;
     display: flex;
     flex-direction: column;
     gap: 14px;
+}
+
+/* Desktop: wider layout */
+@media (min-width: 768px) {
+    .app-shell {
+        max-width: 720px;
+        gap: 18px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .app-shell {
+        max-width: 900px;
+        gap: 20px;
+    }
 }
 
 /* ===== top brand header ===== */
@@ -107,6 +129,21 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+/* Responsive header untuk desktop */
+@media (min-width: 768px) {
+    .top-brand-inner {
+        max-width: 720px;
+        padding: 14px 16px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .top-brand-inner {
+        max-width: 900px;
+        padding: 16px 20px;
+    }
 }
 
 .brand-left {
@@ -319,6 +356,15 @@ body {
     outline: none;
 }
 
+/* Larger inputs untuk desktop */
+@media (min-width: 768px) {
+    .input {
+        height: 58px;
+        font-size: 16px;
+        padding: 0 18px;
+    }
+}
+
 .input:focus {
     border-color: rgba(123, 215, 255, .55);
     box-shadow: 0 0 0 5px rgba(123, 215, 255, .10);
@@ -387,6 +433,15 @@ body {
     color: rgba(235, 235, 235, .92);
 }
 
+/* Larger terminal untuk desktop */
+@media (min-width: 768px) {
+    .terminal-body {
+        height: 400px;
+        font-size: 14px;
+        padding: 18px;
+    }
+}
+
 .cursor {
     display: inline-block;
     width: 10px;
@@ -428,6 +483,23 @@ body {
     box-shadow: var(--shadow);
 }
 
+/* Responsive nav untuk desktop */
+@media (min-width: 768px) {
+    .nav-row {
+        max-width: 720px;
+        gap: 12px;
+        padding: 12px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .nav-row {
+        max-width: 900px;
+        gap: 14px;
+        padding: 14px;
+    }
+}
+
 .nav-btn {
     flex: 1;
     text-decoration: none;
@@ -439,6 +511,14 @@ body {
     border: 1px solid transparent;
     background: rgba(0, 0, 0, .18);
     transition: transform .10s ease, background .15s ease, color .15s ease, border-color .15s ease;
+}
+
+/* Larger nav buttons untuk desktop */
+@media (min-width: 768px) {
+    .nav-btn {
+        padding: 14px 12px;
+        font-size: 15px;
+    }
 }
 
 .nav-btn:active {
@@ -686,6 +766,14 @@ body {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
+}
+
+/* 3-column layout untuk desktop/wide screens */
+@media (min-width: 900px) {
+    .trusted-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
 }
 
 .trusted-card {
@@ -1504,4 +1592,47 @@ a {
             transparent 100%);
     background-size: 200% 100%;
     animation: badgeShimmer 3s infinite;
+}
+/* ========================= */
+/*  RESPONSIVE CHAT STYLES   */
+/* ========================= */
+
+/* Desktop: Constrain chat width untuk avoid very wide messages */
+@media (min-width: 768px) {
+    /* Message bubbles max-width - prevent stretching across full screen */
+    .chat-messages-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px 24px;
+    }
+    
+    /* Larger message text on desktop */
+    .chat-messages-container .text-sm {
+        font-size: 15px;
+    }
+    
+    /* Larger avatars on desktop */
+    .chat-avatar {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 12px !important;
+    }
+    
+    /* Better spacing for desktop */
+    .message-animate {
+        margin: 0.75rem 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    /* Even wider messages container on large desktop */
+    .chat-messages-container {
+        max-width: 1000px;
+        padding: 24px 32px;
+    }
+    
+    /* Max width for individual message bubbles */
+    .message-animate > div:last-child {
+        max-width:  !important;
+    }
 }
