@@ -1,6 +1,7 @@
 "use client";
 
 import BottomNav from "../ui/BottomNav";
+import FAQSection from "../ui/FAQSection";
 
 export default function Page() {
   return (
@@ -84,6 +85,11 @@ export default function Page() {
           </div>
 
         </section>
+
+        {/* FAQ SECTION - SEO Enhancement with Schema Markup */}
+        <div className="mt-6">
+          <FAQSection />
+        </div>
 
         {/* FOOTER KEYWORDS */}
         <div className="mt-8 px-4 text-center">
