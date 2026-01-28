@@ -58,7 +58,7 @@ export default function TrustedClient() {
             const json = await res.json();
             const arr = Array.isArray(json?.companies) ? json.companies : Array.isArray(json) ? json : [];
             setCompanies(arr);
-        } catch (e: any) {
+        } catch (e: unknown) {
             const msg = e instanceof Error ? e.message : String(e);
             setErr(msg);
         } finally {
