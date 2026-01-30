@@ -10,6 +10,7 @@ import AuthModal from "./ui/AuthModal";
 import InstallPrompt from "./ui/InstallPrompt";
 import { MEGA888_GAMES } from "./data/mega888Games";
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
+import { useStarSync } from "./lib/useStarSync";
 import confetti from "canvas-confetti";
 
 type InitRes = { deviceId: string; stars: number; isNew: boolean };
@@ -190,6 +191,22 @@ export default function Page() {
       .catch(() => setStars(0));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // ✨ AUTO STAR SYNC - Polls server every 10 seconds for new bonus stars
+  useStarSync({
+    token: typeof window !== "undefined" ? localStorage.getItem(tokenKey) : null,
+    deviceId: resolvedDeviceId,
+    enabled: isLoggedIn,
+    onStarsUpdated: (newStars, claimedAmount) => {
+      setStars(newStars);
+      // Show success notification when stars are auto-claimed
+      if (claimedAmount > 0) {
+        showToast(`✨ ${claimedAmount} bonus stars claimed! New total: ${newStars}`, "success");
+        playSound("success");
+        triggerHaptic(100);
+      }
+    },
+  });
 
   async function runScan() {
     if (busy) return;
