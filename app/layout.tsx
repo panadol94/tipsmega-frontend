@@ -10,7 +10,7 @@ const exo2 = Exo_2({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://www.tipsmega888.com"),
+  metadataBase: new URL("https://tipsmega888.com"),
   title: {
     default: "Mega888 AI Tips RTP 2026 | AI Scanner",
     template: "%s | Mega888 AI",

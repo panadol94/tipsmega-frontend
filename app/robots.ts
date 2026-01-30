@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
             userAgent: "*",
             allow: "/",
         },
-        sitemap: "https://www.tipsmega888.com/sitemap.xml",
+        sitemap: "https://tipsmega888.com/sitemap.xml",
     };
 }
