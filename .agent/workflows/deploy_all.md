@@ -2,6 +2,8 @@
 description: Deploy/Push all TipsMega changes (Frontend + Backend) to GitHub for Coolify
 ---
 
+# Deploy All Changes
+
 This workflow automates the process of pushing changes from both the Frontend (`tipsmega-ui`) and Backend (`tipsmega-ui/api-mini`) repositories to GitHub. This ensures Coolify can pull the latest code.
 
 1. **Push Frontend Changes**
