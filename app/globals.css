@@ -2132,3 +2132,24 @@ a {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.15) rgba(0, 0, 0, 0.2);
 }
+
+/* ===== STAR NOTIFICATION ANIMATION ===== */
+@keyframes bounceIn {
+    0% {
+        transform: translate(-50%, -100px);
+        opacity: 0;
+    }
+
+    60% {
+        transform: translate(-50%, 10px);
+        opacity: 1;
+    }
+
+    80% {
+        transform: translate(-50%, -5px);
+    }
+
+    100% {
+        transform: translate(-50%, 0);
+    }
+}

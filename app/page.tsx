@@ -91,6 +91,9 @@ export default function Page() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [toast, setToast] = useState<{ msg: string; type: ToastType } | null>(null);
 
+  // Star notification
+  const [starNotification, setStarNotification] = useState<string | null>(null);
+
   // Cooldown state (2 minutes)
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
   const COOLDOWN_DURATION = 120; // 2 minutes in seconds
@@ -216,19 +219,32 @@ export default function Page() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // ✨ AUTO STAR SYNC - Polls server every 10 seconds for new bonus stars
-  useStarSync({
+  // ✨ AUTO STAR SYNC - Polls server every 5 seconds for new bonus stars
+  const { claimNow, isClaiming } = useStarSync({
     token: typeof window !== "undefined" ? localStorage.getItem(tokenKey) : null,
     deviceId: resolvedDeviceId,
     enabled: isLoggedIn,
     onStarsUpdated: (newStars, claimedAmount) => {
       setStars(newStars);
-      // Show success notification when stars are auto-claimed
+      // Show success notification when stars are claimed
       if (claimedAmount > 0) {
-        showToast(`✨ ${claimedAmount} bonus stars claimed! New total: ${newStars}`, "success");
+        const message = `✅ Claimed ${claimedAmount} stars! New total: ${newStars}`;
+        setStarNotification(message);
+        showToast(message, "success");
         playSound("success");
         triggerHaptic(100);
+        // Auto-hide notification after 5 seconds
+        setTimeout(() => setStarNotification(null), 5000);
       }
+    },
+    onPendingDetected: (pending) => {
+      // Notify user about pending stars
+      const message = `✨ You have ${pending} pending stars!`;
+      setStarNotification(message);
+      playSound("click");
+      triggerHaptic(50);
+      // Auto-hide notification after 5 seconds
+      setTimeout(() => setStarNotification(null), 5000);
     },
   });
 
@@ -458,7 +474,14 @@ export default function Page() {
           ) : (
             <div className="flex gap-3">
               <button
-                className="btn-ghost backdrop-blur-md hover:bg-white/10 flex-1 h-[52px] border-white/20"
+                onClick={claimNow}
+                disabled={isClaiming}
+                className="btn-ghost backdrop-blur-md hover:bg-purple-500/20 flex-1 h-[52px] border-purple-500/30 bg-purple-500/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              >
+                <span className="font-black text-sm">{isClaiming ? '⏳ CLAIMING...' : '✨ CLAIM STARS'}</span>
+              </button>
+              <button
+                className="btn-ghost backdrop-blur-md hover:bg-white/10 h-[52px] px-4 border-white/20"
                 onClick={() => {
                   if (confirm("Log out?")) {
                     localStorage.removeItem(tokenKey);
@@ -722,6 +745,19 @@ export default function Page() {
           type={toast.type}
           onClose={() => setToast(null)}
         />
+      )}
+
+      {/* Star Notification Toast */}
+      {starNotification && (
+        <div
+          className="fixed top-20 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl shadow-2xl z-[9999] animate-bounce-in"
+          style={{
+            maxWidth: '90%',
+            animation: 'bounceIn 0.5s ease-out'
+          }}
+        >
+          <div className="font-bold text-sm text-center">{starNotification}</div>
+        </div>
       )}
 
 
