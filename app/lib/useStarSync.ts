@@ -3,7 +3,8 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
-const SYNC_INTERVAL_MS = 5000; // Reduced to 5 seconds for faster updates
+const SYNC_INTERVAL_MS = 10000; // Increased to 10 seconds to reduce server load
+const ERROR_COOLDOWN_MS = 30000; // 30 seconds cooldown after error
 
 interface UseStarSyncOptions {
     token: string | null;
@@ -20,8 +21,8 @@ interface UseStarSyncReturn {
 
 /**
  * Custom hook to automatically sync bonus stars from user ledger to device
- * Polls server every 5 seconds to check for pending stars and auto-claims them
- * Also provides manual claim function
+ * Polls server every 10 seconds to check for pending stars
+ * Manual claim function available - auto-claim DISABLED to prevent flicker
  */
 export function useStarSync({
     token,
@@ -32,16 +33,22 @@ export function useStarSync({
 }: UseStarSyncOptions): UseStarSyncReturn {
     const syncingRef = useRef(false);
     const [isClaiming, setIsClaiming] = useState(false);
-    const pendingNotifiedRef = useRef(false); // Track if we've notified about current pending amount
+    const pendingNotifiedRef = useRef(false);
+    const errorCooldownUntilRef = useRef(0); // Timestamp when cooldown ends
 
     const checkAndClaim = useCallback(async (manual = false) => {
-        // Prevent concurrent syncs - return BEFORE setting any state
+        // Check error cooldown for auto-sync (not for manual claims)
+        if (!manual && Date.now() < errorCooldownUntilRef.current) {
+            console.log("In error cooldown, skipping auto-sync...");
+            return;
+        }
+
+        // Prevent concurrent syncs
         if (syncingRef.current) {
             console.log("Sync already in progress, skipping...");
             return;
         }
 
-        // Mark as syncing FIRST
         syncingRef.current = true;
 
         // Only show CLAIMING state for manual claims
@@ -63,21 +70,14 @@ export function useStarSync({
             const { pending } = await checkRes.json();
 
             // 2. If pending > 0, notify user (only once per pending batch)
-            if (pending > 0 && !pendingNotifiedRef.current && onPendingDetected && !manual) {
+            if (pending > 0 && !pendingNotifiedRef.current && onPendingDetected) {
                 onPendingDetected(pending);
                 pendingNotifiedRef.current = true;
             }
 
-            // 3. If pending > 0, claim them
-            if (pending > 0) {
-                // Show claiming state when actually claiming (even for auto)
-                setIsClaiming(true);
-
-                if (manual) {
-                    console.log(`✨ Manual claim: ${pending} pending stars`);
-                } else {
-                    console.log(`✨ Auto-detected ${pending} pending stars, claiming...`);
-                }
+            // 3. Only claim if MANUAL - auto-claim disabled to prevent flicker
+            if (pending > 0 && manual) {
+                console.log(`✨ Manual claim: ${pending} pending stars`);
 
                 const grantRes = await fetch(`${API_BASE}/api/auth/grant-device`, {
                     method: "POST",
@@ -92,15 +92,20 @@ export function useStarSync({
                     const { stars } = await grantRes.json();
                     console.log(`✅ Stars claimed! New total: ${stars}`);
                     onStarsUpdated(stars, pending);
-                    pendingNotifiedRef.current = false; // Reset for next batch
+                    pendingNotifiedRef.current = false;
+                    errorCooldownUntilRef.current = 0; // Reset cooldown on success
                 } else {
-                    console.error("Grant device failed:", await grantRes.text());
+                    const errorText = await grantRes.text();
+                    console.error("Grant device failed:", errorText);
+                    // Set error cooldown to prevent rapid retries
+                    errorCooldownUntilRef.current = Date.now() + ERROR_COOLDOWN_MS;
                 }
             }
         } catch (e) {
             console.error("Star sync error:", e);
+            // Set error cooldown on network errors
+            errorCooldownUntilRef.current = Date.now() + ERROR_COOLDOWN_MS;
         } finally {
-            // ALWAYS reset state - this will ALWAYS run now
             syncingRef.current = false;
             setIsClaiming(false);
         }
@@ -118,10 +123,10 @@ export function useStarSync({
     useEffect(() => {
         if (!token || !enabled) return;
 
-        // Run immediately on mount (for user who just got stars while logged in)
+        // Run immediately on mount
         checkAndClaim();
 
-        // Then run periodically every 5 seconds
+        // Then run periodically every 10 seconds (just checks, doesn't auto-claim)
         const interval = setInterval(() => checkAndClaim(), SYNC_INTERVAL_MS);
 
         return () => clearInterval(interval);
