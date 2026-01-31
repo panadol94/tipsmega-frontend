@@ -23,15 +23,6 @@ type Props = {
   onComplete?: () => void;
 };
 
-function shuffle<T>(arr: T[]) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
 function randInt(min: number, max: number) {
   return Math.floor(min + Math.random() * (max - min + 1));
 }
@@ -56,9 +47,9 @@ export default function TerminalScan({
   const [showShareBtn, setShowShareBtn] = useState(false);
   const boxRef = useRef<HTMLDivElement | null>(null);
 
-  const deck = useMemo(() => shuffle(games), [games]);
+  const deck = useMemo(() => games, [games]); // Keep original order from file
 
-  // Share function with copyright - Top 20 games
+  // Share function with copyright - All games sorted by RTP
   const handleShare = async () => {
     // Extract all game results with percentage
     const gameResults = lines
@@ -68,8 +59,7 @@ export default function TerminalScan({
         const percentage = match ? parseFloat(match[1]) : 0;
         return { text: l.text, percentage };
       })
-      .sort((a, b) => b.percentage - a.percentage) // Sort highest first
-      .slice(0, 20); // Top 20
+      .sort((a, b) => b.percentage - a.percentage); // Sort highest first (all games)
 
     const shareText = `🎰 MEGA888 RTP SCAN RESULTS\n\n` +
       `📊 Overall RTP: ${overallRtp}%\n` +
@@ -77,7 +67,7 @@ export default function TerminalScan({
       `🆔 ID: ${idMasked}\n` +
       `⏰ ${new Date().toLocaleString()}\n\n` +
       `━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `🔥 TOP 20 HIGHEST RTP GAMES:\n` +
+      `🔥 ALL GAMES (Sorted by RTP):\n` +
       `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
       gameResults.map((g, i) => `${i + 1}. ${g.text.trim()}`).join('\n') +
       `\n\n━━━━━━━━━━━━━━━━━━━━━━\n` +

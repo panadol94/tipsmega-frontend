@@ -18,6 +18,17 @@ interface Game {
     order: number;
 }
 
+interface ImportGame {
+    name: string;
+    icon?: string;
+    category?: string;
+    rtpMin?: number;
+    rtpMax?: number;
+    isHot?: boolean;
+    isNew?: boolean;
+    enabled?: boolean;
+}
+
 export default function GamesPage() {
     const [games, setGames] = useState<Game[]>([]);
     const [loading, setLoading] = useState(true);
@@ -27,8 +38,11 @@ export default function GamesPage() {
 
     // Import states
     const [importModal, setImportModal] = useState(false);
-    const [importData, setImportData] = useState<any[]>([]);
+    const [importData, setImportData] = useState<ImportGame[]>([]);
     const [importing, setImporting] = useState(false);
+
+    // Auto-sync state
+    const [syncing, setSyncing] = useState(false);
 
     // Rename states
     const [renamingId, setRenamingId] = useState<string | null>(null);
@@ -109,17 +123,18 @@ export default function GamesPage() {
                     const headers = lines[0].split(',').map(h => h.trim());
                     parsed = lines.slice(1).map(line => {
                         const values = line.split(',').map(v => v.trim());
-                        const obj: any = {};
+                        const obj: Record<string, string | number | boolean> = {};
                         headers.forEach((h, i) => {
                             const val = values[i];
                             obj[h] = val === 'true' ? true : val === 'false' ? false : isNaN(Number(val)) ? val : Number(val);
                         });
-                        return obj;
+                        return obj as unknown as ImportGame;
                     });
                 }
 
                 setImportData(parsed);
             } catch (err) {
+                console.error('Parse error:', err);
                 alert('Failed to parse file. Please check format.');
             }
         };
@@ -152,6 +167,36 @@ export default function GamesPage() {
             alert('Import failed');
         } finally {
             setImporting(false);
+        }
+    };
+
+    // Auto-sync from mega888.txt
+    const handleSyncFromTxt = async () => {
+        if (!confirm('Sync all games from mega888.txt?\n\nThis will add new games while preserving existing game settings.')) {
+            return;
+        }
+
+        setSyncing(true);
+        try {
+            const token = localStorage.getItem("admin_token");
+            const res = await fetch(`${API_BASE}/api/admin/games/sync-from-txt`, {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                alert(`✅ Auto-Sync Complete!\n\n${data.added} new games added\n${data.existing} games already exist\n${data.total} total games in file`);
+                await fetchGames();
+            } else {
+                const error = await res.json();
+                alert(`❌ Sync failed: ${error.error || 'Unknown error'}`);
+            }
+        } catch (err) {
+            console.error('Sync error:', err);
+            alert('❌ Network error during sync');
+        } finally {
+            setSyncing(false);
         }
     };
 
@@ -209,7 +254,7 @@ export default function GamesPage() {
                 return;
             }
 
-            const updates: any = {};
+            const updates: Partial<Game> = {};
             if (bulkAction === 'enable') updates.enabled = true;
             if (bulkAction === 'disable') updates.enabled = false;
 
@@ -287,6 +332,13 @@ export default function GamesPage() {
                     >
                         <span>➕</span> Add Game
                     </Link>
+                    <button
+                        onClick={handleSyncFromTxt}
+                        disabled={syncing}
+                        className="bg-purple-600 hover:bg-purple-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-4 py-2 rounded-xl transition-colors flex items-center gap-2"
+                    >
+                        <span>{syncing ? '⏳' : '🔄'}</span> {syncing ? 'Syncing...' : 'Auto-Sync TXT'}
+                    </button>
                     <button
                         onClick={() => setImportModal(true)}
                         className="bg-slate-700 hover:bg-slate-600 text-white font-bold px-4 py-2 rounded-xl transition-colors flex items-center gap-2"
