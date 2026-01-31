@@ -1,8 +1,19 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import MegaLogo from "./MegaLogo";
 import MatrixRain from "./MatrixRain";
 import BottomNav from "./BottomNav";
 
 export default function Shell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isAdmin = pathname?.startsWith("/admin");
+
+  // Admin pages use their own layout - skip user-facing shell
+  if (isAdmin) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="app-bg">
       <MatrixRain />
