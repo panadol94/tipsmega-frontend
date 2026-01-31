@@ -38,9 +38,13 @@ export function useStarSync({
         // Prevent concurrent syncs
         if (syncingRef.current) return;
 
+        // Only show CLAIMING state for manual claims
+        if (manual) {
+            setIsClaiming(true);
+        }
+
         try {
             syncingRef.current = true;
-            setIsClaiming(true);
 
             // 1. Check for pending stars
             const checkRes = await fetch(`${API_BASE}/api/auth/check-pending`, {
@@ -49,7 +53,6 @@ export function useStarSync({
 
             if (!checkRes.ok) {
                 console.warn("Star sync: check-pending failed");
-                // Don't return early - let finally block run
                 return;
             }
 
@@ -63,6 +66,9 @@ export function useStarSync({
 
             // 3. If pending > 0, claim them
             if (pending > 0) {
+                // Show claiming state when actually claiming
+                setIsClaiming(true);
+
                 if (manual) {
                     console.log(`✨ Manual claim: ${pending} pending stars`);
                 } else {
@@ -90,7 +96,7 @@ export function useStarSync({
         } catch (e) {
             console.error("Star sync error:", e);
         } finally {
-            // ALWAYS reset state, even if error or early return
+            // ALWAYS reset state
             syncingRef.current = false;
             setIsClaiming(false);
         }
