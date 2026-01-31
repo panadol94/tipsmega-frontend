@@ -544,21 +544,34 @@ export default function GamesPage() {
                 </div>
             </div>
 
-            {/* Import Modal */}
             {importModal && (
-                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-                    <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => { setImportModal(false); setImportData([]); }}>
+                    <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto relative" onClick={(e) => e.stopPropagation()}>
+                        {/* Close Button */}
+                        <button
+                            onClick={() => { setImportModal(false); setImportData([]); }}
+                            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-700 text-slate-400 hover:text-white hover:bg-slate-600 transition-colors"
+                        >
+                            ✕
+                        </button>
+
                         <h3 className="text-lg font-bold text-white mb-4">📥 Import Games</h3>
 
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-sm font-bold text-slate-400 mb-2">Upload JSON or CSV</label>
-                                <input
-                                    type="file"
-                                    accept=".json,.csv"
-                                    onChange={handleFileUpload}
-                                    className="w-full bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-600 file:text-white hover:file:bg-blue-500"
-                                />
+                                <label className="block w-full cursor-pointer">
+                                    <div className="flex items-center gap-4 bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 hover:bg-slate-700 transition-colors">
+                                        <span className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg text-white font-bold text-sm">Choose File</span>
+                                        <span className="text-slate-400 text-sm">No file chosen</span>
+                                    </div>
+                                    <input
+                                        type="file"
+                                        accept=".json,.csv"
+                                        onChange={handleFileUpload}
+                                        className="hidden"
+                                    />
+                                </label>
                                 <p className="text-xs text-slate-500 mt-2">Supported formats: JSON (array of objects) or CSV with headers</p>
                             </div>
 
