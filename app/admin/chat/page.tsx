@@ -17,6 +17,14 @@ export default function ChatPage() {
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState("global");
 
+    // Modal states
+    const [announceModal, setAnnounceModal] = useState(false);
+    const [announcement, setAnnouncement] = useState("");
+    const [bannedWordsModal, setBannedWordsModal] = useState(false);
+    const [bannedWords, setBannedWords] = useState<string[]>([]);
+    const [newBannedWord, setNewBannedWord] = useState("");
+    const [actionLoading, setActionLoading] = useState(false);
+
     useEffect(() => {
         fetchMessages();
     }, [filter]);
@@ -49,6 +57,125 @@ export default function ChatPage() {
         } catch (err) {
             console.error("Failed to delete message:", err);
         }
+    };
+
+    const handleSendAnnouncement = async () => {
+        if (!announcement.trim()) return;
+        setActionLoading(true);
+        try {
+            const token = localStorage.getItem("admin_token");
+            const res = await fetch(`${API_BASE}/api/admin/chat/announce`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({ message: announcement })
+            });
+            if (res.ok) {
+                alert("✅ Announcement sent!");
+                setAnnouncement("");
+                setAnnounceModal(false);
+                fetchMessages();
+            }
+        } catch (err) {
+            alert("Failed to send announcement");
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
+    const handleClearOld = async () => {
+        if (!confirm("Clear all messages older than 7 days?")) return;
+        setActionLoading(true);
+        try {
+            const token = localStorage.getItem("admin_token");
+            const res = await fetch(`${API_BASE}/api/admin/chat/clear-old`, {
+                method: "POST",
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (res.ok) {
+                const data = await res.json();
+                alert(`✅ Cleared ${data.cleared} old messages`);
+                fetchMessages();
+            }
+        } catch (err) {
+            alert("Failed to clear old messages");
+        } finally {
+            setActionLoading(false);
+        }
+    };
+
+    const handleExportCSV = () => {
+        const headers = ["ID", "Sender", "Content", "Room", "Date"];
+        const rows = messages.map(m => [
+            m._id,
+            m.sender,
+            `"${m.content.replace(/"/g, '""')}"`,
+            m.roomId,
+            new Date(m.createdAt).toISOString()
+        ]);
+
+        const csv = [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `chat_logs_${new Date().toISOString().split("T")[0]}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
+    const fetchBannedWords = async () => {
+        try {
+            const token = localStorage.getItem("admin_token");
+            const res = await fetch(`${API_BASE}/api/admin/settings/banned-words`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            if (res.ok) {
+                const data = await res.json();
+                setBannedWords(data.bannedWords || []);
+            }
+        } catch (err) {
+            console.error("Failed to fetch banned words:", err);
+        }
+    };
+
+    const handleAddBannedWord = async () => {
+        if (!newBannedWord.trim()) return;
+        const updated = [...bannedWords, newBannedWord.trim().toLowerCase()];
+        await saveBannedWords(updated);
+        setNewBannedWord("");
+    };
+
+    const handleRemoveBannedWord = async (word: string) => {
+        const updated = bannedWords.filter(w => w !== word);
+        await saveBannedWords(updated);
+    };
+
+    const saveBannedWords = async (words: string[]) => {
+        try {
+            const token = localStorage.getItem("admin_token");
+            const res = await fetch(`${API_BASE}/api/admin/settings/banned-words`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({ bannedWords: words })
+            });
+            if (res.ok) {
+                const data = await res.json();
+                setBannedWords(data.bannedWords);
+            }
+        } catch (err) {
+            alert("Failed to save banned words");
+        }
+    };
+
+    const openBannedWordsModal = () => {
+        fetchBannedWords();
+        setBannedWordsModal(true);
     };
 
     if (loading) {
@@ -115,27 +242,121 @@ export default function ChatPage() {
 
             {/* Quick Actions */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <button className="p-4 bg-slate-800 border border-slate-700 rounded-xl text-left hover:border-blue-500 transition-colors">
+                <button
+                    onClick={() => setAnnounceModal(true)}
+                    className="p-4 bg-slate-800 border border-slate-700 rounded-xl text-left hover:border-blue-500 transition-colors"
+                >
                     <span className="text-2xl">📢</span>
                     <div className="font-bold text-white mt-2">Send Announcement</div>
                     <div className="text-xs text-slate-500">Broadcast to all</div>
                 </button>
-                <button className="p-4 bg-slate-800 border border-slate-700 rounded-xl text-left hover:border-blue-500 transition-colors">
+                <button
+                    onClick={handleClearOld}
+                    disabled={actionLoading}
+                    className="p-4 bg-slate-800 border border-slate-700 rounded-xl text-left hover:border-blue-500 transition-colors disabled:opacity-50"
+                >
                     <span className="text-2xl">🧹</span>
                     <div className="font-bold text-white mt-2">Clear Old Messages</div>
                     <div className="text-xs text-slate-500">7+ days old</div>
                 </button>
-                <button className="p-4 bg-slate-800 border border-slate-700 rounded-xl text-left hover:border-blue-500 transition-colors">
+                <button
+                    onClick={handleExportCSV}
+                    className="p-4 bg-slate-800 border border-slate-700 rounded-xl text-left hover:border-blue-500 transition-colors"
+                >
                     <span className="text-2xl">📥</span>
                     <div className="font-bold text-white mt-2">Export Logs</div>
                     <div className="text-xs text-slate-500">Download CSV</div>
                 </button>
-                <button className="p-4 bg-slate-800 border border-slate-700 rounded-xl text-left hover:border-blue-500 transition-colors">
+                <button
+                    onClick={openBannedWordsModal}
+                    className="p-4 bg-slate-800 border border-slate-700 rounded-xl text-left hover:border-blue-500 transition-colors"
+                >
                     <span className="text-2xl">🚫</span>
                     <div className="font-bold text-white mt-2">Banned Words</div>
                     <div className="text-xs text-slate-500">Manage filter</div>
                 </button>
             </div>
+
+            {/* Announcement Modal */}
+            {announceModal && (
+                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+                    <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 max-w-md w-full">
+                        <h3 className="text-lg font-bold text-white mb-4">📢 Send Announcement</h3>
+                        <textarea
+                            value={announcement}
+                            onChange={(e) => setAnnouncement(e.target.value)}
+                            placeholder="Type your announcement..."
+                            className="w-full bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 text-white min-h-[100px] focus:border-blue-500 outline-none"
+                        />
+                        <div className="flex gap-3 mt-4">
+                            <button
+                                onClick={() => setAnnounceModal(false)}
+                                className="flex-1 py-2 border border-slate-600 rounded-xl text-slate-300 hover:bg-slate-700"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleSendAnnouncement}
+                                disabled={actionLoading || !announcement.trim()}
+                                className="flex-1 py-2 bg-blue-600 rounded-xl text-white font-bold hover:bg-blue-500 disabled:opacity-50"
+                            >
+                                {actionLoading ? "Sending..." : "Send"}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Banned Words Modal */}
+            {bannedWordsModal && (
+                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
+                    <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 max-w-md w-full">
+                        <h3 className="text-lg font-bold text-white mb-4">🚫 Banned Words</h3>
+
+                        <div className="flex gap-2 mb-4">
+                            <input
+                                type="text"
+                                value={newBannedWord}
+                                onChange={(e) => setNewBannedWord(e.target.value)}
+                                placeholder="Add word..."
+                                className="flex-1 bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-2 text-white focus:border-blue-500 outline-none"
+                                onKeyDown={(e) => e.key === "Enter" && handleAddBannedWord()}
+                            />
+                            <button
+                                onClick={handleAddBannedWord}
+                                className="px-4 py-2 bg-blue-600 rounded-xl text-white font-bold hover:bg-blue-500"
+                            >
+                                Add
+                            </button>
+                        </div>
+
+                        <div className="max-h-[200px] overflow-y-auto space-y-2">
+                            {bannedWords.length > 0 ? (
+                                bannedWords.map((word, i) => (
+                                    <div key={i} className="flex items-center justify-between p-2 bg-slate-700/30 rounded-lg">
+                                        <span className="text-white">{word}</span>
+                                        <button
+                                            onClick={() => handleRemoveBannedWord(word)}
+                                            className="text-red-400 hover:text-red-300"
+                                        >
+                                            ✕
+                                        </button>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="text-center py-4 text-slate-500">No banned words</div>
+                            )}
+                        </div>
+
+                        <button
+                            onClick={() => setBannedWordsModal(false)}
+                            className="w-full mt-4 py-2 border border-slate-600 rounded-xl text-slate-300 hover:bg-slate-700"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
