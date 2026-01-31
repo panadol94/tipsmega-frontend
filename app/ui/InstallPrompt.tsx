@@ -7,6 +7,11 @@ interface BeforeInstallPromptEvent extends Event {
     userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
 }
 
+// iOS Navigator extension for standalone mode detection
+interface iOSNavigator extends Navigator {
+    standalone?: boolean;
+}
+
 export default function InstallPrompt() {
     const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
     const [show, setShow] = useState(false);
@@ -14,18 +19,21 @@ export default function InstallPrompt() {
     useEffect(() => {
         if (typeof window === "undefined") return;
 
-        // Check if already installed via standalone mode
-        if (window.matchMedia('(display-mode: standalone)').matches) {
+        // ✅ Check if already installed via standalone mode OR navigator flag
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+        const isIOSStandalone = (window.navigator as iOSNavigator).standalone === true;
+
+        if (isStandalone || isIOSStandalone) {
             localStorage.setItem("pwa_installed", "true");
             return;
         }
 
-        // Check if user already installed (persisted)
+        // ✅ Check if user already installed (persisted in localStorage)
         if (localStorage.getItem("pwa_installed") === "true") {
             return;
         }
 
-        // Check if user dismissed it permanently
+        // ✅ Check if user dismissed it permanently
         if (localStorage.getItem("pwa_dismissed") === "true") {
             return;
         }
@@ -33,13 +41,18 @@ export default function InstallPrompt() {
         const handler = (e: Event) => {
             e.preventDefault();
             setDeferredPrompt(e as BeforeInstallPromptEvent);
-            setShow(true);
+
+            // ⏰ Show popup after 3 seconds delay (better UX)
+            setTimeout(() => {
+                setShow(true);
+            }, 3000);
         };
 
-        // Listen for app installed event
+        // ✅ Listen for app installed event
         const installedHandler = () => {
             localStorage.setItem("pwa_installed", "true");
             setShow(false);
+            setDeferredPrompt(null);
         };
 
         window.addEventListener("beforeinstallprompt", handler);

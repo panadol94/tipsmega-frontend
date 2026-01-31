@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+import { adminFetch, validateNumber } from "../../lib/adminApiUtils";
+import { showToast } from "../../ui/AdminToast";
 
 interface Settings {
     siteName: string;
@@ -42,10 +42,7 @@ export default function SettingsPage() {
 
     const fetchSettings = async () => {
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/settings`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await adminFetch("/api/admin/settings");
             if (res.ok) {
                 const data = await res.json();
                 if (data.settings) {
@@ -63,34 +60,51 @@ export default function SettingsPage() {
             }
         } catch (err) {
             console.error("Failed to fetch settings:", err);
+            showToast("Failed to load settings", "error");
         } finally {
             setLoading(false);
         }
     };
 
     const handleSave = async () => {
+        // Validate
+        if (!validateNumber(settings.rtpMin, 50, 100)) {
+            showToast("RTP Min must be 50-100", "error");
+            return;
+        }
+        if (!validateNumber(settings.rtpMax, 50, 100)) {
+            showToast("RTP Max must be 50-100", "error");
+            return;
+        }
+        if (settings.rtpMin > settings.rtpMax) {
+            showToast("RTP Min cannot exceed Max", "error");
+            return;
+        }
+        if (!validateNumber(settings.gamesPerScan, 1, 50)) {
+            showToast("Games per scan: 1-50", "error");
+            return;
+        }
+
         setSaving(true);
         setError("");
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/settings`, {
+            const res = await adminFetch("/api/admin/settings", {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
                 body: JSON.stringify(settings)
             });
 
             if (res.ok) {
                 setSuccess(true);
                 setTimeout(() => setSuccess(false), 3000);
+                showToast("Settings saved", "success");
             } else {
                 const data = await res.json();
                 setError(data.error || "Failed to save");
+                showToast(data.error || "Failed to save", "error");
             }
         } catch (err) {
             setError("Network error");
+            showToast("Failed to save settings", "error");
             console.error("Save failed:", err);
         } finally {
             setSaving(false);
@@ -100,17 +114,15 @@ export default function SettingsPage() {
     const handleClearChat = async () => {
         setDangerLoading(true);
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/settings/clear-chat`, {
-                method: "POST",
-                headers: { Authorization: `Bearer ${token}` }
+            const res = await adminFetch("/api/admin/settings/clear-chat", {
+                method: "POST"
             });
             if (res.ok) {
                 const data = await res.json();
-                alert(`✅ Cleared ${data.deleted} chat messages`);
+                showToast(`Cleared ${data.deleted} messages`, "success");
             }
         } catch {
-            alert("Failed to clear chat");
+            showToast("Failed to clear chat", "error");
         } finally {
             setDangerLoading(false);
             setClearChatModal(false);
@@ -120,17 +132,15 @@ export default function SettingsPage() {
     const handleResetGames = async () => {
         setDangerLoading(true);
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/settings/reset-games`, {
-                method: "POST",
-                headers: { Authorization: `Bearer ${token}` }
+            const res = await adminFetch("/api/admin/settings/reset-games", {
+                method: "POST"
             });
             if (res.ok) {
                 const data = await res.json();
-                alert(`✅ Deleted ${data.deleted} games`);
+                showToast(`Deleted ${data.deleted} games`, "success");
             }
         } catch {
-            alert("Failed to reset games");
+            showToast("Failed to reset games", "error");
         } finally {
             setDangerLoading(false);
             setResetGamesModal(false);

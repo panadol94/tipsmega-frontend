@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+import { adminFetch, validateNumber } from "../../lib/adminApiUtils";
+import { showToast } from "../../ui/AdminToast";
 
 interface User {
     _id: string;
@@ -24,90 +24,77 @@ export default function UsersPage() {
     const [editingUserId, setEditingUserId] = useState<string | null>(null);
     const [customAmount, setCustomAmount] = useState<number>(0);
     const [adjusting, setAdjusting] = useState(false);
-    const [toast, setToast] = useState<{ msg: string; type: "success" | "error" } | null>(null);
 
     useEffect(() => {
         fetchUsers();
     }, []);
 
-    // Auto-dismiss toast after 3 seconds
-    useEffect(() => {
-        if (toast) {
-            const timer = setTimeout(() => setToast(null), 3000);
-            return () => clearTimeout(timer);
-        }
-    }, [toast]);
-
     const fetchUsers = async () => {
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/users`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            if (res.ok) {
-                const data = await res.json();
-                setUsers(data.users || []);
-            }
+            const res = await adminFetch("/api/admin/users");
+            const data = await res.json();
+            setUsers(data.users || []);
         } catch (err) {
             console.error("Failed to fetch users:", err);
+            showToast("Failed to load users", "error");
         } finally {
             setLoading(false);
         }
     };
 
     const toggleBan = async (id: string, isBanned: boolean) => {
+        const previousUsers = [...users];
+        setUsers(users.map(u => u._id === id ? { ...u, isBanned: !isBanned } : u));
+
         try {
-            const token = localStorage.getItem("admin_token");
-            await fetch(`${API_BASE}/api/admin/users/${id}/ban`, {
+            await adminFetch(`/api/admin/users/${id}/ban`, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
                 body: JSON.stringify({ isBanned: !isBanned })
             });
-            setUsers(users.map(u => u._id === id ? { ...u, isBanned: !isBanned } : u));
+            showToast(`User ${!isBanned ? "banned" : "unbanned"} successfully`, "success");
         } catch (err) {
             console.error("Failed to toggle ban:", err);
+            setUsers(previousUsers); // Rollback
+            showToast("Failed to update user status", "error");
         }
     };
 
     const adjustStars = async (userId: string, amount: number) => {
         if (amount === 0) {
-            setToast({ msg: "Amount cannot be 0", type: "error" });
+            showToast("Amount cannot be 0", "error");
+            return;
+        }
+
+        // Validate amount range
+        if (!validateNumber(amount, -10000, 10000)) {
+            showToast("Amount must be between -10000 and 10000", "error");
             return;
         }
 
         setAdjusting(true);
+        const previousUsers = [...users];
+
+        // Optimistic update
+        setUsers(users.map(u =>
+            u._id === userId ? { ...u, stars: (u.stars || 0) + amount } : u
+        ));
+
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/users/${userId}/stars`, {
+            await adminFetch(`/api/admin/users/${userId}/stars`, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
                 body: JSON.stringify({ stars: amount })
             });
 
-            if (res.ok) {
-                // Update local state
-                setUsers(users.map(u =>
-                    u._id === userId ? { ...u, stars: (u.stars || 0) + amount } : u
-                ));
-                setToast({
-                    msg: `${amount > 0 ? "+" : ""}${amount} stars ${amount > 0 ? "added" : "deducted"}!`,
-                    type: "success"
-                });
-                setEditingUserId(null);
-                setCustomAmount(0);
-            } else {
-                const data = await res.json();
-                setToast({ msg: data.error || "Failed to adjust stars", type: "error" });
-            }
+            showToast(
+                `${amount > 0 ? "+" : ""}${amount} stars ${amount > 0 ? "added" : "deducted"}!`,
+                "success"
+            );
+            setEditingUserId(null);
+            setCustomAmount(0);
         } catch (err) {
             console.error("Failed to adjust stars:", err);
-            setToast({ msg: "Network error", type: "error" });
+            setUsers(previousUsers); // Rollback on error
+            showToast("Failed to adjust stars", "error");
         } finally {
             setAdjusting(false);
         }
@@ -288,27 +275,6 @@ export default function UsersPage() {
                     </table>
                 </div>
             </div>
-
-            {/* Toast Notification */}
-            {toast && (
-                <div className="fixed bottom-4 right-4 z-50 animate-slideIn">
-                    <div className={`px-4 py-3 rounded-xl shadow-lg border ${toast.type === "success"
-                        ? "bg-emerald-500/20 border-emerald-500/50 text-emerald-300"
-                        : "bg-red-500/20 border-red-500/50 text-red-300"
-                        }`}>
-                        <div className="flex items-center gap-2">
-                            <span>{toast.type === "success" ? "✅" : "❌"}</span>
-                            <span className="font-medium">{toast.msg}</span>
-                            <button
-                                onClick={() => setToast(null)}
-                                className="ml-2 text-white/60 hover:text-white"
-                            >
-                                ✕
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }

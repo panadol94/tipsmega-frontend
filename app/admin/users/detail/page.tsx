@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+import { adminFetch } from "../../../lib/adminApiUtils";
+import { showToast } from "../../../ui/AdminToast";
 
 interface UserDetail {
     _id: string;
@@ -30,16 +30,14 @@ function UserDetailContent() {
             return;
         }
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/users/${userId}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await adminFetch(`/api/admin/users/${userId}`);
             if (res.ok) {
                 const data = await res.json();
                 setUser(data.user);
             }
         } catch (err) {
             console.error("Failed to fetch user:", err);
+            showToast("Failed to load user", "error");
         } finally {
             setLoading(false);
         }
@@ -52,30 +50,30 @@ function UserDetailContent() {
     const toggleBan = async () => {
         if (!user) return;
         try {
-            const token = localStorage.getItem("admin_token");
-            await fetch(`${API_BASE}/api/admin/users/${userId}/ban`, {
+            await adminFetch(`/api/admin/users/${userId}/ban`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
                 body: JSON.stringify({ isBanned: !user.isBanned })
             });
             setUser({ ...user, isBanned: !user.isBanned });
+            showToast(user.isBanned ? "User unbanned" : "User banned", "success");
         } catch (err) {
             console.error("Failed to toggle ban:", err);
+            showToast("Failed to update ban", "error");
         }
     };
 
     const addStars = async () => {
         if (!user) return;
         try {
-            const token = localStorage.getItem("admin_token");
-            await fetch(`${API_BASE}/api/admin/users/${userId}/stars`, {
+            await adminFetch(`/api/admin/users/${userId}/stars`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
                 body: JSON.stringify({ stars: starsToAdd })
             });
             setUser({ ...user, stars: user.stars + starsToAdd });
+            showToast(`Added ${starsToAdd} stars`, "success");
         } catch (err) {
             console.error("Failed to add stars:", err);
+            showToast("Failed to add stars", "error");
         }
     };
 

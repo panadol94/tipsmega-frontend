@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+import { adminFetch } from "../../lib/adminApiUtils";
+import { showToast } from "../../ui/AdminToast";
 
 interface Company {
     _id: string;
@@ -27,29 +27,33 @@ export default function CompaniesPage() {
 
     const fetchCompanies = async () => {
         try {
-            const res = await fetch(`${API_BASE}/api/companies`);
+            const res = await adminFetch("/api/companies");
             if (res.ok) {
                 const data = await res.json();
                 setCompanies(data.companies || []);
             }
         } catch (err) {
             console.error("Failed to fetch companies:", err);
+            showToast("Failed to load companies", "error");
         } finally {
             setLoading(false);
         }
     };
 
     const deleteCompany = async (id: string) => {
+        const previousCompanies = [...companies];
+        setCompanies(companies.filter(c => c._id !== id));
+
         try {
-            const token = localStorage.getItem("admin_token");
-            await fetch(`${API_BASE}/api/admin/companies/${id}`, {
-                method: "DELETE",
-                headers: { Authorization: `Bearer ${token}` }
+            await adminFetch(`/api/admin/companies/${id}`, {
+                method: "DELETE"
             });
-            setCompanies(companies.filter(c => c._id !== id));
             setDeleteModal(null);
+            showToast("Company deleted", "success");
         } catch (err) {
             console.error("Failed to delete company:", err);
+            setCompanies(previousCompanies);
+            showToast("Failed to delete company", "error");
         }
     };
 

@@ -79,7 +79,6 @@ export default function Page() {
 
   // ✅ Dynamic games from API
   const [games, setGames] = useState<Game[]>([]);
-  const [gamesLoading, setGamesLoading] = useState(true);
 
   // ✅ TerminalScan (animated)
   const [runKey, setRunKey] = useState<string>("");
@@ -126,7 +125,7 @@ export default function Page() {
         // Fallback to empty array if API fails
         setGames([]);
       } finally {
-        setGamesLoading(false);
+        // Games loaded
       }
     };
     fetchGames();
@@ -220,7 +219,7 @@ export default function Page() {
   }, []);
 
   // ✨ AUTO STAR SYNC - Polls server every 5 seconds for new bonus stars
-  const { claimNow, isClaiming } = useStarSync({
+  useStarSync({
     token: typeof window !== "undefined" ? localStorage.getItem(tokenKey) : null,
     deviceId: resolvedDeviceId,
     enabled: isLoggedIn,
@@ -473,7 +472,6 @@ export default function Page() {
             </div>
           ) : (
             <div className="flex gap-3 items-center">
-              <span className="text-xs text-white/50">✨ Stars auto-sync</span>
               <button
                 className="btn-ghost backdrop-blur-md hover:bg-white/10 h-[52px] px-4 border-white/20"
                 onClick={() => {
@@ -559,7 +557,7 @@ export default function Page() {
             idMasked={idMasked || "---"}
             onComplete={() => setBusy(false)}
           />
-          {/* Close Button - Fixed z-index to prevent overlap */}
+          {/* Close Button - Positioned below header to prevent overlap with RUNNING badge */}
           <button
             onClick={() => {
               setRunKey("");
@@ -568,7 +566,7 @@ export default function Page() {
               setScanActive(false);
               playSound("click");
             }}
-            className="absolute top-2 right-2 z-50 w-8 h-8 bg-red-500/20 hover:bg-red-500/40 border border-red-500/50 rounded-full flex items-center justify-center text-red-300 text-sm font-bold transition-all active:scale-95 backdrop-blur-sm"
+            className="absolute top-14 right-2 z-50 w-8 h-8 bg-red-500/20 hover:bg-red-500/40 border border-red-500/50 rounded-full flex items-center justify-center text-red-300 text-sm font-bold transition-all active:scale-95 backdrop-blur-sm"
             style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}
           >
             ✕
@@ -741,16 +739,39 @@ export default function Page() {
         />
       )}
 
-      {/* Star Notification Toast */}
+      {/* Star Notification - Premium Design */}
       {starNotification && (
         <div
-          className="fixed top-20 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl shadow-2xl z-[9999] animate-bounce-in"
-          style={{
-            maxWidth: '90%',
-            animation: 'bounceIn 0.5s ease-out'
-          }}
+          className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] animate-in slide-in-from-top-4 fade-in duration-500"
+          style={{ minWidth: 300, maxWidth: '90%' }}
         >
-          <div className="font-bold text-sm text-center">{starNotification}</div>
+          {/* Premium Card with Glassmorphism */}
+          <div className="relative overflow-hidden rounded-2xl border border-yellow-500/30 bg-gradient-to-br from-yellow-500/20 via-amber-500/20 to-orange-500/20 backdrop-blur-xl shadow-[0_0_40px_rgba(234,179,8,0.4)]">
+
+            {/* Background noise texture */}
+            <div className="absolute inset-0 bg-[url('/img/noise.png')] opacity-5 pointer-events-none" />
+
+            {/* Animated gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+
+            {/* Content */}
+            <div className="relative flex items-center gap-4 px-5 py-4">
+              {/* Star icon with background */}
+              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-yellow-500/20 border border-yellow-500/30 flex items-center justify-center backdrop-blur-sm animate-pulse">
+                <span className="text-2xl">⭐</span>
+              </div>
+
+              {/* Message */}
+              <div className="flex-1 min-w-0">
+                <p className="font-black text-white text-sm tracking-wide leading-relaxed">
+                  {starNotification}
+                </p>
+              </div>
+            </div>
+
+            {/* Bottom shine effect */}
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/40 to-transparent" />
+          </div>
         </div>
       )}
 

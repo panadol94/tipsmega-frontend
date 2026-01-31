@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+import { adminFetch } from "../lib/adminApiUtils";
+import { showToast } from "../ui/AdminToast";
 
 interface Stats {
     totalUsers: number;
@@ -34,10 +34,7 @@ export default function AdminDashboard() {
 
     const fetchStats = useCallback(async () => {
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/stats`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await adminFetch("/api/admin/stats");
             if (res.ok) {
                 const data = await res.json();
                 setStats(data.stats || {
@@ -52,6 +49,7 @@ export default function AdminDashboard() {
             }
         } catch (err) {
             console.error("Failed to fetch stats:", err);
+            showToast("Failed to load dashboard stats", "error");
         } finally {
             setLoading(false);
         }

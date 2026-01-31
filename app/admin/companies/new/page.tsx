@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { adminFetch } from "../../../lib/adminApiUtils";
+import { showToast } from "../../../ui/AdminToast";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
 
@@ -57,25 +59,25 @@ export default function NewCompanyPage() {
         setLoading(true);
 
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/companies`, {
+            const res = await adminFetch("/api/admin/companies", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
                 body: JSON.stringify(form)
             });
 
             if (res.ok) {
+                showToast("Company created!", "success");
                 router.push("/admin/companies");
             } else {
                 const data = await res.json();
-                setError(data.message || "Failed to create company");
+                const msg = data.message || "Failed to create company";
+                setError(msg);
+                showToast(msg, "error");
             }
         } catch (err) {
             console.error("Failed to create company:", err);
-            setError("Connection failed");
+            const msg = "Connection failed";
+            setError(msg);
+            showToast(msg, "error");
         } finally {
             setLoading(false);
         }

@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+import { adminFetch } from "../../../lib/adminApiUtils";
+import { showToast } from "../../../ui/AdminToast";
 
 const CATEGORIES = ["slots", "table", "live", "fishing", "arcade", "sports"];
 const ICONS = ["🎰", "🃏", "🎲", "🎯", "🎮", "🐟", "⚽", "🏀", "🎱", "💎", "🌟", "👑", "🔥", "💰", "🍀"];
@@ -36,10 +36,7 @@ function EditGameContent() {
             return;
         }
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/games/${gameId}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await adminFetch(`/api/admin/games/${gameId}`);
             if (res.ok) {
                 const data = await res.json();
                 setForm({
@@ -58,6 +55,7 @@ function EditGameContent() {
         } catch (err) {
             console.error("Failed to fetch game:", err);
             setError("Failed to load game");
+            showToast("Failed to load game", "error");
         } finally {
             setLoading(false);
         }
@@ -73,25 +71,25 @@ function EditGameContent() {
         setSaving(true);
 
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/games/${gameId}`, {
+            const res = await adminFetch(`/api/admin/games/${gameId}`, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
                 body: JSON.stringify(form)
             });
 
             if (res.ok) {
+                showToast("Game updated!", "success");
                 router.push("/admin/games");
             } else {
                 const data = await res.json();
-                setError(data.message || "Failed to update game");
+                const msg = data.message || "Failed to update game";
+                setError(msg);
+                showToast(msg, "error");
             }
         } catch (err) {
             console.error("Failed to update game:", err);
-            setError("Connection failed. Please try again.");
+            const msg = "Connection failed. Please try again.";
+            setError(msg);
+            showToast(msg, "error");
         } finally {
             setSaving(false);
         }

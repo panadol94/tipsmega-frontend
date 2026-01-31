@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+import { adminFetch, validateInput } from "../../lib/adminApiUtils";
+import { showToast } from "../../ui/AdminToast";
 
 interface Game {
     _id: string;
@@ -59,49 +59,46 @@ export default function GamesPage() {
 
     const fetchGames = async () => {
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/games`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            if (res.ok) {
-                const data = await res.json();
-                setGames(data.games || []);
-            }
+            const res = await adminFetch("/api/admin/games");
+            const data = await res.json();
+            setGames(data.games || []);
         } catch (err) {
             console.error("Failed to fetch games:", err);
+            showToast("Failed to load games", "error");
         } finally {
             setLoading(false);
         }
     };
 
     const toggleGame = async (id: string, enabled: boolean) => {
+        const previousGames = [...games];
+        setGames(games.map(g => g._id === id ? { ...g, enabled: !enabled } : g));
+
         try {
-            const token = localStorage.getItem("admin_token");
-            await fetch(`${API_BASE}/api/admin/games/${id}`, {
+            await adminFetch(`/api/admin/games/${id}`, {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
                 body: JSON.stringify({ enabled: !enabled })
             });
-            setGames(games.map(g => g._id === id ? { ...g, enabled: !enabled } : g));
+            showToast(`Game ${!enabled ? "enabled" : "disabled"}`, "success");
         } catch (err) {
             console.error("Failed to toggle game:", err);
+            setGames(previousGames); // Rollback
+            showToast("Failed to update game", "error");
         }
     };
 
     const deleteGame = async (id: string) => {
+        const previousGames = [...games];
+        setGames(games.filter(g => g._id !== id));
+
         try {
-            const token = localStorage.getItem("admin_token");
-            await fetch(`${API_BASE}/api/admin/games/${id}`, {
-                method: "DELETE",
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            setGames(games.filter(g => g._id !== id));
+            await adminFetch(`/api/admin/games/${id}`, { method: "DELETE" });
             setDeleteModal(null);
+            showToast("Game deleted", "success");
         } catch (err) {
             console.error("Failed to delete game:", err);
+            setGames(previousGames);
+            showToast("Failed to delete game", "error");
         }
     };
 
@@ -151,27 +148,18 @@ export default function GamesPage() {
     const handleImport = async () => {
         setImporting(true);
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/games/import`, {
+            await adminFetch('/api/admin/games/import', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                },
                 body: JSON.stringify({ games: importData })
             });
 
-            if (res.ok) {
-                await fetchGames();
-                setImportModal(false);
-                setImportData([]);
-                alert('Games imported successfully!');
-            } else {
-                alert('Import failed. Please check your data.');
-            }
+            await fetchGames();
+            setImportModal(false);
+            setImportData([]);
+            showToast('Games imported successfully!', 'success');
         } catch (err) {
             console.error('Import error:', err);
-            alert('Import failed');
+            showToast('Import failed. Please check your data.', 'error');
         } finally {
             setImporting(false);
         }
@@ -185,23 +173,15 @@ export default function GamesPage() {
 
         setSyncing(true);
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/games/sync-from-txt`, {
-                method: 'POST',
-                headers: { Authorization: `Bearer ${token}` }
+            const res = await adminFetch('/api/admin/games/sync-from-txt', {
+                method: 'POST'
             });
-
-            if (res.ok) {
-                const data = await res.json();
-                alert(`✅ Auto-Sync Complete!\n\n${data.added} new games added\n${data.existing} games already exist\n${data.total} total games in file`);
-                await fetchGames();
-            } else {
-                const error = await res.json();
-                alert(`❌ Sync failed: ${error.error || 'Unknown error'}`);
-            }
+            const data = await res.json();
+            showToast(`Sync complete! ${data.added} new, ${data.existing} existing`, 'success');
+            await fetchGames();
         } catch (err) {
             console.error('Sync error:', err);
-            alert('❌ Network error during sync');
+            showToast('Sync failed', 'error');
         } finally {
             setSyncing(false);
         }
@@ -214,24 +194,28 @@ export default function GamesPage() {
     };
 
     const handleRename = async (id: string) => {
-        if (!renamingValue.trim()) return;
+        const trimmed = validateInput(renamingValue, 2, 100);
+        if (!trimmed) {
+            showToast("Name must be 2-100 characters", "error");
+            return;
+        }
+
+        const previousGames = [...games];
+        setGames(games.map(g => g._id === id ? { ...g, name: trimmed } : g));
 
         try {
-            const token = localStorage.getItem("admin_token");
-            await fetch(`${API_BASE}/api/admin/games/${id}`, {
+            await adminFetch(`/api/admin/games/${id}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({ name: renamingValue })
+                body: JSON.stringify({ name: trimmed })
             });
 
-            setGames(games.map(g => g._id === id ? { ...g, name: renamingValue } : g));
             setRenamingId(null);
             setRenamingValue("");
+            showToast("Game renamed", "success");
         } catch (err) {
             console.error('Rename failed:', err);
+            setGames(previousGames);
+            showToast("Rename failed", "error");
         }
     };
 
@@ -253,8 +237,6 @@ export default function GamesPage() {
     const handleBulkAction = async () => {
         if (!bulkAction || selectedGames.length === 0) return;
 
-        const token = localStorage.getItem("admin_token");
-
         try {
             if (bulkAction === 'delete') {
                 setBulkDeleteModal(true);
@@ -265,41 +247,39 @@ export default function GamesPage() {
             if (bulkAction === 'enable') updates.enabled = true;
             if (bulkAction === 'disable') updates.enabled = false;
 
-            await fetch(`${API_BASE}/api/admin/games/bulk`, {
+            await adminFetch('/api/admin/games/bulk', {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                },
                 body: JSON.stringify({ ids: selectedGames, updates })
             });
 
             await fetchGames();
             setSelectedGames([]);
             setBulkAction("");
+            showToast(`${selectedGames.length} games updated`, 'success');
         } catch (err) {
             console.error('Bulk action failed:', err);
+            showToast('Bulk action failed', 'error');
         }
     };
 
     const confirmBulkDelete = async () => {
+        const previousGames = [...games];
+        setGames(games.filter(g => !selectedGames.includes(g._id)));
+
         try {
-            const token = localStorage.getItem("admin_token");
-            await fetch(`${API_BASE}/api/admin/games/bulk`, {
+            await adminFetch('/api/admin/games/bulk', {
                 method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                },
                 body: JSON.stringify({ ids: selectedGames })
             });
 
-            setGames(games.filter(g => !selectedGames.includes(g._id)));
             setSelectedGames([]);
             setBulkDeleteModal(false);
             setBulkAction("");
+            showToast(`${selectedGames.length} games deleted`, 'success');
         } catch (err) {
             console.error('Bulk delete failed:', err);
+            setGames(previousGames);
+            showToast('Bulk delete failed', 'error');
         }
     };
 

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+import { adminFetch, validateInput } from "../../lib/adminApiUtils";
+import { showToast } from "../../ui/AdminToast";
 
 interface ChatMessage {
     _id: string;
@@ -27,16 +27,14 @@ export default function ChatPage() {
 
     const fetchMessages = useCallback(async () => {
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/chat?room=${filter}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await adminFetch(`/api/admin/chat?room=${filter}`);
             if (res.ok) {
                 const data = await res.json();
                 setMessages(data.messages || []);
             }
         } catch (e) {
             console.error("Failed to fetch messages:", e);
+            showToast("Failed to load messages", "error");
         } finally {
             setLoading(false);
         }
@@ -47,39 +45,40 @@ export default function ChatPage() {
     }, [fetchMessages]);
 
     const deleteMessage = async (id: string) => {
+        const previousMessages = [...messages];
+        setMessages(messages.filter(m => m._id !== id));
+
         try {
-            const token = localStorage.getItem("admin_token");
-            await fetch(`${API_BASE}/api/admin/chat/${id}`, {
-                method: "DELETE",
-                headers: { Authorization: `Bearer ${token}` }
+            await adminFetch(`/api/admin/chat/${id}`, {
+                method: "DELETE"
             });
-            setMessages(messages.filter(m => m._id !== id));
+            showToast("Message deleted", "success");
         } catch (err) {
             console.error("Failed to delete message:", err);
+            setMessages(previousMessages);
+            showToast("Failed to delete message", "error");
         }
     };
 
     const handleSendAnnouncement = async () => {
-        if (!announcement.trim()) return;
+        const validated = validateInput(announcement, 1, 500);
+        if (!validated) {
+            showToast("Announcement must be 1-500 characters", "error");
+            return;
+        }
+
         setActionLoading(true);
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/chat/announce`, {
+            await adminFetch("/api/admin/chat/announce", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify({ message: announcement })
+                body: JSON.stringify({ message: validated })
             });
-            if (res.ok) {
-                alert("✅ Announcement sent!");
-                setAnnouncement("");
-                setAnnounceModal(false);
-                fetchMessages();
-            }
+            showToast("Announcement sent!", "success");
+            setAnnouncement("");
+            setAnnounceModal(false);
+            fetchMessages();
         } catch {
-            alert("Failed to send announcement");
+            showToast("Failed to send announcement", "error");
         } finally {
             setActionLoading(false);
         }
@@ -89,18 +88,16 @@ export default function ChatPage() {
         if (!confirm("Clear all messages older than 7 days?")) return;
         setActionLoading(true);
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/chat/clear-old`, {
-                method: "POST",
-                headers: { Authorization: `Bearer ${token}` }
+            const res = await adminFetch("/api/admin/chat/clear-old", {
+                method: "POST"
             });
             if (res.ok) {
                 const data = await res.json();
-                alert(`✅ Cleared ${data.cleared} old messages`);
+                showToast(`Cleared ${data.cleared} old messages`, "success");
                 fetchMessages();
             }
         } catch {
-            alert("Failed to clear old messages");
+            showToast("Failed to clear old messages", "error");
         } finally {
             setActionLoading(false);
         }
@@ -128,16 +125,14 @@ export default function ChatPage() {
 
     const fetchBannedWords = async () => {
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/settings/banned-words`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await adminFetch("/api/admin/settings/banned-words");
             if (res.ok) {
                 const data = await res.json();
                 setBannedWords(data.bannedWords || []);
             }
         } catch (err) {
             console.error("Failed to fetch banned words:", err);
+            showToast("Failed to load banned words", "error");
         }
     };
 
@@ -155,21 +150,17 @@ export default function ChatPage() {
 
     const saveBannedWords = async (words: string[]) => {
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/settings/banned-words`, {
+            const res = await adminFetch("/api/admin/settings/banned-words", {
                 method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
                 body: JSON.stringify({ bannedWords: words })
             });
             if (res.ok) {
                 const data = await res.json();
                 setBannedWords(data.bannedWords);
+                showToast("Banned words updated", "success");
             }
         } catch {
-            alert("Failed to save banned words");
+            showToast("Failed to save banned words", "error");
         }
     };
 

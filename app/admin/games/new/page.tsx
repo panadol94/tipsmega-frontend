@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+import { adminFetch } from "../../../lib/adminApiUtils";
+import { showToast } from "../../../ui/AdminToast";
 
 const CATEGORIES = ["slots", "table", "live", "fishing", "arcade", "sports"];
 const ICONS = ["🎰", "🃏", "🎲", "🎯", "🎮", "🐟", "⚽", "🏀", "🎱", "💎", "🌟", "👑", "🔥", "💰", "🍀"];
@@ -31,25 +31,25 @@ export default function NewGamePage() {
         setLoading(true);
 
         try {
-            const token = localStorage.getItem("admin_token");
-            const res = await fetch(`${API_BASE}/api/admin/games`, {
+            const res = await adminFetch("/api/admin/games", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                },
                 body: JSON.stringify(form)
             });
 
             if (res.ok) {
+                showToast("Game created!", "success");
                 router.push("/admin/games");
             } else {
                 const data = await res.json();
-                setError(data.message || "Failed to create game");
+                const msg = data.message || "Failed to create game";
+                setError(msg);
+                showToast(msg, "error");
             }
         } catch (err) {
             console.error("Failed to create game:", err);
-            setError("Connection failed. Please try again.");
+            const msg = "Connection failed. Please try again.";
+            setError(msg);
+            showToast(msg, "error");
         } finally {
             setLoading(false);
         }
@@ -106,8 +106,8 @@ export default function NewGamePage() {
                                 type="button"
                                 onClick={() => setForm({ ...form, icon })}
                                 className={`w-12 h-12 text-2xl rounded-xl border transition-all ${form.icon === icon
-                                        ? "bg-blue-600 border-blue-500 scale-110"
-                                        : "bg-slate-700 border-slate-600 hover:border-slate-500"
+                                    ? "bg-blue-600 border-blue-500 scale-110"
+                                    : "bg-slate-700 border-slate-600 hover:border-slate-500"
                                     }`}
                             >
                                 {icon}
@@ -128,8 +128,8 @@ export default function NewGamePage() {
                                 type="button"
                                 onClick={() => setForm({ ...form, category: cat })}
                                 className={`px-4 py-2 rounded-xl border capitalize transition-all ${form.category === cat
-                                        ? "bg-blue-600 border-blue-500 text-white"
-                                        : "bg-slate-700 border-slate-600 text-slate-300 hover:border-slate-500"
+                                    ? "bg-blue-600 border-blue-500 text-white"
+                                    : "bg-slate-700 border-slate-600 text-slate-300 hover:border-slate-500"
                                     }`}
                             >
                                 {cat}
@@ -190,8 +190,8 @@ export default function NewGamePage() {
                         type="button"
                         onClick={() => setForm({ ...form, isHot: !form.isHot })}
                         className={`p-4 rounded-xl border text-center transition-all ${form.isHot
-                                ? "bg-orange-500/20 border-orange-500 text-orange-400"
-                                : "bg-slate-700 border-slate-600 text-slate-400"
+                            ? "bg-orange-500/20 border-orange-500 text-orange-400"
+                            : "bg-slate-700 border-slate-600 text-slate-400"
                             }`}
                     >
                         <div className="text-2xl mb-1">🔥</div>
@@ -201,8 +201,8 @@ export default function NewGamePage() {
                         type="button"
                         onClick={() => setForm({ ...form, isNew: !form.isNew })}
                         className={`p-4 rounded-xl border text-center transition-all ${form.isNew
-                                ? "bg-purple-500/20 border-purple-500 text-purple-400"
-                                : "bg-slate-700 border-slate-600 text-slate-400"
+                            ? "bg-purple-500/20 border-purple-500 text-purple-400"
+                            : "bg-slate-700 border-slate-600 text-slate-400"
                             }`}
                     >
                         <div className="text-2xl mb-1">✨</div>
@@ -212,8 +212,8 @@ export default function NewGamePage() {
                         type="button"
                         onClick={() => setForm({ ...form, enabled: !form.enabled })}
                         className={`p-4 rounded-xl border text-center transition-all ${form.enabled
-                                ? "bg-emerald-500/20 border-emerald-500 text-emerald-400"
-                                : "bg-slate-700 border-slate-600 text-slate-400"
+                            ? "bg-emerald-500/20 border-emerald-500 text-emerald-400"
+                            : "bg-slate-700 border-slate-600 text-slate-400"
                             }`}
                     >
                         <div className="text-2xl mb-1">{form.enabled ? "✅" : "❌"}</div>
