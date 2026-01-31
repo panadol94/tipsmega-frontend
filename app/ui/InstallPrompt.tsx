@@ -14,8 +14,19 @@ export default function InstallPrompt() {
     useEffect(() => {
         if (typeof window === "undefined") return;
 
-        // Check if already installed
+        // Check if already installed via standalone mode
         if (window.matchMedia('(display-mode: standalone)').matches) {
+            localStorage.setItem("pwa_installed", "true");
+            return;
+        }
+
+        // Check if user already installed (persisted)
+        if (localStorage.getItem("pwa_installed") === "true") {
+            return;
+        }
+
+        // Check if user dismissed it permanently
+        if (localStorage.getItem("pwa_dismissed") === "true") {
             return;
         }
 
@@ -25,12 +36,21 @@ export default function InstallPrompt() {
             setShow(true);
         };
 
+        // Listen for app installed event
+        const installedHandler = () => {
+            localStorage.setItem("pwa_installed", "true");
+            setShow(false);
+        };
+
         window.addEventListener("beforeinstallprompt", handler);
+        window.addEventListener("appinstalled", installedHandler);
 
         return () => {
             window.removeEventListener("beforeinstallprompt", handler);
+            window.removeEventListener("appinstalled", installedHandler);
         };
     }, []);
+
 
     async function handleInstall() {
         if (!deferredPrompt) return;
@@ -116,10 +136,13 @@ export default function InstallPrompt() {
                     </button>
 
                     <button
-                        onClick={() => setShow(false)}
+                        onClick={() => {
+                            localStorage.setItem("pwa_dismissed", "true");
+                            setShow(false);
+                        }}
                         className="mt-4 text-[10px] font-bold text-white/20 hover:text-white/50 tracking-widest uppercase transition-colors"
                     >
-                        Incognito Mode (Web Only)
+                        Tak Perlu, Terima Kasih
                     </button>
                 </div>
             </div>
