@@ -49,6 +49,7 @@ export function useStarSync({
 
             if (!checkRes.ok) {
                 console.warn("Star sync: check-pending failed");
+                // Don't return early - let finally block run
                 return;
             }
 
@@ -82,11 +83,14 @@ export function useStarSync({
                     console.log(`✅ Stars claimed! New total: ${stars}`);
                     onStarsUpdated(stars, pending);
                     pendingNotifiedRef.current = false; // Reset for next batch
+                } else {
+                    console.error("Grant device failed:", await grantRes.text());
                 }
             }
         } catch (e) {
             console.error("Star sync error:", e);
         } finally {
+            // ALWAYS reset state, even if error or early return
             syncingRef.current = false;
             setIsClaiming(false);
         }

@@ -560,7 +560,7 @@ export default function Page() {
         <div className="relative">
           <TerminalScan
             key={runKey}
-            games={games.filter(g => g.enabled).map(g => g.name)}
+            games={games.map(g => g.name)}
             overallRtp={lastRtp ?? 0}
             idMasked={idMasked || "---"}
             onComplete={() => setBusy(false)}
