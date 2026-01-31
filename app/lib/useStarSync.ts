@@ -3,7 +3,7 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
-const SYNC_INTERVAL_MS = 10000; // Increased to 10 seconds to reduce server load
+const SYNC_INTERVAL_MS = 10000; // 10 seconds
 const ERROR_COOLDOWN_MS = 30000; // 30 seconds cooldown after error
 
 interface UseStarSyncOptions {
@@ -21,8 +21,7 @@ interface UseStarSyncReturn {
 
 /**
  * Custom hook to automatically sync bonus stars from user ledger to device
- * Polls server every 10 seconds to check for pending stars
- * Manual claim function available - auto-claim DISABLED to prevent flicker
+ * Polls server every 10 seconds and auto-claims any pending stars
  */
 export function useStarSync({
     token,
@@ -34,7 +33,7 @@ export function useStarSync({
     const syncingRef = useRef(false);
     const [isClaiming, setIsClaiming] = useState(false);
     const pendingNotifiedRef = useRef(false);
-    const errorCooldownUntilRef = useRef(0); // Timestamp when cooldown ends
+    const errorCooldownUntilRef = useRef(0);
 
     const checkAndClaim = useCallback(async (manual = false) => {
         // Check error cooldown for auto-sync (not for manual claims)
@@ -51,11 +50,6 @@ export function useStarSync({
 
         syncingRef.current = true;
 
-        // Only show CLAIMING state for manual claims
-        if (manual) {
-            setIsClaiming(true);
-        }
-
         try {
             // 1. Check for pending stars
             const checkRes = await fetch(`${API_BASE}/api/auth/check-pending`, {
@@ -69,15 +63,20 @@ export function useStarSync({
 
             const { pending } = await checkRes.json();
 
-            // 2. If pending > 0, notify user (only once per pending batch)
-            if (pending > 0 && !pendingNotifiedRef.current && onPendingDetected) {
-                onPendingDetected(pending);
-                pendingNotifiedRef.current = true;
-            }
+            // 2. If pending > 0, auto-claim them!
+            if (pending > 0) {
+                // Only show claiming UI for manual claims (not auto)
+                if (manual) {
+                    setIsClaiming(true);
+                }
 
-            // 3. Only claim if MANUAL - auto-claim disabled to prevent flicker
-            if (pending > 0 && manual) {
-                console.log(`✨ Manual claim: ${pending} pending stars`);
+                // Notify once about pending stars
+                if (!pendingNotifiedRef.current && onPendingDetected) {
+                    onPendingDetected(pending);
+                    pendingNotifiedRef.current = true;
+                }
+
+                console.log(`✨ ${manual ? 'Manual' : 'Auto'} claiming ${pending} pending stars...`);
 
                 const grantRes = await fetch(`${API_BASE}/api/auth/grant-device`, {
                     method: "POST",
@@ -93,17 +92,15 @@ export function useStarSync({
                     console.log(`✅ Stars claimed! New total: ${stars}`);
                     onStarsUpdated(stars, pending);
                     pendingNotifiedRef.current = false;
-                    errorCooldownUntilRef.current = 0; // Reset cooldown on success
+                    errorCooldownUntilRef.current = 0;
                 } else {
                     const errorText = await grantRes.text();
                     console.error("Grant device failed:", errorText);
-                    // Set error cooldown to prevent rapid retries
                     errorCooldownUntilRef.current = Date.now() + ERROR_COOLDOWN_MS;
                 }
             }
         } catch (e) {
             console.error("Star sync error:", e);
-            // Set error cooldown on network errors
             errorCooldownUntilRef.current = Date.now() + ERROR_COOLDOWN_MS;
         } finally {
             syncingRef.current = false;
@@ -126,7 +123,7 @@ export function useStarSync({
         // Run immediately on mount
         checkAndClaim();
 
-        // Then run periodically every 10 seconds (just checks, doesn't auto-claim)
+        // Then auto-sync every 10 seconds
         const interval = setInterval(() => checkAndClaim(), SYNC_INTERVAL_MS);
 
         return () => clearInterval(interval);
