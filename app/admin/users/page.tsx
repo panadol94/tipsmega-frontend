@@ -20,9 +20,23 @@ export default function UsersPage() {
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
 
+    // Star adjustment states
+    const [editingUserId, setEditingUserId] = useState<string | null>(null);
+    const [customAmount, setCustomAmount] = useState<number>(0);
+    const [adjusting, setAdjusting] = useState(false);
+    const [toast, setToast] = useState<{ msg: string; type: "success" | "error" } | null>(null);
+
     useEffect(() => {
         fetchUsers();
     }, []);
+
+    // Auto-dismiss toast after 3 seconds
+    useEffect(() => {
+        if (toast) {
+            const timer = setTimeout(() => setToast(null), 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [toast]);
 
     const fetchUsers = async () => {
         try {
@@ -55,6 +69,47 @@ export default function UsersPage() {
             setUsers(users.map(u => u._id === id ? { ...u, isBanned: !isBanned } : u));
         } catch (err) {
             console.error("Failed to toggle ban:", err);
+        }
+    };
+
+    const adjustStars = async (userId: string, amount: number) => {
+        if (amount === 0) {
+            setToast({ msg: "Amount cannot be 0", type: "error" });
+            return;
+        }
+
+        setAdjusting(true);
+        try {
+            const token = localStorage.getItem("admin_token");
+            const res = await fetch(`${API_BASE}/api/admin/users/${userId}/stars`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({ stars: amount })
+            });
+
+            if (res.ok) {
+                // Update local state
+                setUsers(users.map(u =>
+                    u._id === userId ? { ...u, stars: (u.stars || 0) + amount } : u
+                ));
+                setToast({
+                    msg: `${amount > 0 ? "+" : ""}${amount} stars ${amount > 0 ? "added" : "deducted"}!`,
+                    type: "success"
+                });
+                setEditingUserId(null);
+                setCustomAmount(0);
+            } else {
+                const data = await res.json();
+                setToast({ msg: data.error || "Failed to adjust stars", type: "error" });
+            }
+        } catch (err) {
+            console.error("Failed to adjust stars:", err);
+            setToast({ msg: "Network error", type: "error" });
+        } finally {
+            setAdjusting(false);
         }
     };
 
@@ -127,8 +182,79 @@ export default function UsersPage() {
                                         <td className="p-4 text-slate-400 text-sm">
                                             {user.phone || user.email || "-"}
                                         </td>
-                                        <td className="p-4 text-center">
-                                            <span className="text-yellow-400">⭐ {user.stars || 0}</span>
+                                        <td className="p-4">
+                                            {editingUserId === user._id ? (
+                                                <div className="space-y-2">
+                                                    <div className="text-yellow-400 text-sm font-bold">
+                                                        ⭐ Current: {user.stars || 0}
+                                                    </div>
+                                                    <div className="flex gap-1 flex-wrap">
+                                                        <button
+                                                            onClick={() => adjustStars(user._id, 10)}
+                                                            disabled={adjusting}
+                                                            className="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded text-xs hover:bg-emerald-500/30 disabled:opacity-50"
+                                                        >
+                                                            +10
+                                                        </button>
+                                                        <button
+                                                            onClick={() => adjustStars(user._id, 50)}
+                                                            disabled={adjusting}
+                                                            className="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded text-xs hover:bg-emerald-500/30 disabled:opacity-50"
+                                                        >
+                                                            +50
+                                                        </button>
+                                                        <button
+                                                            onClick={() => adjustStars(user._id, -10)}
+                                                            disabled={adjusting}
+                                                            className="px-2 py-1 bg-red-500/20 text-red-400 rounded text-xs hover:bg-red-500/30 disabled:opacity-50"
+                                                        >
+                                                            -10
+                                                        </button>
+                                                        <button
+                                                            onClick={() => adjustStars(user._id, -50)}
+                                                            disabled={adjusting}
+                                                            className="px-2 py-1 bg-red-500/20 text-red-400 rounded text-xs hover:bg-red-500/30 disabled:opacity-50"
+                                                        >
+                                                            -50
+                                                        </button>
+                                                    </div>
+                                                    <div className="flex gap-1">
+                                                        <input
+                                                            type="number"
+                                                            value={customAmount}
+                                                            onChange={(e) => setCustomAmount(parseInt(e.target.value) || 0)}
+                                                            placeholder="Custom amount"
+                                                            className="flex-1 bg-slate-700 border border-slate-600 rounded px-2 py-1 text-white text-xs"
+                                                        />
+                                                        <button
+                                                            onClick={() => adjustStars(user._id, customAmount)}
+                                                            disabled={adjusting || customAmount === 0}
+                                                            className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs hover:bg-blue-500/30 disabled:opacity-50"
+                                                        >
+                                                            ✅
+                                                        </button>
+                                                        <button
+                                                            onClick={() => {
+                                                                setEditingUserId(null);
+                                                                setCustomAmount(0);
+                                                            }}
+                                                            className="px-2 py-1 bg-slate-600 text-slate-300 rounded text-xs hover:bg-slate-500"
+                                                        >
+                                                            ❌
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <div className="flex items-center justify-center gap-2">
+                                                    <span className="text-yellow-400">⭐ {user.stars || 0}</span>
+                                                    <button
+                                                        onClick={() => setEditingUserId(user._id)}
+                                                        className="text-slate-400 hover:text-white text-sm"
+                                                    >
+                                                        ✏️
+                                                    </button>
+                                                </div>
+                                            )}
                                         </td>
                                         <td className="p-4 text-slate-400 text-sm">
                                             {new Date(user.createdAt).toLocaleDateString()}
@@ -162,6 +288,27 @@ export default function UsersPage() {
                     </table>
                 </div>
             </div>
+
+            {/* Toast Notification */}
+            {toast && (
+                <div className="fixed bottom-4 right-4 z-50 animate-slideIn">
+                    <div className={`px-4 py-3 rounded-xl shadow-lg border ${toast.type === "success"
+                        ? "bg-emerald-500/20 border-emerald-500/50 text-emerald-300"
+                        : "bg-red-500/20 border-red-500/50 text-red-300"
+                        }`}>
+                        <div className="flex items-center gap-2">
+                            <span>{toast.type === "success" ? "✅" : "❌"}</span>
+                            <span className="font-medium">{toast.msg}</span>
+                            <button
+                                onClick={() => setToast(null)}
+                                className="ml-2 text-white/60 hover:text-white"
+                            >
+                                ✕
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
