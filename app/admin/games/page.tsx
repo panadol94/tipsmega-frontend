@@ -105,37 +105,44 @@ export default function GamesPage() {
         }
     };
 
-    // Import functionality
+    // Import functionality - TXT file (one game name per line)
+    const [importFileName, setImportFileName] = useState("");
+    const [duplicateCount, setDuplicateCount] = useState(0);
+
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
+
+        setImportFileName(file.name);
 
         const reader = new FileReader();
         reader.onload = (event) => {
             try {
                 const text = event.target?.result as string;
-                let parsed = [];
+                // Parse TXT: one game name per line
+                const lines = text.split('\n')
+                    .map(l => l.trim())
+                    .filter(l => l.length > 0);
 
-                if (file.name.endsWith('.json')) {
-                    parsed = JSON.parse(text);
-                } else if (file.name.endsWith('.csv')) {
-                    const lines = text.split('\n').filter(l => l.trim());
-                    const headers = lines[0].split(',').map(h => h.trim());
-                    parsed = lines.slice(1).map(line => {
-                        const values = line.split(',').map(v => v.trim());
-                        const obj: Record<string, string | number | boolean> = {};
-                        headers.forEach((h, i) => {
-                            const val = values[i];
-                            obj[h] = val === 'true' ? true : val === 'false' ? false : isNaN(Number(val)) ? val : Number(val);
-                        });
-                        return obj as unknown as ImportGame;
-                    });
-                }
+                // Check for duplicates against existing games
+                const existingNames = new Set(games.map(g => g.name.toLowerCase()));
+                const uniqueGames: ImportGame[] = [];
+                let dupes = 0;
 
-                setImportData(parsed);
+                lines.forEach(name => {
+                    if (existingNames.has(name.toLowerCase())) {
+                        dupes++;
+                    } else {
+                        uniqueGames.push({ name, category: "slots" });
+                        existingNames.add(name.toLowerCase()); // prevent duplicates within file
+                    }
+                });
+
+                setDuplicateCount(dupes);
+                setImportData(uniqueGames);
             } catch (err) {
                 console.error('Parse error:', err);
-                alert('Failed to parse file. Please check format.');
+                alert('Failed to parse file. Make sure its TXT with one game per line.');
             }
         };
         reader.readAsText(file);
@@ -545,66 +552,68 @@ export default function GamesPage() {
             </div>
 
             {importModal && (
-                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => { setImportModal(false); setImportData([]); }}>
+                <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => { setImportModal(false); setImportData([]); setImportFileName(""); setDuplicateCount(0); }}>
                     <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto relative" onClick={(e) => e.stopPropagation()}>
                         {/* Close Button */}
                         <button
-                            onClick={() => { setImportModal(false); setImportData([]); }}
+                            onClick={() => { setImportModal(false); setImportData([]); setImportFileName(""); setDuplicateCount(0); }}
                             className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-700 text-slate-400 hover:text-white hover:bg-slate-600 transition-colors"
                         >
                             ✕
                         </button>
 
-                        <h3 className="text-lg font-bold text-white mb-4">📥 Import Games</h3>
+                        <h3 className="text-lg font-bold text-white mb-4">📥 Import Games from TXT</h3>
 
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm font-bold text-slate-400 mb-2">Upload JSON or CSV</label>
+                                <label className="block text-sm font-bold text-slate-400 mb-2">Upload TXT File (satu game per line)</label>
                                 <label className="block w-full cursor-pointer">
                                     <div className="flex items-center gap-4 bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-3 hover:bg-slate-700 transition-colors">
                                         <span className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg text-white font-bold text-sm">Choose File</span>
-                                        <span className="text-slate-400 text-sm">No file chosen</span>
+                                        <span className="text-slate-400 text-sm">{importFileName || "No file chosen"}</span>
                                     </div>
                                     <input
                                         type="file"
-                                        accept=".json,.csv"
+                                        accept=".txt"
                                         onChange={handleFileUpload}
                                         className="hidden"
                                     />
                                 </label>
-                                <p className="text-xs text-slate-500 mt-2">Supported formats: JSON (array of objects) or CSV with headers</p>
+                                <p className="text-xs text-slate-500 mt-2">Format: TXT file dengan satu nama game per baris</p>
                             </div>
 
-                            {importData.length > 0 && (
+                            {(importData.length > 0 || duplicateCount > 0) && (
                                 <>
                                     <div className="bg-slate-700/30 rounded-xl p-4">
-                                        <p className="text-sm text-slate-300">Found <span className="font-bold text-white">{importData.length}</span> games</p>
-                                        <div className="mt-2 max-h-48 overflow-y-auto">
-                                            <table className="w-full text-xs">
-                                                <thead>
-                                                    <tr className="text-left text-slate-400">
-                                                        <th className="p-2">Name</th>
-                                                        <th className="p-2">Category</th>
-                                                        <th className="p-2">RTP</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {importData.slice(0, 5).map((g, i) => (
-                                                        <tr key={i} className="border-t border-slate-600">
-                                                            <td className="p-2 text-white">{g.name}</td>
-                                                            <td className="p-2 text-slate-300">{g.category}</td>
-                                                            <td className="p-2 text-slate-300">{g.rtpMin}%-{g.rtpMax}%</td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                            {importData.length > 5 && <p className="text-xs text-slate-500 mt-2 text-center">...and {importData.length - 5} more</p>}
+                                        <div className="flex items-center gap-4 mb-3">
+                                            <p className="text-sm">
+                                                ✅ New games: <span className="font-bold text-emerald-400">{importData.length}</span>
+                                            </p>
+                                            {duplicateCount > 0 && (
+                                                <p className="text-sm">
+                                                    ⏭️ Skipped (duplicate): <span className="font-bold text-amber-400">{duplicateCount}</span>
+                                                </p>
+                                            )}
                                         </div>
+                                        {importData.length > 0 && (
+                                            <div className="mt-2 max-h-48 overflow-y-auto">
+                                                <div className="grid grid-cols-3 gap-2 text-xs">
+                                                    {importData.slice(0, 15).map((g, i) => (
+                                                        <div key={i} className="bg-slate-700 px-2 py-1 rounded text-white truncate">
+                                                            {g.name}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                {importData.length > 15 && (
+                                                    <p className="text-xs text-slate-500 mt-2 text-center">...dan {importData.length - 15} lagi</p>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
 
                                     <div className="flex gap-3">
                                         <button
-                                            onClick={() => { setImportModal(false); setImportData([]); }}
+                                            onClick={() => { setImportModal(false); setImportData([]); setImportFileName(""); setDuplicateCount(0); }}
                                             className="flex-1 py-2 border border-slate-600 rounded-xl text-slate-300 hover:bg-slate-700 transition-colors"
                                         >
                                             Cancel
