@@ -8,13 +8,13 @@ import TypewriterText from "./ui/TypewriterText";
 import TerminalScan from "./ui/TerminalScan";
 import AuthModal from "./ui/AuthModal";
 import InstallPrompt from "./ui/InstallPrompt";
-import { MEGA888_GAMES } from "./data/mega888Games";
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
 import { useStarSync } from "./lib/useStarSync";
 import confetti from "canvas-confetti";
 
 type InitRes = { deviceId: string; stars: number; isNew: boolean };
 type ScanRes = { ok?: boolean; overallRtp?: number; stars?: number; error?: string; detail?: string };
+type Game = { _id: string; name: string; icon: string; enabled: boolean };
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
 
@@ -77,6 +77,10 @@ export default function Page() {
   const [busy, setBusy] = useState(false);
   const [inputError, setInputError] = useState(false);
 
+  // ✅ Dynamic games from API
+  const [games, setGames] = useState<Game[]>([]);
+  const [gamesLoading, setGamesLoading] = useState(true);
+
   // ✅ TerminalScan (animated)
   const [runKey, setRunKey] = useState<string>("");
   const [idMasked, setIdMasked] = useState<string>("");
@@ -104,6 +108,26 @@ export default function Page() {
     if (typeof window === "undefined") return "";
     return deviceId || localStorage.getItem(storageKey) || "";
   }, [deviceId]);
+
+  // Fetch games from API
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/games`);
+        if (res.ok) {
+          const data = await res.json();
+          setGames(data.games || []);
+        }
+      } catch (err) {
+        console.error("Failed to fetch games:", err);
+        // Fallback to empty array if API fails
+        setGames([]);
+      } finally {
+        setGamesLoading(false);
+      }
+    };
+    fetchGames();
+  }, []);
 
   // Check cooldown on mount - calculate initial value
   useEffect(() => {
@@ -513,7 +537,7 @@ export default function Page() {
         <div className="relative">
           <TerminalScan
             key={runKey}
-            games={MEGA888_GAMES}
+            games={games.filter(g => g.enabled).map(g => g.name)}
             overallRtp={lastRtp ?? 0}
             idMasked={idMasked || "---"}
             onComplete={() => setBusy(false)}
