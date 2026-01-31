@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
 
@@ -25,11 +25,7 @@ export default function ChatPage() {
     const [newBannedWord, setNewBannedWord] = useState("");
     const [actionLoading, setActionLoading] = useState(false);
 
-    useEffect(() => {
-        fetchMessages();
-    }, [filter]);
-
-    const fetchMessages = async () => {
+    const fetchMessages = useCallback(async () => {
         try {
             const token = localStorage.getItem("admin_token");
             const res = await fetch(`${API_BASE}/api/admin/chat?room=${filter}`, {
@@ -39,12 +35,16 @@ export default function ChatPage() {
                 const data = await res.json();
                 setMessages(data.messages || []);
             }
-        } catch (err) {
-            console.error("Failed to fetch messages:", err);
+        } catch (e) {
+            console.error("Failed to fetch messages:", e);
         } finally {
             setLoading(false);
         }
-    };
+    }, [filter]);
+
+    useEffect(() => {
+        fetchMessages();
+    }, [fetchMessages]);
 
     const deleteMessage = async (id: string) => {
         try {
@@ -78,7 +78,7 @@ export default function ChatPage() {
                 setAnnounceModal(false);
                 fetchMessages();
             }
-        } catch (err) {
+        } catch {
             alert("Failed to send announcement");
         } finally {
             setActionLoading(false);
@@ -99,7 +99,7 @@ export default function ChatPage() {
                 alert(`✅ Cleared ${data.cleared} old messages`);
                 fetchMessages();
             }
-        } catch (err) {
+        } catch {
             alert("Failed to clear old messages");
         } finally {
             setActionLoading(false);
@@ -168,7 +168,7 @@ export default function ChatPage() {
                 const data = await res.json();
                 setBannedWords(data.bannedWords);
             }
-        } catch (err) {
+        } catch {
             alert("Failed to save banned words");
         }
     };

@@ -109,7 +109,7 @@ export default function SettingsPage() {
                 const data = await res.json();
                 alert(`✅ Cleared ${data.deleted} chat messages`);
             }
-        } catch (err) {
+        } catch {
             alert("Failed to clear chat");
         } finally {
             setDangerLoading(false);
@@ -129,7 +129,7 @@ export default function SettingsPage() {
                 const data = await res.json();
                 alert(`✅ Deleted ${data.deleted} games`);
             }
-        } catch (err) {
+        } catch {
             alert("Failed to reset games");
         } finally {
             setDangerLoading(false);
