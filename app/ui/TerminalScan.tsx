@@ -31,7 +31,7 @@ export default function TerminalScan({
   games,
   overallRtp,
   idMasked,
-  maxKeepLines = 70,
+  maxKeepLines = 250, // Increased to show all 198 games + system messages
   minPct = 10,
   maxPct = 93,
 
