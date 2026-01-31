@@ -35,8 +35,14 @@ export function useStarSync({
     const pendingNotifiedRef = useRef(false); // Track if we've notified about current pending amount
 
     const checkAndClaim = useCallback(async (manual = false) => {
-        // Prevent concurrent syncs
-        if (syncingRef.current) return;
+        // Prevent concurrent syncs - return BEFORE setting any state
+        if (syncingRef.current) {
+            console.log("Sync already in progress, skipping...");
+            return;
+        }
+
+        // Mark as syncing FIRST
+        syncingRef.current = true;
 
         // Only show CLAIMING state for manual claims
         if (manual) {
@@ -44,8 +50,6 @@ export function useStarSync({
         }
 
         try {
-            syncingRef.current = true;
-
             // 1. Check for pending stars
             const checkRes = await fetch(`${API_BASE}/api/auth/check-pending`, {
                 headers: { Authorization: `Bearer ${token}` },
@@ -66,7 +70,7 @@ export function useStarSync({
 
             // 3. If pending > 0, claim them
             if (pending > 0) {
-                // Show claiming state when actually claiming
+                // Show claiming state when actually claiming (even for auto)
                 setIsClaiming(true);
 
                 if (manual) {
@@ -96,7 +100,7 @@ export function useStarSync({
         } catch (e) {
             console.error("Star sync error:", e);
         } finally {
-            // ALWAYS reset state
+            // ALWAYS reset state - this will ALWAYS run now
             syncingRef.current = false;
             setIsClaiming(false);
         }
