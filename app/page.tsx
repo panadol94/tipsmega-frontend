@@ -472,14 +472,8 @@ export default function Page() {
               </button>
             </div>
           ) : (
-            <div className="flex gap-3">
-              <button
-                onClick={claimNow}
-                disabled={isClaiming}
-                className="btn-ghost backdrop-blur-md hover:bg-purple-500/20 flex-1 h-[52px] border-purple-500/30 bg-purple-500/10 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <span className="font-black text-sm">{isClaiming ? '⏳ CLAIMING...' : '✨ CLAIM STARS'}</span>
-              </button>
+            <div className="flex gap-3 items-center">
+              <span className="text-xs text-white/50">✨ Stars auto-sync</span>
               <button
                 className="btn-ghost backdrop-blur-md hover:bg-white/10 h-[52px] px-4 border-white/20"
                 onClick={() => {
