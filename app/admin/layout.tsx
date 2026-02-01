@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import AdminToast, { showToast } from "../ui/AdminToast";
+import AdminToast from "../ui/AdminToast";
 
 const NAV_ITEMS = [
     { href: "/admin", label: "Dashboard", icon: "📊" },
@@ -31,7 +31,8 @@ export default function AdminLayout({
     useEffect(() => {
         // Skip auth check for login page
         if (isLoginPage) {
-            setIsLoading(false);
+            // Use setTimeout to avoid setState during render
+            setTimeout(() => setIsLoading(false), 0);
             return;
         }
 
@@ -39,13 +40,15 @@ export default function AdminLayout({
         const token = localStorage.getItem("admin_token");
         if (!token) {
             router.push("/admin/login");
-            setIsLoading(false);
+            setTimeout(() => setIsLoading(false), 0);
             return;
         }
 
         // Token exists, allow access
-        setIsAuthenticated(true);
-        setIsLoading(false);
+        setTimeout(() => {
+            setIsAuthenticated(true);
+            setIsLoading(false);
+        }, 0);
     }, [router, isLoginPage, pathname]);
 
     const handleLogout = () => {
