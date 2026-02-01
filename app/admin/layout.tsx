@@ -35,40 +35,17 @@ export default function AdminLayout({
             return;
         }
 
-        // Validate token with server
-        const verifyToken = async () => {
-            const token = localStorage.getItem("admin_token");
-            if (!token) {
-                router.push("/admin/login");
-                setIsLoading(false);
-                return;
-            }
+        // Simple client-side token check
+        const token = localStorage.getItem("admin_token");
+        if (!token) {
+            router.push("/admin/login");
+            setIsLoading(false);
+            return;
+        }
 
-            try {
-                // Verify token is valid with backend
-                const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
-                const res = await fetch(`${API_BASE}/api/admin/verify`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-
-                if (!res.ok) {
-                    // Token invalid or expired
-                    localStorage.removeItem("admin_token");
-                    showToast("Session expired. Please login again.", "warning");
-                    router.push("/admin/login");
-                } else {
-                    setIsAuthenticated(true);
-                }
-            } catch (error) {
-                // Network error - allow access but show warning
-                console.error("Token verification failed:", error);
-                setIsAuthenticated(true); // Allow offline use
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        verifyToken();
+        // Token exists, allow access
+        setIsAuthenticated(true);
+        setIsLoading(false);
     }, [router, isLoginPage, pathname]);
 
     const handleLogout = () => {
