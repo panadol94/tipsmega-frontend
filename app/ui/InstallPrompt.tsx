@@ -12,6 +12,8 @@ interface iOSNavigator extends Navigator {
     standalone?: boolean;
 }
 
+const DISMISS_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+
 export default function InstallPrompt() {
     const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
     const [show, setShow] = useState(false);
@@ -35,6 +37,12 @@ export default function InstallPrompt() {
 
         // ✅ Check if user dismissed it permanently
         if (localStorage.getItem("pwa_dismissed") === "true") {
+            return;
+        }
+
+        // ✅ Check if user temporarily dismissed (7 days cooldown)
+        const dismissedUntil = localStorage.getItem("pwa_dismissed_until");
+        if (dismissedUntil && Date.now() < parseInt(dismissedUntil)) {
             return;
         }
 
@@ -64,6 +72,11 @@ export default function InstallPrompt() {
         };
     }, []);
 
+    /** Dismiss for 7 days (close button / backdrop) */
+    function handleTempDismiss() {
+        localStorage.setItem("pwa_dismissed_until", String(Date.now() + DISMISS_DURATION_MS));
+        setShow(false);
+    }
 
     async function handleInstall() {
         if (!deferredPrompt) return;
@@ -82,7 +95,7 @@ export default function InstallPrompt() {
             {/* Backdrop */}
             <div
                 className="fixed inset-0 bg-black/90 backdrop-blur-md transition-opacity duration-500"
-                onClick={() => setShow(false)}
+                onClick={handleTempDismiss}
             />
 
             {/* Popup Card */}
@@ -95,7 +108,7 @@ export default function InstallPrompt() {
 
                 {/* Close Button */}
                 <button
-                    onClick={() => setShow(false)}
+                    onClick={handleTempDismiss}
                     className="absolute right-4 top-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 text-white/40 hover:text-white hover:bg-white/10 transition-all z-20"
                 >
                     ✕
@@ -162,3 +175,4 @@ export default function InstallPrompt() {
         </div>
     );
 }
+
