@@ -557,20 +557,6 @@ export default function HomeClient() {
                         idMasked={idMasked || "---"}
                         onComplete={() => setBusy(false)}
                     />
-                    {/* Close Button - Positioned below header to prevent overlap with RUNNING badge */}
-                    <button
-                        onClick={() => {
-                            setRunKey("");
-                            setLastRtp(null);
-                            setIdMasked("");
-                            setScanActive(false);
-                            playSound("click");
-                        }}
-                        className="absolute top-14 right-2 z-50 w-8 h-8 bg-red-500/20 hover:bg-red-500/40 border border-red-500/50 rounded-full flex items-center justify-center text-red-300 text-sm font-bold transition-all active:scale-95 backdrop-blur-sm"
-                        style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}
-                    >
-                        ✕
-                    </button>
                 </div>
             ) : null}
 
