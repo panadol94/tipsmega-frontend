@@ -20,6 +20,12 @@ export const metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Share & Earn Free Stars | Mega888 AI Referral",
+    description: "Dapatkan FREE Stars untuk setiap kawan yang join! Referral program rasmi Mega888 AI Scanner.",
+    images: ["/og-image.webp"],
+  },
   alternates: {
     canonical: "https://tipsmega888.com/share",
   },

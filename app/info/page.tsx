@@ -20,6 +20,12 @@ export const metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mega888 AI Tips - Complete Guide & FAQ | 2026",
+    description: "Panduan lengkap Mega888 AI Scanner. Ketahui cara guna AI Scanner untuk analisis RTP live.",
+    images: ["/og-image.webp"],
+  },
   alternates: {
     canonical: "https://tipsmega888.com/info",
   },
