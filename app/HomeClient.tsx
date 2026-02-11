@@ -555,7 +555,10 @@ export default function HomeClient() {
                         games={games.map(g => g.name)}
                         overallRtp={lastRtp ?? 0}
                         idMasked={idMasked || "---"}
-                        onComplete={() => setBusy(false)}
+                        onComplete={() => {
+                            setBusy(false);
+                            setScanActive(false);
+                        }}
                     />
                 </div>
             ) : null}
