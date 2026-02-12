@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { adminFetch } from "../../lib/adminApiUtils";
 import { showToast } from "../../ui/AdminToast";
 
@@ -87,12 +88,12 @@ export default function CompaniesPage() {
                     companies.map((company) => (
                         <div key={company._id} className="bg-slate-800 border border-slate-700 rounded-2xl overflow-hidden group">
                             {/* Media Preview */}
-                            <div className="h-32 bg-slate-700 flex items-center justify-center">
+                            <div className="h-32 bg-slate-700 flex items-center justify-center relative">
                                 {company.media ? (
                                     company.mediaType === "video" ? (
                                         <video src={company.media} className="w-full h-full object-cover" muted />
                                     ) : (
-                                        <img src={company.media} alt={company.name} className="w-full h-full object-cover" />
+                                        <Image src={company.media} alt={company.name} fill className="object-cover" unoptimized />
                                     )
                                 ) : (
                                     <span className="text-4xl">🏢</span>

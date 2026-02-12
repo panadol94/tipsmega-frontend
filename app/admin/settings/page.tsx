@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { adminFetch, validateNumber } from "../../lib/adminApiUtils";
 import { showToast } from "../../ui/AdminToast";
 
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+
 interface Settings {
     siteName: string;
     enableChat: boolean;
