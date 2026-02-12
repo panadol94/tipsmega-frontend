@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import MegaLogo from "./MegaLogo";
 import MatrixRain from "./MatrixRain";
 import BottomNav from "./BottomNav";
+import VisitorTracker from "./VisitorTracker";
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -42,6 +43,9 @@ export default function Shell({ children }: { children: React.ReactNode }) {
 
       {/* GLOBAL CHATROOM & NAV */}
       <BottomNav />
+
+      {/* Visitor notification - sends alert to admin Telegram group */}
+      <VisitorTracker />
     </div>
   );
 }
