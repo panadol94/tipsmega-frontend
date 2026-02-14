@@ -181,7 +181,7 @@ export async function fetchWithRetry(
 /**
  * Debounce function for preventing rapid calls
  */
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
     func: T,
     waitMs: number
 ): (...args: Parameters<T>) => void {
