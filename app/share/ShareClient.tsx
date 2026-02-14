@@ -130,16 +130,56 @@ export default function ShareClient() {
                         </div>
                     </div>
 
-                    {/* RULES / FOOTER */}
-                    <div className="mt-8 px-5 text-center">
-                        <div className="text-xs font-bold text-white/90 mb-2 tracking-widest uppercase opacity-80">
-                            Rules of Engagement
+                    {/* RULES / PANDUAN */}
+                    <div className="mt-8">
+                        <h2 className="text-center text-lg font-black text-white tracking-wide mb-5">
+                            📋 Panduan <span className="text-premium">Referral</span>
+                        </h2>
+
+                        <div className="card bg-[#0c1224] border-white/10 p-5">
+                            <div className="space-y-4">
+                                {[
+                                    {
+                                        icon: "✅",
+                                        title: "Verifikasi Diperlukan",
+                                        desc: "Star hanya diberikan selepas kawan anda berjaya mendaftar dan mengesahkan akaun mereka melalui Telegram bot."
+                                    },
+                                    {
+                                        icon: "📱",
+                                        title: "Satu Peranti, Satu Akaun",
+                                        desc: "Setiap peranti hanya boleh mendaftarkan satu akaun sahaja. Akaun berganda akan dikesan secara automatik."
+                                    },
+                                    {
+                                        icon: "🎁",
+                                        title: "Reward Tanpa Had",
+                                        desc: "Tiada had bilangan referral — lebih ramai kawan yang anda jemput, lebih banyak Stars yang anda perolehi!"
+                                    },
+                                    {
+                                        icon: "⚡",
+                                        title: "Kredit Automatik",
+                                        desc: "Stars akan dikreditkan secara automatik ke akaun anda sebaik sahaja referral disahkan. Tiada perlu tunggu."
+                                    },
+                                    {
+                                        icon: "🔗",
+                                        title: "Link Unik Anda",
+                                        desc: "Gunakan link referral peribadi anda di atas. Setiap pendaftaran melalui link ini akan dikaitkan dengan akaun anda."
+                                    },
+                                    {
+                                        icon: "🚫",
+                                        title: "Anti-Spam",
+                                        desc: "Aktiviti spam atau pendaftaran palsu akan menyebabkan akaun anda disekat secara kekal tanpa amaran."
+                                    },
+                                ].map((rule, i) => (
+                                    <div key={i} className="flex gap-3 items-start">
+                                        <div className="text-xl mt-0.5 shrink-0">{rule.icon}</div>
+                                        <div>
+                                            <div className="text-sm font-bold text-white">{rule.title}</div>
+                                            <div className="text-sm text-white/50 mt-0.5 leading-relaxed">{rule.desc}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <p className="text-xs text-white/70 leading-loose max-w-xs mx-auto">
-                            1. Reward diberi selepas verifikasi.<br />
-                            2. Satu peranti, satu akaun sahaja.<br />
-                            3. Spam akan menyebabkan ban.
-                        </p>
                     </div>
 
                     {/* JOIN COMMUNITY */}
