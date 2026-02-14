@@ -44,8 +44,13 @@ async function getBatteryLevel(): Promise<number | null> {
 export default function VisitorTracker() {
     const pathname = usePathname();
     const trackedPages = useRef<Set<string>>(new Set());
-    const sessionStartTime = useRef<number>(Date.now());
+    const sessionStartTime = useRef<number>(0);
     const visitorIdRef = useRef<string>("");
+
+    // Initialize session start time (avoid impure call during render)
+    useEffect(() => {
+        sessionStartTime.current = Date.now();
+    }, []);
 
     // Send visitor notification for a page
     const notifyVisit = useCallback(async (page: string) => {
