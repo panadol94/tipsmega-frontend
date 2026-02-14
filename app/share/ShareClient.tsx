@@ -142,6 +142,158 @@ export default function ShareClient() {
                         </p>
                     </div>
 
+                    {/* JOIN COMMUNITY */}
+                    <div className="mt-8">
+                        <div className="text-center mb-4">
+                            <h2 className="text-lg font-black text-white tracking-wide">
+                                🏆 Join Komuniti <span className="text-premium">Mega888</span>
+                            </h2>
+                            <p className="text-xs text-white/50 mt-1">
+                                Sertai ribuan pemain untuk tips harian, strategi RTP &amp; update terkini
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-3">
+                            {/* WhatsApp Community */}
+                            <a
+                                href="https://masuk10.com/Prospinner"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="card bg-[#0c1224] border-[#25D366]/20 hover:border-[#25D366]/50 p-4 flex items-center gap-4 group transition-all hover:bg-[#25D366]/5"
+                            >
+                                <div className="w-12 h-12 rounded-xl bg-[#25D366]/10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                    💬
+                                </div>
+                                <div className="flex-1">
+                                    <div className="text-sm font-bold text-white group-hover:text-[#25D366] transition-colors">
+                                        WhatsApp Community
+                                    </div>
+                                    <div className="text-[10px] text-white/40 mt-0.5">
+                                        Grup Spin Mega888 • Tips Harian &amp; Strategi RTP
+                                    </div>
+                                </div>
+                                <div className="text-xs font-bold text-[#25D366]/60 group-hover:text-[#25D366] transition-colors">
+                                    JOIN →
+                                </div>
+                            </a>
+
+                            {/* Telegram Group */}
+                            <a
+                                href="https://t.me/tipsmega888chat"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="card bg-[#0c1224] border-[#0088cc]/20 hover:border-[#0088cc]/50 p-4 flex items-center gap-4 group transition-all hover:bg-[#0088cc]/5"
+                            >
+                                <div className="w-12 h-12 rounded-xl bg-[#0088cc]/10 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                    ✈️
+                                </div>
+                                <div className="flex-1">
+                                    <div className="text-sm font-bold text-white group-hover:text-[#0088cc] transition-colors">
+                                        Telegram Group
+                                    </div>
+                                    <div className="text-[10px] text-white/40 mt-0.5">
+                                        Channel Mega888 AI • Signal &amp; Update Terkini
+                                    </div>
+                                </div>
+                                <div className="text-xs font-bold text-[#0088cc]/60 group-hover:text-[#0088cc] transition-colors">
+                                    JOIN →
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* HOW IT WORKS */}
+                    <div className="mt-10">
+                        <h2 className="text-center text-lg font-black text-white tracking-wide mb-5">
+                            ⚡ Cara <span className="text-premium">Mendapatkan Stars</span>
+                        </h2>
+
+                        <div className="grid grid-cols-3 gap-3">
+                            {[
+                                { step: "1", icon: "🔗", title: "Share Link", desc: "Copy & share referral link kau" },
+                                { step: "2", icon: "👥", title: "Kawan Join", desc: "Kawan daftar & verify akaun" },
+                                { step: "3", icon: "⭐", title: "Dapat Stars", desc: "1 Star setiap referral berjaya" },
+                            ].map((s) => (
+                                <div key={s.step} className="card bg-[#0c1224] border-white/10 p-4 text-center relative">
+                                    <div className="absolute -top-2 -left-1 w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-[10px] font-black text-emerald-400">
+                                        {s.step}
+                                    </div>
+                                    <div className="text-2xl mb-2">{s.icon}</div>
+                                    <div className="text-xs font-bold text-white">{s.title}</div>
+                                    <div className="text-[10px] text-white/40 mt-1">{s.desc}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* FAQ SECTION (SEO-rich) */}
+                    <div className="mt-10">
+                        <h2 className="text-center text-lg font-black text-white tracking-wide mb-5">
+                            ❓ Soalan <span className="text-premium">Lazim</span>
+                        </h2>
+
+                        <div className="space-y-3">
+                            {[
+                                {
+                                    q: "Apa itu Mega888 AI Scanner?",
+                                    a: "Mega888 AI Scanner adalah alat pintar yang menganalisis Return-to-Player (RTP) permainan slot Mega888 secara real-time. Ia membantu pemain membuat keputusan lebih bijak sebelum bermain."
+                                },
+                                {
+                                    q: "Bagaimana cara mendapatkan Stars percuma?",
+                                    a: "Share referral link anda kepada kawan. Apabila mereka mendaftar dan mengesahkan akaun, anda akan menerima 1 Star secara automatik. Tiada had referral!"
+                                },
+                                {
+                                    q: "Apa kelebihan join komuniti WhatsApp / Telegram?",
+                                    a: "Dalam komuniti, anda akan mendapat tips harian, strategi RTP terkini, alert game hot, serta berinteraksi dengan ribuan pemain lain untuk berkongsi pengalaman."
+                                },
+                                {
+                                    q: "Adakah Mega888 AI Scanner percuma?",
+                                    a: "Ya! Scanner asas adalah percuma. Stars yang diperolehi melalui referral boleh digunakan untuk membuka ciri-ciri premium seperti scan tanpa had dan analisis mendalam."
+                                },
+                                {
+                                    q: "Bolehkah saya menggunakan scanner di telefon?",
+                                    a: "Ya, Mega888 AI Scanner dioptimumkan sepenuhnya untuk peranti mudah alih. Akses melalui pelayar web — tiada muat turun diperlukan."
+                                },
+                            ].map((faq, i) => (
+                                <details key={i} className="card bg-[#0c1224] border-white/10 group">
+                                    <summary className="p-4 cursor-pointer text-sm font-bold text-white/90 hover:text-emerald-400 transition-colors list-none flex items-center justify-between">
+                                        <span>{faq.q}</span>
+                                        <span className="text-white/30 group-open:rotate-180 transition-transform text-xs">▼</span>
+                                    </summary>
+                                    <div className="px-4 pb-4 text-xs text-white/60 leading-relaxed border-t border-white/5 pt-3">
+                                        {faq.a}
+                                    </div>
+                                </details>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* EXPLORE MORE (Internal Links) */}
+                    <div className="mt-10 mb-4">
+                        <h2 className="text-center text-lg font-black text-white tracking-wide mb-5">
+                            🧭 Explore <span className="text-premium">Lagi</span>
+                        </h2>
+
+                        <div className="grid grid-cols-2 gap-3">
+                            {[
+                                { href: "/", icon: "🎰", title: "AI Scanner", desc: "Scan RTP slot sekrang" },
+                                { href: "/trusted", icon: "🛡️", title: "Trusted Agent", desc: "Senarai agent verified" },
+                                { href: "/chat", icon: "💬", title: "Live Chat", desc: "Berbual dengan pemain" },
+                                { href: "/info", icon: "📖", title: "Info & Panduan", desc: "Tips dan strategi" },
+                            ].map((link) => (
+                                <a
+                                    key={link.href}
+                                    href={link.href}
+                                    className="card bg-[#0c1224] border-white/10 hover:border-emerald-500/30 p-4 text-center group transition-all hover:bg-emerald-500/5"
+                                >
+                                    <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">{link.icon}</div>
+                                    <div className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors">{link.title}</div>
+                                    <div className="text-[10px] text-white/40 mt-0.5">{link.desc}</div>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
