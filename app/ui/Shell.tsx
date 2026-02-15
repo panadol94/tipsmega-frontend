@@ -7,7 +7,7 @@ import MatrixRain from "./MatrixRain";
 import BottomNav from "./BottomNav";
 import VisitorTracker from "./VisitorTracker";
 
-/* ---------- Fake Winning Ticker ---------- */
+/* ---------- Withdrawal Notification Ticker ---------- */
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
 
 const WINNER_NAMES = [
@@ -17,25 +17,36 @@ const WINNER_NAMES = [
   "Hana", "Firdaus", "Ain", "Haziq", "Balqis", "Fikri", "Wani",
   "Arif", "Mira", "Danial", "Shazwani", "Aiman", "Yana", "Harith",
 ];
+const LAST_INITIALS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const FALLBACK_COMPANIES = ["WINBOX", "ME88", "BK8", "MEGA888", "918KISS"];
 const AMOUNTS = [
-  500, 800, 1200, 1500, 1800, 2000, 2300, 2500, 2800, 3000,
-  3200, 3500, 3700, 4000, 4500, 5000, 5500, 6000, 6500, 7000,
-  7500, 8000, 8500, 9000, 10000, 12000, 15000,
+  380, 520, 750, 880, 1050, 1230, 1480, 1750, 1920, 2100,
+  2350, 2680, 3100, 3450, 3780, 4200, 4650, 4850, 5200, 5800,
+  6300, 6750, 7200, 7900, 8500, 9200, 10500, 12800, 14500,
 ];
+const TIME_AGO = [
+  "baru je", "1 minit lepas", "2 minit lepas", "3 minit lepas",
+  "5 minit lepas", "8 minit lepas", "10 minit lepas", "12 minit lepas",
+];
+
 function pickRandom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 function fmtRM(n: number) {
   return `RM${n.toLocaleString("en-MY")}`;
 }
+function randomDelay() {
+  // Random 6–15 seconds to feel organic
+  return 6000 + Math.floor(Math.random() * 9000);
+}
 
 function WinningTicker() {
   const [companies, setCompanies] = useState<string[]>(FALLBACK_COMPANIES);
   const [current, setCurrent] = useState(() => ({
-    name: pickRandom(WINNER_NAMES),
+    name: `${pickRandom(WINNER_NAMES)} ${LAST_INITIALS[Math.floor(Math.random() * 26)]}.`,
     amount: pickRandom(AMOUNTS),
     company: pickRandom(FALLBACK_COMPANIES),
+    timeAgo: pickRandom(TIME_AGO),
   }));
   const [anim, setAnim] = useState(true);
 
@@ -54,31 +65,37 @@ function WinningTicker() {
       .catch(() => {/* keep fallback */ });
   }, []);
 
-  // Cycle ticker every 3.5s
+  // Cycle ticker with random delay (6-15s) to feel natural
   useEffect(() => {
-    const iv = setInterval(() => {
-      setAnim(false);
-      setTimeout(() => {
-        setCurrent({
-          name: pickRandom(WINNER_NAMES),
-          amount: pickRandom(AMOUNTS),
-          company: pickRandom(companies),
-        });
-        setAnim(true);
-      }, 300);
-    }, 3500);
-    return () => clearInterval(iv);
+    let timeout: ReturnType<typeof setTimeout>;
+    const cycle = () => {
+      timeout = setTimeout(() => {
+        setAnim(false);
+        setTimeout(() => {
+          setCurrent({
+            name: `${pickRandom(WINNER_NAMES)} ${LAST_INITIALS[Math.floor(Math.random() * 26)]}.`,
+            amount: pickRandom(AMOUNTS),
+            company: pickRandom(companies),
+            timeAgo: pickRandom(TIME_AGO),
+          });
+          setAnim(true);
+        }, 400);
+        cycle(); // schedule next with new random delay
+      }, randomDelay());
+    };
+    cycle();
+    return () => clearTimeout(timeout);
   }, [companies]);
 
   return (
     <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500/5 via-emerald-500/10 to-emerald-500/5 px-4 py-2.5 border-b border-emerald-500/10">
       {/* Subtle shimmer */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-20"
+        className="absolute inset-0 pointer-events-none opacity-10"
         style={{
-          background: "linear-gradient(90deg, transparent 0%, rgba(16,185,129,0.3) 50%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, rgba(16,185,129,0.2) 50%, transparent 100%)",
           backgroundSize: "200% 100%",
-          animation: "shimmerTicker 4s linear infinite",
+          animation: "shimmerTicker 6s linear infinite",
         }}
       />
       <div className="relative flex items-center gap-3 max-w-lg mx-auto">
@@ -88,18 +105,17 @@ function WinningTicker() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
-          <span className="text-[8px] font-black tracking-widest text-emerald-400 uppercase">Live</span>
         </div>
-        {/* Winning text */}
+        {/* Withdrawal text */}
         <div
-          className={`flex-1 text-xs font-semibold text-white/90 transition-all duration-300 ${anim ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}
+          className={`flex-1 text-xs font-medium text-white/80 transition-all duration-500 ${anim ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}
         >
-          <span className="text-yellow-400 font-black">{current.name}</span>
+          <span className="text-yellow-400 font-bold">{current.name}</span>
           {" "}berjaya cuci{" "}
-          <span className="text-emerald-400 font-black">{fmtRM(current.amount)}</span>
+          <span className="text-emerald-400 font-bold">{fmtRM(current.amount)}</span>
           {" "}dari{" "}
-          <span className="text-cyan-400 font-black">{current.company}</span>
-          {" "}🎉
+          <span className="text-cyan-400 font-bold">{current.company}</span>
+          <span className="text-white/30 ml-1.5 text-[10px]">• {current.timeAgo}</span>
         </div>
       </div>
       <style jsx>{`
