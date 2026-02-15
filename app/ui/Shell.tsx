@@ -8,6 +8,8 @@ import BottomNav from "./BottomNav";
 import VisitorTracker from "./VisitorTracker";
 
 /* ---------- Fake Winning Ticker ---------- */
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+
 const WINNER_NAMES = [
   "Ahmad", "Siti", "Muhammad", "Nur", "Mohd", "Faizal", "Aisyah",
   "Hafiz", "Syafiq", "Amirah", "Rizal", "Nadia", "Zulkifli", "Farah",
@@ -15,10 +17,7 @@ const WINNER_NAMES = [
   "Hana", "Firdaus", "Ain", "Haziq", "Balqis", "Fikri", "Wani",
   "Arif", "Mira", "Danial", "Shazwani", "Aiman", "Yana", "Harith",
 ];
-const COMPANY_NAMES = [
-  "WINBOX", "ME88", "BK8", "PUSSY888", "918KISS",
-  "MEGA888", "LIVE22", "XE88", "ROLLEX11", "JOKER123",
-];
+const FALLBACK_COMPANIES = ["WINBOX", "ME88", "BK8", "MEGA888", "918KISS"];
 const AMOUNTS = [
   500, 800, 1200, 1500, 1800, 2000, 2300, 2500, 2800, 3000,
   3200, 3500, 3700, 4000, 4500, 5000, 5500, 6000, 6500, 7000,
@@ -32,13 +31,30 @@ function fmtRM(n: number) {
 }
 
 function WinningTicker() {
+  const [companies, setCompanies] = useState<string[]>(FALLBACK_COMPANIES);
   const [current, setCurrent] = useState(() => ({
     name: pickRandom(WINNER_NAMES),
     amount: pickRandom(AMOUNTS),
-    company: pickRandom(COMPANY_NAMES),
+    company: pickRandom(FALLBACK_COMPANIES),
   }));
   const [anim, setAnim] = useState(true);
 
+  // Fetch real company names from database on mount
+  useEffect(() => {
+    fetch(`${API_BASE}/api/companies`, { cache: "no-store" })
+      .then((r) => r.json())
+      .then((json) => {
+        const arr = Array.isArray(json?.companies) ? json.companies : Array.isArray(json) ? json : [];
+        const names = arr
+          .filter((c: { status?: string }) => (c.status || "").toUpperCase() !== "HIDDEN")
+          .map((c: { name: string }) => c.name)
+          .filter(Boolean);
+        if (names.length > 0) setCompanies(names);
+      })
+      .catch(() => {/* keep fallback */ });
+  }, []);
+
+  // Cycle ticker every 3.5s
   useEffect(() => {
     const iv = setInterval(() => {
       setAnim(false);
@@ -46,13 +62,13 @@ function WinningTicker() {
         setCurrent({
           name: pickRandom(WINNER_NAMES),
           amount: pickRandom(AMOUNTS),
-          company: pickRandom(COMPANY_NAMES),
+          company: pickRandom(companies),
         });
         setAnim(true);
       }, 300);
     }, 3500);
     return () => clearInterval(iv);
-  }, []);
+  }, [companies]);
 
   return (
     <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500/5 via-emerald-500/10 to-emerald-500/5 px-4 py-2.5 border-b border-emerald-500/10">
@@ -95,6 +111,7 @@ function WinningTicker() {
     </div>
   );
 }
+
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
