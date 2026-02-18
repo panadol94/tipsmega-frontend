@@ -1,35 +1,38 @@
 import { MetadataRoute } from "next";
+import { GAME_PAGES } from "./data/gamePages";
+import { BLOG_ARTICLES } from "./data/blogArticles";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = "https://tipsmega888.com";
+    const now = new Date();
 
-    return [
-        {
-            url: baseUrl,
-            lastModified: new Date(),
-            changeFrequency: "daily",
-            priority: 1,
-        },
-        {
-            url: `${baseUrl}/trusted`,
-            lastModified: new Date(),
-            changeFrequency: "weekly",
-            priority: 0.9,
-        },
-        {
-            url: `${baseUrl}/share`,
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/info`,
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.6,
-        },
-
+    // Core pages
+    const corePages: MetadataRoute.Sitemap = [
+        { url: baseUrl, lastModified: now, changeFrequency: "daily", priority: 1 },
+        { url: `${baseUrl}/trusted`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+        { url: `${baseUrl}/share`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+        { url: `${baseUrl}/info`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+        { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: "daily", priority: 0.8 },
+        { url: `${baseUrl}/games`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     ];
+
+    // Blog article pages
+    const blogPages: MetadataRoute.Sitemap = BLOG_ARTICLES.map((article) => ({
+        url: `${baseUrl}/blog/${article.slug}`,
+        lastModified: new Date(article.updatedAt),
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+    }));
+
+    // Game pages
+    const gamePages: MetadataRoute.Sitemap = GAME_PAGES.map((game) => ({
+        url: `${baseUrl}/games/${game.slug}`,
+        lastModified: now,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+    }));
+
+    return [...corePages, ...blogPages, ...gamePages];
 }
