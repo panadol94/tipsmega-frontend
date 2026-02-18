@@ -29,6 +29,10 @@ export const metadata = {
     alternates: {
         canonical: "https://tipsmega888.com/chat",
     },
+    robots: {
+        index: false,
+        follow: false,
+    },
 };
 
 export default function Page() {

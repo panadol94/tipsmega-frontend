@@ -37,6 +37,16 @@ export const metadata = {
   alternates: {
     canonical: "https://tipsmega888.com/share",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function Page() {

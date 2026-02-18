@@ -29,6 +29,10 @@ export const metadata = {
   alternates: {
     canonical: "https://tipsmega888.com/profile",
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function Page() {

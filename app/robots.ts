@@ -7,8 +7,9 @@ export default function robots(): MetadataRoute.Robots {
         rules: {
             userAgent: "*",
             allow: "/",
-            disallow: ["/admin/", "/api/"],
+            disallow: ["/admin/", "/api/", "/profile/", "/chat/"],
         },
         sitemap: "https://tipsmega888.com/sitemap.xml",
+        host: "https://tipsmega888.com",
     };
 }
