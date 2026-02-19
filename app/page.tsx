@@ -52,5 +52,51 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <HomeClient />;
+  return (
+    <>
+      {/* WebSite schema — enables sitelinks search box in Google */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "TipsMega888",
+            url: "https://tipsmega888.com",
+            description: "Mega888 AI Tips RTP Scanner — Analisis RTP Live Percuma",
+            inLanguage: "ms-MY",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://tipsmega888.com/games?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          }),
+        }}
+      />
+
+      {/* Organization schema — Google Knowledge Panel */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "TipsMega888",
+            url: "https://tipsmega888.com",
+            logo: "https://tipsmega888.com/og-image.webp",
+            description: "Platform AI Scanner untuk analisis RTP Mega888 secara live. Tips, strategi, dan senarai company trusted.",
+            sameAs: [],
+            contactPoint: {
+              "@type": "ContactPoint",
+              contactType: "customer service",
+              availableLanguage: ["ms", "en"],
+            },
+          }),
+        }}
+      />
+
+      <HomeClient />
+    </>
+  );
 }
+

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import MegaLogo from "./MegaLogo";
 import MatrixRain from "./MatrixRain";
 import BottomNav from "./BottomNav";
@@ -166,6 +167,31 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       <div className="app-wrap">
         <div className="app-shell">{children}</div>
       </div>
+
+      {/* SEO Footer Links — helps Google discover all pages */}
+      <footer style={{ padding: "1.5rem 1rem 5rem", borderTop: "1px solid rgba(255,255,255,0.06)", background: "rgba(0,0,0,0.2)" }}>
+        <div style={{ maxWidth: 600, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", fontSize: "0.8rem" }}>
+            <div>
+              <div style={{ fontWeight: 700, color: "#f59e0b", marginBottom: 6, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: 1 }}>Mega888</div>
+              <Link href="/" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🏠 AI Scanner</Link>
+              <Link href="/trusted" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>✅ Company Trusted</Link>
+              <Link href="/share" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>⭐ Share & Stars</Link>
+              <Link href="/info" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>ℹ️ Info & FAQ</Link>
+            </div>
+            <div>
+              <div style={{ fontWeight: 700, color: "#8b5cf6", marginBottom: 6, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: 1 }}>Tips & Game</div>
+              <Link href="/blog" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>📝 Blog Tips</Link>
+              <Link href="/games" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🎮 Semua Game</Link>
+              <Link href="/blog/tips-mega888-pro" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>💡 Tips Pro</Link>
+              <Link href="/blog/hack-rtp-mega888" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🎯 Hack RTP</Link>
+            </div>
+          </div>
+          <div style={{ textAlign: "center", marginTop: "1rem", fontSize: "0.7rem", color: "#475569" }}>
+            © 2026 TipsMega888 AI Scanner — Mega888 Tips, RTP & Strategi Terkini
+          </div>
+        </div>
+      </footer>
 
       {/* GLOBAL CHATROOM & NAV */}
       <BottomNav />
