@@ -3,8 +3,12 @@
  * Generates gamePages.ts and blogArticles.ts from game list
  * Run: node scripts/generate-seo-data.js
  */
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // ─── Game name mappings (camelCase → Display Name) ───
 function formatGameName(raw) {
