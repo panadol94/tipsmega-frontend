@@ -426,7 +426,7 @@ export default function HomeClient() {
                         loop
                         muted
                         playsInline
-                        preload="metadata"
+                        preload="none"
                         onMouseEnter={(e) => e.currentTarget.play()}
                         onMouseLeave={(e) => e.currentTarget.pause()}
                         className="w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-105 transition-transform duration-1000"
