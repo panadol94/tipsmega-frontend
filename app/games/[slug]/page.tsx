@@ -6,8 +6,9 @@ export function generateStaticParams() {
   return GAME_PAGES.map((g) => ({ slug: g.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const game = getGameBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const game = getGameBySlug(slug);
   if (!game) return {};
   const title = `${game.name} Mega888: RTP ${game.rtpMin}%-${game.rtpMax}%, Tips & Strategi 2026`;
   const description = `${game.name} Mega888 — RTP ${game.rtpMin}% hingga ${game.rtpMax}%. Tips menang, analisis volatiliti ${game.volatility}, dan strategi untuk game ${game.name}. Guna AI Scanner untuk check RTP live.`;
@@ -38,8 +39,9 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   };
 }
 
-export default function GamePage({ params }: { params: { slug: string } }) {
-  const game = getGameBySlug(params.slug);
+export default async function GamePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const game = getGameBySlug(slug);
   if (!game) return notFound();
 
   return (
