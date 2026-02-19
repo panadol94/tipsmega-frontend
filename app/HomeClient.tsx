@@ -6,6 +6,7 @@ import Toast, { ToastType } from "./ui/Toast";
 import TypewriterText from "./ui/TypewriterText";
 
 import TerminalScan from "./ui/TerminalScan";
+import HackerScanOverlay from "./ui/HackerScanOverlay";
 import AuthModal from "./ui/AuthModal";
 import InstallPrompt from "./ui/InstallPrompt";
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
@@ -96,6 +97,9 @@ export default function HomeClient() {
     // Cooldown state (2 minutes)
     const [cooldownRemaining, setCooldownRemaining] = useState(0);
     const COOLDOWN_DURATION = 120; // 2 minutes in seconds
+
+    // Hacker scan overlay
+    const [showHackerOverlay, setShowHackerOverlay] = useState(false);
 
     const { playSound, triggerHaptic, setScanActive } = useGlobalSettings();
 
@@ -279,6 +283,7 @@ export default function HomeClient() {
         }
 
         setBusy(true);
+        setShowHackerOverlay(true);
         setLastRtp(null);
         playSound("click");
         triggerHaptic(40);
@@ -292,7 +297,7 @@ export default function HomeClient() {
         showToast("⚡ High-speed connection recommended for best results", "info");
 
         try {
-            await sleep(450);
+            await sleep(3200); // Extended to let hacker animation play
 
             const out = await apiScan(resolvedDeviceId, id);
 
@@ -304,6 +309,7 @@ export default function HomeClient() {
                     showToast(trimText(out.error || out.detail || "Scan failed", 140), "error");
                 }
                 setBusy(false);
+                setShowHackerOverlay(false);
                 return;
             }
 
@@ -317,6 +323,7 @@ export default function HomeClient() {
                 setIdMasked(maskMegaId(id));
 
                 // ✅ trigger TerminalScan rerun
+                setShowHackerOverlay(false);
                 setRunKey(`${Date.now()}_${id}`);
 
                 // 🔒 Block navigation while showing results
@@ -349,6 +356,7 @@ export default function HomeClient() {
             const msg = e instanceof Error ? e.message : "Network failure.";
             showToast(trimText(msg, 140), "error");
             setBusy(false);
+            setShowHackerOverlay(false);
         }
     }
 
@@ -356,6 +364,11 @@ export default function HomeClient() {
 
     return (
         <>
+            {/* ✅ HACKER SCAN OVERLAY */}
+            {showHackerOverlay && (
+                <HackerScanOverlay megaId={megaId} />
+            )}
+
             {/* FAQ Schema for Rich Snippets */}
             <script
                 type="application/ld+json"
