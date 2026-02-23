@@ -4,24 +4,6 @@ export const metadata = {
   title: "Mega888 AI Tips RTP 2026 | AI Scanner Percuma",
   description:
     "Gunakan Mega888 AI Tips RTP Scanner terbaru untuk analisis kemenangan anda. Sistem AI canggih untuk mengira peratusan RTP secara live. Percuma dan mudah.",
-  keywords: [
-    "Mega888",
-    "Mega888 Tips",
-    "Mega888 RTP",
-    "Mega888 Scanner",
-    "Mega888 Hack",
-    "Tips Mega888 Hari Ini",
-    "Mega888 APK",
-    "918Kiss RTP",
-    "Scanner Mega888",
-    "Mega888 Download",
-    "Mega888 Original",
-    "Mega888 Gacor 2026",
-    "Mega888 Auto Cuci",
-    "Kiosk Rasmi Mega888",
-    "RTP Live Mega888",
-    "Tips Mega888 Padu",
-  ],
   openGraph: {
     title: "Mega888 AI Tips RTP 2026 | AI Scanner Percuma",
     description:
