@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { animate, utils } from "animejs";
 import Link from "next/link";
 import Toast, { ToastType } from "./ui/Toast";
@@ -123,42 +123,126 @@ export default function HomeClient() {
         return deviceId || localStorage.getItem(storageKey) || "";
     }, [deviceId]);
 
-    // Entrance animation (runs once)
-    useEffect(() => {
-        // Ensure initial hidden state (for reliable visible animation)
-        const heroEls = Array.from(document.querySelectorAll<HTMLElement>(".tm-hero"));
-        for (const el of heroEls) {
-            el.style.opacity = "0";
-            el.style.transform = "translateY(18px)";
-        }
+    // Entrance animation (runs on mount and page show)
+    // Android Chrome can be finicky with first-paint + bfcache restores.
+    // Goal: never leave elements stuck at opacity=0 if animation doesn't run.
+    //
+    // IMPORTANT: useLayoutEffect so we can apply the initial hidden styles *before* the first paint.
+    // On some Android devices, useEffect can run late enough that the user never perceives the entrance.
+    useLayoutEffect(() => {
+        const prefersReducedMotion =
+            typeof window !== "undefined" &&
+            typeof window.matchMedia === "function" &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        const scanEls = Array.from(document.querySelectorAll<HTMLElement>(".tm-scan"));
-        for (const el of scanEls) {
-            el.style.opacity = "0";
-            el.style.transform = "translateY(10px)";
-        }
+        let safetyTimeout: number | null = null;
 
-        // Next paint, animate in
-        requestAnimationFrame(() => {
-            animate(heroEls, {
-                opacity: [0, 1],
-                translateY: [18, 0],
-                delay: utils.stagger(110),
-                duration: 750,
-                easing: "easeOutCubic",
+        const queryEls = () => {
+            const heroEls = Array.from(document.querySelectorAll<HTMLElement>(".tm-hero"));
+            const scanEls = Array.from(document.querySelectorAll<HTMLElement>(".tm-scan"));
+            return { heroEls, scanEls };
+        };
+
+        const forceFinalState = () => {
+            const { heroEls, scanEls } = queryEls();
+            heroEls.forEach((el) => {
+                el.style.opacity = "1";
+                el.style.transform = "none";
+                el.style.willChange = "";
+            });
+            scanEls.forEach((el) => {
+                el.style.opacity = "1";
+                el.style.transform = "none";
+                el.style.willChange = "";
+            });
+        };
+
+        const applyInitialHiddenState = () => {
+            const { heroEls, scanEls } = queryEls();
+            for (const el of heroEls) {
+                el.style.opacity = "0";
+                el.style.transform = "translateY(18px)";
+                el.style.willChange = "opacity, transform";
+            }
+            for (const el of scanEls) {
+                el.style.opacity = "0";
+                el.style.transform = "translateY(10px)";
+                el.style.willChange = "opacity, transform";
+            }
+        };
+
+        const animateIn = () => {
+            if (prefersReducedMotion) {
+                forceFinalState();
+                return;
+            }
+
+            // Ensure elements are hidden before animating
+            applyInitialHiddenState();
+
+            // Double rAF helps ensure styles are committed before Anime reads layout on some Android devices.
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    try {
+                        const { heroEls, scanEls } = queryEls();
+                        animate(heroEls, {
+                            opacity: [0, 1],
+                            translateY: [18, 0],
+                            delay: utils.stagger(110),
+                            duration: 750,
+                            easing: "easeOutCubic",
+                            complete: forceFinalState,
+                        });
+
+                        animate(scanEls, {
+                            opacity: [0, 1],
+                            translateY: [10, 0],
+                            duration: 650,
+                            easing: "easeOutCubic",
+                            delay: 250,
+                            complete: forceFinalState,
+                        });
+                    } catch {
+                        // If Anime fails for any reason, never leave UI hidden.
+                        forceFinalState();
+                    }
+                });
             });
 
-            animate(scanEls, {
-                opacity: [0, 1],
-                translateY: [10, 0],
-                duration: 650,
-                easing: "easeOutCubic",
-                delay: 250,
-            });
-        });
+            // Safety net: in case complete never fires (tab suspend / throttling)
+            if (safetyTimeout) window.clearTimeout(safetyTimeout);
+            safetyTimeout = window.setTimeout(forceFinalState, 2000);
+        };
+
+        const handlePageShow = (event: PageTransitionEvent) => {
+            // Run animation if page is shown from bfcache
+            if (event.persisted) animateIn();
+        };
+
+        const handleVisibilityChange = () => {
+            // Fallback for browsers that might not fire pageshow consistently
+            if (document.visibilityState === "visible") {
+                const { heroEls } = queryEls();
+                const isHidden = heroEls.some((el) => el.style.opacity === "0");
+                if (isHidden) animateIn();
+            }
+        };
+
+        // Run animation on initial load
+        animateIn();
+
+        window.addEventListener("pageshow", handlePageShow);
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+
+        return () => {
+            window.removeEventListener("pageshow", handlePageShow);
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+            if (safetyTimeout) window.clearTimeout(safetyTimeout);
+            forceFinalState();
+        };
     }, []);
 
-    // Animate RTP number when result changes
+// Animate RTP number when result changes
     useEffect(() => {
         if (lastRtp === null || Number.isNaN(lastRtp)) return;
 
