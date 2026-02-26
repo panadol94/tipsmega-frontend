@@ -600,7 +600,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
     };
 
     return (
-        <div className={`flex flex-col w-full h-full font-sans border-opacity-50 relative ${currentStyle.bg}`}>
+        <div className={`flex flex-col w-full h-full font-sans border-opacity-50 relative ${currentStyle.bg} overflow-x-hidden`}>
             {/* Header */}
             <div className={`flex items-center justify-between p-4 border-b shadow-lg ${currentStyle.header}`}>
                 <div className="flex items-center gap-3">
@@ -635,7 +635,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
 
             {/* Messages */}
             <div
-                className="chat-messages-container flex-1 overflow-y-auto p-4 space-y-4 relative pb-28"
+                className="chat-messages-container flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-4 relative pb-28"
                 onClick={() => setShowEmoji(false)}
             >
                 {/* Background Glow */}
