@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "animejs": "^4.3.6",
     "canvas-confetti": "^1.9.4",
     "dotenv": "^17.3.1",
     "emoji-picker-react": "^4.17.1",

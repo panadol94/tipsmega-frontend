@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { animate, utils } from "animejs";
 import Link from "next/link";
 import Toast, { ToastType } from "./ui/Toast";
 import TypewriterText from "./ui/TypewriterText";
@@ -86,6 +87,13 @@ export default function HomeClient() {
     const [idMasked, setIdMasked] = useState<string>("");
     const [lastRtp, setLastRtp] = useState<number | null>(null);
 
+    // RTP UI animation
+    const rtpAnimRef = useRef<{ val: number }>({ val: 0 });
+    const rtpPrevRef = useRef<number>(0);
+    const rtpAnimInstRef = useRef<ReturnType<typeof animate> | null>(null);
+    const scanPulseAnimInstRef = useRef<ReturnType<typeof animate> | null>(null);
+    const [rtpDisplay, setRtpDisplay] = useState<number>(0);
+
     // auth UI
     const [authOpen, setAuthOpen] = useState<null | "register" | "login">(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -114,6 +122,51 @@ export default function HomeClient() {
         if (typeof window === "undefined") return "";
         return deviceId || localStorage.getItem(storageKey) || "";
     }, [deviceId]);
+
+    // Entrance animation (runs once)
+    useEffect(() => {
+        animate(".tm-hero", {
+            opacity: [0, 1],
+            translateY: [18, 0],
+            delay: utils.stagger(110),
+            duration: 750,
+            easing: "easeOutCubic",
+        });
+
+        animate(".tm-scan", {
+            opacity: [0, 1],
+            translateY: [10, 0],
+            duration: 650,
+            easing: "easeOutCubic",
+            delay: 250,
+        });
+    }, []);
+
+    // Animate RTP number when result changes
+    useEffect(() => {
+        if (lastRtp === null || Number.isNaN(lastRtp)) return;
+
+        const from = rtpPrevRef.current || 0;
+        rtpPrevRef.current = lastRtp;
+
+        // stop previous animation
+        if (rtpAnimInstRef.current) {
+            rtpAnimInstRef.current.pause();
+            rtpAnimInstRef.current = null;
+        }
+        rtpAnimRef.current.val = from;
+
+        rtpAnimInstRef.current = animate(rtpAnimRef.current, {
+            val: lastRtp,
+            duration: 900,
+            easing: "easeOutExpo",
+            update: () => {
+                // 1 decimal place
+                const v = Math.round((rtpAnimRef.current.val + Number.EPSILON) * 10) / 10;
+                setRtpDisplay(v);
+            },
+        });
+    }, [lastRtp]);
 
     // Fetch games from API
     useEffect(() => {
@@ -360,6 +413,29 @@ export default function HomeClient() {
         }
     }
 
+    // Scan pulse while busy
+    useEffect(() => {
+        if (!busy) {
+            if (scanPulseAnimInstRef.current) {
+                scanPulseAnimInstRef.current.pause();
+                scanPulseAnimInstRef.current = null;
+            }
+            return;
+        }
+
+        scanPulseAnimInstRef.current = animate(".tm-scan-pulse", {
+            boxShadow: [
+                "0 0 0 rgba(0,217,255,0)",
+                "0 0 26px rgba(0,217,255,0.25)",
+            ],
+            scale: [1, 1.01],
+            direction: "alternate",
+            loop: true,
+            duration: 850,
+            easing: "easeInOutSine",
+        });
+    }, [busy]);
+
     // Legacy auth functions removed (moved to AuthModal)
 
     return (
@@ -450,15 +526,15 @@ export default function HomeClient() {
 
                 {/* TOP CONTENT */}
                 <div className="relative z-10 p-5 pb-0">
-                    <div className="text-[10px] text-white/60 font-mono tracking-widest uppercase mb-1">TipsMega888 AI System</div>
-                    <h1 className="text-4xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50 drop-shadow-lg">
+                    <div className="tm-hero text-[10px] text-white/60 font-mono tracking-widest uppercase mb-1">TipsMega888 AI System</div>
+                    <h1 className="tm-hero text-4xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50 drop-shadow-lg">
                         MEGA888 AI RTP SCANNER
                     </h1>
                 </div>
 
                 {/* BOTTOM CONTENT (Badge + Buttons) */}
                 <div className="relative z-10 p-5 mt-auto bg-gradient-to-t from-black to-transparent pt-10">
-                    <div className="badge border border-white/10 bg-white/5 backdrop-blur-md mb-4 shadow-lg">
+                    <div className="tm-hero badge border border-white/10 bg-white/5 backdrop-blur-md mb-4 shadow-lg">
                         <span style={{ fontSize: 18 }} className="animate-pulse text-yellow-400">★</span>
                         <div>
                             <div className="text-sm" style={{ fontWeight: 900 }}>
@@ -469,7 +545,7 @@ export default function HomeClient() {
                     </div>
 
                     {!isLoggedIn ? (
-                        <div className="flex gap-3">
+                        <div className="tm-hero flex gap-3">
                             <button
                                 className="btn-ghost btn-red-spin backdrop-blur-sm flex-1 h-[52px] bg-red-500/10 border-red-500/30 ripple-effect"
                                 onClick={() => setAuthOpen("register")}
@@ -484,7 +560,7 @@ export default function HomeClient() {
                             </button>
                         </div>
                     ) : (
-                        <div className="flex gap-3 items-center">
+                        <div className="tm-hero flex gap-3 items-center">
                             <button
                                 className="btn-ghost backdrop-blur-md hover:bg-white/10 h-[52px] px-4 border-white/20"
                                 onClick={() => {
@@ -504,10 +580,10 @@ export default function HomeClient() {
 
             <InstallPrompt />
 
-            <section className="card p-5">
+            <section className="card p-5 tm-scan tm-scan-pulse">
 
                 <input
-                    className={`input input-premium ${inputError ? 'shake-error' : ''}`}
+                    className={`tm-scan-item input input-premium ${inputError ? 'shake-error' : ''}`}
                     value={megaId}
                     onChange={(e) => setMegaId(e.target.value)}
                     inputMode="numeric"
@@ -517,7 +593,7 @@ export default function HomeClient() {
                 <TypewriterText text="[AI SCANNER] INTERCEPTING LIVE RTP SIGNALS FROM SERVER..." speed={30} />
 
                 <button
-                    className={cooldownRemaining > 0 ? "btn-cooldown" : "btn-green-spin ripple-effect"}
+                    className={cooldownRemaining > 0 ? "tm-scan-item btn-cooldown" : "tm-scan-item btn-green-spin ripple-effect"}
                     style={{ marginTop: 24, marginBottom: 12, opacity: (!/^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim()) || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
                     onClick={runScan}
                     disabled={busy || cooldownRemaining > 0 || !/^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim())}
@@ -559,6 +635,21 @@ export default function HomeClient() {
                     </div>
                 )}
             </section>
+
+            {/* RTP RESULT (animated) */}
+            {lastRtp !== null && !busy ? (
+                <section className="card p-5 mt-4 border-cyan-500/20 bg-cyan-500/5">
+                    <div className="text-[10px] text-white/60 font-mono tracking-widest uppercase mb-2">
+                        [RESULT] Overall RTP
+                    </div>
+                    <div className="flex items-end gap-2">
+                        <div className="tm-rtp-number text-5xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-cyan-200 to-cyan-500 drop-shadow">
+                            {rtpDisplay.toFixed(1)}%
+                        </div>
+                        <div className="text-xs text-white/60 pb-2">estimated</div>
+                    </div>
+                </section>
+            ) : null}
 
             {/* ✅ TERMINAL STREAM (pakai TerminalScan, bukan lines/setLines) */}
             {runKey ? (
