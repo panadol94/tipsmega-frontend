@@ -125,20 +125,36 @@ export default function HomeClient() {
 
     // Entrance animation (runs once)
     useEffect(() => {
-        animate(".tm-hero", {
-            opacity: [0, 1],
-            translateY: [18, 0],
-            delay: utils.stagger(110),
-            duration: 750,
-            easing: "easeOutCubic",
-        });
+        // Ensure initial hidden state (for reliable visible animation)
+        const heroEls = Array.from(document.querySelectorAll<HTMLElement>(".tm-hero"));
+        for (const el of heroEls) {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(18px)";
+        }
 
-        animate(".tm-scan", {
-            opacity: [0, 1],
-            translateY: [10, 0],
-            duration: 650,
-            easing: "easeOutCubic",
-            delay: 250,
+        const scanEls = Array.from(document.querySelectorAll<HTMLElement>(".tm-scan"));
+        for (const el of scanEls) {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(10px)";
+        }
+
+        // Next paint, animate in
+        requestAnimationFrame(() => {
+            animate(heroEls, {
+                opacity: [0, 1],
+                translateY: [18, 0],
+                delay: utils.stagger(110),
+                duration: 750,
+                easing: "easeOutCubic",
+            });
+
+            animate(scanEls, {
+                opacity: [0, 1],
+                translateY: [10, 0],
+                duration: 650,
+                easing: "easeOutCubic",
+                delay: 250,
+            });
         });
     }, []);
 
