@@ -4,7 +4,9 @@ import Script from "next/script";
 import Shell from "./ui/Shell";
 import { GlobalSettingsProvider } from "./context/GlobalSettingsContext";
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX";
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "";
+const hasValidGA = /^G-[A-Z0-9]{6,}$/i.test(GA_MEASUREMENT_ID);
+const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION?.trim() || "";
 
 const exo2 = Exo_2({
   subsets: ["latin"],
@@ -65,6 +67,7 @@ export const metadata = {
   alternates: {
     canonical: 'https://tipsmega888.com',
   },
+  ...(GSC_VERIFICATION ? { verification: { google: GSC_VERIFICATION } } : {}),
   manifest: "/manifest.json",
 };
 
@@ -84,19 +87,23 @@ export default function RootLayout({
   return (
     <html lang="ms" suppressHydrationWarning className={exo2.className}>
       <head>
-        {/* Google Analytics 4 */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="ga4-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}');
-          `}
-        </Script>
+        {/* Google Analytics 4 (enabled only when NEXT_PUBLIC_GA_ID is valid) */}
+        {hasValidGA && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        )}
       </head>
       <body>
         <GlobalSettingsProvider>
