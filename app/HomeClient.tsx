@@ -608,17 +608,16 @@ export default function HomeClient() {
 
             <header className="card relative overflow-hidden flex flex-col min-h-[300px] justify-between p-0 group border-amber-500/20">
 
-                {/* VIDEO BACKGROUND (Full Fill) - Hover-to-Play Pattern */}
+                {/* VIDEO BACKGROUND (Full Fill) - Auto-play Scanner Trial */}
                 <div className="absolute inset-0 z-0">
                     <video
-                        src="/mega-loop.mp4"
+                        src="/scanner-trial.mp4"
+                        autoPlay
                         loop
                         muted
                         playsInline
-                        preload="none"
-                        onMouseEnter={(e) => e.currentTarget.play()}
-                        onMouseLeave={(e) => e.currentTarget.pause()}
-                        className="w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-105 transition-transform duration-1000"
+                        preload="auto"
+                        className="w-full h-full object-cover opacity-60 mix-blend-screen"
                     />
                     {/* Gradient Overlay for Readability */}
                     <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/20 to-black/90" />
