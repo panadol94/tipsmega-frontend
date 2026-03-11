@@ -116,6 +116,41 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "TipsMega888",
+              url: "https://tipsmega888.com",
+              logo: "https://tipsmega888.com/og-image.webp",
+              sameAs: [
+                "https://tipsmega888.com/blog",
+                "https://tipsmega888.com/trusted"
+              ],
+            }),
+          }}
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "TipsMega888",
+              url: "https://tipsmega888.com",
+              inLanguage: "ms-MY",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: "https://tipsmega888.com/blog?search={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
               "@type": "SoftwareApplication",
               name: "Mega888 AI Tips RTP",
               applicationCategory: "UtilityApplication",

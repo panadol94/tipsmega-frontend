@@ -1,6 +1,92 @@
 import Link from "next/link";
 import { BLOG_ARTICLES, getArticleBySlug } from "../../data/blogArticles";
 import { notFound } from "next/navigation";
+import BlogEngagement from "./BlogEngagement";
+
+type InternalLinkRule = {
+  phrase: string;
+  slug: string;
+};
+
+function escapeRegex(input: string) {
+  return input.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function stripHtml(input: string) {
+  return input.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function getHeroImageFromContent(content: string, fallbackSlug: string) {
+  const m = content.match(/<img[^>]+src=["']([^"']+)["']/i);
+  const raw = m?.[1] || `/blog/images/${fallbackSlug}.webp`;
+  return raw.startsWith("http") ? raw : `https://tipsmega888.com${raw}`;
+}
+
+function buildInternalLinkRules(currentSlug: string, relatedSlugs: string[]): InternalLinkRule[] {
+  const rules: InternalLinkRule[] = [];
+
+  relatedSlugs.forEach((slug) => {
+    if (!slug || slug === currentSlug) return;
+    const rel = BLOG_ARTICLES.find((a) => a.slug === slug);
+    if (!rel) return;
+
+    const candidates = [
+      rel.keywords?.[0],
+      rel.keywords?.[1],
+      rel.title,
+    ]
+      .filter(Boolean)
+      .map((v) => v!.trim())
+      .filter((v) => v.length >= 10);
+
+    candidates.forEach((phrase) => {
+      rules.push({ phrase, slug });
+    });
+  });
+
+  const dedup = new Map<string, InternalLinkRule>();
+  rules.forEach((r) => {
+    const key = `${r.slug}::${r.phrase.toLowerCase()}`;
+    if (!dedup.has(key)) dedup.set(key, r);
+  });
+
+  return Array.from(dedup.values()).slice(0, 8);
+}
+
+function autoLinkArticleContent(content: string, rules: InternalLinkRule[], maxLinks = 4) {
+  if (!rules.length) return content;
+
+  const parts = content.split(/(<[^>]+>)/g);
+  const usedSlugs = new Set<string>();
+  let total = 0;
+
+  for (let i = 0; i < parts.length; i++) {
+    const chunk = parts[i];
+    if (!chunk || chunk.startsWith("<") || total >= maxLinks) continue;
+
+    let updated = chunk;
+
+    for (const rule of rules) {
+      if (total >= maxLinks) break;
+      if (usedSlugs.has(rule.slug)) continue;
+
+      const re = new RegExp(`\\b${escapeRegex(rule.phrase)}\\b`, "i");
+      if (!re.test(updated)) continue;
+
+      updated = updated.replace(
+        re,
+        `<a href="/blog/${rule.slug}" style="color:#38bdf8;text-decoration:underline;font-weight:600">$&</a>`
+      );
+
+      usedSlugs.add(rule.slug);
+      total += 1;
+    }
+
+    parts[i] = updated;
+  }
+
+  return parts.join("");
+}
 
 export function generateStaticParams() {
   return BLOG_ARTICLES.map((a) => ({ slug: a.slug }));
@@ -10,6 +96,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) return {};
+  const imageUrl = getHeroImageFromContent(article.content, article.slug);
+
   return {
     title: article.title,
     description: article.description,
@@ -22,16 +110,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: "TipsMega AI Scanner",
       locale: "ms_MY",
       type: "article",
-      images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: article.title }],
+      images: [{ url: imageUrl, width: 1200, height: 675, alt: article.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: article.title,
       description: article.description,
-      images: ["/og-image.webp"],
+      images: [imageUrl],
     },
     robots: {
-      index: true, follow: true,
+      index: true,
+      follow: true,
       googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
     },
   };
@@ -41,6 +130,11 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) return notFound();
+
+  const heroImage = getHeroImageFromContent(article.content, article.slug);
+  const internalLinkRules = buildInternalLinkRules(article.slug, article.relatedArticles);
+  const linkedContent = autoLinkArticleContent(article.content, internalLinkRules);
+  const wordCount = stripHtml(article.content).split(" ").filter(Boolean).length;
 
   return (
     <>
@@ -53,16 +147,21 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
             "@type": "Article",
             headline: article.title,
             description: article.description,
+            image: [heroImage],
             url: `https://tipsmega888.com/blog/${article.slug}`,
+            mainEntityOfPage: `https://tipsmega888.com/blog/${article.slug}`,
             datePublished: article.publishedAt,
             dateModified: article.updatedAt,
+            wordCount,
+            articleSection: article.category,
+            inLanguage: "ms-MY",
             author: { "@type": "Organization", name: "TipsMega AI" },
             publisher: {
-              "@type": "Organization", name: "TipsMega888",
+              "@type": "Organization",
+              name: "TipsMega888",
               url: "https://tipsmega888.com",
               logo: { "@type": "ImageObject", url: "https://tipsmega888.com/og-image.webp" },
             },
-            inLanguage: "ms-MY",
           }),
         }}
       />
@@ -101,7 +200,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         />
       )}
 
-      <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1rem" }}>
+      <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1rem 5rem" }}>
         {/* Breadcrumb Nav */}
         <nav style={{ fontSize: "0.85rem", color: "#64748b", marginBottom: "1.5rem" }}>
           <Link href="/" style={{ color: "#64748b" }}>Home</Link>
@@ -120,14 +219,47 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
             {article.description}
           </p>
           <div style={{ marginTop: "0.75rem", fontSize: "0.8rem", color: "#64748b" }}>
-            📅 Dikemaskini: {article.updatedAt} &nbsp;|&nbsp; ⏱️ 5 min baca
+            📅 Dikemaskini: {article.updatedAt} &nbsp;|&nbsp; ⏱️ {Math.max(3, Math.round(wordCount / 200))} min baca
           </div>
         </header>
 
-        {/* Article Content */}
+        {/* Mid CTA */}
+        <div
+          style={{
+            margin: "0 0 1.5rem",
+            padding: "1rem",
+            borderRadius: 12,
+            background: "rgba(16,185,129,0.08)",
+            border: "1px solid rgba(16,185,129,0.28)",
+          }}
+        >
+          <p style={{ margin: 0, fontWeight: 700, fontSize: "0.98rem" }}>
+            🎯 Nak check game mana tengah panas sekarang?
+          </p>
+          <p style={{ margin: "6px 0 10px", color: "#94a3b8", fontSize: "0.9rem" }}>
+            Buka AI Scanner untuk semak RTP live sebelum spin.
+          </p>
+          <Link
+            href="/"
+            data-track="mid_article_scanner"
+            style={{
+              display: "inline-block",
+              padding: "8px 14px",
+              borderRadius: 8,
+              background: "#10b981",
+              color: "#052e16",
+              fontWeight: 800,
+              textDecoration: "none",
+            }}
+          >
+            Buka AI Scanner →
+          </Link>
+        </div>
+
+        {/* Article Content (auto-internal-linking enabled) */}
         <article
           className="seo-article-content"
-          dangerouslySetInnerHTML={{ __html: article.content }}
+          dangerouslySetInnerHTML={{ __html: linkedContent }}
           style={{ lineHeight: 1.8, fontSize: "1rem", color: "#e2e8f0" }}
         />
 
@@ -151,11 +283,16 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           <section style={{ marginTop: "3rem" }}>
             <h2 style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: "1rem" }}>📖 Artikel Berkaitan</h2>
             <div style={{ display: "grid", gap: "0.75rem" }}>
-              {article.relatedArticles.map((slug) => {
-                const rel = BLOG_ARTICLES.find((a) => a.slug === slug);
+              {article.relatedArticles.map((relatedSlug) => {
+                const rel = BLOG_ARTICLES.find((a) => a.slug === relatedSlug);
                 if (!rel) return null;
                 return (
-                  <Link key={slug} href={`/blog/${slug}`} style={{ color: "#3b82f6", textDecoration: "none" }}>
+                  <Link
+                    key={relatedSlug}
+                    href={`/blog/${relatedSlug}`}
+                    data-track="related_article_click"
+                    style={{ color: "#3b82f6", textDecoration: "none" }}
+                  >
                     → {rel.title}
                   </Link>
                 );
@@ -169,10 +306,10 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           <section style={{ marginTop: "2rem" }}>
             <h2 style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: "1rem" }}>🎮 Game Berkaitan</h2>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-              {article.relatedGames.map((slug) => (
+              {article.relatedGames.map((gameSlug) => (
                 <Link
-                  key={slug}
-                  href={`/games/${slug}`}
+                  key={gameSlug}
+                  href={`/games/${gameSlug}`}
                   style={{
                     padding: "4px 12px",
                     borderRadius: 8,
@@ -183,7 +320,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
                     textDecoration: "none",
                   }}
                 >
-                  {slug.replace(/-/g, " ")}
+                  {gameSlug.replace(/-/g, " ")}
                 </Link>
               ))}
             </div>
@@ -209,6 +346,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           </p>
           <Link
             href="/"
+            data-track="bottom_article_scanner"
             style={{
               display: "inline-block",
               padding: "10px 24px",
@@ -232,6 +370,8 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           <Link href="/" style={{ color: "#10b981" }}>🏠 Home</Link>
         </div>
       </div>
+
+      <BlogEngagement slug={article.slug} title={article.title} />
     </>
   );
 }
