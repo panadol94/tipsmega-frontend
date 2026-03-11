@@ -2033,7 +2033,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "golden-tour"
     ],
     "publishedAt": "2026-03-11",
-    "updatedAt": "2026-03-11"
+    "updatedAt": "2026-03-12"
   },
   {
     "slug": "mega888-rtp-panduan-lengkap-2026",
@@ -2076,7 +2076,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "conan"
     ],
     "publishedAt": "2026-03-11",
-    "updatedAt": "2026-03-11"
+    "updatedAt": "2026-03-12"
   },
   {
     "slug": "mega888-free-credit-terkini-2026",
@@ -2119,7 +2119,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "panther-moon"
     ],
     "publishedAt": "2026-03-11",
-    "updatedAt": "2026-03-11"
+    "updatedAt": "2026-03-12"
   }
 ];
 
