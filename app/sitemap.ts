@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { GAME_PAGES } from "./data/gamePages";
 import { BLOG_ARTICLES } from "./data/blogArticles";
+import { BLOG_REDIRECT_SOURCE_SLUGS } from "./data/blogRedirects";
 
 export const dynamic = "force-static";
 
@@ -20,12 +21,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ];
 
     // Blog article pages
-    const blogPages: MetadataRoute.Sitemap = BLOG_ARTICLES.map((article) => ({
-        url: `${baseUrl}/blog/${article.slug}`,
-        lastModified: new Date(article.updatedAt),
-        changeFrequency: "weekly" as const,
-        priority: 0.7,
-    }));
+    const blogPages: MetadataRoute.Sitemap = BLOG_ARTICLES
+        .filter((article) => !BLOG_REDIRECT_SOURCE_SLUGS.has(article.slug))
+        .map((article) => ({
+            url: `${baseUrl}/blog/${article.slug}`,
+            lastModified: new Date(article.updatedAt),
+            changeFrequency: "weekly" as const,
+            priority: 0.7,
+        }));
 
     // Game pages
     const gamePages: MetadataRoute.Sitemap = GAME_PAGES.map((game) => ({

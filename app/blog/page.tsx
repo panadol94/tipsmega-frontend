@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BLOG_ARTICLES } from "../data/blogArticles";
+import { BLOG_REDIRECT_SOURCE_SLUGS } from "../data/blogRedirects";
 
 export const metadata = {
   title: "Blog Tips Mega888 | Strategi, Panduan & Tips Menang 2026",
@@ -32,6 +33,8 @@ const categoryLabels: Record<string, { label: string; color: string }> = {
 };
 
 export default function BlogPage() {
+  const visibleArticles = BLOG_ARTICLES.filter((a) => !BLOG_REDIRECT_SOURCE_SLUGS.has(a.slug));
+
   return (
     <>
       <script
@@ -94,7 +97,7 @@ export default function BlogPage() {
         </header>
 
         <div style={{ display: "grid", gap: "1.5rem" }}>
-          {BLOG_ARTICLES.map((article) => {
+          {visibleArticles.map((article) => {
             const cat = categoryLabels[article.category] || categoryLabels.tips;
             return (
               <Link
