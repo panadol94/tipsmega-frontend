@@ -175,8 +175,9 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: "https://tipsmega888.com" },
-              { "@type": "ListItem", position: 2, name: "Blog", item: "https://tipsmega888.com/blog" },
-              { "@type": "ListItem", position: 3, name: article.title, item: `https://tipsmega888.com/blog/${article.slug}` },
+              { "@type": "ListItem", position: 2, name: "Mega888 Hub", item: "https://tipsmega888.com/mega888" },
+              { "@type": "ListItem", position: 3, name: "Blog", item: "https://tipsmega888.com/blog" },
+              { "@type": "ListItem", position: 4, name: article.title, item: `https://tipsmega888.com/blog/${article.slug}` },
             ],
           }),
         }}
@@ -204,6 +205,8 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         {/* Breadcrumb Nav */}
         <nav style={{ fontSize: "0.85rem", color: "#64748b", marginBottom: "1.5rem" }}>
           <Link href="/" style={{ color: "#64748b" }}>Home</Link>
+          {" › "}
+          <Link href="/mega888" style={{ color: "#64748b" }}>Mega888 Hub</Link>
           {" › "}
           <Link href="/blog" style={{ color: "#64748b" }}>Blog</Link>
           {" › "}
@@ -364,6 +367,8 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         {/* Navigation */}
         <div style={{ marginTop: "2rem", textAlign: "center" }}>
           <Link href="/blog" style={{ color: "#3b82f6" }}>← Kembali ke Blog</Link>
+          <span style={{ margin: "0 1rem", color: "#334155" }}>|</span>
+          <Link href="/mega888" style={{ color: "#f59e0b" }}>🧭 Mega888 Hub</Link>
           <span style={{ margin: "0 1rem", color: "#334155" }}>|</span>
           <Link href="/games" style={{ color: "#f59e0b" }}>🎮 Semua Game</Link>
           <span style={{ margin: "0 1rem", color: "#334155" }}>|</span>

@@ -56,6 +56,20 @@ export default function Page() {
         }}
       />
 
+      {/* Breadcrumb schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://tipsmega888.com" },
+            ],
+          }),
+        }}
+      />
+
       {/* Organization schema — Google Knowledge Panel */}
       <script
         type="application/ld+json"

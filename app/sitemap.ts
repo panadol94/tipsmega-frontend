@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: `${baseUrl}/share`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
         { url: `${baseUrl}/info`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
         { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: "daily", priority: 0.8 },
+        { url: `${baseUrl}/mega888`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
         { url: `${baseUrl}/games`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     ];
 

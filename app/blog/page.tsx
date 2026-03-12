@@ -74,6 +74,23 @@ export default function BlogPage() {
           <p style={{ color: "#94a3b8", fontSize: "1.1rem" }}>
             Strategi, panduan, dan tips menang dari pakar AI Scanner — updated 2026
           </p>
+          <div style={{ marginTop: "0.9rem" }}>
+            <Link
+              href="/mega888"
+              style={{
+                display: "inline-block",
+                padding: "6px 12px",
+                borderRadius: 999,
+                border: "1px solid rgba(245,158,11,0.35)",
+                color: "#f59e0b",
+                fontWeight: 700,
+                textDecoration: "none",
+                fontSize: "0.86rem",
+              }}
+            >
+              🧭 Buka Mega888 Hub
+            </Link>
+          </div>
         </header>
 
         <div style={{ display: "grid", gap: "1.5rem" }}>
