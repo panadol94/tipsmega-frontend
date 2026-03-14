@@ -126,6 +126,22 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+const CORE_CLUSTER_LINKS = [
+  { label: "Mega888 Hub", href: "/mega888" },
+  { label: "Login Guide", href: "/blog/mega888-login-link-terkini-2026" },
+  { label: "Android APK", href: "/blog/mega888-download-android-apk-terbaru-2026" },
+  { label: "iPhone / iPad", href: "/blog/mega888-download-ios-terbaru-2026" },
+  { label: "RTP Live", href: "/blog/mega888-rtp-live-malaysia-2026" },
+  { label: "Trusted Agent", href: "/trusted" },
+];
+
+const TRUST_LINKS = [
+  { label: "About", href: "/about" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms", href: "/terms" },
+  { label: "Disclaimer", href: "/disclaimer" },
+];
+
 export default async function BlogArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
@@ -226,6 +242,45 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           </div>
         </header>
 
+        {/* Cluster Links */}
+        <section
+          style={{
+            margin: "0 0 1.5rem",
+            padding: "1rem",
+            borderRadius: 12,
+            background: "rgba(56,189,248,0.07)",
+            border: "1px solid rgba(56,189,248,0.22)",
+          }}
+        >
+          <p style={{ margin: 0, fontWeight: 800, fontSize: "1rem" }}>
+            🧭 Pautan penting dalam cluster Mega888
+          </p>
+          <p style={{ margin: "6px 0 12px", color: "#94a3b8", fontSize: "0.92rem", lineHeight: 1.7 }}>
+            Jika anda sedang baca artikel ini, besar kemungkinan anda juga perlukan panduan hub, login, APK, RTP live, atau trusted agent.
+            Gunakan pautan di bawah untuk bergerak ikut intent yang betul.
+          </p>
+          <div style={{ display: "grid", gap: "0.7rem", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
+            {CORE_CLUSTER_LINKS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  display: "block",
+                  padding: "0.8rem 0.9rem",
+                  borderRadius: 10,
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: "rgba(255,255,255,0.03)",
+                  color: "#e2e8f0",
+                  fontWeight: 700,
+                  textDecoration: "none",
+                }}
+              >
+                {item.label} →
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* Mid CTA */}
         <div
           style={{
@@ -265,6 +320,43 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           dangerouslySetInnerHTML={{ __html: linkedContent }}
           style={{ lineHeight: 1.8, fontSize: "1rem", color: "#e2e8f0" }}
         />
+
+        <section
+          style={{
+            marginTop: "2rem",
+            padding: "1rem",
+            borderRadius: 12,
+            background: "rgba(245,158,11,0.06)",
+            border: "1px solid rgba(245,158,11,0.2)",
+          }}
+        >
+          <p style={{ margin: 0, fontWeight: 800, fontSize: "0.98rem" }}>
+            🔒 Halaman trust & rujukan tambahan
+          </p>
+          <p style={{ margin: "6px 0 12px", color: "#94a3b8", fontSize: "0.9rem", lineHeight: 1.7 }}>
+            Untuk signal trust yang lebih kuat dan pengalaman pengguna yang lebih jelas, rujuk juga halaman latar platform dan polisi asas di bawah.
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem" }}>
+            {TRUST_LINKS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  padding: "6px 12px",
+                  borderRadius: 999,
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  color: "#e2e8f0",
+                  fontSize: "0.85rem",
+                  textDecoration: "none",
+                  fontWeight: 700,
+                }}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* FAQ Section */}
         {article.faq.length > 0 && (
