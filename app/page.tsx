@@ -1,13 +1,13 @@
 import HomeClient from "./HomeClient";
 
 export const metadata = {
-  title: "Mega888 AI Tips RTP 2026 | AI Scanner Percuma",
+  title: "Mega888 RTP Scanner Percuma 2026 | Semak RTP Live AI",
   description:
-    "Gunakan Mega888 AI Tips RTP Scanner terbaru untuk analisis kemenangan anda. Sistem AI canggih untuk mengira peratusan RTP secara live. Percuma dan mudah.",
+    "Semak RTP Mega888 secara live dengan AI Scanner percuma. Rujuk pola permainan, panduan asas, dan akses cepat ke hub Mega888 Malaysia.",
   openGraph: {
-    title: "Mega888 AI Tips RTP 2026 | AI Scanner Percuma",
+    title: "Mega888 RTP Scanner Percuma 2026 | Semak RTP Live AI",
     description:
-      "Analisis RTP Mega888 Live dengan AI. Dapatkan tips kemenangan tertinggi hari ini.",
+      "Semak RTP Mega888 live dengan AI Scanner dan akses panduan Mega888 Malaysia dalam satu platform.",
     url: "https://tipsmega888.com",
     siteName: "TipsMega888 AI",
     locale: "ms_MY",
@@ -23,9 +23,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image" as const,
-    title: "Mega888 AI Tips RTP 2026",
+    title: "Mega888 RTP Scanner Percuma 2026",
     description:
-      "Scan RTP Mega888 sekarang dengan AI kami. Percuma & mudah!",
+      "Semak RTP Mega888 live dengan AI Scanner percuma dan baca panduan utama di TipsMega888.",
     images: ["/og-image.webp"],
   },
   alternates: {
@@ -45,7 +45,7 @@ export default function Page() {
             "@type": "WebSite",
             name: "TipsMega888",
             url: "https://tipsmega888.com",
-            description: "Mega888 AI Tips RTP Scanner — Analisis RTP Live Percuma",
+            description: "Platform AI Scanner untuk semakan RTP live dan panduan utama Mega888 Malaysia.",
             inLanguage: "ms-MY",
             potentialAction: {
               "@type": "SearchAction",
@@ -80,13 +80,12 @@ export default function Page() {
             name: "TipsMega888",
             url: "https://tipsmega888.com",
             logo: "https://tipsmega888.com/og-image.webp",
-            description: "Platform AI Scanner untuk analisis RTP Mega888 secara live. Tips, strategi, dan senarai company trusted.",
-            sameAs: [],
-            contactPoint: {
-              "@type": "ContactPoint",
-              contactType: "customer service",
-              availableLanguage: ["ms", "en"],
-            },
+            description: "Platform rujukan Mega888 Malaysia dengan AI Scanner, panduan, dan halaman trusted agent.",
+            sameAs: [
+              "https://tipsmega888.com/mega888",
+              "https://tipsmega888.com/blog",
+              "https://tipsmega888.com/trusted"
+            ],
           }),
         }}
       />

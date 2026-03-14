@@ -192,6 +192,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
             </div>
             <div style={{ textAlign: "center", marginTop: "1rem", fontSize: "0.72rem", color: "#64748b", lineHeight: 1.8 }}>
               <div style={{ marginBottom: 6 }}>
+                <Link href="/about" style={{ color: "#94a3b8", textDecoration: "none", margin: "0 8px" }}>About</Link>
                 <Link href="/privacy-policy" style={{ color: "#94a3b8", textDecoration: "none", margin: "0 8px" }}>Privacy Policy</Link>
                 <Link href="/terms" style={{ color: "#94a3b8", textDecoration: "none", margin: "0 8px" }}>Terms</Link>
                 <Link href="/disclaimer" style={{ color: "#94a3b8", textDecoration: "none", margin: "0 8px" }}>Disclaimer</Link>

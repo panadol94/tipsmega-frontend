@@ -1029,6 +1029,42 @@ export default function HomeClient() {
             {/* SEO Content Expansion - Educational Information */}
             {!runKey && (
                 <section className="mt-6 space-y-6">
+                    <article className="card p-6 border-sky-500/20 bg-sky-500/5 stagger-fade-1 card-lift">
+                        <h2 className="text-xl font-black text-sky-300 mb-4 flex items-center gap-2">
+                            <span>🧭</span>
+                            <span>Panduan Mega888 Malaysia</span>
+                        </h2>
+                        <div className="text-sm text-white/70 space-y-3 leading-relaxed">
+                            <p>
+                                Kalau anda cari maklumat umum tentang <strong className="text-white">Mega888 Malaysia</strong>, homepage ini lebih fokus pada AI Scanner.
+                                Untuk login, download APK, RTP live, trusted agent, dan withdraw, rujuk <Link href="/mega888" className="text-amber-300 font-bold hover:text-amber-200">Mega888 Hub</Link> supaya flow lebih jelas.
+                            </p>
+                            <p>
+                                Susunan paling mudah untuk pengguna baru: baca <Link href="/blog/mega888-login-link-terkini-2026" className="text-cyan-300 font-bold hover:text-cyan-200">panduan login</Link>,
+                                semak <Link href="/blog/mega888-download-android-apk-terbaru-2026" className="text-cyan-300 font-bold hover:text-cyan-200">download Android APK</Link> atau <Link href="/blog/mega888-download-ios-terbaru-2026" className="text-cyan-300 font-bold hover:text-cyan-200">panduan iPhone/iPad</Link>,
+                                kemudian tengok <Link href="/trusted" className="text-cyan-300 font-bold hover:text-cyan-200">trusted agent</Link> sebelum guna scanner sebagai rujukan tambahan.
+                            </p>
+                        </div>
+                        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                            {[
+                                ["Mega888 Hub", "/mega888"],
+                                ["Login Guide", "/blog/mega888-login-link-terkini-2026"],
+                                ["Android APK", "/blog/mega888-download-android-apk-terbaru-2026"],
+                                ["iPhone / iPad", "/blog/mega888-download-ios-terbaru-2026"],
+                                ["RTP Live", "/blog/mega888-rtp-live-malaysia-2026"],
+                                ["Trusted Agent", "/trusted"],
+                            ].map(([label, href]) => (
+                                <Link
+                                    key={href}
+                                    href={href}
+                                    className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold text-white/80 transition hover:border-sky-300/30 hover:bg-white/10 hover:text-white"
+                                >
+                                    {label} →
+                                </Link>
+                            ))}
+                        </div>
+                    </article>
+
                     {/* What is RTP Scanner */}
                     <article className="card p-6 border-cyan-500/20 bg-cyan-500/5 stagger-fade-1 card-lift">
                         <h2 className="text-xl font-black text-cyan-400 mb-4 flex items-center gap-2">
@@ -1040,7 +1076,7 @@ export default function HomeClient() {
                                 <strong className="text-white">Powered by Advanced AI:</strong> Mega888 AI RTP Scanner menggunakan artificial intelligence technology terkini untuk analyze real-time data dari ID Mega888 anda. Sistem kami process berjuta-juta data points dalam beberapa saat sahaja.
                             </p>
                             <p>
-                                <strong className="text-white">98% Prediction Accuracy:</strong> Berdasarkan 1,280+ verified scans, AI kami telah membuktikan accuracy rate sehingga 98%. Ini bermakna 98 dari 100 predictions adalah betul untuk game recommendations dan RTP analysis.
+                                <strong className="text-white">Rujukan pola yang lebih teratur:</strong> AI scanner membantu pengguna membaca pola semasa dengan lebih cepat supaya pemilihan game tidak dibuat secara rawak semata-mata.
                             </p>
                             <p>
                                 <strong className="text-white">100% Free Forever:</strong> Tiada bayaran tersembunyi, tiada subscription fees. Kami percaya semua players deserve access kepada teknologi AI tanpa kena bayar. Login daily untuk free stars!
@@ -1089,11 +1125,11 @@ export default function HomeClient() {
                             <span>Kenapa Guna AI Scanner?</span>
                         </h2>
                         <ol className="text-sm text-white/70 space-y-2 leading-relaxed list-decimal list-inside">
-                            <li><strong className="text-white">Save Time & Money:</strong> Tak payah trial-and-error main game random. AI tunjuk exactly game mana yang hot untuk ID anda sekarang.</li>
-                            <li><strong className="text-white">Data-Driven Decisions:</strong> Buat keputusan berdasarkan data sebenar, bukan hanya feeling atau luck. Scientific approach untuk gambling!</li>
-                            <li><strong className="text-white">Higher Win Rate:</strong> Players yang guna AI scanner report average 40-60% increase dalam win rate berbanding main random.</li>
-                            <li><strong className="text-white">Real-Time Updates:</strong> RTP percentage berubah real-time. Scan berkali-kali dalam sehari untuk catch best moments!</li>
-                            <li><strong className="text-white">Trusted by 1,280+ Users:</strong> Join community players yang dah proven increase winnings dengan AI technology.</li>
+                            <li><strong className="text-white">Lebih tersusun:</strong> Tak perlu pilih game secara terlalu rawak. Scanner bantu beri rujukan awal sebelum anda mula.</li>
+                            <li><strong className="text-white">Berpandukan data:</strong> Anda boleh bandingkan pola semasa dengan lebih cepat berbanding hanya bergantung pada feeling.</li>
+                            <li><strong className="text-white">Mudah untuk beginner:</strong> Pengguna baru boleh guna scanner sebagai panduan asas sebelum belajar lebih mendalam tentang RTP dan volatiliti.</li>
+                            <li><strong className="text-white">Realtime reference:</strong> Status RTP boleh berubah ikut masa, jadi semakan semasa lebih berguna berbanding andaian lama.</li>
+                            <li><strong className="text-white">Sambung ke panduan lain:</strong> Selepas scan, anda masih boleh rujuk hub, blog, dan senarai trusted agent untuk buat keputusan lebih lengkap.</li>
                         </ol>
                     </article>
                 </section>
