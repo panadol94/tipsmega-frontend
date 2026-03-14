@@ -681,12 +681,12 @@ export default function HomeClient() {
 
             <InstallPrompt />
 
-            <section className="card relative overflow-hidden p-5 tm-scan tm-scan-pulse border-cyan-400/20 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40">
+            <section className="card relative overflow-hidden p-4 sm:p-5 tm-scan tm-scan-pulse border-cyan-400/20 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40">
                 <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(34,211,238,0.10)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.10)_1px,transparent_1px)] [background-size:22px_22px]" />
                 <div className="pointer-events-none absolute -right-16 top-6 h-36 w-36 rounded-full bg-cyan-400/15 blur-3xl" />
                 <div className="pointer-events-none absolute -left-10 bottom-0 h-28 w-28 rounded-full bg-emerald-400/10 blur-3xl" />
 
-                <div className="relative z-10 space-y-5">
+                <div className="relative z-10 space-y-4 sm:space-y-5">
                     <div className="flex flex-wrap items-center gap-2">
                         <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-cyan-300">
                             <span className="h-2 w-2 rounded-full bg-cyan-300 animate-pulse" />
@@ -698,7 +698,7 @@ export default function HomeClient() {
                     </div>
 
                     <div>
-                        <h2 className="text-2xl sm:text-3xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-white to-emerald-300 drop-shadow">
+                        <h2 className="text-[1.7rem] leading-none sm:text-3xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-white to-emerald-300 drop-shadow">
                             SCAN RTP MEGA888 ANDA SEKARANG
                         </h2>
                         <p className="mt-2 text-sm leading-relaxed text-white/70 max-w-2xl">
@@ -733,7 +733,7 @@ export default function HomeClient() {
                         ))}
                     </div>
 
-                    <div className="rounded-[28px] border border-cyan-400/20 bg-black/35 p-4 shadow-[0_0_0_1px_rgba(34,211,238,0.08),0_24px_80px_rgba(6,182,212,0.12)] backdrop-blur-xl">
+                    <div className="rounded-[28px] border border-cyan-400/20 bg-black/35 p-3 sm:p-4 shadow-[0_0_0_1px_rgba(34,211,238,0.08),0_24px_80px_rgba(6,182,212,0.12)] backdrop-blur-xl">
                         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
                             <div>
                                 <div className="text-[11px] font-black uppercase tracking-[0.28em] text-cyan-300">Target ID</div>
@@ -746,7 +746,7 @@ export default function HomeClient() {
                             </div>
                         </div>
 
-                        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-2.5 sm:p-3">
                             <div className="mb-2 flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/45">
                                 <span>Live Validation</span>
                                 <span className={`rounded-full px-2.5 py-1 text-[10px] tracking-[0.18em] ${megaId.trim().length === 0
@@ -760,7 +760,7 @@ export default function HomeClient() {
                             </div>
 
                             <input
-                                className={`tm-scan-item input input-premium ${inputError ? 'shake-error' : ''}`}
+                                className={`tm-scan-item input input-premium text-sm sm:text-base ${inputError ? 'shake-error' : ''}`}
                                 value={megaId}
                                 onChange={(e) => setMegaId(e.target.value)}
                                 inputMode="numeric"
@@ -784,7 +784,7 @@ export default function HomeClient() {
                         </div>
 
                         <button
-                            className={cooldownRemaining > 0 ? "tm-scan-item btn-cooldown" : "tm-scan-item btn-green-spin ripple-effect"}
+                            className={cooldownRemaining > 0 ? "tm-scan-item tm-scan-cta btn-cooldown" : "tm-scan-item tm-scan-cta btn-green-spin ripple-effect"}
                             style={{ marginTop: 20, marginBottom: 8, opacity: (!isValidMegaId || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
                             onClick={runScan}
                             disabled={busy || cooldownRemaining > 0 || !isValidMegaId}
@@ -800,6 +800,34 @@ export default function HomeClient() {
                             <span>Estimated result: 3–5 saat</span>
                             <span>{busy ? "AI analysis in progress" : isValidMegaId ? "Ready to scan" : "Input required"}</span>
                         </div>
+
+                        {busy && (
+                            <div className="mt-4 space-y-3">
+                                <div className="scan-live-grid grid grid-cols-1 gap-2 sm:grid-cols-3">
+                                    {[
+                                        ["Target Link", "Connected"],
+                                        ["Pattern Read", "Scanning"],
+                                        ["RTP Matrix", "Decoding"],
+                                    ].map(([label, state], index) => (
+                                        <div key={label} className="scan-live-card rounded-2xl border border-cyan-400/15 bg-cyan-400/5 px-3 py-3">
+                                            <div className="flex items-center justify-between gap-3">
+                                                <span className="text-[10px] font-black uppercase tracking-[0.22em] text-white/55">{label}</span>
+                                                <span className={`scan-live-dot ${index === 0 ? "is-ready" : ""}`} />
+                                            </div>
+                                            <div className="mt-2 text-sm font-black uppercase tracking-[0.16em] text-cyan-200">{state}</div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="scan-beam-wrap rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-3">
+                                    <div className="scan-beam-line" />
+                                    <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">
+                                        <span>Live scan sequence running</span>
+                                        <span>Decrypting target signal...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
 
                         {!isLoggedIn && (
                             <div className="mt-4 flex flex-wrap gap-3">
@@ -827,20 +855,26 @@ export default function HomeClient() {
             padding: 14px;
             background: linear-gradient(135deg, #ff6b35, #f7931e);
             border: 2px solid rgba(255, 107, 53, 0.3);
-            border-radius: 8px;
+            border-radius: 14px;
             color: white;
             font-weight: bold;
             font-size: 15px;
             cursor: not-allowed;
             transition: all 0.3s ease;
-            opacity: 0.7;
+            opacity: 0.78;
             animation: pulse-cooldown 2s ease-in-out infinite;
+            min-height: 58px;
           }
-          
+
+          .tm-scan-cta {
+            min-height: 58px;
+          }
+
           @keyframes pulse-cooldown {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(0.98); }
+            50% { transform: scale(0.985); }
           }
+
           .scanner-terminal-shell {
             position: relative;
             overflow: hidden;
@@ -857,11 +891,85 @@ export default function HomeClient() {
             pointer-events: none;
           }
 
+          .scan-live-card {
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.05), 0 10px 30px rgba(0, 0, 0, 0.18);
+          }
+
+          .scan-live-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 0%, rgba(34, 211, 238, 0.08) 45%, transparent 70%);
+            transform: translateX(-120%);
+            animation: scanCardSweep 2.4s linear infinite;
+            pointer-events: none;
+          }
+
+          .scan-live-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: #22d3ee;
+            box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.55);
+            animation: scanDotPulse 1.5s ease-in-out infinite;
+          }
+
+          .scan-live-dot.is-ready {
+            background: #34d399;
+            box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55);
+          }
+
+          .scan-beam-wrap {
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 0 20px rgba(34, 211, 238, 0.08);
+          }
+
+          .scan-beam-line {
+            position: absolute;
+            inset: 0 auto 0 -35%;
+            width: 35%;
+            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.22), rgba(167, 139, 250, 0.18), transparent);
+            filter: blur(3px);
+            animation: scanBeam 1.7s linear infinite;
+            pointer-events: none;
+          }
+
           @keyframes scannerSweep {
             0% { transform: translateX(0); opacity: 0; }
             15% { opacity: 1; }
             85% { opacity: 1; }
             100% { transform: translateX(430%); opacity: 0; }
+          }
+
+          @keyframes scanBeam {
+            0% { transform: translateX(0); opacity: 0; }
+            12% { opacity: 1; }
+            88% { opacity: 1; }
+            100% { transform: translateX(420%); opacity: 0; }
+          }
+
+          @keyframes scanDotPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.35); }
+            50% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(34, 211, 238, 0); }
+          }
+
+          @keyframes scanCardSweep {
+            0% { transform: translateX(-120%); }
+            100% { transform: translateX(130%); }
+          }
+
+          @media (max-width: 640px) {
+            .tm-scan-cta {
+              min-height: 56px;
+            }
+
+            .btn-cooldown {
+              font-size: 14px;
+              letter-spacing: 0.08em;
+            }
           }
         `}</style>
 
