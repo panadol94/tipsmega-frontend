@@ -123,6 +123,8 @@ export default function HomeClient() {
         return deviceId || localStorage.getItem(storageKey) || "";
     }, [deviceId]);
 
+    const isValidMegaId = /^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim());
+
     // Entrance animation (runs on mount and page show)
     // Android Chrome can be finicky with first-paint + bfcache restores.
     // Goal: never leave elements stuck at opacity=0 if animation doesn't run.
@@ -582,7 +584,7 @@ export default function HomeClient() {
                                 "name": "Bagaimana cara guna scanner?",
                                 "acceptedAnswer": {
                                     "@type": "Answer",
-                                    "text": "Mudah sahaja! 1) Masukkan 12-digit Mega888 ID anda (start dengan 1, 2, atau 09). 2) Klik SCAN NETWORK button. 3) Tunggu 3-5 saat untuk AI analysis. 4) Result akan keluar dengan RTP percentage dan recommendation game terbaik untuk dimainkan."
+                                    "text": "Mudah sahaja! 1) Masukkan 12-digit Mega888 ID anda (start dengan 1, 2, atau 09). 2) Klik START AI SCAN button. 3) Tunggu 3-5 saat untuk AI analysis. 4) Result akan keluar dengan RTP percentage dan recommendation game terbaik untuk dimainkan."
                                 }
                             },
                             {
@@ -679,30 +681,102 @@ export default function HomeClient() {
 
             <InstallPrompt />
 
-            <section className="card p-5 tm-scan tm-scan-pulse">
+            <section className="card relative overflow-hidden p-5 tm-scan tm-scan-pulse border-cyan-400/20 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40">
+                <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(34,211,238,0.10)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.10)_1px,transparent_1px)] [background-size:22px_22px]" />
+                <div className="pointer-events-none absolute -right-16 top-6 h-36 w-36 rounded-full bg-cyan-400/15 blur-3xl" />
+                <div className="pointer-events-none absolute -left-10 bottom-0 h-28 w-28 rounded-full bg-emerald-400/10 blur-3xl" />
 
-                <input
-                    className={`tm-scan-item input input-premium ${inputError ? 'shake-error' : ''}`}
-                    value={megaId}
-                    onChange={(e) => setMegaId(e.target.value)}
-                    inputMode="numeric"
-                    placeholder="PLEASE INSERT MEGA888 ID"
-                />
+                <div className="relative z-10 space-y-5">
+                    <div className="flex flex-wrap items-center gap-2">
+                        <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-cyan-300">
+                            <span className="h-2 w-2 rounded-full bg-cyan-300 animate-pulse" />
+                            Live AI System
+                        </span>
+                        <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-white/65">
+                            {busy ? "Signal Locked" : isValidMegaId ? "Target Ready" : "Awaiting Target"}
+                        </span>
+                    </div>
 
-                <TypewriterText text="[AI SCANNER] INTERCEPTING LIVE RTP SIGNALS FROM SERVER..." speed={30} />
+                    <div>
+                        <h2 className="text-2xl sm:text-3xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-white to-emerald-300 drop-shadow">
+                            SCAN RTP MEGA888 ANDA SEKARANG
+                        </h2>
+                        <p className="mt-2 text-sm leading-relaxed text-white/70 max-w-2xl">
+                            Command center AI kami analyse live pattern, detect RTP signal semasa, dan cadangkan game yang lebih sesuai untuk ID anda — cepat, clear, dan rasa premium.
+                        </p>
+                    </div>
 
-                <button
-                    className={cooldownRemaining > 0 ? "tm-scan-item btn-cooldown" : "tm-scan-item btn-green-spin ripple-effect"}
-                    style={{ marginTop: 24, marginBottom: 12, opacity: (!/^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim()) || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
-                    onClick={runScan}
-                    disabled={busy || cooldownRemaining > 0 || !/^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim())}
-                >
-                    <span className={cooldownRemaining > 0 ? "" : "btn-green-spin-content"}>
-                        {busy ? "SEARCHING TARGET..." :
-                            cooldownRemaining > 0 ? `⏱️ COOLDOWN: ${Math.floor(cooldownRemaining / 60)}:${(cooldownRemaining % 60).toString().padStart(2, '0')}` :
-                                "SCAN NETWORK"}
-                    </span>
-                </button>
+                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                        {[
+                            ["98%", "Prediction Accuracy"],
+                            ["1,280+", "Verified Scans"],
+                            ["< 5s", "Response Time"],
+                            [stars > 0 ? `${stars}` : "0", "Stars Available"],
+                        ].map(([value, label]) => (
+                            <div key={label} className="rounded-2xl border border-white/10 bg-white/5 px-3 py-3 backdrop-blur-md shadow-[0_0_0_1px_rgba(255,255,255,0.03)]">
+                                <div className="text-lg font-black text-white">{value}</div>
+                                <div className="text-[11px] uppercase tracking-[0.18em] text-white/45">{label}</div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="grid gap-2 sm:grid-cols-3">
+                        {[
+                            ["01", "Masukkan ID 12 digit"],
+                            ["02", "Tekan Start AI Scan"],
+                            ["03", "Dapatkan result & game suggestion"],
+                        ].map(([step, label]) => (
+                            <div key={step} className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 backdrop-blur-sm">
+                                <div className="text-[10px] font-black uppercase tracking-[0.25em] text-cyan-300">Step {step}</div>
+                                <div className="mt-1 text-sm font-semibold text-white/80">{label}</div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="rounded-[28px] border border-cyan-400/20 bg-black/35 p-4 shadow-[0_0_0_1px_rgba(34,211,238,0.08),0_24px_80px_rgba(6,182,212,0.12)] backdrop-blur-xl">
+                        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                            <div>
+                                <div className="text-[11px] font-black uppercase tracking-[0.28em] text-cyan-300">Target ID</div>
+                                <div className="mt-1 text-sm text-white/65">Contoh format: <span className="font-bold text-white">123456789012</span> atau <span className="font-bold text-white">091234567890</span></div>
+                            </div>
+                            <div className="flex flex-wrap gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-white/55">
+                                <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-emerald-300">Secure</span>
+                                <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-cyan-300">Live Sync</span>
+                                <span className="rounded-full border border-violet-400/20 bg-violet-400/10 px-3 py-1 text-violet-300">AI Powered</span>
+                            </div>
+                        </div>
+
+                        <input
+                            className={`tm-scan-item input input-premium ${inputError ? 'shake-error' : ''}`}
+                            value={megaId}
+                            onChange={(e) => setMegaId(e.target.value)}
+                            inputMode="numeric"
+                            placeholder="Masukkan 12-digit Mega888 ID"
+                        />
+
+                        <div className="mt-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-3">
+                            <TypewriterText text="[AI SCANNER] SIGNAL LOCKED • READING LIVE RTP STREAM • PREPARING TARGET ANALYSIS..." speed={24} />
+                        </div>
+
+                        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-white/55">
+                            <span>First time guna? Cuma masukkan ID dan tekan scan.</span>
+                            <span>{stars > 0 ? "1 scan = 1 star" : "Login untuk claim bonus stars"}</span>
+                        </div>
+
+                        <button
+                            className={cooldownRemaining > 0 ? "tm-scan-item btn-cooldown" : "tm-scan-item btn-green-spin ripple-effect"}
+                            style={{ marginTop: 20, marginBottom: 12, opacity: (!isValidMegaId || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
+                            onClick={runScan}
+                            disabled={busy || cooldownRemaining > 0 || !isValidMegaId}
+                        >
+                            <span className={cooldownRemaining > 0 ? "" : "btn-green-spin-content"}>
+                                {busy ? "LOCKING LIVE SIGNAL..." :
+                                    cooldownRemaining > 0 ? `⏱️ COOLDOWN: ${Math.floor(cooldownRemaining / 60)}:${(cooldownRemaining % 60).toString().padStart(2, '0')}` :
+                                        "START AI SCAN"}
+                            </span>
+                        </button>
+                    </div>
+                </div>
 
                 {/* Add cooldown button style */}
                 <style jsx>{`
