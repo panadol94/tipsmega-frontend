@@ -746,15 +746,35 @@ export default function HomeClient() {
                             </div>
                         </div>
 
-                        <input
-                            className={`tm-scan-item input input-premium ${inputError ? 'shake-error' : ''}`}
-                            value={megaId}
-                            onChange={(e) => setMegaId(e.target.value)}
-                            inputMode="numeric"
-                            placeholder="Masukkan 12-digit Mega888 ID"
-                        />
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3">
+                            <div className="mb-2 flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/45">
+                                <span>Live Validation</span>
+                                <span className={`rounded-full px-2.5 py-1 text-[10px] tracking-[0.18em] ${megaId.trim().length === 0
+                                        ? "border border-white/10 bg-white/5 text-white/45"
+                                        : isValidMegaId
+                                            ? "border border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
+                                            : "border border-amber-400/20 bg-amber-400/10 text-amber-300"
+                                    }`}>
+                                    {megaId.trim().length === 0 ? "WAITING INPUT" : isValidMegaId ? "FORMAT VALID" : "CHECK FORMAT"}
+                                </span>
+                            </div>
 
-                        <div className="mt-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-3">
+                            <input
+                                className={`tm-scan-item input input-premium ${inputError ? 'shake-error' : ''}`}
+                                value={megaId}
+                                onChange={(e) => setMegaId(e.target.value)}
+                                inputMode="numeric"
+                                placeholder="Masukkan 12-digit Mega888 ID"
+                            />
+
+                            <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-white/55">
+                                <span>{megaId.trim().length === 0 ? "Masukkan ID untuk unlock live scan." : isValidMegaId ? "ID valid — sistem ready untuk scan." : "ID mesti 12 digit dan bermula dengan 1, 2, atau 09."}</span>
+                                <span>{megaId.trim().length}/12+</span>
+                            </div>
+                        </div>
+
+                        <div className="scanner-terminal-shell mt-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-3">
+                            <div className="scanner-terminal-line" />
                             <TypewriterText text="[AI SCANNER] SIGNAL LOCKED • READING LIVE RTP STREAM • PREPARING TARGET ANALYSIS..." speed={24} />
                         </div>
 
@@ -765,7 +785,7 @@ export default function HomeClient() {
 
                         <button
                             className={cooldownRemaining > 0 ? "tm-scan-item btn-cooldown" : "tm-scan-item btn-green-spin ripple-effect"}
-                            style={{ marginTop: 20, marginBottom: 12, opacity: (!isValidMegaId || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
+                            style={{ marginTop: 20, marginBottom: 8, opacity: (!isValidMegaId || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
                             onClick={runScan}
                             disabled={busy || cooldownRemaining > 0 || !isValidMegaId}
                         >
@@ -775,6 +795,28 @@ export default function HomeClient() {
                                         "START AI SCAN"}
                             </span>
                         </button>
+
+                        <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] uppercase tracking-[0.18em] text-white/45">
+                            <span>Estimated result: 3–5 saat</span>
+                            <span>{busy ? "AI analysis in progress" : isValidMegaId ? "Ready to scan" : "Input required"}</span>
+                        </div>
+
+                        {!isLoggedIn && (
+                            <div className="mt-4 flex flex-wrap gap-3">
+                                <button
+                                    className="flex-1 min-w-[160px] rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm font-black uppercase tracking-[0.2em] text-red-200 transition hover:bg-red-500/15"
+                                    onClick={() => setAuthOpen("register")}
+                                >
+                                    Register Bonus Stars
+                                </button>
+                                <button
+                                    className="flex-1 min-w-[160px] rounded-2xl border border-cyan-400/20 bg-cyan-500/10 px-4 py-3 text-sm font-black uppercase tracking-[0.2em] text-cyan-200 transition hover:bg-cyan-500/15"
+                                    onClick={() => setAuthOpen("login")}
+                                >
+                                    Login Existing Account
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -798,6 +840,28 @@ export default function HomeClient() {
           @keyframes pulse-cooldown {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(0.98); }
+          }
+          .scanner-terminal-shell {
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02), 0 0 30px rgba(34, 211, 238, 0.06);
+          }
+
+          .scanner-terminal-line {
+            position: absolute;
+            inset: 0 auto 0 -30%;
+            width: 30%;
+            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.18), transparent);
+            filter: blur(1px);
+            animation: scannerSweep 3.8s linear infinite;
+            pointer-events: none;
+          }
+
+          @keyframes scannerSweep {
+            0% { transform: translateX(0); opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { transform: translateX(430%); opacity: 0; }
           }
         `}</style>
 
