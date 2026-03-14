@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seo:daily-pack": "node scripts/seo-daily-ops.cjs"
   },
   "dependencies": {
     "animejs": "^4.3.6",
