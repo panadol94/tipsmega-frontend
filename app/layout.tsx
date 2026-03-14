@@ -151,8 +151,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              name: "Mega888 AI Tips RTP",
+              "@type": "WebApplication",
+              name: "TipsMega888 AI Scanner",
               applicationCategory: "UtilityApplication",
               operatingSystem: "Web",
               offers: {
@@ -161,12 +161,9 @@ export default function RootLayout({
                 priceCurrency: "MYR",
               },
               description:
-                "Sistem AI Canggih untuk analisis RTP Mega888 dan Tips Kemenangan.",
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "4.9",
-                ratingCount: "1280",
-              },
+                "Aplikasi web untuk semakan panduan Mega888, analisis RTP, dan rujukan permainan popular di Malaysia.",
+              url: "https://tipsmega888.com",
+              inLanguage: "ms-MY",
             }),
           }}
         />

@@ -43,15 +43,15 @@ const ProfileIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const InfoIcon = ({ className }: { className?: string }) => (
+const HubIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <circle cx="12" cy="12" r="10" />
-    <line x1="12" y1="16" x2="12" y2="12" />
-    <line x1="12" y1="8" x2="12.01" y2="8" />
+    <path d="M12 3l7 4v10l-7 4-7-4V7l7-4z" />
+    <path d="M12 7v10" />
+    <path d="M5 9l7 4 7-4" />
   </svg>
 );
 
-type NavKey = "home" | "trusted" | "chat" | "share" | "profile" | "info";
+type NavKey = "home" | "trusted" | "chat" | "share" | "profile" | "hub";
 
 export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
   const pathname = usePathname();
@@ -60,9 +60,9 @@ export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
   const items: { key: NavKey; label: string; href: string; icon: React.FC<{ className?: string }> }[] = [
     { key: "home", label: "Home", href: "/", icon: HomeIcon },
     { key: "trusted", label: "Trusted", href: "/trusted", icon: TrustedIcon },
+    { key: "hub", label: "Hub", href: "/mega888", icon: HubIcon },
     { key: "chat", label: "Chat", href: "/chat", icon: ChatIcon },
     { key: "share", label: "Share", href: "/share", icon: ShareIcon },
-    { key: "info", label: "Info", href: "/info", icon: InfoIcon },
     { key: "profile", label: "Profile", href: "/profile", icon: ProfileIcon },
   ];
 

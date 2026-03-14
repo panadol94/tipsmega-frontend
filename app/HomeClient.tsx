@@ -704,6 +704,20 @@ export default function HomeClient() {
                         <p className="mt-2 text-sm leading-relaxed text-white/70 max-w-2xl">
                             Command center AI kami analyse live pattern, detect RTP signal semasa, dan cadangkan game yang lebih sesuai untuk ID anda — cepat, clear, dan rasa premium.
                         </p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                            <Link href="/mega888" className="inline-flex items-center rounded-full border border-amber-400/25 bg-amber-400/10 px-3 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-amber-200 transition hover:bg-amber-400/15">
+                                Mega888 Hub
+                            </Link>
+                            <Link href="/trusted" className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-white/75 transition hover:bg-white/10">
+                                Trusted Agent
+                            </Link>
+                            <Link href="/blog/mega888-download-android-apk-terbaru-2026" className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-white/75 transition hover:bg-white/10">
+                                APK Guide
+                            </Link>
+                            <Link href="/blog/mega888-login-link-terkini-2026" className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-white/75 transition hover:bg-white/10">
+                                Login Guide
+                            </Link>
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">

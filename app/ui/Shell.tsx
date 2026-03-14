@@ -177,6 +177,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               <div>
                 <div style={{ fontWeight: 700, color: "#f59e0b", marginBottom: 6, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: 1 }}>Mega888</div>
                 <Link href="/" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🏠 AI Scanner</Link>
+                <Link href="/mega888" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🧭 Mega888 Hub</Link>
                 <Link href="/trusted" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>✅ Company Trusted</Link>
                 <Link href="/share" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>⭐ Share & Stars</Link>
                 <Link href="/info" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>ℹ️ Info & FAQ</Link>
@@ -186,10 +187,15 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                 <Link href="/blog" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>📝 Blog Tips</Link>
                 <Link href="/games" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🎮 Semua Game</Link>
                 <Link href="/blog/tips-mega888-pro" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>💡 Tips Pro</Link>
-                <Link href="/blog/hack-rtp-mega888" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🎯 Hack RTP</Link>
+                <Link href="/blog/hack-rtp-mega888" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🎯 Pola RTP AI</Link>
               </div>
             </div>
-            <div style={{ textAlign: "center", marginTop: "1rem", fontSize: "0.7rem", color: "#475569" }}>
+            <div style={{ textAlign: "center", marginTop: "1rem", fontSize: "0.72rem", color: "#64748b", lineHeight: 1.8 }}>
+              <div style={{ marginBottom: 6 }}>
+                <Link href="/privacy-policy" style={{ color: "#94a3b8", textDecoration: "none", margin: "0 8px" }}>Privacy Policy</Link>
+                <Link href="/terms" style={{ color: "#94a3b8", textDecoration: "none", margin: "0 8px" }}>Terms</Link>
+                <Link href="/disclaimer" style={{ color: "#94a3b8", textDecoration: "none", margin: "0 8px" }}>Disclaimer</Link>
+              </div>
               © 2026 TipsMega888 AI Scanner — Mega888 Tips, RTP & Strategi Terkini
             </div>
           </div>
