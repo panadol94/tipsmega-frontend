@@ -42,7 +42,7 @@ export default function InstallPrompt() {
 
     return (
         <>
-            <div className="fixed inset-0 z-[100] flex items-end justify-center px-3 pb-4 sm:items-center sm:px-4 sm:pb-0 font-sans">
+            <div className="fixed inset-0 z-[220] flex items-end justify-center px-3 pb-[5.5rem] sm:items-center sm:px-4 sm:pb-0 font-sans">
                 <div
                     className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity duration-500"
                     onClick={handleTempDismiss}
