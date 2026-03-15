@@ -78,14 +78,11 @@ export default function InstallPrompt() {
         setShow(false);
     }
 
-    async function handleInstall() {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === "accepted") {
-            setDeferredPrompt(null);
-            setShow(false);
-        }
+    function handleGoTrustedList() {
+        if (typeof window === "undefined") return;
+        localStorage.setItem("pwa_dismissed_until", String(Date.now() + DISMISS_DURATION_MS));
+        setShow(false);
+        window.location.href = "/trusted";
     }
 
     if (!show) return null;
@@ -138,25 +135,25 @@ export default function InstallPrompt() {
                     <div className="space-y-1 mb-6">
                         <div className="flex items-center justify-center gap-2 mb-2">
                             <span className="h-[1px] w-8 bg-gradient-to-r from-transparent to-amber-500/50" />
-                            <span className="text-[9px] font-black tracking-[0.3em] text-amber-500 uppercase">System Upgrade</span>
+                            <span className="text-[9px] font-black tracking-[0.3em] text-amber-500 uppercase">Penting Sebelum Scan</span>
                             <span className="h-[1px] w-8 bg-gradient-to-l from-transparent to-amber-500/50" />
                         </div>
                         <h3 className="text-xl font-black text-white tracking-wide uppercase">
-                            Install <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600">Commander App</span>
+                            Ambil <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600">ID Company</span> Dulu
                         </h3>
                         <p className="text-xs text-slate-400 leading-relaxed max-w-[280px] mx-auto">
-                            Dapatkan akses <span className="text-amber-300 font-bold">VVIP Network</span> tanpa lag. Lebih pantas, lebih stabil, dan auto-update database RTP.
+                            Untuk result scanner yang lebih tepat, sila gunakan <span className="text-amber-300 font-bold">ID company dari Trusted List</span>. Database scanner ini disusun berdasarkan company yang ada dalam senarai trusted kami.
                         </p>
                     </div>
 
                     <button
-                        onClick={handleInstall}
+                        onClick={handleGoTrustedList}
                         className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 p-[1px] shadow-[0_10px_40px_-10px_rgba(245,158,11,0.5)] active:scale-98 transition-transform"
                     >
                         <div className="relative flex items-center justify-center gap-2 rounded-[11px] bg-[#1a1f2e]/90 backdrop-blur-sm px-4 py-3.5 transition-all group-hover:bg-transparent">
-                            <span className="font-black text-xs uppercase tracking-widest text-white group-hover:text-black transition-colors">Install Now</span>
+                            <span className="font-black text-xs uppercase tracking-widest text-white group-hover:text-black transition-colors">Buka Trusted List</span>
                             <svg className="w-4 h-4 text-white group-hover:text-black transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7h6m0 0v6m0-6L10 16m-4-9h3m-3 5h3m-3 5h7" />
                             </svg>
                         </div>
                     </button>
@@ -168,7 +165,7 @@ export default function InstallPrompt() {
                         }}
                         className="mt-4 text-[10px] font-bold text-white/20 hover:text-white/50 tracking-widest uppercase transition-colors"
                     >
-                        Tak Perlu, Terima Kasih
+                        Saya Dah Ada ID
                     </button>
                 </div>
             </div>
