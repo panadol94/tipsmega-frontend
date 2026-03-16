@@ -34,6 +34,11 @@ export const metadata = {
 
 const HUB_LINKS = [
   {
+    title: "Mega888 Malaysia 2026: Panduan Lengkap",
+    href: "/blog/mega888-malaysia-2026-panduan-lengkap",
+    note: "Artikel utama untuk pengguna Malaysia: login, APK, trusted agent, RTP live, dan flow terbaik.",
+  },
+  {
     title: "Mega888 Login Link Terkini 2026",
     href: "/blog/mega888-login-link-terkini-2026",
     note: "Masuk akaun dengan lebih selamat dan elak link palsu.",
@@ -171,7 +176,7 @@ export default function Mega888HubPage() {
             Mega888 Malaysia 2026 — Login, Download APK, RTP Live, Trusted Agent & Withdraw
           </h1>
           <p style={{ color: "#94a3b8", lineHeight: 1.8, maxWidth: 860, margin: 0 }}>
-            Kalau anda cari maklumat paling penting tentang <strong>Mega888</strong>, ini ialah halaman rujukan utama.
+            Kalau anda cari maklumat paling penting tentang <strong>Mega888 Malaysia</strong>, ini ialah halaman rujukan utama.
             Dalam satu tempat, anda boleh terus pergi ke panduan login, cara daftar akaun baru, download Android APK,
             setup iPhone/iPad, semak RTP live, pilih trusted agent, dan faham proses withdraw dengan lebih tersusun.
           </p>
@@ -186,6 +191,7 @@ export default function Mega888HubPage() {
           }}
         >
           {[
+            ["Mega888 Malaysia", "/blog/mega888-malaysia-2026-panduan-lengkap"],
             ["Login Guide", "/blog/mega888-login-link-terkini-2026"],
             ["Download APK", "/blog/mega888-download-android-apk-terbaru-2026"],
             ["RTP Live", "/blog/mega888-rtp-live-malaysia-2026"],
