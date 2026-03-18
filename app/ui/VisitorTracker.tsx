@@ -41,15 +41,56 @@ async function getBatteryLevel(): Promise<number | null> {
     return null;
 }
 
+// Get real IP from client-side (bypasses Cloudflare)
+async function getRealIP(): Promise<string> {
+    try {
+        // Try multiple IP detection services
+        const services = [
+            "https://api.ipify.org?format=json",
+            "https://api.my-ip.io/v2/ip.json",
+            "https://ipinfo.io/json"
+        ];
+        
+        for (const service of services) {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 3000);
+                
+                const response = await fetch(service, { 
+                    signal: controller.signal,
+                    mode: 'cors'
+                });
+                clearTimeout(timeoutId);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.ip || data.IP || "";
+                }
+            } catch {
+                continue;
+            }
+        }
+    } catch {
+        // IP detection failed
+    }
+    return "";
+}
+
 export default function VisitorTracker() {
     const pathname = usePathname();
     const trackedPages = useRef<Set<string>>(new Set());
     const sessionStartTime = useRef<number>(0);
     const visitorIdRef = useRef<string>("");
+    const realIPRef = useRef<string>("");
 
-    // Initialize session start time (avoid impure call during render)
+    // Initialize session start time and get real IP
     useEffect(() => {
         sessionStartTime.current = Date.now();
+        
+        // Get real IP in background
+        getRealIP().then(ip => {
+            realIPRef.current = ip;
+        });
     }, []);
 
     // Send visitor notification for a page
@@ -60,6 +101,9 @@ export default function VisitorTracker() {
 
             const battery = await getBatteryLevel();
             const utm = getUtmParams();
+            
+            // Get real IP (from cache or fresh)
+            const realIP = realIPRef.current || await getRealIP();
 
             const payload = {
                 page,
@@ -69,6 +113,7 @@ export default function VisitorTracker() {
                 screenRes: `${screen.width}x${screen.height}`,
                 language: navigator.language || "",
                 battery,
+                realIP,
                 ...utm,
             };
 
@@ -88,11 +133,10 @@ export default function VisitorTracker() {
         if (!visitorId) return;
 
         const duration = (Date.now() - sessionStartTime.current) / 1000;
-        if (duration < 2) return; // Ignore instant bounces
+        if (duration < 2) return;
 
-        const payload = JSON.stringify({ visitorId, duration });
+        const payload = JSON.stringify({ visitorId, duration, realIP: realIPRef.current });
 
-        // Use sendBeacon for reliable delivery on page close
         if (navigator.sendBeacon) {
             const blob = new Blob([payload], { type: "application/json" });
             navigator.sendBeacon(`${API_BASE}/api/visitor-leave`, blob);
@@ -106,18 +150,13 @@ export default function VisitorTracker() {
         }
     }, []);
 
-    // Track each page navigation
     useEffect(() => {
         const page = pathname || "/";
-
-        // Skip if this page was already tracked this session
         if (trackedPages.current.has(page)) return;
         trackedPages.current.add(page);
-
         notifyVisit(page);
     }, [pathname, notifyVisit]);
 
-    // Session duration tracking on page leave
     useEffect(() => {
         const handleBeforeUnload = () => notifyLeave();
         const handleVisibilityChange = () => {
@@ -135,5 +174,5 @@ export default function VisitorTracker() {
         };
     }, [notifyLeave]);
 
-    return null; // Invisible component
+    return null;
 }
