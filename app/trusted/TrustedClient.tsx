@@ -250,7 +250,7 @@ export default function TrustedClient() {
                     </div>
                 )}
 
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 gap-3">
                     {loading ? (
                         Array.from({ length: 6 }).map((_, i) => (
                             <div key={i} className="bg-white/5 border border-white/10 rounded-xl h-[160px] animate-pulse relative overflow-hidden">
@@ -304,7 +304,7 @@ export default function TrustedClient() {
                                     )}
 
                                     {/* Media Section - Enhanced with Gradient Overlay */}
-                                    <div className="h-32 w-full bg-black relative overflow-hidden group-hover:after:opacity-100 after:absolute after:inset-0 after:bg-gradient-to-br after:from-cyan-500/10 after:to-purple-500/10 after:opacity-0 after:transition-opacity after:duration-500">
+                                    <div className="h-48 w-full bg-black relative overflow-hidden group-hover:after:opacity-100 after:absolute after:inset-0 after:bg-gradient-to-br after:from-cyan-500/10 after:to-purple-500/10 after:opacity-0 after:transition-opacity after:duration-500">
                                         {c.storageUrl ? (
                                             // Enhanced video detection: check mediaType OR file extension
                                             (() => {
@@ -328,13 +328,10 @@ export default function TrustedClient() {
 
                                                 return isVideo ? (
                                                     <video
-                                                        src={mediaUrl}
+                                                        data-src={mediaUrl} ref={(el) => { if (el) { const observer = new IntersectionObserver((entries) => { entries[0].isIntersecting && (el.src = el.dataset.src, observer.disconnect()); }, { threshold: 0.1 }); observer.observe(el); } }}
                                                         title={`${c.name} - Trusted Mega888 Platform Video | Verified Agent ${new Date().getFullYear()}`}
                                                         aria-label={`${c.name} promotional video - Verified Mega888 gaming platform`}
-                                                        autoPlay
-                                                        muted
-                                                        playsInline
-                                                        loop
+                                                        preload="none"
                                                         preload="metadata"
                                                         className="w-full h-full object-cover object-center transition-opacity hover:opacity-90"
                                                     />
@@ -361,7 +358,7 @@ export default function TrustedClient() {
                                         {/* Live Status Indicator */}
                                         <div className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full border border-emerald-500/30">
                                             <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_5px_#10b981]" />
-                                            <span className="text-emerald-400 text-[8px] font-mono font-bold">{playerCount.toLocaleString()}</span>
+                                            <span className="text-emerald-400 text-[10px] font-mono font-bold">{playerCount.toLocaleString()}</span>
                                         </div>
                                     </div>
 
@@ -372,7 +369,7 @@ export default function TrustedClient() {
 
                                         <div className="relative z-10 -mt-1 w-full space-y-1.5">
                                             {/* Company Name */}
-                                            <h2 className="text-[10px] font-black italic text-white uppercase tracking-wide truncate w-full">
+                                            <h2 className="text-[14px] font-black italic text-white uppercase tracking-wide truncate w-full">
                                                 {c.name}
                                             </h2>
 
@@ -383,13 +380,13 @@ export default function TrustedClient() {
                                                         <span key={i} className={`text-[10px] ${i < stars ? 'text-amber-400' : 'text-white/20'}`}>⭐</span>
                                                     ))}
                                                 </div>
-                                                <span className="text-white/50 text-[8px] font-mono">({rating.toFixed(1)})</span>
+                                                <span className="text-white/50 text-[10px] font-mono">({rating.toFixed(1)})</span>
                                             </div>
 
                                             {/* Caption - Bonus/Promo Display */}
                                             {c.caption && (
                                                 <div className="min-h-[28px] flex items-center justify-center">
-                                                    <p className="text-[9px] font-bold text-amber-400 leading-tight px-1 animate-pulse">
+                                                    <p className="text-[12px] font-bold text-amber-400 leading-tight px-1 animate-pulse">
                                                         🎁 {c.caption}
                                                     </p>
                                                 </div>
@@ -400,14 +397,14 @@ export default function TrustedClient() {
                                                 {url ? (
                                                     <button
                                                         onClick={() => handleAction(url)}
-                                                        className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 border border-white/10 text-white font-bold text-[9px] uppercase py-1.5 rounded-lg shadow-md hover:scale-105 hover:shadow-amber-500/50 active:scale-95 transition-all duration-200"
+                                                        className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 border border-white/10 text-white font-bold text-[12px] uppercase py-2 rounded-lg shadow-md hover:scale-105 hover:shadow-amber-500/50 active:scale-95 transition-all duration-200"
                                                     >
                                                         🚀 PLAY NOW
                                                     </button>
                                                 ) : (
                                                     <button
                                                         onClick={() => handleAction(waHref)}
-                                                        className="w-full bg-white/5 border border-white/10 text-white/70 font-bold text-[9px] uppercase py-1.5 rounded-lg active:scale-95"
+                                                        className="w-full bg-white/5 border border-white/10 text-white/70 font-bold text-[12px] uppercase py-2 rounded-lg active:scale-95"
                                                     >
                                                         📱 GET LINK
                                                     </button>
