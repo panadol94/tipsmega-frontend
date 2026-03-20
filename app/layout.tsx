@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const metadata = {
+const metadata: Metadata = {
   title: "Mega888 Malaysia | TipsMega888 - AI RTP Scanner & Trusted Platform",
   description:
     "TipsMega888 - AI RTP Scanner percuma Mega888 Malaysia. Check real-time slot RTP %, live odds & trusted platform. Trusted by 10,000+ players. Updated daily.",
@@ -62,18 +62,6 @@ export default function RootLayout({
       target: "https://tipsmega888.com/search?q={search_term_string}",
       "query-input": "required name=search_term_string",
     },
-    sameAs: ["https://www.facebook.com/tipsmega888"],
-  };
-
-  const orgSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "TipsMega888",
-    url: "https://tipsmega888.com",
-    logo: "https://tipsmega888.com/logo.png",
-    description:
-      "Trusted Mega888 Malaysia RTP Scanner platform. AI-powered analysis updated daily.",
-    sameAs: ["https://www.facebook.com/tipsmega888"],
   };
 
   return (
@@ -82,10 +70,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
       </head>
       <body className={inter.className}>{children}</body>
