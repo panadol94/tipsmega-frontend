@@ -95,6 +95,7 @@ export default function HomeClient() {
     // auth UI
     const [authOpen, setAuthOpen] = useState<null | "register" | "login">(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userName, setUserName] = useState("");
     const [toast, setToast] = useState<{ msg: string; type: ToastType } | null>(null);
 
     // Star notification
@@ -305,6 +306,8 @@ export default function HomeClient() {
     useEffect(() => {
         if (typeof window === "undefined") return;
 
+        const savedUsername = localStorage.getItem("tipsmega_username");
+        if (savedUsername) setUserName(savedUsername);
         if (localStorage.getItem(tokenKey)) {
             setTimeout(() => setIsLoggedIn(true), 0);
         }
@@ -507,7 +510,7 @@ export default function HomeClient() {
             <nav className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-black/50 backdrop-blur-md">
                 <Link href="/" className="flex items-center gap-2">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-black text-xs text-white">M</div>
-                    <span className="font-black text-white tracking-wide">MEGA888</span>
+                    <span className="font-black text-white tracking-wide">{isLoggedIn && userName ? userName : "MEGA888"}</span>
                 </Link>
                 <div className="flex items-center gap-2">
                     <Link href="/trusted" className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition">
@@ -677,8 +680,11 @@ export default function HomeClient() {
                     initialMode={authOpen}
                     deviceId={resolvedDeviceId}
                     onClose={() => setAuthOpen(null)}
-                    onLoginSuccess={(token, newStars) => {
+                    onLoginSuccess={(token, newStars, user) => {
                         localStorage.setItem(tokenKey, token);
+                        const name = user || "User";
+                        localStorage.setItem("tipsmega_username", name);
+                        setUserName(name);
                         setStars(newStars);
                         setIsLoggedIn(true);
                         setAuthOpen(null);
