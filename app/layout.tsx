@@ -1,173 +1,94 @@
 import "./globals.css";
-import { Exo_2 } from "next/font/google";
-import Script from "next/script";
-import Shell from "./ui/Shell";
-import { GlobalSettingsProvider } from "./context/GlobalSettingsContext";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "";
-const hasValidGA = /^G-[A-Z0-9]{6,}$/i.test(GA_MEASUREMENT_ID);
-const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION?.trim() || "";
+const inter = Inter({ subsets: ["latin"] });
 
-const exo2 = Exo_2({
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "800", "900"],
-  display: "swap",
-});
-
-export const metadata = {
-  metadataBase: new URL("https://tipsmega888.com"),
-  title: {
-    default: "Mega888 AI Tips RTP 2026 | AI Scanner",
-    template: "%s | Mega888 AI",
-  },
+const metadata = {
+  title: "Mega888 Malaysia | TipsMega888 - AI RTP Scanner & Trusted Platform",
   description:
-    "Gunakan Mega888 AI Tips RTP Scanner terbaru untuk analisis kemenangan anda. Sistem AI canggih untuk mengira peratusan RTP secara live. Percuma dan mudah.",
-  authors: [{ name: "TipsMega Admin" }],
-  creator: "TipsMega AI Team",
-  publisher: "TipsMega888",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+    "TipsMega888 - AI RTP Scanner percuma Mega888 Malaysia. Check real-time slot RTP %, live odds & trusted platform. Trusted by 10,000+ players. Updated daily.",
+  keywords: [
+    "mega888",
+    "mega888 Malaysia",
+    "mega888 RTP scanner",
+    "mega888 online casino",
+    "mega888 agent Malaysia",
+    "online casino Malaysia",
+    "slot Malaysia",
+    "TipsMega888",
+  ],
   openGraph: {
-    title: "Mega888 AI Tips RTP 2026",
+    title: "Mega888 Malaysia | TipsMega888 AI RTP Scanner",
     description:
-      "Analisis RTP Mega888 Live dengan AI. Dapatkan tips kemenangan tertinggi hari ini.",
+      "Check Mega888 slot RTP % percuma. AI-powered scanner updated daily. Trusted platform by 10,000+ Malaysian players.",
     url: "https://tipsmega888.com",
-    siteName: "TipsMega888 AI",
+    siteName: "TipsMega888",
     locale: "ms_MY",
     type: "website",
     images: [
       {
-        url: '/og-image.webp',
+        url: "https://tipsmega888.com/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: 'Mega888 AI RTP Scanner 2026 - 4.9 Rating',
+        alt: "TipsMega888 - Mega888 Malaysia RTP Scanner",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mega888 AI Tips RTP",
-    description: "Scan RTP Mega888 sekarang dengan AI kami.",
-    images: ['/og-image.webp'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    title: "Mega888 Malaysia | TipsMega888 AI RTP Scanner",
+    description:
+      "Check Mega888 slot RTP % percuma. AI-powered scanner updated daily.",
+    images: ["https://tipsmega888.com/og-image.jpg"],
   },
   alternates: {
-    canonical: 'https://tipsmega888.com',
+    canonical: "https://tipsmega888.com",
   },
-  ...(GSC_VERIFICATION ? { verification: { google: GSC_VERIFICATION } } : {}),
-  manifest: "/manifest.json",
-};
-
-export const viewport = {
-  themeColor: "#000000",
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "TipsMega888",
+    url: "https://tipsmega888.com",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://tipsmega888.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+    sameAs: ["https://www.facebook.com/tipsmega888"],
+  };
+
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "TipsMega888",
+    url: "https://tipsmega888.com",
+    logo: "https://tipsmega888.com/logo.png",
+    description:
+      "Trusted Mega888 Malaysia RTP Scanner platform. AI-powered analysis updated daily.",
+    sameAs: ["https://www.facebook.com/tipsmega888"],
+  };
+
   return (
-    <html lang="ms" suppressHydrationWarning className={exo2.className}>
+    <html lang="ms">
       <head>
-        {/* Google Analytics 4 (enabled only when NEXT_PUBLIC_GA_ID is valid) */}
-        {hasValidGA && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script id="ga4-init" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${GA_MEASUREMENT_ID}');
-              `}
-            </Script>
-          </>
-        )}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
       </head>
-      <body>
-        <GlobalSettingsProvider>
-          <main id="main-content">
-            <Shell>{children}</Shell>
-          </main>
-        </GlobalSettingsProvider>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "TipsMega888",
-              url: "https://tipsmega888.com",
-              logo: "https://tipsmega888.com/og-image.webp",
-              sameAs: [
-                "https://tipsmega888.com/blog",
-                "https://tipsmega888.com/trusted"
-              ],
-            }),
-          }}
-        />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "TipsMega888",
-              url: "https://tipsmega888.com",
-              inLanguage: "ms-MY",
-              potentialAction: {
-                "@type": "SearchAction",
-                target: "https://tipsmega888.com/blog?search={search_term_string}",
-                "query-input": "required name=search_term_string",
-              },
-            }),
-          }}
-        />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              name: "TipsMega888 AI Scanner",
-              applicationCategory: "UtilityApplication",
-              operatingSystem: "Web",
-              offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "MYR",
-              },
-              description:
-                "Aplikasi web untuk semakan panduan Mega888, analisis RTP, dan rujukan permainan popular di Malaysia.",
-              url: "https://tipsmega888.com",
-              inLanguage: "ms-MY",
-            }),
-          }}
-        />
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
