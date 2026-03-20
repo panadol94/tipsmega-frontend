@@ -31,8 +31,6 @@ function trimText(s: string, max = 90) {
     return t.slice(0, max - 1) + "…";
 }
 
-
-
 function maskMegaId(id: string) {
     const t = String(id || "").trim();
     if (t.length <= 6) return t;
@@ -125,12 +123,7 @@ export default function HomeClient() {
 
     const isValidMegaId = /^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim());
 
-    // Entrance animation (runs on mount and page show)
-    // Android Chrome can be finicky with first-paint + bfcache restores.
-    // Goal: never leave elements stuck at opacity=0 if animation doesn't run.
-    //
-    // IMPORTANT: useLayoutEffect so we can apply the initial hidden styles *before* the first paint.
-    // On some Android devices, useEffect can run late enough that the user never perceives the entrance.
+    // Entrance animation
     useLayoutEffect(() => {
         const prefersReducedMotion =
             typeof window !== "undefined" &&
@@ -179,10 +172,8 @@ export default function HomeClient() {
                 return;
             }
 
-            // Ensure elements are hidden before animating
             applyInitialHiddenState();
 
-            // Double rAF helps ensure styles are committed before Anime reads layout on some Android devices.
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     try {
@@ -205,24 +196,20 @@ export default function HomeClient() {
                             complete: forceFinalState,
                         });
                     } catch {
-                        // If Anime fails for any reason, never leave UI hidden.
                         forceFinalState();
                     }
                 });
             });
 
-            // Safety net: in case complete never fires (tab suspend / throttling)
             if (safetyTimeout) window.clearTimeout(safetyTimeout);
             safetyTimeout = window.setTimeout(forceFinalState, 2000);
         };
 
         const handlePageShow = (event: PageTransitionEvent) => {
-            // Run animation if page is shown from bfcache
             if (event.persisted) animateIn();
         };
 
         const handleVisibilityChange = () => {
-            // Fallback for browsers that might not fire pageshow consistently
             if (document.visibilityState === "visible") {
                 const { heroEls } = queryEls();
                 const isHidden = heroEls.some((el) => el.style.opacity === "0");
@@ -230,7 +217,6 @@ export default function HomeClient() {
             }
         };
 
-        // Run animation on initial load
         animateIn();
 
         window.addEventListener("pageshow", handlePageShow);
@@ -244,14 +230,13 @@ export default function HomeClient() {
         };
     }, []);
 
-// Animate RTP number when result changes
+    // Animate RTP number when result changes
     useEffect(() => {
         if (lastRtp === null || Number.isNaN(lastRtp)) return;
 
         const from = rtpPrevRef.current || 0;
         rtpPrevRef.current = lastRtp;
 
-        // stop previous animation
         if (rtpAnimInstRef.current) {
             rtpAnimInstRef.current.pause();
             rtpAnimInstRef.current = null;
@@ -263,7 +248,6 @@ export default function HomeClient() {
             duration: 900,
             easing: "easeOutExpo",
             update: () => {
-                // 1 decimal place
                 const v = Math.round((rtpAnimRef.current.val + Number.EPSILON) * 10) / 10;
                 setRtpDisplay(v);
             },
@@ -281,16 +265,13 @@ export default function HomeClient() {
                 }
             } catch (err) {
                 console.error("Failed to fetch games:", err);
-                // Fallback to empty array if API fails
                 setGames([]);
-            } finally {
-                // Games loaded
             }
         };
         fetchGames();
     }, []);
 
-    // Check cooldown on mount - calculate initial value
+    // Check cooldown on mount
     useEffect(() => {
         if (typeof window === "undefined") return;
 
@@ -335,7 +316,6 @@ export default function HomeClient() {
         }
         setTimeout(() => setDeviceId(did), 0);
 
-        // ✅ Capture referral code from URL
         const params = new URLSearchParams(window.location.search);
         const ref = params.get("ref");
         if (ref) {
@@ -343,26 +323,22 @@ export default function HomeClient() {
             console.log("Ref detected:", ref);
         }
 
-        // ⚡ IP Change Detection
         const checkIpChange = async () => {
             try {
                 const response = await fetch('https://api.ipify.org?format=json');
                 const data = await response.json();
                 const currentIp = data.ip;
-
                 const storedIp = localStorage.getItem('user_last_ip');
 
                 if (storedIp && storedIp !== currentIp) {
-                    // IP changed! Show warning
                     showToast(
-                        `⚠️ IP berubah! Lama: ${storedIp.substring(0, 8)}... → Baru: ${currentIp.substring(0, 8)}... Cooldown masih aktif per device.`,
+                        `⚠️ IP berubah! Cooldown masih aktif per device.`,
                         "error"
                     );
                     playSound("error");
                     triggerHaptic(300);
                 }
 
-                // Update stored IP
                 localStorage.setItem('user_last_ip', currentIp);
             } catch (error) {
                 console.error('IP check failed:', error);
@@ -374,34 +350,29 @@ export default function HomeClient() {
         apiInit(did)
             .then((d) => setStars(d?.stars ?? 0))
             .catch(() => setStars(0));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // ✨ AUTO STAR SYNC - Polls server every 5 seconds for new bonus stars
+    // AUTO STAR SYNC
     useStarSync({
         token: typeof window !== "undefined" ? localStorage.getItem(tokenKey) : null,
         deviceId: resolvedDeviceId,
         enabled: isLoggedIn,
         onStarsUpdated: (newStars, claimedAmount) => {
             setStars(newStars);
-            // Show success notification when stars are claimed
             if (claimedAmount > 0) {
-                const message = `✅ Claimed ${claimedAmount} stars! New total: ${newStars}`;
+                const message = `✅ Claimed ${claimedAmount} stars! Total: ${newStars}`;
                 setStarNotification(message);
                 showToast(message, "success");
                 playSound("success");
                 triggerHaptic(100);
-                // Auto-hide notification after 5 seconds
                 setTimeout(() => setStarNotification(null), 5000);
             }
         },
         onPendingDetected: (pending) => {
-            // Notify user about pending stars
             const message = `✨ You have ${pending} pending stars!`;
             setStarNotification(message);
             playSound("click");
             triggerHaptic(50);
-            // Auto-hide notification after 5 seconds
             setTimeout(() => setStarNotification(null), 5000);
         },
     });
@@ -409,11 +380,10 @@ export default function HomeClient() {
     async function runScan() {
         if (busy) return;
 
-        // Check cooldown
         if (cooldownRemaining > 0) {
             const minutes = Math.floor(cooldownRemaining / 60);
             const seconds = cooldownRemaining % 60;
-            showToast(`⏱️ Cooldown active: ${minutes}:${seconds.toString().padStart(2, '0')} remaining`, "error");
+            showToast(`⏱️ Cooldown: ${minutes}:${seconds.toString().padStart(2, '0')}`, "error");
             playSound("error");
             return;
         }
@@ -421,7 +391,7 @@ export default function HomeClient() {
         const id = megaId.trim();
         if (!/^(?:[12]\d{11}|09\d{10})$/.test(id)) {
             setInputError(true);
-            showToast("ID Invalid! Must start with 1, 2 or 09 (Total 12 digits)", "error");
+            showToast("ID Invalid! Must start with 1, 2 or 09 (12 digits)", "error");
             setTimeout(() => setInputError(false), 500);
             return;
         }
@@ -430,8 +400,7 @@ export default function HomeClient() {
             return;
         }
         if (stars <= 0) {
-            // Just show toast, don't force login modal
-            showToast("Stars tidak mencukupi. Sila login untuk claim bonus harian.", "error");
+            showToast("Stars tidak cukup. Login untuk bonus harian.", "error");
             playSound("error");
             triggerHaptic(200);
             return;
@@ -443,23 +412,20 @@ export default function HomeClient() {
         playSound("click");
         triggerHaptic(40);
 
-        // ⚡ Vibrate phone when scan starts
         if (navigator.vibrate) {
-            navigator.vibrate([200, 100, 200]); // Pattern: vibrate 200ms, pause 100ms, vibrate 200ms
+            navigator.vibrate([200, 100, 200]);
         }
 
-        // ⚡ Show connection warning
-        showToast("⚡ High-speed connection recommended for best results", "info");
+        showToast("⚡ High-speed connection recommended", "info");
 
         try {
-            await sleep(3200); // Extended to let hacker animation play
+            await sleep(3200);
 
             const out = await apiScan(resolvedDeviceId, id);
 
             if (out?.error) {
                 if (out.error.includes("no stars")) {
-                    // Just show toast
-                    showToast("Stars habis! Login sekarang untuk refresh limit.", "error");
+                    showToast("Stars habis! Login untuk refresh.", "error");
                 } else {
                     showToast(trimText(out.error || out.detail || "Scan failed", 140), "error");
                 }
@@ -477,25 +443,17 @@ export default function HomeClient() {
                 setLastRtp(sig);
                 setIdMasked(maskMegaId(id));
 
-                // ✅ trigger TerminalScan rerun
                 setShowHackerOverlay(false);
                 setRunKey(`${Date.now()}_${id}`);
 
-                // 🔒 Block navigation while showing results
                 setScanActive(true);
 
-                // ⏱️ Start 2-minute cooldown
                 localStorage.setItem("last_scan_time", Date.now().toString());
                 setCooldownRemaining(COOLDOWN_DURATION);
 
-                // Success effects - Delayed slightly to match terminal start if needed, 
-                // but here it indicates "Data Received".
-                // The TerminalScan will handle the visual duration.
-                // We can play a "computer processing" sound here or just wait.
                 playSound("success");
                 triggerHaptic([50, 50, 50]);
 
-                // 🎉 Confetti on high RTP (>80%)
                 if (sig > 80) {
                     setTimeout(() => {
                         confetti({
@@ -538,471 +496,158 @@ export default function HomeClient() {
         });
     }, [busy]);
 
-    // Legacy auth functions removed (moved to AuthModal)
-
     return (
         <>
-            {/* ✅ HACKER SCAN OVERLAY */}
+            {/* HACKER SCAN OVERLAY */}
             {showHackerOverlay && (
                 <HackerScanOverlay megaId={megaId} />
             )}
 
-            {/* FAQ Schema for Rich Snippets */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "FAQPage",
-                        "mainEntity": [
-                            {
-                                "@type": "Question",
-                                "name": "Apa itu Mega888 AI RTP Scanner?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "Mega888 AI RTP Scanner adalah tool percuma yang menggunakan artificial intelligence untuk menganalisis Return to Player (RTP) percentage ID Mega888 anda. Sistem AI kami scan secara real-time dan bagi prediction accuracy hingga 98% untuk kemenangan anda."
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Adakah scanner ini percuma?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "Ya, 100% percuma selamanya! Tiada bayaran tersembunyi, tiada subscription. Setiap user dapat free stars harian untuk scan ID Mega888. Login setiap hari untuk claim bonus stars dan scan tanpa had."
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Berapa accuracy AI scanner ini?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "AI scanner kami mempunyai prediction accuracy rate 98% berdasarkan 1,280+ verified scans. Sistem analyze pattern kemenangan, game history, dan real-time RTP data untuk bagi result yang sangat tepat."
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Bagaimana cara guna scanner?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "Mudah sahaja! 1) Masukkan 12-digit Mega888 ID anda (start dengan 1, 2, atau 09). 2) Klik START AI SCAN button. 3) Tunggu 3-5 saat untuk AI analysis. 4) Result akan keluar dengan RTP percentage dan recommendation game terbaik untuk dimainkan."
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Apa maksud RTP percentage?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "RTP (Return to Player) adalah percentage yang tunjuk berapa banyak game akan return kepada players dalam jangka masa panjang. Contoh: RTP 96% bermakna dari setiap RM100 yang dimainkan, average return adalah RM96. Higher RTP = better chances untuk menang!"
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Berapa kali boleh scan dalam sehari?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "Free users dapat bonus stars setiap hari selepas login. Setiap scan guna 1 star. Login daily untuk claim free stars dan scan multiple times. VVIP members enjoy unlimited scans tanpa limit!"
-                                }
-                            }
-                        ]
-                    })
-                }}
-            />
-
-            <header className="card relative overflow-hidden flex flex-col min-h-[300px] justify-between p-0 group border-amber-500/20">
-
-                {/* VIDEO BACKGROUND (Full Fill) - Auto-play Scanner Trial */}
-                <div className="absolute inset-0 z-0">
-                    <video
-                        src="/scanner-trial.mp4"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        preload="auto"
-                        className="w-full h-full object-cover opacity-60 mix-blend-screen"
-                    />
-                    {/* Gradient Overlay for Readability */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/20 to-black/90" />
-                </div>
-
-                {/* TOP CONTENT */}
-                <div className="relative z-10 p-5 pb-0">
-                    <div className="tm-hero text-[10px] text-white/60 font-mono tracking-widest uppercase mb-1">TipsMega888 AI System</div>
-                    <h1 className="tm-hero text-4xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50 drop-shadow-lg">
-                        MEGA888 AI RTP SCANNER
-                    </h1>
-                </div>
-
-                {/* BOTTOM CONTENT (Badge + Buttons) */}
-                <div className="relative z-10 p-5 mt-auto bg-gradient-to-t from-black to-transparent pt-10">
-                    <div className="tm-hero badge border border-white/10 bg-white/5 backdrop-blur-md mb-4 shadow-lg">
-                        <span style={{ fontSize: 18 }} className="animate-pulse text-yellow-400">★</span>
-                        <div>
-                            <div className="text-sm" style={{ fontWeight: 900 }}>
-                                [ACCESS] Stars: {Math.max(0, stars)}
-                            </div>
-                            <p className="text-xs text-white/55">Use carefully ! Do Not Spam Our Server</p>
-                        </div>
-                    </div>
-
+            {/* Minimal Navigation */}
+            <nav className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-black/50 backdrop-blur-md">
+                <Link href="/" className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-black text-xs text-white">M</div>
+                    <span className="font-black text-white tracking-wide">MEGA888</span>
+                </Link>
+                <div className="flex items-center gap-2">
+                    <Link href="/trusted" className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition">
+                        Trusted
+                    </Link>
+                    <Link href="/help" className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition">
+                        Help
+                    </Link>
                     {!isLoggedIn ? (
-                        <div className="tm-hero flex gap-3">
-                            <button
-                                className="btn-ghost btn-red-spin backdrop-blur-sm flex-1 h-[52px] bg-red-500/10 border-red-500/30 ripple-effect"
-                                onClick={() => setAuthOpen("register")}
-                            >
-                                <span className="btn-red-spin-content font-black tracking-widest">REGISTER</span>
-                            </button>
-                            <button
-                                className="btn-ghost btn-red-spin backdrop-blur-sm flex-1 h-[52px] bg-blue-500/10 border-blue-500/30 ripple-effect"
-                                onClick={() => setAuthOpen("login")}
-                            >
-                                <span className="btn-red-spin-content font-black tracking-widest">LOGIN</span>
-                            </button>
-                        </div>
+                        <button
+                            onClick={() => setAuthOpen("login")}
+                            className="px-4 py-1.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-xs font-bold text-white"
+                        >
+                            Login
+                        </button>
                     ) : (
-                        <div className="tm-hero flex gap-3 items-center">
-                            <button
-                                className="btn-ghost backdrop-blur-md hover:bg-white/10 h-[52px] px-4 border-white/20"
-                                onClick={() => {
-                                    if (confirm("Log out?")) {
-                                        localStorage.removeItem(tokenKey);
-                                        setIsLoggedIn(false);
-                                        window.location.reload();
-                                    }
-                                }}
-                            >
-                                LOGOUT
-                            </button>
-                        </div>
+                        <button
+                            onClick={() => {
+                                if (confirm("Logout?")) {
+                                    localStorage.removeItem(tokenKey);
+                                    setIsLoggedIn(false);
+                                    window.location.reload();
+                                }
+                            }}
+                            className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition"
+                        >
+                            Logout
+                        </button>
                     )}
                 </div>
-            </header>
+            </nav>
 
-            <InstallPrompt />
-
-            <section className="card relative overflow-hidden p-4 sm:p-5 tm-scan tm-scan-pulse border-cyan-400/20 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40">
-                <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(34,211,238,0.10)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.10)_1px,transparent_1px)] [background-size:22px_22px]" />
-                <div className="pointer-events-none absolute -right-16 top-6 h-36 w-36 rounded-full bg-cyan-400/15 blur-3xl" />
-                <div className="pointer-events-none absolute -left-10 bottom-0 h-28 w-28 rounded-full bg-emerald-400/10 blur-3xl" />
-
-                <div className="relative z-10 space-y-4 sm:space-y-5">
-                    <div className="flex flex-wrap items-center gap-2">
-                        <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-cyan-300">
-                            <span className="h-2 w-2 rounded-full bg-cyan-300 animate-pulse" />
-                            Live AI System
-                        </span>
-                        <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-white/65">
-                            {busy ? "Signal Locked" : isValidMegaId ? "Target Ready" : "Awaiting Target"}
-                        </span>
-                    </div>
-
-                    <div>
-                        <h2 className="text-[1.7rem] leading-none sm:text-3xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-white to-emerald-300 drop-shadow">
-                            SCAN RTP MEGA888 ANDA SEKARANG
-                        </h2>
-                        <p className="mt-2 text-sm leading-relaxed text-white/70 max-w-2xl">
-                            Command center AI kami analyse live pattern, detect RTP signal semasa, dan cadangkan game yang lebih sesuai untuk ID anda — cepat, clear, dan rasa premium.
+            {/* Scanner Section - CENTERED & CLEAN */}
+            <main className="flex flex-col items-center justify-start min-h-screen py-8 px-4">
+                <div className="w-full max-w-lg space-y-6">
+                    
+                    {/* Hero Text */}
+                    <div className="text-center">
+                        <h1 className="text-3xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-white to-emerald-300">
+                            MEGA888 AI RTP SCANNER
+                        </h1>
+                        <p className="mt-2 text-sm text-white/50">
+                            Masukkan ID untuk scan • {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
                         </p>
-                        <div className="mt-3 flex flex-wrap gap-2">
-                            <Link href="/mega888" className="inline-flex items-center rounded-full border border-amber-400/25 bg-amber-400/10 px-3 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-amber-200 transition hover:bg-amber-400/15">
-                                Mega888 Hub
-                            </Link>
-                            <Link href="/trusted" className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-white/75 transition hover:bg-white/10">
-                                Trusted Agent
-                            </Link>
-                            <Link href="/blog/mega888-download-android-apk-terbaru-2026" className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-white/75 transition hover:bg-white/10">
-                                APK Guide
-                            </Link>
-                            <Link href="/blog/mega888-login-link-terkini-2026" className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-black uppercase tracking-[0.18em] text-white/75 transition hover:bg-white/10">
-                                Login Guide
-                            </Link>
-                        </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                        {[
-                            ["98%", "Prediction Accuracy"],
-                            ["1,280+", "Verified Scans"],
-                            ["< 5s", "Response Time"],
-                            [stars > 0 ? `${stars}` : "0", "Stars Available"],
-                        ].map(([value, label]) => (
-                            <div key={label} className="rounded-2xl border border-white/10 bg-white/5 px-3 py-3 backdrop-blur-md shadow-[0_0_0_1px_rgba(255,255,255,0.03)]">
-                                <div className="text-lg font-black text-white">{value}</div>
-                                <div className="text-[11px] uppercase tracking-[0.18em] text-white/45">{label}</div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="grid gap-2 sm:grid-cols-3">
-                        {[
-                            ["01", "Masukkan ID 12 digit"],
-                            ["02", "Tekan Start AI Scan"],
-                            ["03", "Dapatkan result & game suggestion"],
-                        ].map(([step, label]) => (
-                            <div key={step} className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 backdrop-blur-sm">
-                                <div className="text-[10px] font-black uppercase tracking-[0.25em] text-cyan-300">Step {step}</div>
-                                <div className="mt-1 text-sm font-semibold text-white/80">{label}</div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="rounded-[28px] border border-cyan-400/20 bg-black/35 p-3 sm:p-4 shadow-[0_0_0_1px_rgba(34,211,238,0.08),0_24px_80px_rgba(6,182,212,0.12)] backdrop-blur-xl">
-                        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-                            <div>
-                                <div className="text-[11px] font-black uppercase tracking-[0.28em] text-cyan-300">Target ID</div>
-                                <div className="mt-1 text-sm text-white/65">Contoh format: <span className="font-bold text-white">123456789012</span> atau <span className="font-bold text-white">091234567890</span></div>
-                            </div>
-                            <div className="flex flex-wrap gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-white/55">
-                                <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-emerald-300">Secure</span>
-                                <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-cyan-300">Live Sync</span>
-                                <span className="rounded-full border border-violet-400/20 bg-violet-400/10 px-3 py-1 text-violet-300">AI Powered</span>
-                            </div>
+                    {/* Scanner Card */}
+                    <section className="card relative overflow-hidden p-6 tm-scan tm-scan-pulse border-cyan-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40 rounded-3xl">
+                        <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(34,211,238,0.10)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.10)_1px,transparent_1px)] [background-size:22px_22px]" />
+                        
+                        {/* Badges */}
+                        <div className="flex flex-wrap items-center gap-2 mb-4">
+                            <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-300">
+                                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 animate-pulse" />
+                                Live AI
+                            </span>
+                            <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] ${isValidMegaId ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300" : "border-white/10 bg-white/5 text-white/40"}`}>
+                                {busy ? "Scanning..." : isValidMegaId ? "Ready" : "Awaiting ID"}
+                            </span>
                         </div>
 
-                        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-2.5 sm:p-3">
-                            <div className="mb-2 flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/45">
-                                <span>Live Validation</span>
-                                <span className={`rounded-full px-2.5 py-1 text-[10px] tracking-[0.18em] ${megaId.trim().length === 0
-                                        ? "border border-white/10 bg-white/5 text-white/45"
-                                        : isValidMegaId
-                                            ? "border border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
-                                            : "border border-amber-400/20 bg-amber-400/10 text-amber-300"
-                                    }`}>
-                                    {megaId.trim().length === 0 ? "WAITING INPUT" : isValidMegaId ? "FORMAT VALID" : "CHECK FORMAT"}
-                                </span>
-                            </div>
-
+                        {/* Input */}
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3 mb-4">
                             <input
-                                className={`tm-scan-item input input-premium text-sm sm:text-base ${inputError ? 'shake-error' : ''}`}
+                                className={`tm-scan-item input input-premium text-center text-lg ${inputError ? 'shake-error' : ''}`}
                                 value={megaId}
                                 onChange={(e) => setMegaId(e.target.value)}
                                 inputMode="numeric"
-                                placeholder="Masukkan 12-digit Mega888 ID"
+                                placeholder="Masukkan 12-digit ID"
+                                maxLength={12}
                             />
-
-                            <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-white/55">
-                                <span>{megaId.trim().length === 0 ? "Masukkan ID untuk unlock live scan." : isValidMegaId ? "ID valid — sistem ready untuk scan." : "ID mesti 12 digit dan bermula dengan 1, 2, atau 09."}</span>
-                                <span>{megaId.trim().length}/12+</span>
+                            <div className="mt-2 flex justify-between text-xs text-white/40">
+                                <span>{megaId.trim().length}/12 digit</span>
+                                <span>Format: 123456789012 atau 091234567890</span>
                             </div>
                         </div>
 
-                        <div className="scanner-terminal-shell mt-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-3">
+                        {/* Terminal Animation */}
+                        <div className="scanner-terminal-shell mb-4 rounded-2xl border border-white/10 bg-white/5 px-3 py-3">
                             <div className="scanner-terminal-line" />
-                            <TypewriterText text="[AI SCANNER] SIGNAL LOCKED • READING LIVE RTP STREAM • PREPARING TARGET ANALYSIS..." speed={24} />
+                            <TypewriterText text="[AI] SIGNAL READY • ENTER ID TO BEGIN SCAN..." speed={24} />
                         </div>
 
-                        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-white/55">
-                            <span>First time guna? Cuma masukkan ID dan tekan scan.</span>
-                            <span>{stars > 0 ? "1 scan = 1 star" : "Login untuk claim bonus stars"}</span>
-                        </div>
-
+                        {/* Scan Button */}
                         <button
                             className={cooldownRemaining > 0 ? "tm-scan-item tm-scan-cta btn-cooldown" : "tm-scan-item tm-scan-cta btn-green-spin ripple-effect"}
-                            style={{ marginTop: 20, marginBottom: 8, opacity: (!isValidMegaId || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
+                            style={{ width: '100%', opacity: (!isValidMegaId || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
                             onClick={runScan}
                             disabled={busy || cooldownRemaining > 0 || !isValidMegaId}
                         >
                             <span className={cooldownRemaining > 0 ? "" : "btn-green-spin-content"}>
-                                {busy ? "LOCKING LIVE SIGNAL..." :
-                                    cooldownRemaining > 0 ? `⏱️ COOLDOWN: ${Math.floor(cooldownRemaining / 60)}:${(cooldownRemaining % 60).toString().padStart(2, '0')}` :
-                                        "START AI SCAN"}
+                                {busy ? "SCANNING..." :
+                                    cooldownRemaining > 0 ? `⏱️ ${Math.floor(cooldownRemaining / 60)}:${(cooldownRemaining % 60).toString().padStart(2, '0')}` :
+                                        "START SCAN"}
                             </span>
                         </button>
 
-                        <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] uppercase tracking-[0.18em] text-white/45">
-                            <span>Estimated result: 3–5 saat</span>
-                            <span>{busy ? "AI analysis in progress" : isValidMegaId ? "Ready to scan" : "Input required"}</span>
+                        <div className="mt-3 text-center text-xs text-white/40">
+                            {busy ? "AI analysis in progress..." : isValidMegaId ? "Ready to scan" : "Enter your Mega888 ID above"}
                         </div>
+                    </section>
 
-                        {busy && (
-                            <div className="mt-4 space-y-3">
-                                <div className="scan-live-grid grid grid-cols-1 gap-2 sm:grid-cols-3">
-                                    {[
-                                        ["Target Link", "Connected"],
-                                        ["Pattern Read", "Scanning"],
-                                        ["RTP Matrix", "Decoding"],
-                                    ].map(([label, state], index) => (
-                                        <div key={label} className="scan-live-card rounded-2xl border border-cyan-400/15 bg-cyan-400/5 px-3 py-3">
-                                            <div className="flex items-center justify-between gap-3">
-                                                <span className="text-[10px] font-black uppercase tracking-[0.22em] text-white/55">{label}</span>
-                                                <span className={`scan-live-dot ${index === 0 ? "is-ready" : ""}`} />
-                                            </div>
-                                            <div className="mt-2 text-sm font-black uppercase tracking-[0.16em] text-cyan-200">{state}</div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <div className="scan-beam-wrap rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-3">
-                                    <div className="scan-beam-line" />
-                                    <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-white/55">
-                                        <span>Live scan sequence running</span>
-                                        <span>Decrypting target signal...</span>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {!isLoggedIn && (
-                            <div className="mt-4 flex flex-wrap gap-3">
-                                <button
-                                    className="flex-1 min-w-[160px] rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm font-black uppercase tracking-[0.2em] text-red-200 transition hover:bg-red-500/15"
-                                    onClick={() => setAuthOpen("register")}
-                                >
-                                    Register Bonus Stars
-                                </button>
-                                <button
-                                    className="flex-1 min-w-[160px] rounded-2xl border border-cyan-400/20 bg-cyan-500/10 px-4 py-3 text-sm font-black uppercase tracking-[0.2em] text-cyan-200 transition hover:bg-cyan-500/15"
-                                    onClick={() => setAuthOpen("login")}
-                                >
-                                    Login Existing Account
-                                </button>
-                            </div>
-                        )}
+                    {/* Quick Links */}
+                    <div className="grid grid-cols-2 gap-3">
+                        <Link href="/trusted" className="card p-4 text-center border-amber-500/20 bg-amber-500/5 hover:bg-amber-500/10 transition">
+                            <div className="text-2xl mb-1">🔥</div>
+                            <div className="text-sm font-bold text-white">Trusted List</div>
+                            <div className="text-xs text-white/50">Verified agents</div>
+                        </Link>
+                        <Link href="/help" className="card p-4 text-center border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/10 transition">
+                            <div className="text-2xl mb-1">❓</div>
+                            <div className="text-sm font-bold text-white">Help</div>
+                            <div className="text-xs text-white/50">Panduan & FAQ</div>
+                        </Link>
                     </div>
+
+                    {/* Stars Info */}
+                    <div className="card p-4 border-white/10 bg-white/5">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <div className="text-sm font-bold text-white">⭐ {stars} Stars</div>
+                                <div className="text-xs text-white/40">{stars > 0 ? "1 scan = 1 star" : "Login untuk bonus harian"}</div>
+                            </div>
+                            <Link href="/mega888" className="px-4 py-2 bg-white/10 rounded-full text-xs font-bold text-white/70 hover:text-white transition">
+                                Mega888 Hub →
+                            </Link>
+                        </div>
+                    </div>
+
                 </div>
+            </main>
 
-                {/* Add cooldown button style */}
-                <style jsx>{`
-          .btn-cooldown {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            border: 2px solid rgba(255, 107, 53, 0.3);
-            border-radius: 14px;
-            color: white;
-            font-weight: bold;
-            font-size: 15px;
-            cursor: not-allowed;
-            transition: all 0.3s ease;
-            opacity: 0.78;
-            animation: pulse-cooldown 2s ease-in-out infinite;
-            min-height: 58px;
-          }
-
-          .tm-scan-cta {
-            min-height: 58px;
-          }
-
-          @keyframes pulse-cooldown {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(0.985); }
-          }
-
-          .scanner-terminal-shell {
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02), 0 0 30px rgba(34, 211, 238, 0.06);
-          }
-
-          .scanner-terminal-line {
-            position: absolute;
-            inset: 0 auto 0 -30%;
-            width: 30%;
-            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.18), transparent);
-            filter: blur(1px);
-            animation: scannerSweep 3.8s linear infinite;
-            pointer-events: none;
-          }
-
-          .scan-live-card {
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.05), 0 10px 30px rgba(0, 0, 0, 0.18);
-          }
-
-          .scan-live-card::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg, transparent 0%, rgba(34, 211, 238, 0.08) 45%, transparent 70%);
-            transform: translateX(-120%);
-            animation: scanCardSweep 2.4s linear infinite;
-            pointer-events: none;
-          }
-
-          .scan-live-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 999px;
-            background: #22d3ee;
-            box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.55);
-            animation: scanDotPulse 1.5s ease-in-out infinite;
-          }
-
-          .scan-live-dot.is-ready {
-            background: #34d399;
-            box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55);
-          }
-
-          .scan-beam-wrap {
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 0 20px rgba(34, 211, 238, 0.08);
-          }
-
-          .scan-beam-line {
-            position: absolute;
-            inset: 0 auto 0 -35%;
-            width: 35%;
-            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.22), rgba(167, 139, 250, 0.18), transparent);
-            filter: blur(3px);
-            animation: scanBeam 1.7s linear infinite;
-            pointer-events: none;
-          }
-
-          @keyframes scannerSweep {
-            0% { transform: translateX(0); opacity: 0; }
-            15% { opacity: 1; }
-            85% { opacity: 1; }
-            100% { transform: translateX(430%); opacity: 0; }
-          }
-
-          @keyframes scanBeam {
-            0% { transform: translateX(0); opacity: 0; }
-            12% { opacity: 1; }
-            88% { opacity: 1; }
-            100% { transform: translateX(420%); opacity: 0; }
-          }
-
-          @keyframes scanDotPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.35); }
-            50% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(34, 211, 238, 0); }
-          }
-
-          @keyframes scanCardSweep {
-            0% { transform: translateX(-120%); }
-            100% { transform: translateX(130%); }
-          }
-
-          @media (max-width: 640px) {
-            .tm-scan-cta {
-              min-height: 56px;
-            }
-
-            .btn-cooldown {
-              font-size: 14px;
-              letter-spacing: 0.08em;
-            }
-          }
-        `}</style>
-
-                {/* Progress Bar */}
-                {busy && (
-                    <div className="progress-bar">
-                        <div className="progress-bar-fill" />
-                    </div>
-                )}
-            </section>
-
-            {/* RTP RESULT (animated) */}
+            {/* RTP RESULT */}
             {lastRtp !== null && !busy ? (
-                <section className="card p-5 mt-4 border-cyan-500/20 bg-cyan-500/5">
+                <section className="card p-5 m-4 border-cyan-500/20 bg-cyan-500/5 rounded-3xl">
                     <div className="text-[10px] text-white/60 font-mono tracking-widest uppercase mb-2">
                         [RESULT] Overall RTP
                     </div>
                     <div className="flex items-end gap-2">
-                        <div className="tm-rtp-number text-5xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-cyan-200 to-cyan-500 drop-shadow">
+                        <div className="text-5xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-cyan-200 to-cyan-500">
                             {rtpDisplay.toFixed(1)}%
                         </div>
                         <div className="text-xs text-white/60 pb-2">estimated</div>
@@ -1010,7 +655,7 @@ export default function HomeClient() {
                 </section>
             ) : null}
 
-            {/* ✅ TERMINAL STREAM (pakai TerminalScan, bukan lines/setLines) */}
+            {/* TERMINAL STREAM */}
             {runKey ? (
                 <div className="relative">
                     <TerminalScan
@@ -1026,183 +671,6 @@ export default function HomeClient() {
                 </div>
             ) : null}
 
-            {/* SEO Content Expansion - Educational Information */}
-            {!runKey && (
-                <section className="mt-6 space-y-6">
-                    <article className="card p-6 border-sky-500/20 bg-sky-500/5 stagger-fade-1 card-lift">
-                        <h2 className="text-xl font-black text-sky-300 mb-4 flex items-center gap-2">
-                            <span>🧭</span>
-                            <span>Panduan Mega888 Malaysia</span>
-                        </h2>
-                        <div className="text-sm text-white/70 space-y-3 leading-relaxed">
-                            <p>
-                                Kalau anda cari maklumat umum tentang <strong className="text-white">Mega888 Malaysia</strong>, homepage ini lebih fokus pada AI Scanner.
-                                Untuk login, download APK, RTP live, trusted agent, dan withdraw, rujuk <Link href="/mega888" className="text-amber-300 font-bold hover:text-amber-200">Mega888 Hub</Link> supaya flow lebih jelas.
-                            </p>
-                            <p>
-                                Susunan paling mudah untuk pengguna baru: baca <Link href="/blog/mega888-login-link-terkini-2026" className="text-cyan-300 font-bold hover:text-cyan-200">panduan login</Link>,
-                                semak <Link href="/blog/mega888-download-android-apk-terbaru-2026" className="text-cyan-300 font-bold hover:text-cyan-200">download Android APK</Link> atau <Link href="/blog/mega888-download-ios-terbaru-2026" className="text-cyan-300 font-bold hover:text-cyan-200">panduan iPhone/iPad</Link>,
-                                kemudian tengok <Link href="/trusted" className="text-cyan-300 font-bold hover:text-cyan-200">trusted agent</Link> sebelum guna scanner sebagai rujukan tambahan.
-                            </p>
-                        </div>
-                        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                            {[
-                                ["Mega888 Hub", "/mega888"],
-                                ["Login Guide", "/blog/mega888-login-link-terkini-2026"],
-                                ["Android APK", "/blog/mega888-download-android-apk-terbaru-2026"],
-                                ["iPhone / iPad", "/blog/mega888-download-ios-terbaru-2026"],
-                                ["RTP Live", "/blog/mega888-rtp-live-malaysia-2026"],
-                                ["Trusted Agent", "/trusted"],
-                            ].map(([label, href]) => (
-                                <Link
-                                    key={href}
-                                    href={href}
-                                    className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold text-white/80 transition hover:border-sky-300/30 hover:bg-white/10 hover:text-white"
-                                >
-                                    {label} →
-                                </Link>
-                            ))}
-                        </div>
-                    </article>
-
-                    {/* What is RTP Scanner */}
-                    <article className="card p-6 border-cyan-500/20 bg-cyan-500/5 stagger-fade-1 card-lift">
-                        <h2 className="text-xl font-black text-cyan-400 mb-4 flex items-center gap-2">
-                            <span>🤖</span>
-                            <span>Apa Itu AI RTP Scanner?</span>
-                        </h2>
-                        <div className="text-sm text-white/70 space-y-3 leading-relaxed">
-                            <p>
-                                <strong className="text-white">Powered by Advanced AI:</strong> Mega888 AI RTP Scanner menggunakan artificial intelligence technology terkini untuk analyze real-time data dari ID Mega888 anda. Sistem kami process berjuta-juta data points dalam beberapa saat sahaja.
-                            </p>
-                            <p>
-                                <strong className="text-white">Rujukan pola yang lebih teratur:</strong> AI scanner membantu pengguna membaca pola semasa dengan lebih cepat supaya pemilihan game tidak dibuat secara rawak semata-mata.
-                            </p>
-                            <p>
-                                <strong className="text-white">100% Free Forever:</strong> Tiada bayaran tersembunyi, tiada subscription fees. Kami percaya semua players deserve access kepada teknologi AI tanpa kena bayar. Login daily untuk free stars!
-                            </p>
-                        </div>
-                    </article>
-
-                    {/* How AI Scanner Works */}
-                    <article className="card p-6 border-purple-500/20 bg-purple-500/5 stagger-fade-2 card-lift">
-                        <h2 className="text-xl font-black text-purple-400 mb-4 flex items-center gap-2">
-                            <span>⚙️</span>
-                            <span>Bagaimana AI Scanner Berfungsi?</span>
-                        </h2>
-                        <div className="grid md:grid-cols-2 gap-4 text-sm text-white/70">
-                            <div>
-                                <h3 className="text-white font-bold mb-2 flex items-center gap-2">
-                                    <span className="text-cyan-400">1️⃣</span> Data Collection
-                                </h3>
-                                <p className="leading-relaxed">AI collect dan analyze game history, win patterns, dan betting behavior dari ID anda untuk build comprehensive profile.</p>
-                            </div>
-                            <div>
-                                <h3 className="text-white font-bold mb-2 flex items-center gap-2">
-                                    <span className="text-cyan-400">2️⃣</span> Pattern Recognition
-                                </h3>
-                                <p className="leading-relaxed">Machine learning algorithms detect hidden patterns yang manusia tak nampak. Identify best times dan games untuk maximum winnings.</p>
-                            </div>
-                            <div>
-                                <h3 className="text-white font-bold mb-2 flex items-center gap-2">
-                                    <span className="text-cyan-400">3️⃣</span> RTP Calculation
-                                </h3>
-                                <p className="leading-relaxed">Calculate real-time Return to Player percentage dengan precision tinggi. Compare dengan historical data untuk accuracy maksimum.</p>
-                            </div>
-                            <div>
-                                <h3 className="text-white font-bold mb-2 flex items-center gap-2">
-                                    <span className="text-cyan-400">4️⃣</span> Smart Recommendations
-                                </h3>
-                                <p className="leading-relaxed">AI suggest game mana yang paling hot untuk ID anda based on current RTP status. Play smart, win more!</p>
-                            </div>
-                        </div>
-                    </article>
-
-                    {/* Why Use AI Scanner */}
-                    <article className="card p-6 border-green-500/20 bg-green-500/5 stagger-fade-3 card-lift">
-                        <h2 className="text-xl font-black text-green-400 mb-4 flex items-center gap-2">
-                            <span>✅</span>
-                            <span>Kenapa Guna AI Scanner?</span>
-                        </h2>
-                        <ol className="text-sm text-white/70 space-y-2 leading-relaxed list-decimal list-inside">
-                            <li><strong className="text-white">Lebih tersusun:</strong> Tak perlu pilih game secara terlalu rawak. Scanner bantu beri rujukan awal sebelum anda mula.</li>
-                            <li><strong className="text-white">Berpandukan data:</strong> Anda boleh bandingkan pola semasa dengan lebih cepat berbanding hanya bergantung pada feeling.</li>
-                            <li><strong className="text-white">Mudah untuk beginner:</strong> Pengguna baru boleh guna scanner sebagai panduan asas sebelum belajar lebih mendalam tentang RTP dan volatiliti.</li>
-                            <li><strong className="text-white">Realtime reference:</strong> Status RTP boleh berubah ikut masa, jadi semakan semasa lebih berguna berbanding andaian lama.</li>
-                            <li><strong className="text-white">Sambung ke panduan lain:</strong> Selepas scan, anda masih boleh rujuk hub, blog, dan senarai trusted agent untuk buat keputusan lebih lengkap.</li>
-                        </ol>
-                    </article>
-                </section>
-            )}
-
-            {/* Internal Linking - Trusted Companies CTA */}
-            {!runKey && (
-                <section className="card mt-6 p-6 border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-purple-500/5 text-center stagger-fade-4 card-lift">
-                    <div className="text-xs text-amber-400/80 font-black tracking-widest uppercase mb-2">🔒 Safe Gaming</div>
-                    <h2 className="text-xl font-black text-white mb-3">
-                        Browse <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500">Trusted Companies</span>
-                    </h2>
-                    <p className="text-sm text-white/60 mb-4 max-w-md mx-auto">
-                        Senarai verified agents yang dijamin scam-free, fast withdrawal, dan RTP fair. Semua platform monitored 24/7!
-                    </p>
-                    {/* 🔥 FIRE BUTTON - VIEW TRUSTED LIST */}
-                    <Link
-                        href="/trusted"
-                        className="group relative block overflow-hidden rounded-2xl shadow-2xl transition-all hover:scale-105 active:scale-95"
-                        onClick={() => {
-                            playSound("click");
-                            triggerHaptic(50);
-                        }}
-                        style={{
-                            background: 'linear-gradient(135deg, #ff4500 0%, #ff8c00 25%, #ffa500 50%, #ff8c00 75%, #ff4500 100%)',
-                            backgroundSize: '200% 200%',
-                            animation: 'fireGradient 3s ease infinite',
-                        }}
-                    >
-                        {/* Animated glow effect */}
-                        <div className="absolute inset-0 opacity-50" style={{
-                            background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, transparent 70%)',
-                            animation: 'fireGlow 2s ease-in-out infinite',
-                        }} />
-
-                        {/* Shimmer effect */}
-                        <div className="absolute inset-0 opacity-30" style={{
-                            background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%)',
-                            backgroundSize: '200% 100%',
-                            animation: 'shimmer 3s linear infinite',
-                        }} />
-
-                        <div className="relative flex items-center justify-center gap-2 py-5 px-6">
-                            <span className="text-xl animate-pulse">🔥</span>
-                            <span className="text-white font-black tracking-wider drop-shadow-lg" style={{
-                                fontSize: 16,
-                                textShadow: '0 0 10px rgba(0,0,0,0.5), 0 0 20px rgba(255,100,0,0.8)'
-                            }}>
-                                VIEW TRUSTED LIST →
-                            </span>
-                            <span className="text-xl animate-pulse" style={{ animationDelay: '0.5s' }}>🔥</span>
-                        </div>
-
-                        <style jsx>{`
-            @keyframes fireGradient {
-              0%, 100% { background-position: 0% 50%; }
-              50% { background-position: 100% 50%; }
-            }
-
-            @keyframes fireGlow {
-              0%, 100% { transform: scale(1); opacity: 0.5; }
-              50% { transform: scale(1.2); opacity: 0.8; }
-            }
-
-            @keyframes shimmer {
-              0% { background-position: -200% 0; }
-              100% { background-position: 200% 0; }
-            }
-          `}</style>
-                    </Link>
-                </section>
-            )}
-
             {/* AUTH MODAL */}
             {authOpen && (
                 <AuthModal
@@ -1214,7 +682,7 @@ export default function HomeClient() {
                         setStars(newStars);
                         setIsLoggedIn(true);
                         setAuthOpen(null);
-                        showToast("SUCCESS: You are logged in & stars updated!", "success");
+                        showToast("SUCCESS: Logged in!", "success");
                     }}
                 />
             )}
@@ -1227,43 +695,70 @@ export default function HomeClient() {
                 />
             )}
 
-            {/* Star Notification - Premium Design */}
+            {/* Star Notification */}
             {starNotification && (
                 <div
                     className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] animate-in slide-in-from-top-4 fade-in duration-500"
                     style={{ minWidth: 300, maxWidth: '90%' }}
                 >
-                    {/* Premium Card with Glassmorphism */}
-                    <div className="relative overflow-hidden rounded-2xl border border-yellow-500/30 bg-gradient-to-br from-yellow-500/20 via-amber-500/20 to-orange-500/20 backdrop-blur-xl shadow-[0_0_40px_rgba(234,179,8,0.4)]">
-
-                        {/* Background noise texture */}
-                        <div className="absolute inset-0 bg-[url('/img/noise.png')] opacity-5 pointer-events-none" />
-
-                        {/* Animated gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
-
-                        {/* Content */}
-                        <div className="relative flex items-center gap-4 px-5 py-4">
-                            {/* Star icon with background */}
-                            <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-yellow-500/20 border border-yellow-500/30 flex items-center justify-center backdrop-blur-sm animate-pulse">
-                                <span className="text-2xl">⭐</span>
+                    <div className="relative overflow-hidden rounded-2xl border border-yellow-500/30 bg-gradient-to-br from-yellow-500/20 via-amber-500/20 to-orange-500/20 backdrop-blur-xl shadow-[0_0_40px_rgba(234,179,8,0.4)] p-4">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl bg-yellow-500/20 border border-yellow-500/30 flex items-center justify-center">
+                                <span className="text-xl">⭐</span>
                             </div>
-
-                            {/* Message */}
-                            <div className="flex-1 min-w-0">
-                                <p className="font-black text-white text-sm tracking-wide leading-relaxed">
-                                    {starNotification}
-                                </p>
-                            </div>
+                            <p className="font-bold text-white text-sm">{starNotification}</p>
                         </div>
-
-                        {/* Bottom shine effect */}
-                        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/40 to-transparent" />
                     </div>
                 </div>
             )}
 
+            <InstallPrompt />
 
+            <style jsx>{`
+                .btn-cooldown {
+                    width: 100%;
+                    padding: 16px;
+                    background: linear-gradient(135deg, #ff6b35, #f7931e);
+                    border: 2px solid rgba(255, 107, 53, 0.3);
+                    border-radius: 16px;
+                    color: white;
+                    font-weight: bold;
+                    font-size: 15px;
+                    cursor: not-allowed;
+                    animation: pulse-cooldown 2s ease-in-out infinite;
+                }
+
+                .tm-scan-cta {
+                    min-height: 56px;
+                }
+
+                @keyframes pulse-cooldown {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(0.985); }
+                }
+
+                .scanner-terminal-shell {
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .scanner-terminal-line {
+                    position: absolute;
+                    inset: 0 auto 0 -30%;
+                    width: 30%;
+                    background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.18), transparent);
+                    filter: blur(1px);
+                    animation: scannerSweep 3.8s linear infinite;
+                    pointer-events: none;
+                }
+
+                @keyframes scannerSweep {
+                    0% { transform: translateX(0); opacity: 0; }
+                    15% { opacity: 1; }
+                    85% { opacity: 1; }
+                    100% { transform: translateX(430%); opacity: 0; }
+                }
+            `}</style>
         </>
     );
 }
