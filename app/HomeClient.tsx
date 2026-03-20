@@ -82,6 +82,7 @@ export default function HomeClient() {
 
     // ✅ TerminalScan (animated)
     const [runKey, setRunKey] = useState<string>("");
+    const [showResult, setShowResult] = useState(false);
     const [idMasked, setIdMasked] = useState<string>("");
     const [lastRtp, setLastRtp] = useState<number | null>(null);
 
@@ -448,6 +449,7 @@ export default function HomeClient() {
 
                 setShowHackerOverlay(false);
                 setRunKey(`${Date.now()}_${id}`);
+                        setShowResult(true);
 
                 setScanActive(true);
 
@@ -658,21 +660,34 @@ export default function HomeClient() {
                 </section>
             ) : null}
 
-            {/* TERMINAL STREAM */}
-            {runKey ? (
-                <div className="relative">
-                    <TerminalScan
-                        key={runKey}
-                        games={games.map(g => g.name)}
-                        overallRtp={lastRtp ?? 0}
-                        idMasked={idMasked || "---"}
-                        onComplete={() => {
-                            setBusy(false);
-                            setScanActive(false);
-                        }}
-                    />
+            {/* SCAN RESULT MODAL */}
+            {showResult && runKey && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setShowResult(false)} />
+                    <div className="relative w-full max-w-md bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl overflow-hidden">
+                        <div className="flex items-center justify-between p-4 border-b border-white/10">
+                            <h3 className="font-bold text-cyan-300">✅ SCAN COMPLETE</h3>
+                            <button onClick={() => setShowResult(false)} className="text-white/60 hover:text-white text-2xl">&times;</button>
+                        </div>
+                        <div className="p-4">
+                            <TerminalScan
+                                key={runKey}
+                                games={games.map(g => g.name)}
+                                overallRtp={lastRtp ?? 0}
+                                idMasked={idMasked || "---"}
+                                onComplete={() => {
+                                    setBusy(false);
+                                    setScanActive(false);
+                                }}
+                            />
+                        </div>
+                        <div className="flex gap-3 p-4 border-t border-white/10">
+                            <button onClick={() => { const text = `🎰 MEGA888 RTP: ${lastRtp}% | ID: ${idMasked} | TipsMega888.com`; navigator.share ? navigator.share({title:'RTP Result',text}) : (navigator.clipboard.writeText(text),alert('Copied!')); }} className="flex-1 py-3 bg-cyan-500/20 border border-cyan-500/30 rounded-xl text-cyan-300 font-bold text-sm">📤 SHARE</button>
+                            <button onClick={() => setShowResult(false)} className="flex-1 py-3 bg-white/10 border border-white/20 rounded-xl text-white font-bold text-sm">CLOSE</button>
+                        </div>
+                    </div>
                 </div>
-            ) : null}
+            )}
 
             {/* AUTH MODAL */}
             {authOpen && (
