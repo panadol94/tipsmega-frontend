@@ -10,7 +10,7 @@ interface AuthModalProps {
     initialMode?: AuthMode;
     deviceId: string;
     onClose: () => void;
-    onLoginSuccess: (token: string, stars: number) => void;
+    onLoginSuccess: (token: string, stars: number, username?: string) => void;
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
