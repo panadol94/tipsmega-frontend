@@ -213,7 +213,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                     localStorage.setItem("tipsmega_my_ref_code", json.referralCode);
                 }
 
-                onLoginSuccess(token, stars);
+                onLoginSuccess(token, stars, json.username || username || "User");
             } else {
                 showErr("❌ Token missing in response");
             }
