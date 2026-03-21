@@ -1,6 +1,6 @@
 "use client";
 
-import GlobalSettingsProvider from "./context/GlobalSettingsContext";
+import { GlobalSettingsProvider } from "./context/GlobalSettingsContext";
 
 export default function ClientLayout({
   children,
