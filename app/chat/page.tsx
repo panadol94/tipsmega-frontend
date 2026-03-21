@@ -1,6 +1,7 @@
 
 
 import ChatClient from "./ChatClient";
+import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
     title: "Live Chat Community | Mega888 AI Tips",
@@ -37,5 +38,9 @@ export const metadata = {
 };
 
 export default function Page() {
-    return <ChatClient />;
+    return (
+        <SharedPageNav>
+            <ChatClient />
+        </SharedPageNav>
+    );
 }
