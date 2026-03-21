@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 import Link from "next/link";
+import SharedPageNav from "../ui/SharedPageNav";
 
 type Company = {
     id?: string;
@@ -72,6 +73,7 @@ export default function TrustedClient() {
     };
 
     return (
+        <SharedPageNav>
         <div className="min-h-screen bg-[#07090f] text-white app-bg relative overflow-x-hidden">
             {/* JSON-LD Structured Data for SEO */}
             <script
@@ -494,5 +496,6 @@ export default function TrustedClient() {
 
             </div>
         </div>
+        </SharedPageNav>
     );
 }

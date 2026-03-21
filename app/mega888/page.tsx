@@ -1,5 +1,6 @@
 
 import Link from "next/link";
+import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
   title: "Mega888 Malaysia 2026: Login, Download APK, RTP Live, Trusted Agent & Withdraw",
@@ -102,7 +103,7 @@ const FAQS = [
 
 export default function Mega888HubPage() {
   return (
-    <>
+    <SharedPageNav>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -359,6 +360,6 @@ export default function Mega888HubPage() {
           </p>
         </section>
       </div>
-    </>
+    </SharedPageNav>
   );
 }
