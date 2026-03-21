@@ -509,30 +509,71 @@ export default function HomeClient() {
                 <HackerScanOverlay megaId={megaId} />
             )}
 
-            {/* Minimal Navigation */}
-            <nav className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-black/50 backdrop-blur-md">
-                <Link href="/" className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-black text-xs text-white">M</div>
-                    <span className="font-black text-white tracking-wide">{isLoggedIn && userName ? userName : "MEGA888"}</span>
+            {/* Premium Navigation — glassmorphism */}
+            <nav
+                className="flex items-center justify-between px-4 py-3 sticky top-0 z-50"
+                style={{
+                    background: "rgba(7,9,15,0.85)",
+                    backdropFilter: "blur(16px)",
+                    WebkitBackdropFilter: "blur(16px)",
+                    borderBottom: "1px solid rgba(255,255,255,0.07)",
+                    boxShadow: "0 1px 24px rgba(0,0,0,0.5)",
+                }}
+            >
+                <Link href="/" className="flex items-center gap-2.5 group">
+                    {/* Premium logo badge */}
+                    <div
+                        className="w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm text-white shadow-lg transition-transform group-hover:scale-105"
+                        style={{
+                            background: "linear-gradient(135deg, #4f8EFF 0%, #7B5CFF 50%, #C44EFF 100%)",
+                            boxShadow: "0 4px 16px rgba(79,142,255,0.4)",
+                        }}
+                    >
+                        M
+                    </div>
+                    <div className="flex flex-col leading-none">
+                        <span className="font-black text-white text-[13px] tracking-wide">
+                            {isLoggedIn && userName ? userName : "MEGA888"}
+                        </span>
+                        {isLoggedIn && userName && (
+                            <span className="text-[9px] text-amber-400 font-semibold tracking-wider uppercase mt-0.5">
+                                Premium
+                            </span>
+                        )}
+                    </div>
                 </Link>
-                <div className="flex items-center gap-2">
-                    <Link href="/trusted" className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition hidden sm:inline-flex">
+
+                {/* Right nav cluster */}
+                <div className="flex items-center gap-1.5">
+                    <Link
+                        href="/trusted"
+                        className="px-3 py-1.5 text-[11px] font-bold text-white/50 hover:text-white transition-colors hidden sm:inline-flex"
+                    >
                         Trusted
                     </Link>
-                    <Link href="/help" className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition hidden sm:inline-flex">
+                    <Link
+                        href="/help"
+                        className="px-3 py-1.5 text-[11px] font-bold text-white/50 hover:text-white transition-colors hidden sm:inline-flex"
+                    >
                         Help
                     </Link>
+
                     {!isLoggedIn ? (
                         <>
                             <button
                                 onClick={() => setAuthOpen("register")}
-                                className="px-3 py-1.5 border border-white/15 bg-white/5 rounded-full text-xs font-bold text-white/80 hover:text-white transition"
+                                className="px-3 py-1.5 rounded-full text-[11px] font-bold text-white/70 border border-white/15 hover:border-white/30 hover:text-white transition-all"
+                                style={{ background: "rgba(255,255,255,0.04)" }}
                             >
                                 Daftar
                             </button>
                             <button
                                 onClick={() => setAuthOpen("login")}
-                                className="px-4 py-1.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-xs font-bold text-white"
+                                className="px-4 py-1.5 rounded-full text-[11px] font-bold text-white transition-all hover:scale-105 hover:shadow-md"
+                                style={{
+                                    background: "linear-gradient(135deg, #4f8EFF, #7B5CFF)",
+                                    boxShadow: "0 4px 14px rgba(79,142,255,0.35)",
+                                }}
                             >
                                 Login
                             </button>
@@ -546,7 +587,7 @@ export default function HomeClient() {
                                     window.location.reload();
                                 }
                             }}
-                            className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition"
+                            className="px-3 py-1.5 text-[11px] font-bold text-white/70 hover:text-white transition-colors"
                         >
                             Logout
                         </button>
@@ -558,9 +599,18 @@ export default function HomeClient() {
             <main className="flex flex-col items-center justify-start min-h-screen py-8 px-4 pb-32">
                 <div className="w-full max-w-lg space-y-6">
                     
-                    {/* Hero Text */}
+                    {/* Hero Text — premium headline */}
                     <div className="text-center">
-                        <h1 className="text-3xl font-black italic text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-white to-emerald-300">
+                        <h1
+                            className="text-3xl font-black italic"
+                            style={{
+                                background: "linear-gradient(135deg, #7bd7ff 0%, #ffffff 40%, #a5f3fc 60%, #34d399 100%)",
+                                WebkitBackgroundClip: "text",
+                                WebkitTextFillColor: "transparent",
+                                backgroundClip: "text",
+                                filter: "drop-shadow(0 2px 16px rgba(123,215,255,0.35))",
+                            }}
+                        >
                             MEGA888 AI RTP SCANNER
                         </h1>
                         <p className="mt-2 text-sm text-white/50">

@@ -19,6 +19,16 @@
     --blue1: #4ea6ff;
 
     --r: 22px;
+
+    /* ===== UNIFIED CARD SYSTEM (Phase 4) ===== */
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-border-hover: rgba(255, 255, 255, 0.16);
+    --card-bg-top: rgba(255, 255, 255, 0.05);
+    --card-bg-bottom: rgba(255, 255, 255, 0.02);
+    --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    --card-shadow-hover: 0 16px 60px rgba(0, 0, 0, 0.5);
+    --card-radius: 18px;
+    --card-padding: 1.1rem;
 }
 
 .text-glow-emerald {
@@ -207,10 +217,22 @@ body {
 
 /* ===== cards, text ===== */
 .card {
-    border-radius: var(--r);
-    border: 1px solid rgba(255, 255, 255, .10);
-    background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
-    box-shadow: var(--shadow);
+    border-radius: var(--card-radius);
+    border: 1px solid var(--card-border);
+    background: linear-gradient(180deg, var(--card-bg-top), var(--card-bg-bottom));
+    box-shadow: var(--card-shadow);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+    border-color: var(--card-border-hover);
+    box-shadow: var(--card-shadow-hover);
+}
+
+@media (hover:hover) {
+    .card:hover {
+        transform: translateY(-2px);
+    }
 }
 
 .h1 {
@@ -868,13 +890,13 @@ a {
     color: inherit;
 }
 
-/* ===== AUTH MODAL (fix background + anim) ===== */
+/* ===== AUTH MODAL (Phase 4 — premium polish) ===== */
 .modal-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, .72);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, .78);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -886,10 +908,10 @@ a {
     width: 100%;
     max-width: 520px;
     border-radius: 22px;
-    border: 1px solid rgba(255, 255, 255, .12);
-    background: linear-gradient(180deg, rgba(15, 22, 42, .92), rgba(8, 10, 18, .92));
-    box-shadow: 0 30px 90px rgba(0, 0, 0, .60);
-    animation: pop .16s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: linear-gradient(180deg, rgba(15, 22, 42, 0.96), rgba(8, 10, 18, 0.98));
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255,255,255,0.03) inset;
+    animation: pop .18s ease-out;
 }
 
 @keyframes pop {
