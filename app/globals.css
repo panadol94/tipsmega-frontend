@@ -2161,3 +2161,48 @@ a {
         transform: translate(-50%, 0);
     }
 }
+
+/* ===== SHARED PAGE HEADER (used across /mega888, /share, /help) ===== */
+.page-header {
+    margin-bottom: 1.5rem;
+}
+
+.page-header-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+.page-header h1 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+.page-header p {
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.8;
+    font-size: 0.95rem;
+    max-width: 640px;
+}
+
+/* ===== SHARED SECTION CARD (consistent card style) ===== */
+.section-card {
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 1.1rem;
+}
+
+.section-card + .section-card {
+    margin-top: 1rem;
+}

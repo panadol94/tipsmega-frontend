@@ -70,12 +70,20 @@ export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-[100] flex justify-center pb-4 px-4 pointer-events-none">
-      {/* Gempak Container: Floating glassmorphism navigation */}
-      <div className="pointer-events-auto bg-[#0f162a]/90 backdrop-blur-2xl border border-white/15 rounded-2xl flex items-center p-1.5 shadow-[0_10px_40px_rgba(0,0,0,0.6)] relative overflow-hidden ring-1 ring-white/5 mx-auto max-w-md w-full justify-between glass-premium">
-
-
-        {/* Background Glow Effect */}
-        <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/10 to-transparent pointer-events-none" />
+      {/* Premium floating glassmorphism navigation */}
+      <div
+        className="pointer-events-auto flex items-center p-1.5 mx-auto max-w-md w-full justify-between"
+        style={{
+            background: "rgba(11,16,32,0.88)",
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
+            borderRadius: "18px",
+            border: "1px solid rgba(255,255,255,0.10)",
+            boxShadow: "0 12px 48px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.04) inset",
+        }}
+      >
+        {/* Ambient top-edge glow */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent pointer-events-none" />
 
 
         {items.map((it) => {

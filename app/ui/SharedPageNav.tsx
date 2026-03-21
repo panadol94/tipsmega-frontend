@@ -20,30 +20,81 @@ export default function SharedPageNav({ children }: { children: React.ReactNode 
 
     return (
         <>
-            {/* Top Navigation - consistent with homepage */}
-            <nav className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-black/50 backdrop-blur-md sticky top-0 z-50">
-                <Link href="/" className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center font-black text-xs text-white">M</div>
-                    <span className="font-black text-white tracking-wide">{isLoggedIn && userName ? userName : "MEGA888"}</span>
+            {/* Top Navigation — premium glassmorphism bar */}
+            <nav
+                className="flex items-center justify-between px-4 py-3 sticky top-0 z-50"
+                style={{
+                    background: "rgba(7,9,15,0.82)",
+                    backdropFilter: "blur(16px)",
+                    WebkitBackdropFilter: "blur(16px)",
+                    borderBottom: "1px solid rgba(255,255,255,0.07)",
+                    boxShadow: "0 1px 24px rgba(0,0,0,0.5)",
+                }}
+            >
+                {/* Brand */}
+                <Link href="/" className="flex items-center gap-2.5 group">
+                    {/* Logo badge — larger, richer gradient */}
+                    <div
+                        className="w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm text-white shadow-lg transition-transform group-hover:scale-105"
+                        style={{
+                            background: "linear-gradient(135deg, #4f8EFF 0%, #7B5CFF 50%, #C44EFF 100%)",
+                            boxShadow: "0 4px 16px rgba(79,142,255,0.4)",
+                        }}
+                    >
+                        M
+                    </div>
+                    <div className="flex flex-col leading-none">
+                        <span className="font-black text-white text-[13px] tracking-wide">
+                            {isLoggedIn && userName ? userName : "MEGA888"}
+                        </span>
+                        {isLoggedIn && userName && (
+                            <span className="text-[9px] text-amber-400 font-semibold tracking-wider uppercase mt-0.5">
+                                Premium
+                            </span>
+                        )}
+                    </div>
                 </Link>
-                <div className="flex items-center gap-2">
-                    <Link href="/trusted" className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition hidden sm:inline-flex">
+
+                {/* Right nav cluster */}
+                <div className="flex items-center gap-1.5">
+                    <Link
+                        href="/trusted"
+                        className="px-3 py-1.5 text-[11px] font-bold text-white/50 hover:text-white transition-colors hidden sm:inline-flex"
+                    >
                         Trusted
                     </Link>
-                    <Link href="/help" className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition hidden sm:inline-flex">
+                    <Link
+                        href="/help"
+                        className="px-3 py-1.5 text-[11px] font-bold text-white/50 hover:text-white transition-colors hidden sm:inline-flex"
+                    >
                         Help
                     </Link>
+
                     {!isLoggedIn ? (
                         <>
-                            <Link href="/?auth=register" className="px-3 py-1.5 border border-white/15 bg-white/5 rounded-full text-xs font-bold text-white/80 hover:text-white transition">
+                            <Link
+                                href="/?auth=register"
+                                className="px-3 py-1.5 rounded-full text-[11px] font-bold text-white/70 border border-white/15 hover:border-white/30 hover:text-white transition-all"
+                                style={{ background: "rgba(255,255,255,0.04)" }}
+                            >
                                 Daftar
                             </Link>
-                            <Link href="/?auth=login" className="px-4 py-1.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-xs font-bold text-white">
+                            <Link
+                                href="/?auth=login"
+                                className="px-4 py-1.5 rounded-full text-[11px] font-bold text-white transition-all hover:scale-105 hover:shadow-md"
+                                style={{
+                                    background: "linear-gradient(135deg, #4f8EFF, #7B5CFF)",
+                                    boxShadow: "0 4px 14px rgba(79,142,255,0.35)",
+                                }}
+                            >
                                 Login
                             </Link>
                         </>
                     ) : (
-                        <Link href="/profile" className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition">
+                        <Link
+                            href="/profile"
+                            className="px-3 py-1.5 text-[11px] font-bold text-white/70 hover:text-white transition-colors"
+                        >
                             Profile
                         </Link>
                     )}
