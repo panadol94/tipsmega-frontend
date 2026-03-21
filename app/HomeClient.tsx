@@ -10,6 +10,7 @@ import TerminalScan from "./ui/TerminalScan";
 import HackerScanOverlay from "./ui/HackerScanOverlay";
 import AuthModal from "./ui/AuthModal";
 import InstallPrompt from "./ui/InstallPrompt";
+import BottomNav from "./ui/BottomNav";
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
 import { useStarSync } from "./lib/useStarSync";
 import confetti from "canvas-confetti";
@@ -515,19 +516,27 @@ export default function HomeClient() {
                     <span className="font-black text-white tracking-wide">{isLoggedIn && userName ? userName : "MEGA888"}</span>
                 </Link>
                 <div className="flex items-center gap-2">
-                    <Link href="/trusted" className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition">
+                    <Link href="/trusted" className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition hidden sm:inline-flex">
                         Trusted
                     </Link>
-                    <Link href="/help" className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition">
+                    <Link href="/help" className="px-3 py-1.5 text-xs font-bold text-white/70 hover:text-white transition hidden sm:inline-flex">
                         Help
                     </Link>
                     {!isLoggedIn ? (
-                        <button
-                            onClick={() => setAuthOpen("login")}
-                            className="px-4 py-1.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-xs font-bold text-white"
-                        >
-                            Login
-                        </button>
+                        <>
+                            <button
+                                onClick={() => setAuthOpen("register")}
+                                className="px-3 py-1.5 border border-white/15 bg-white/5 rounded-full text-xs font-bold text-white/80 hover:text-white transition"
+                            >
+                                Daftar
+                            </button>
+                            <button
+                                onClick={() => setAuthOpen("login")}
+                                className="px-4 py-1.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-xs font-bold text-white"
+                            >
+                                Login
+                            </button>
+                        </>
                     ) : (
                         <button
                             onClick={() => {
@@ -546,7 +555,7 @@ export default function HomeClient() {
             </nav>
 
             {/* Scanner Section - CENTERED & CLEAN */}
-            <main className="flex flex-col items-center justify-start min-h-screen py-8 px-4">
+            <main className="flex flex-col items-center justify-start min-h-screen py-8 px-4 pb-32">
                 <div className="w-full max-w-lg space-y-6">
                     
                     {/* Hero Text */}
@@ -736,6 +745,7 @@ export default function HomeClient() {
                 </div>
             )}
 
+            <BottomNav isBusy={busy} />
             <InstallPrompt />
 
             <style jsx>{`
