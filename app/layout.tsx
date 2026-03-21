@@ -67,6 +67,7 @@ export default function RootLayout({
   return (
     <html lang="ms">
       <head>
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
