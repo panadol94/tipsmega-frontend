@@ -201,22 +201,6 @@ export default function TrustedClient() {
 
             <div className="app-shell mx-auto px-4 py-8 pb-32 relative z-10">
 
-                {/* Breadcrumb Navigation */}
-                <nav className="mb-4" aria-label="Breadcrumb">
-                    <ol className="flex items-center gap-2 text-xs text-white/40">
-                        <li>
-                            <Link href="/" className="hover:text-cyan-400 transition-colors flex items-center gap-1">
-                                <span>🏠</span>
-                                <span>Home</span>
-                            </Link>
-                        </li>
-                        <li className="text-white/20">/</li>
-                        <li className="text-amber-400 font-bold" aria-current="page">
-                            Trusted Companies
-                        </li>
-                    </ol>
-                </nav>
-
                 {/* HEADER SECTION */}
                 <header className="mb-8 relative">
                     <div className="flex items-center justify-between mb-4">

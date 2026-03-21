@@ -149,12 +149,6 @@ export default function Mega888HubPage() {
       />
 
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "2rem 1rem 4.5rem" }}>
-        <nav style={{ fontSize: "0.85rem", color: "#64748b", marginBottom: "1rem" }}>
-          <Link href="/" style={{ color: "#64748b" }}>Home</Link>
-          {" › "}
-          <span style={{ color: "#f59e0b" }}>Mega888 Hub</span>
-        </nav>
-
         <header style={{ marginBottom: "1.5rem" }}>
           <div
             style={{
