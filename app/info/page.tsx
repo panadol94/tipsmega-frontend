@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 
 import InfoClient from "./InfoClient";
 
