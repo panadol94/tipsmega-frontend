@@ -616,6 +616,7 @@ export default function HomeClient() {
                     </section>
 
                     {/* Quick Links */}
+                    <h2 className="sr-only">Pautan Pantas</h2>
                     <div className="grid grid-cols-2 gap-3">
                         <Link href="/trusted" className="card p-4 text-center border-amber-500/20 bg-amber-500/5 hover:bg-amber-500/10 transition">
                             <div className="text-2xl mb-1">🔥</div>
@@ -630,6 +631,7 @@ export default function HomeClient() {
                     </div>
 
                     {/* Stars Info */}
+                    <h2 className="sr-only">Maklumat Stars</h2>
                     <div className="card p-4 border-white/10 bg-white/5">
                         <div className="flex items-center justify-between">
                             <div>
@@ -646,6 +648,7 @@ export default function HomeClient() {
             </main>
 
             {/* RTP RESULT */}
+            <h2 className="sr-only">Keputusan RTP</h2>
             {lastRtp !== null && !busy ? (
                 <section className="card p-5 m-4 border-cyan-500/20 bg-cyan-500/5 rounded-3xl">
                     <div className="text-[10px] text-white/60 font-mono tracking-widest uppercase mb-2">
