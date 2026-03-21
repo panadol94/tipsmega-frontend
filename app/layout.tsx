@@ -6,6 +6,7 @@ import ClientLayout from "./ClientLayout";
 const inter = Inter({ subsets: ["latin"] });
 
 const metadata: Metadata = {
+  metadataBase: "https://tipsmega888.com",
   title: "Mega888 Malaysia | TipsMega888 - AI RTP Scanner & Trusted Platform",
   description:
     "TipsMega888 - AI RTP Scanner percuma Mega888 Malaysia. Check real-time slot RTP %, live odds & trusted platform. Trusted by 10,000+ players. Updated daily.",
