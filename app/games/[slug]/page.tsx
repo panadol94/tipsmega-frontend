@@ -208,10 +208,7 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
           <p style={{ color: "#94a3b8", fontSize: "0.9rem", marginBottom: 12 }}>
             Check RTP live {game.name} dengan AI Scanner — percuma!
           </p>
-          <Link href="/" style={{
-            display: "inline-block", padding: "10px 24px", borderRadius: 8,
-            background: "#f59e0b", color: "#000", fontWeight: 700, textDecoration: "none",
-          }}>
+          <Link href="/" className="btn-primary btn-primary-amber">
             Buka AI Scanner →
           </Link>
         </div>

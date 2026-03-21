@@ -228,15 +228,7 @@ export default function Mega888HubPage() {
           </p>
           <Link
             href="/"
-            style={{
-              display: "inline-block",
-              padding: "9px 14px",
-              borderRadius: 10,
-              textDecoration: "none",
-              background: "#10b981",
-              color: "#052e16",
-              fontWeight: 800,
-            }}
+            className="btn-primary btn-primary-green"
           >
             Buka AI Scanner →
           </Link>
@@ -249,19 +241,11 @@ export default function Mega888HubPage() {
             Setiap artikel di bawah fokus pada intent yang berbeza — contohnya login, APK, RTP, trusted agent, dan withdraw.
           </p>
           <div style={{ display: "grid", gap: "0.8rem" }}>
-            {HUB_LINKS.map((item) => (
+            {HUB_LINKS.map((item, idx) => (
               <Link
                 key={item.href}
                 href={item.href}
-                style={{
-                  display: "block",
-                  borderRadius: 12,
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  background: "rgba(255,255,255,0.03)",
-                  textDecoration: "none",
-                  color: "inherit",
-                  padding: "1rem",
-                }}
+                className={`link-card card-entrance card-entrance-${Math.min(idx + 1, 8)}`}
               >
                 <div style={{ fontWeight: 800, marginBottom: 5 }}>{item.title}</div>
                 <div style={{ color: "#94a3b8", fontSize: "0.94rem", lineHeight: 1.6 }}>{item.note}</div>

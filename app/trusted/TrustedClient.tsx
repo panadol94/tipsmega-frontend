@@ -239,9 +239,7 @@ export default function TrustedClient() {
                 <div className="grid grid-cols-2 gap-3">
                     {loading ? (
                         Array.from({ length: 6 }).map((_, i) => (
-                            <div key={i} className="bg-white/5 border border-white/10 rounded-xl h-[160px] animate-pulse relative overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent shimmer" />
-                            </div>
+                            <div key={i} className="skeleton-premium rounded-xl h-[160px]" />
                         ))
                     ) : list.length === 0 && !err ? (
                         <div className="col-span-3 text-center py-20 opacity-40">
@@ -269,10 +267,7 @@ export default function TrustedClient() {
                             return (
                                 <article
                                     key={c.id || idx}
-                                    className="group relative bg-[#151c27] border border-white/10 rounded-xl shadow-lg transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,217,255,0.2)] hover:-translate-y-1 active:scale-95"
-                                    style={{
-                                        animationDelay: `${idx * 100}ms`,
-                                    }}
+                                    className={`group relative bg-[#151c27] border border-white/10 rounded-xl shadow-lg transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,217,255,0.2)] hover:-translate-y-1 active:scale-95 card-entrance card-entrance-${idx % 8 + 1}`}
                                 >
 
                                     {/* Dynamic Status Badges */}
