@@ -24,12 +24,10 @@ function getHeroImageFromContent(content: string, fallbackSlug: string) {
 
 function buildInternalLinkRules(currentSlug: string, relatedSlugs: string[]): InternalLinkRule[] {
   const rules: InternalLinkRule[] = [];
-
   relatedSlugs.forEach((slug) => {
     if (!slug || slug === currentSlug) return;
     const rel = BLOG_ARTICLES.find((a) => a.slug === slug);
     if (!rel) return;
-
     const candidates = [
       rel.keywords?.[0],
       rel.keywords?.[1],
@@ -38,53 +36,41 @@ function buildInternalLinkRules(currentSlug: string, relatedSlugs: string[]): In
       .filter(Boolean)
       .map((v) => v!.trim())
       .filter((v) => v.length >= 10);
-
     candidates.forEach((phrase) => {
       rules.push({ phrase, slug });
     });
   });
-
   const dedup = new Map<string, InternalLinkRule>();
   rules.forEach((r) => {
     const key = `${r.slug}::${r.phrase.toLowerCase()}`;
     if (!dedup.has(key)) dedup.set(key, r);
   });
-
   return Array.from(dedup.values()).slice(0, 8);
 }
 
 function autoLinkArticleContent(content: string, rules: InternalLinkRule[], maxLinks = 4) {
   if (!rules.length) return content;
-
   const parts = content.split(/(<[^>]+>)/g);
   const usedSlugs = new Set<string>();
   let total = 0;
-
   for (let i = 0; i < parts.length; i++) {
     const chunk = parts[i];
     if (!chunk || chunk.startsWith("<") || total >= maxLinks) continue;
-
     let updated = chunk;
-
     for (const rule of rules) {
       if (total >= maxLinks) break;
       if (usedSlugs.has(rule.slug)) continue;
-
       const re = new RegExp(`\\b${escapeRegex(rule.phrase)}\\b`, "i");
       if (!re.test(updated)) continue;
-
       updated = updated.replace(
         re,
         `<a href="/blog/${rule.slug}" style="color:#38bdf8;text-decoration:underline;font-weight:600">$&</a>`
       );
-
       usedSlugs.add(rule.slug);
       total += 1;
     }
-
     parts[i] = updated;
   }
-
   return parts.join("");
 }
 
@@ -97,7 +83,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const article = getArticleBySlug(slug);
   if (!article) return {};
   const imageUrl = getHeroImageFromContent(article.content, article.slug);
-
   return {
     title: article.title,
     description: article.description,
@@ -127,20 +112,27 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 const CORE_CLUSTER_LINKS = [
-  { label: "Mega888 Hub", href: "/mega888" },
-  { label: "Login Guide", href: "/blog/mega888-login-link-terkini-2026" },
-  { label: "Android APK", href: "/blog/mega888-download-android-apk-terbaru-2026" },
-  { label: "iPhone / iPad", href: "/blog/mega888-download-ios-terbaru-2026" },
-  { label: "RTP Live", href: "/blog/mega888-rtp-live-malaysia-2026" },
-  { label: "Trusted Agent", href: "/trusted" },
+  { label: "Mega888 Hub",       href: "/mega888" },
+  { label: "Login Guide",       href: "/blog/mega888-login-link-terkini-2026" },
+  { label: "Android APK",       href: "/blog/mega888-download-android-apk-terbaru-2026" },
+  { label: "iPhone / iPad",     href: "/blog/mega888-download-ios-terkini-2026" },
+  { label: "RTP Live",          href: "/blog/mega888-rtp-live-malaysia-2026" },
+  { label: "Trusted Agent",     href: "/trusted" },
 ];
 
 const TRUST_LINKS = [
-  { label: "About", href: "/about" },
+  { label: "About",          href: "/about" },
   { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms", href: "/terms" },
-  { label: "Disclaimer", href: "/disclaimer" },
+  { label: "Terms",         href: "/terms" },
+  { label: "Disclaimer",    href: "/disclaimer" },
 ];
+
+const categoryMeta: Record<string, { label: string; bg: string; text: string; border: string; icon: string }> = {
+  tips:     { label: "💡 Tips",     bg: "rgba(245,158,11,0.12)",  text: "#f59e0b", border: "rgba(245,158,11,0.3)",  icon: "💡" },
+  strategy: { label: "🎯 Strategi",  bg: "rgba(139,92,246,0.12)", text: "#a78bfa", border: "rgba(139,92,246,0.3)", icon: "🎯" },
+  guide:    { label: "📚 Panduan",   bg: "rgba(59,130,246,0.12)", text: "#60a5fa", border: "rgba(59,130,246,0.3)", icon: "📚" },
+  news:     { label: "📰 Berita",    bg: "rgba(16,185,129,0.12)", text: "#34d399", border: "rgba(16,185,129,0.3)", icon: "📰" },
+};
 
 export default async function BlogArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -151,10 +143,10 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
   const internalLinkRules = buildInternalLinkRules(article.slug, article.relatedArticles);
   const linkedContent = autoLinkArticleContent(article.content, internalLinkRules);
   const wordCount = stripHtml(article.content).split(" ").filter(Boolean).length;
+  const cat = categoryMeta[article.category] || categoryMeta.tips;
 
   return (
     <>
-      {/* Article JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -182,7 +174,6 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         }}
       />
 
-      {/* Breadcrumb JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -199,7 +190,6 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         }}
       />
 
-      {/* FAQ JSON-LD */}
       {article.faq.length > 0 && (
         <script
           type="application/ld+json"
@@ -217,126 +207,162 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         />
       )}
 
-      <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1rem 5rem" }}>
-        {/* Breadcrumb Nav */}
-        <nav style={{ fontSize: "0.85rem", color: "#64748b", marginBottom: "1.5rem" }}>
-          <Link href="/" style={{ color: "#64748b" }}>Home</Link>
-          {" › "}
-          <Link href="/mega888" style={{ color: "#64748b" }}>Mega888 Hub</Link>
-          {" › "}
-          <Link href="/blog" style={{ color: "#64748b" }}>Blog</Link>
-          {" › "}
-          <span style={{ color: "#f59e0b" }}>{article.title}</span>
+      <div style={{ maxWidth: 800, margin: "0 auto", padding: "1.5rem 1rem 5rem" }}>
+
+        {/* ── BREADCRUMB ── */}
+        <nav style={{ fontSize: "0.8rem", color: "#475569", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: 6 }}>
+          <Link href="/" style={{ color: "#475569", textDecoration: "none" }}>Home</Link>
+          <span style={{ opacity: 0.4 }}>›</span>
+          <Link href="/mega888" style={{ color: "#475569", textDecoration: "none" }}>Mega888 Hub</Link>
+          <span style={{ opacity: 0.4 }}>›</span>
+          <Link href="/blog" style={{ color: "#475569", textDecoration: "none" }}>Blog</Link>
+          <span style={{ opacity: 0.4 }}>›</span>
+          <span style={{ color: cat.text, maxWidth: 180, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            {article.title}
+          </span>
         </nav>
 
-        {/* Article Header */}
+        {/* ── ARTICLE HEADER ── */}
         <header style={{ marginBottom: "2rem" }}>
-          <h1 style={{ fontSize: "1.8rem", fontWeight: 800, lineHeight: 1.3, marginBottom: "0.75rem" }}>
+          {/* Category + meta row */}
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "0.8rem", flexWrap: "wrap" }}>
+            <span style={{
+              fontSize: "0.72rem", padding: "3px 10px", borderRadius: 99,
+              background: cat.bg, color: cat.text, fontWeight: 700,
+              border: `1px solid ${cat.border}`,
+            }}>
+              {cat.icon} {cat.label}
+            </span>
+            <span style={{ fontSize: "0.75rem", color: "#475569" }}>
+              📅 {article.updatedAt}
+            </span>
+            <span style={{ fontSize: "0.75rem", color: "#475569" }}>
+              ⏱️ {Math.max(3, Math.round(wordCount / 200))} min baca
+            </span>
+          </div>
+
+          <h1 style={{
+            fontSize: "clamp(1.4rem, 4vw, 1.9rem)",
+            fontWeight: 900, lineHeight: 1.25,
+            marginBottom: "0.75rem", color: "#f1f5f9",
+          }}>
             {article.title}
           </h1>
-          <p style={{ color: "#94a3b8", fontSize: "0.95rem", lineHeight: 1.6 }}>
+
+          <p style={{ color: "#64748b", fontSize: "1rem", lineHeight: 1.65, margin: 0 }}>
             {article.description}
           </p>
-          <div style={{ marginTop: "0.75rem", fontSize: "0.8rem", color: "#64748b" }}>
-            📅 Dikemaskini: {article.updatedAt} &nbsp;|&nbsp; ⏱️ {Math.max(3, Math.round(wordCount / 200))} min baca
-          </div>
+
+          {/* Divider */}
+          <div style={{ marginTop: "1.25rem", height: 1, background: "rgba(255,255,255,0.07)", borderRadius: 1 }} />
         </header>
 
-        {/* Cluster Links */}
-        <section
-          style={{
-            margin: "0 0 1.5rem",
-            padding: "1rem",
-            borderRadius: 12,
-            background: "rgba(56,189,248,0.07)",
-            border: "1px solid rgba(56,189,248,0.22)",
-          }}
-        >
-          <p style={{ margin: 0, fontWeight: 800, fontSize: "1rem" }}>
+        {/* ── HERO IMAGE ── */}
+        <div style={{
+          marginBottom: "2rem", borderRadius: 14, overflow: "hidden",
+          border: "1px solid rgba(255,255,255,0.1)",
+          background: "linear-gradient(135deg, rgba(245,158,11,0.1), rgba(139,92,246,0.1))",
+          minHeight: 180, display: "flex", alignItems: "center", justifyContent: "center",
+        }}>
+          <span style={{ fontSize: "4rem", opacity: 0.5 }}>{cat.icon}</span>
+        </div>
+
+        {/* ── CLUSTER LINKS ── */}
+        <section style={{
+          margin: "0 0 1.5rem",
+          padding: "1.1rem",
+          borderRadius: 14,
+          background: "rgba(56,189,248,0.05)",
+          border: "1px solid rgba(56,189,248,0.18)",
+        }}>
+          <p style={{ margin: 0, fontWeight: 800, fontSize: "0.9rem", color: "#e2e8f0" }}>
             🧭 Pautan penting dalam cluster Mega888
           </p>
-          <p style={{ margin: "6px 0 12px", color: "#94a3b8", fontSize: "0.92rem", lineHeight: 1.7 }}>
-            Jika anda sedang baca artikel ini, besar kemungkinan anda juga perlukan panduan hub, login, APK, RTP live, atau trusted agent.
-            Gunakan pautan di bawah untuk bergerak ikut intent yang betul.
+          <p style={{ margin: "6px 0 12px", color: "#64748b", fontSize: "0.85rem", lineHeight: 1.6 }}>
+            Navigasi pantas ke halaman paling dicari dalam ekosistem Mega888.
           </p>
-          <div style={{ display: "grid", gap: "0.7rem", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}>
+          <div style={{ display: "grid", gap: "0.5rem", gridTemplateColumns: "repeat(auto-fit, minmax(155px, 1fr))" }}>
             {CORE_CLUSTER_LINKS.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 style={{
-                  display: "block",
-                  padding: "0.8rem 0.9rem",
+                  display: "flex", alignItems: "center", justifyContent: "space-between",
+                  padding: "0.65rem 0.85rem",
                   borderRadius: 10,
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  border: "1px solid rgba(255,255,255,0.07)",
                   background: "rgba(255,255,255,0.03)",
-                  color: "#e2e8f0",
-                  fontWeight: 700,
+                  color: "#cbd5e1",
+                  fontWeight: 700, fontSize: "0.82rem",
                   textDecoration: "none",
+                  transition: "background 0.2s, border-color 0.2s",
                 }}
+                className="cluster-link"
               >
-                {item.label} →
+                {item.label}
+                <span style={{ fontSize: "0.7rem", color: "#475569" }}>→</span>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* Mid CTA */}
-        <div
-          style={{
-            margin: "0 0 1.5rem",
-            padding: "1rem",
-            borderRadius: 12,
-            background: "rgba(16,185,129,0.08)",
-            border: "1px solid rgba(16,185,129,0.28)",
-          }}
-        >
-          <p style={{ margin: 0, fontWeight: 700, fontSize: "0.98rem" }}>
-            🎯 Nak check game mana tengah panas sekarang?
-          </p>
-          <p style={{ margin: "6px 0 10px", color: "#94a3b8", fontSize: "0.9rem" }}>
-            Buka AI Scanner untuk semak RTP live sebelum spin.
-          </p>
+        {/* ── MID CTA ── */}
+        <div style={{
+          margin: "0 0 2rem",
+          padding: "1.1rem",
+          borderRadius: 14,
+          background: "linear-gradient(135deg, rgba(16,185,129,0.08), rgba(59,130,246,0.05))",
+          border: "1px solid rgba(16,185,129,0.25)",
+          display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap",
+        }}>
+          <div style={{ flex: 1, minWidth: 200 }}>
+            <p style={{ margin: 0, fontWeight: 800, fontSize: "0.95rem", color: "#e2e8f0" }}>
+              🎯 Check RTP game sebelum spin!
+            </p>
+            <p style={{ margin: "4px 0 0", color: "#64748b", fontSize: "0.83rem" }}>
+              AI Scanner analisa RTP live — pilih game terbaik hari ini
+            </p>
+          </div>
           <Link
             href="/"
             data-track="mid_article_scanner"
             style={{
-              display: "inline-block",
-              padding: "8px 14px",
-              borderRadius: 8,
-              background: "#10b981",
-              color: "#052e16",
-              fontWeight: 800,
+              display: "inline-flex", alignItems: "center", gap: 6,
+              padding: "9px 18px",
+              borderRadius: 10,
+              background: "linear-gradient(135deg, #059669, #10b981)",
+              color: "#fff", fontWeight: 800, fontSize: "0.85rem",
               textDecoration: "none",
+              boxShadow: "0 4px 14px rgba(16,185,129,0.35)",
+              whiteSpace: "nowrap",
             }}
           >
             Buka AI Scanner →
           </Link>
         </div>
 
-        {/* Article Content (auto-internal-linking enabled) */}
+        {/* ── ARTICLE CONTENT ── */}
         <article
           className="seo-article-content"
           dangerouslySetInnerHTML={{ __html: linkedContent }}
-          style={{ lineHeight: 1.8, fontSize: "1rem", color: "#e2e8f0" }}
+          style={{ lineHeight: 1.85, fontSize: "0.97rem", color: "#cbd5e1" }}
         />
 
-        <section
-          style={{
-            marginTop: "2rem",
-            padding: "1rem",
-            borderRadius: 12,
-            background: "rgba(245,158,11,0.06)",
-            border: "1px solid rgba(245,158,11,0.2)",
-          }}
-        >
-          <p style={{ margin: 0, fontWeight: 800, fontSize: "0.98rem" }}>
-            🔒 Halaman trust & rujukan tambahan
+        {/* ── TRUST SECTION ── */}
+        <section style={{
+          marginTop: "2.5rem",
+          padding: "1.1rem",
+          borderRadius: 14,
+          background: "rgba(245,158,11,0.05)",
+          border: "1px solid rgba(245,158,11,0.18)",
+        }}>
+          <p style={{ margin: 0, fontWeight: 800, fontSize: "0.9rem", color: "#e2e8f0" }}>
+            🔒 Rujukan & maklumat tambahan
           </p>
-          <p style={{ margin: "6px 0 12px", color: "#94a3b8", fontSize: "0.9rem", lineHeight: 1.7 }}>
-            Untuk signal trust yang lebih kuat dan pengalaman pengguna yang lebih jelas, rujuk juga halaman latar platform dan polisi asas di bawah.
+          <p style={{ margin: "6px 0 12px", color: "#64748b", fontSize: "0.83rem", lineHeight: 1.6 }}>
+            Laman trust, dasar privasi, dan maklumat operasi platform.
           </p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
             {TRUST_LINKS.map((item) => (
               <Link
                 key={item.href}
@@ -346,11 +372,13 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
                   borderRadius: 999,
                   background: "rgba(255,255,255,0.04)",
                   border: "1px solid rgba(255,255,255,0.08)",
-                  color: "#e2e8f0",
-                  fontSize: "0.85rem",
+                  color: "#94a3b8",
+                  fontSize: "0.82rem",
                   textDecoration: "none",
                   fontWeight: 700,
+                  transition: "background 0.2s, color 0.2s",
                 }}
+                className="trust-link"
               >
                 {item.label}
               </Link>
@@ -358,37 +386,59 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           </div>
         </section>
 
-        {/* FAQ Section */}
+        {/* ── FAQ SECTION ── */}
         {article.faq.length > 0 && (
-          <section style={{ marginTop: "3rem" }}>
-            <h2 style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: "1rem" }}>
-              ❓ Soalan Lazim (FAQ)
+          <section style={{ marginTop: "2.5rem" }}>
+            <h2 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: "1rem", color: "#f1f5f9", display: "flex", alignItems: "center", gap: 8 }}>
+              ❓ Soalan Lazim
             </h2>
-            {article.faq.map((f, i) => (
-              <div key={i} style={{ marginBottom: "1.5rem" }}>
-                <h3 style={{ fontSize: "1rem", fontWeight: 600, marginBottom: 4, color: "#f59e0b" }}>{f.q}</h3>
-                <p style={{ color: "#94a3b8", lineHeight: 1.6 }}>{f.a}</p>
-              </div>
-            ))}
+            <div style={{ display: "grid", gap: "0.75rem" }}>
+              {article.faq.map((f, i) => (
+                <div key={i} style={{
+                  padding: "1rem 1.1rem",
+                  borderRadius: 12,
+                  background: "rgba(255,255,255,0.03)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                }}>
+                  <h3 style={{ fontSize: "0.9rem", fontWeight: 700, marginBottom: 6, color: "#f59e0b" }}>{f.q}</h3>
+                  <p style={{ color: "#64748b", fontSize: "0.87rem", lineHeight: 1.65, margin: 0 }}>{f.a}</p>
+                </div>
+              ))}
+            </div>
           </section>
         )}
 
-        {/* Related Articles */}
+        {/* ── RELATED ARTICLES ── */}
         {article.relatedArticles.length > 0 && (
-          <section style={{ marginTop: "3rem" }}>
-            <h2 style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: "1rem" }}>📖 Artikel Berkaitan</h2>
-            <div style={{ display: "grid", gap: "0.75rem" }}>
+          <section style={{ marginTop: "2.5rem" }}>
+            <h2 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: "0.9rem", color: "#f1f5f9" }}>📖 Artikel Berkaitan</h2>
+            <div style={{ display: "grid", gap: "0.65rem" }}>
               {article.relatedArticles.map((relatedSlug) => {
                 const rel = BLOG_ARTICLES.find((a) => a.slug === relatedSlug);
                 if (!rel) return null;
+                const relCat = categoryMeta[rel.category] || categoryMeta.tips;
                 return (
                   <Link
                     key={relatedSlug}
                     href={`/blog/${relatedSlug}`}
                     data-track="related_article_click"
-                    style={{ color: "#3b82f6", textDecoration: "none" }}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 12,
+                      padding: "0.85rem 1rem",
+                      borderRadius: 12,
+                      border: "1px solid rgba(255,255,255,0.08)",
+                      background: "rgba(255,255,255,0.03)",
+                      textDecoration: "none", color: "inherit",
+                      transition: "background 0.2s, border-color 0.2s",
+                    }}
+                    className="related-article-link"
                   >
-                    → {rel.title}
+                    <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>{relCat.icon}</span>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: "0.72rem", color: relCat.text, fontWeight: 700, marginBottom: 2 }}>{relCat.label}</div>
+                      <div style={{ fontSize: "0.87rem", fontWeight: 700, color: "#e2e8f0", lineHeight: 1.3 }}>{rel.title}</div>
+                    </div>
+                    <span style={{ color: "#334155", fontSize: "0.8rem", flexShrink: 0 }}>→</span>
                   </Link>
                 );
               })}
@@ -396,24 +446,28 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           </section>
         )}
 
-        {/* Related Games */}
+        {/* ── RELATED GAMES ── */}
         {article.relatedGames.length > 0 && (
           <section style={{ marginTop: "2rem" }}>
-            <h2 style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: "1rem" }}>🎮 Game Berkaitan</h2>
+            <h2 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: "0.9rem", color: "#f1f5f9" }}>🎮 Game Berkaitan</h2>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
               {article.relatedGames.map((gameSlug) => (
                 <Link
                   key={gameSlug}
                   href={`/games/${gameSlug}`}
                   style={{
-                    padding: "4px 12px",
-                    borderRadius: 8,
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    color: "#e2e8f0",
-                    fontSize: "0.85rem",
+                    padding: "5px 12px",
+                    borderRadius: 10,
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    color: "#94a3b8",
+                    fontSize: "0.83rem",
                     textDecoration: "none",
+                    fontWeight: 700,
+                    textTransform: "capitalize",
+                    transition: "background 0.2s, color 0.2s",
                   }}
+                  className="related-game-link"
                 >
                   {gameSlug.replace(/-/g, " ")}
                 </Link>
@@ -422,53 +476,58 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           </section>
         )}
 
-        {/* CTA */}
-        <div
-          style={{
-            marginTop: "3rem",
-            padding: "1.5rem",
-            borderRadius: 12,
-            background: "linear-gradient(135deg, rgba(245,158,11,0.1), rgba(139,92,246,0.1))",
-            border: "1px solid rgba(245,158,11,0.2)",
-            textAlign: "center",
-          }}
-        >
-          <p style={{ fontWeight: 700, fontSize: "1.1rem", marginBottom: 8 }}>
-            🔥 Cuba AI Scanner Sekarang — Percuma!
+        {/* ── BOTTOM CTA ── */}
+        <div style={{
+          marginTop: "2.5rem",
+          padding: "1.5rem",
+          borderRadius: 16,
+          background: "linear-gradient(135deg, rgba(245,158,11,0.1), rgba(139,92,246,0.1))",
+          border: "1px solid rgba(245,158,11,0.22)",
+          textAlign: "center",
+        }}>
+          <p style={{ fontWeight: 900, fontSize: "1.1rem", marginBottom: 6, color: "#f1f5f9" }}>
+            🔥 Cuba AI Scanner — Percuma!
           </p>
-          <p style={{ color: "#94a3b8", fontSize: "0.9rem", marginBottom: 12 }}>
-            Scan RTP live dan pilih game terbaik hari ini
+          <p style={{ color: "#64748b", fontSize: "0.88rem", marginBottom: 14 }}>
+            Scan RTP live & pilih game terbaik hari ini
           </p>
           <Link
             href="/"
             data-track="bottom_article_scanner"
             style={{
               display: "inline-block",
-              padding: "10px 24px",
-              borderRadius: 8,
-              background: "#f59e0b",
-              color: "#000",
-              fontWeight: 700,
+              padding: "10px 28px",
+              borderRadius: 12,
+              background: "linear-gradient(135deg, #d97706, #f59e0b)",
+              color: "#000", fontWeight: 800, fontSize: "0.9rem",
               textDecoration: "none",
+              boxShadow: "0 4px 18px rgba(245,158,11,0.35)",
             }}
           >
             Buka AI Scanner →
           </Link>
         </div>
 
-        {/* Navigation */}
-        <div style={{ marginTop: "2rem", textAlign: "center" }}>
-          <Link href="/blog" style={{ color: "#3b82f6" }}>← Kembali ke Blog</Link>
-          <span style={{ margin: "0 1rem", color: "#334155" }}>|</span>
-          <Link href="/mega888" style={{ color: "#f59e0b" }}>🧭 Mega888 Hub</Link>
-          <span style={{ margin: "0 1rem", color: "#334155" }}>|</span>
-          <Link href="/games" style={{ color: "#f59e0b" }}>🎮 Semua Game</Link>
-          <span style={{ margin: "0 1rem", color: "#334155" }}>|</span>
-          <Link href="/" style={{ color: "#10b981" }}>🏠 Home</Link>
+        {/* ── FOOTER NAV ── */}
+        <div style={{
+          display: "flex", flexWrap: "wrap", justifyContent: "center",
+          gap: "0.5rem", marginTop: "2rem",
+          padding: "1rem", borderRadius: 12,
+          background: "rgba(255,255,255,0.03)",
+          border: "1px solid rgba(255,255,255,0.07)",
+        }}>
+          <Link href="/blog" style={{ color: "#60a5fa", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none" }}>← Blog</Link>
+          <span style={{ color: "#1e293b", margin: "0 0.25rem" }}>|</span>
+          <Link href="/mega888" style={{ color: "#f59e0b", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none" }}>🧭 Mega888 Hub</Link>
+          <span style={{ color: "#1e293b", margin: "0 0.25rem" }}>|</span>
+          <Link href="/games" style={{ color: "#a78bfa", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none" }}>🎮 Games</Link>
+          <span style={{ color: "#1e293b", margin: "0 0.25rem" }}>|</span>
+          <Link href="/" style={{ color: "#34d399", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none" }}>🏠 Home</Link>
         </div>
       </div>
 
       <BlogEngagement slug={article.slug} title={article.title} />
+
     </>
   );
 }
