@@ -176,16 +176,21 @@ export default function BlogPage() {
               ⭐ FEATURED
             </div>
 
-            {/* Hero image placeholder (gradient if no real image) */}
-            <div style={{
-              height: 200,
-              background: "linear-gradient(135deg, rgba(245,158,11,0.2) 0%, rgba(139,92,246,0.2) 50%, rgba(59,130,246,0.15) 100%)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
-              <span style={{ fontSize: "3.5rem", opacity: 0.6 }}>
-                {featured.category === "tips" ? "💡" : featured.category === "strategy" ? "🎯" : featured.category === "guide" ? "📚" : "📰"}
-              </span>
-            </div>
+            {/* Hero image — show real image when featuredImage is set, else gradient */}
+            {featured.featuredImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={featured.featuredImage} alt={featured.title} style={{ width: "100%", height: 200, objectFit: "cover", display: "block" }} />
+            ) : (
+              <div style={{
+                height: 200,
+                background: "linear-gradient(135deg, rgba(245,158,11,0.2) 0%, rgba(139,92,246,0.2) 50%, rgba(59,130,246,0.15) 100%)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <span style={{ fontSize: "3.5rem", opacity: 0.6 }}>
+                  {featured.category === "tips" ? "💡" : featured.category === "strategy" ? "🎯" : featured.category === "guide" ? "📚" : "📰"}
+                </span>
+              </div>
+            )}
 
             <div style={{ padding: "1.4rem 1.6rem 1.6rem" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "0.6rem" }}>

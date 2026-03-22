@@ -279,7 +279,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "clash-of-beats"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-03-16"
+    "updatedAt": "2026-03-16",
+    "featuredImage": "/blog/images/featured-top-slot-mega888.webp"
   },
   {
     "slug": "mega888-scanner-ai",
@@ -313,7 +314,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "beast-of-wealth"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-03-16"
+    "updatedAt": "2026-03-16",
+    "featuredImage": "/blog/images/featured-mega888-scanner-ai.webp"
   },
   {
     "slug": "kiosk-mega888-trusted",
@@ -347,7 +349,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "the-good-life"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-03-16"
+    "updatedAt": "2026-03-16",
+    "featuredImage": "/blog/images/featured-kiosk-mega888-trusted.webp"
   },
   {
     "slug": "mega888-free-credit",
@@ -381,7 +384,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "caishen-gold"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-03-16"
+    "updatedAt": "2026-03-16",
+    "featuredImage": "/blog/images/featured-mega888-free-credit.webp"
   },
   {
     "slug": "kredit-percuma-mega888",
