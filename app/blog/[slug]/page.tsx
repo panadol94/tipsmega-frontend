@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BLOG_ARTICLES, getArticleBySlug } from "../../data/blogArticles";
+import { BLOG_ARTICLES, getArticleBySlug, type BlogArticle } from "../../data/blogArticles";
 import { notFound } from "next/navigation";
 import BlogEngagement from "./BlogEngagement";
 
@@ -22,33 +22,42 @@ function getHeroImageFromContent(content: string, fallbackSlug: string) {
   return raw.startsWith("http") ? raw : `https://tipsmega888.com${raw}`;
 }
 
+/** Resolve the best hero image: featuredImage field > first content img > slug fallback */
+function resolveHeroImage(article: BlogArticle) {
+  if (article.featuredImage) return article.featuredImage;
+  return getHeroImageFromContent(article.content, article.slug);
+}
+
 function buildInternalLinkRules(currentSlug: string, relatedSlugs: string[]): InternalLinkRule[] {
   const rules: InternalLinkRule[] = [];
+  // Primary: use article title (exact phrase, highest relevance)
   relatedSlugs.forEach((slug) => {
     if (!slug || slug === currentSlug) return;
     const rel = BLOG_ARTICLES.find((a) => a.slug === slug);
     if (!rel) return;
-    const candidates = [
-      rel.keywords?.[0],
-      rel.keywords?.[1],
-      rel.title,
-    ]
-      .filter(Boolean)
-      .map((v) => v!.trim())
-      .filter((v) => v.length >= 10);
-    candidates.forEach((phrase) => {
-      rules.push({ phrase, slug });
-    });
+    // Prefer title phrase first — most natural anchor text
+    if (rel.title && rel.title.length >= 10) {
+      rules.push({ phrase: rel.title, slug });
+    }
+    // Then keyword variants
+    const kwPhrase = rel.keywords?.[0];
+    if (kwPhrase && kwPhrase.length >= 10) {
+      rules.push({ phrase: kwPhrase, slug });
+    }
+    const kw2 = rel.keywords?.[1];
+    if (kw2 && kw2.length >= 10) {
+      rules.push({ phrase: kw2, slug });
+    }
   });
   const dedup = new Map<string, InternalLinkRule>();
   rules.forEach((r) => {
     const key = `${r.slug}::${r.phrase.toLowerCase()}`;
     if (!dedup.has(key)) dedup.set(key, r);
   });
-  return Array.from(dedup.values()).slice(0, 8);
+  return Array.from(dedup.values()).slice(0, 12);
 }
 
-function autoLinkArticleContent(content: string, rules: InternalLinkRule[], maxLinks = 4) {
+function autoLinkArticleContent(content: string, rules: InternalLinkRule[], maxLinks = 6) {
   if (!rules.length) return content;
   const parts = content.split(/(<[^>]+>)/g);
   const usedSlugs = new Set<string>();
@@ -82,7 +91,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) return {};
-  const imageUrl = getHeroImageFromContent(article.content, article.slug);
+  const imageUrl = resolveHeroImage(article);
   return {
     title: article.title,
     description: article.description,
@@ -113,10 +122,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const CORE_CLUSTER_LINKS = [
   { label: "Mega888 Hub",       href: "/mega888" },
-  { label: "Login Guide",       href: "/blog/mega888-login-link-terkini-2026" },
-  { label: "Android APK",       href: "/blog/mega888-download-android-apk-terbaru-2026" },
-  { label: "iPhone / iPad",     href: "/blog/mega888-download-ios-terkini-2026" },
-  { label: "RTP Live",          href: "/blog/mega888-rtp-live-malaysia-2026" },
+  { label: "Login Guide",       href: "/blog/cara-daftar-mega888" },
+  { label: "Download APK",      href: "/blog/mega888-apk-download-2026" },
+  { label: "iOS Install",       href: "/blog/mega888-ios-guide" },
+  { label: "RTP Live",          href: "/blog/rtp-mega888-live-hari-ini" },
   { label: "Trusted Agent",     href: "/trusted" },
 ];
 
@@ -132,6 +141,9 @@ const categoryMeta: Record<string, { label: string; bg: string; text: string; bo
   strategy: { label: "🎯 Strategi",  bg: "rgba(139,92,246,0.12)", text: "#a78bfa", border: "rgba(139,92,246,0.3)", icon: "🎯" },
   guide:    { label: "📚 Panduan",   bg: "rgba(59,130,246,0.12)", text: "#60a5fa", border: "rgba(59,130,246,0.3)", icon: "📚" },
   news:     { label: "📰 Berita",    bg: "rgba(16,185,129,0.12)", text: "#34d399", border: "rgba(16,185,129,0.3)", icon: "📰" },
+  panduan:  { label: "📖 Panduan",   bg: "rgba(59,130,246,0.12)", text: "#60a5fa", border: "rgba(59,130,246,0.3)", icon: "📖" },
+  info:     { label: "🔍 Info",      bg: "rgba(16,185,129,0.12)", text: "#34d399", border: "rgba(16,185,129,0.3)", icon: "🔍" },
+  download: { label: "⬇️ Download",  bg: "rgba(239,68,68,0.12)",   text: "#f87171", border: "rgba(239,68,68,0.3)",  icon: "⬇️" },
 };
 
 export default async function BlogArticlePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -139,7 +151,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
   const article = getArticleBySlug(slug);
   if (!article) return notFound();
 
-  const heroImage = getHeroImageFromContent(article.content, article.slug);
+  const heroImage = resolveHeroImage(article);
   const internalLinkRules = buildInternalLinkRules(article.slug, article.relatedArticles);
   const linkedContent = autoLinkArticleContent(article.content, internalLinkRules);
   const wordCount = stripHtml(article.content).split(" ").filter(Boolean).length;
@@ -258,14 +270,31 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         </header>
 
         {/* ── HERO IMAGE ── */}
-        <div style={{
-          marginBottom: "2rem", borderRadius: 14, overflow: "hidden",
-          border: "1px solid rgba(255,255,255,0.1)",
-          background: "linear-gradient(135deg, rgba(245,158,11,0.1), rgba(139,92,246,0.1))",
-          minHeight: 180, display: "flex", alignItems: "center", justifyContent: "center",
-        }}>
-          <span style={{ fontSize: "4rem", opacity: 0.5 }}>{cat.icon}</span>
-        </div>
+        {article.featuredImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={article.featuredImage}
+            alt={article.title}
+            style={{
+              width: "100%",
+              maxHeight: 320,
+              objectFit: "cover",
+              borderRadius: 14,
+              marginBottom: "2rem",
+              border: "1px solid rgba(255,255,255,0.1)",
+              display: "block",
+            }}
+          />
+        ) : (
+          <div style={{
+            marginBottom: "2rem", borderRadius: 14, overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.1)",
+            background: "linear-gradient(135deg, rgba(245,158,11,0.1), rgba(139,92,246,0.1))",
+            minHeight: 180, display: "flex", alignItems: "center", justifyContent: "center",
+          }}>
+            <span style={{ fontSize: "4rem", opacity: 0.5 }}>{cat.icon}</span>
+          </div>
+        )}
 
         {/* ── CLUSTER LINKS ── */}
         <section style={{
@@ -421,11 +450,11 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
             {[
-              { href: "/", label: "🏠 Homepage", desc: "Laman utama" },
               { href: "/mega888", label: "🎰 Mega888 Hub", desc: "Semua tentang Mega888" },
-              { href: "/kiosk-mega888", label: "🎯 AI Scanner", desc: "Scan RTP live" },
+              { href: "/blog", label: "📖 Blog", desc: "Tips & strategi" },
               { href: "/games", label: "🎮 Games", desc: "200+ game tersedia" },
               { href: "/trusted", label: "🛡️ Trusted", desc: "Platform verified" },
+              { href: "/", label: "🎯 AI Scanner", desc: "Scan RTP live" },
             ].map((hub) => (
               <a
                 key={hub.href}

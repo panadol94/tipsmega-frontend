@@ -13,6 +13,8 @@ export interface BlogArticle {
   relatedArticles: string[];
   publishedAt: string;
   updatedAt: string;
+  /** Hero image URL (e.g. /blog/images/featured-tips-mega888-pro.webp). Falls back to category gradient. */
+  featuredImage?: string;
 }
 
 export const BLOG_ARTICLES: BlogArticle[] = [
@@ -52,7 +54,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "vegas-night-life"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-03-16"
+    "updatedAt": "2026-03-16",
+    "featuredImage": "/blog/images/featured-tips-mega888-pro.webp"
   },
   {
     "slug": "hack-rtp-mega888",
@@ -91,7 +94,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "sticky-bandits"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-03-16"
+    "updatedAt": "2026-03-16",
+    "featuredImage": "/blog/images/featured-hack-rtp-mega888.webp"
   },
   {
     "slug": "download-mega888-apk",
@@ -130,7 +134,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "gift-santa"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-03-16"
+    "updatedAt": "2026-03-16",
+    "featuredImage": "/blog/images/featured-download-mega888-apk.webp"
   },
   {
     "slug": "game-senang-jackpot",
@@ -168,7 +173,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "king-of-pop"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-03-16"
+    "updatedAt": "2026-03-16",
+    "featuredImage": "/blog/images/featured-game-senang-jackpot.webp"
   },
   {
     "slug": "cara-menang-mega888",
@@ -202,7 +208,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "fortune-tiger"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-03-16"
+    "updatedAt": "2026-03-16",
+    "featuredImage": "/blog/images/featured-cara-menang-mega888.webp"
   },
   {
     "slug": "apa-itu-rtp-mega888",
@@ -237,7 +244,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "six-acrobats"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-03-16"
+    "updatedAt": "2026-03-16",
+    "featuredImage": "/blog/images/featured-apa-itu-rtp-mega888.webp"
   },
   {
     "slug": "top-slot-mega888",
@@ -1764,9 +1772,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     "relatedArticles": [
       "tips-mega888-pro",
       "hack-rtp-mega888",
+      "cara-menang-slot-mega888",
       "bankroll-management-slot",
-      "cara-menang-mega888",
-      "volatiliti-slot-mega888"
+      "rtp-mega888-live-hari-ini"
     ],
     "relatedGames": [
       "great-blue",
@@ -2061,9 +2069,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
+      "mega888-apk-download-2026",
       "mega888-android-install",
       "mega888-ios-guide",
-      "mega888-desktop-pc"
+      "cara-daftar-mega888"
     ],
     "relatedGames": [
       "great-blue",
