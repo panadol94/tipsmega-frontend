@@ -1,6 +1,33 @@
 import Link from "next/link";
 import SharedPageNav from "../ui/SharedPageNav";
 
+export const metadata = {
+  title: "Help & Panduan AI Scanner | TipsMega888",
+  description:
+    "Jawapan untuk soalan paling biasa tentang cara guna AI Scanner dan понятие RTP untuk permainan Mega888. Panduan lengkap cara scan, baca keputusan, dan tips.",
+  alternates: { canonical: "https://tipsmega888.com/help" },
+  openGraph: {
+    title: "Help & Panduan AI Scanner | TipsMega888",
+    description: "Jawapan soalan biasa tentang cara guna AI Scanner dan понятие RTP Mega888.",
+    url: "https://tipsmega888.com/help",
+    siteName: "TipsMega AI Scanner",
+    locale: "ms_MY",
+    type: "website",
+    images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: "TipsMega888 Help Guide" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Help & Panduan AI Scanner | TipsMega888",
+    description: "Panduan lengkap cara guna AI Scanner dan понятие RTP Mega888.",
+    images: ["/og-image.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+};
+
 export default function HelpPage() {
     return (
         <SharedPageNav>

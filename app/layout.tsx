@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import ClientLayout from "./ClientLayout";
 
 const metadata: Metadata = {
-  metadataBase: "https://tipsmega888.com",
+  metadataBase: new URL("https://tipsmega888.com"),
   title: "Mega888 Malaysia | TipsMega888 - AI RTP Scanner & Trusted Platform",
   description:
     "TipsMega888 - AI RTP Scanner percuma Mega888 Malaysia. Check real-time slot RTP %, live odds & trusted platform. Trusted by 10,000+ players. Updated daily.",
@@ -27,7 +27,7 @@ const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://tipsmega888.com/og-image.jpg",
+        url: "https://tipsmega888.com/og-image.webp",
         width: 1200,
         height: 630,
         alt: "TipsMega888 - Mega888 Malaysia RTP Scanner",
@@ -39,7 +39,7 @@ const metadata: Metadata = {
     title: "Mega888 Malaysia | TipsMega888 AI RTP Scanner",
     description:
       "Check Mega888 slot RTP % percuma. AI-powered scanner updated daily.",
-    images: ["https://tipsmega888.com/og-image.jpg"],
+    images: ["https://tipsmega888.com/og-image.webp"],
   },
   alternates: {
     canonical: "https://tipsmega888.com",

@@ -2,10 +2,25 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "About TipsMega888",
+  title: "About TipsMega888 | Platform AI Scanner Mega888 Malaysia",
   description:
     "Ketahui fokus TipsMega888 sebagai platform rujukan Mega888 Malaysia dengan AI Scanner, panduan kandungan, dan halaman trusted agent.",
   alternates: { canonical: "https://tipsmega888.com/about" },
+  openGraph: {
+    title: "About TipsMega888 | Platform AI Scanner Mega888 Malaysia",
+    description: "Ketahui fokus TipsMega888 sebagai platform rujukan Mega888 Malaysia dengan AI Scanner, panduan kandungan, dan halaman trusted agent.",
+    url: "https://tipsmega888.com/about",
+    siteName: "TipsMega AI Scanner",
+    locale: "ms_MY",
+    type: "website",
+    images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: "TipsMega888 - About" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About TipsMega888 | Platform AI Scanner Mega888 Malaysia",
+    description: "Platform rujukan Mega888 Malaysia dengan AI Scanner dan panduan kandungan.",
+    images: ["/og-image.webp"],
+  },
   robots: {
     index: true,
     follow: true,

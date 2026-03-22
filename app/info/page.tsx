@@ -3,10 +3,10 @@
 import InfoClient from "./InfoClient";
 
 export const metadata = {
-  title: "Mega888 AI Tips - Complete Guide & FAQ | 2026",
+  title: "Panduan AI Scanner Mega888 2026 | TipsMega888",
   description: "Panduan lengkap Mega888 AI Scanner. Learn how to use AI technology untuk analyze RTP, cara scan ID, security info, dan FAQ lengkap.",
   openGraph: {
-    title: "Mega888 AI Tips - Complete Guide & FAQ | 2026",
+    title: "Panduan AI Scanner Mega888 2026 | TipsMega888",
     description: "Panduan lengkap Mega888 AI Scanner. Ketahui cara guna AI Scanner untuk analisis RTP live.",
     url: "https://tipsmega888.com/info",
     siteName: "TipsMega AI Scanner",
@@ -23,7 +23,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mega888 AI Tips - Complete Guide & FAQ | 2026",
+    title: "Panduan AI Scanner Mega888 2026 | TipsMega888",
     description: "Panduan lengkap Mega888 AI Scanner. Ketahui cara guna AI Scanner untuk analisis RTP live.",
     images: ["/og-image.webp"],
   },
