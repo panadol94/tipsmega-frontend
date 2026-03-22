@@ -246,6 +246,26 @@ body {
     /* stronger shadow */
 }
 
+/* ===== game detail section headings ===== */
+.game-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue0);
+    margin-bottom: 14px;
+}
+
+@media (min-width: 768px) {
+    .game-section-title {
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
+}
+
 /* Re-adding lost styles & Glitch Effect */
 .text-premium {
     background: linear-gradient(180deg, #fff0c2 0%, #ffd56a 40%, #d6a64a 100%);

@@ -221,6 +221,22 @@ export default function TrustedClient() {
                     <p className="text-xs text-white/50 leading-relaxed font-medium bg-white/5 border border-white/10 p-3 rounded-xl backdrop-blur-sm">
                         <span className="text-amber-400 font-bold">OFFICIAL VERIFIED LIST 2026.</span> All platforms here are monitored 24/7 for integrity, payout speed, and RTP fairness. Safe for Commander deployment.
                     </p>
+
+                    {/* Stats Bar */}
+                    <div className="mt-4 grid grid-cols-3 gap-2">
+                        <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
+                            <div className="text-base font-black text-amber-400">{list.length || "—"}</div>
+                            <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Verified Partners</div>
+                        </div>
+                        <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
+                            <div className="text-base font-black text-emerald-400">24/7</div>
+                            <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Active Monitor</div>
+                        </div>
+                        <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
+                            <div className="text-base font-black text-cyan-400">100%</div>
+                            <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Scam-Free</div>
+                        </div>
+                    </div>
                 </header>
 
                 {err && (
@@ -236,7 +252,7 @@ export default function TrustedClient() {
                     </div>
                 )}
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {loading ? (
                         Array.from({ length: 6 }).map((_, i) => (
                             <div key={i} className="skeleton-premium rounded-xl h-[160px]" />
