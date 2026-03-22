@@ -233,7 +233,7 @@ export default function ProfileClient() {
 
                     {/* WhatsApp Community CTA */}
                     <a
-                        href="https://www.masuk10.com/Prospinner"
+                        href="https://chat.whatsapp.com/BaT1bAuntOe1Z5jMiLhF9L?mode=gi_t"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="card relative overflow-hidden p-5 active:scale-[0.98] transition-all bg-[#0a1a0f] border-emerald-500/20 hover:border-emerald-400/40 group"
@@ -253,7 +253,7 @@ export default function ProfileClient() {
                             {/* Text content */}
                             <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-1">
-                                    <span className="text-[11px] font-black tracking-[0.2em] text-emerald-400 uppercase">Join The Network</span>
+                                    <span className="text-[11px] font-black tracking-[0.2em] text-emerald-400 uppercase">Join Komuniti</span>
                                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
                                 </div>
                                 <p className="text-[10px] text-white/40 tracking-wide">Komuniti VIP • Tips Harian • Alert Terkini</p>
