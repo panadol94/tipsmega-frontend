@@ -3078,4 +3078,13 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     "publishedAt": "2026-03-22",
     "updatedAt": "2026-03-22"
   }
+
 ];
+
+
+// getArticleBySlug helper
+export function getArticleBySlug(slug: string): BlogArticle | undefined {
+  return BLOG_ARTICLES.find((a) => a.slug === slug);
+}
+
+
