@@ -122,10 +122,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const CORE_CLUSTER_LINKS = [
   { label: "Mega888 Hub",       href: "/mega888" },
-  { label: "Login Guide",       href: "/blog/cara-daftar-mega888" },
-  { label: "Download APK",      href: "/blog/mega888-apk-download-2026" },
-  { label: "iOS Install",       href: "/blog/mega888-ios-guide" },
-  { label: "RTP Live",          href: "/blog/rtp-mega888-live-hari-ini" },
+  { label: "Login Guide",       href: "/blog/mega888-register-akaun-baru-2026" },
+  { label: "Download APK",      href: "/blog/mega888-download-android-apk-terbaru-2026" },
+  { label: "iOS Install",       href: "/blog/mega888-download-ios-terbaru-2026" },
+  { label: "RTP Live",          href: "/blog/mega888-rtp-live-malaysia-2026" },
   { label: "Trusted Agent",     href: "/trusted" },
 ];
 
