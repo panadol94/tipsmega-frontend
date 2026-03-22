@@ -40,8 +40,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     ],
     "relatedArticles": [
       "hack-rtp-mega888",
-      "download-mega888-apk",
-      "game-senang-jackpot"
+      "game-senang-jackpot",
+      "mega888-scanner-ai",
+      "strategi-slot-mega888"
     ],
     "relatedGames": [
       "fafa-babies",
@@ -78,8 +79,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     ],
     "relatedArticles": [
       "tips-mega888-pro",
-      "download-mega888-apk",
-      "game-senang-jackpot"
+      "mega888-scanner-ai",
+      "rtp-live-cara-baca",
+      "apa-itu-rtp-mega888"
     ],
     "relatedGames": [
       "frost-queen",
@@ -115,9 +117,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "game-senang-jackpot"
+      "mega888-android-install",
+      "mega888-ios-guide",
+      "cara-daftar-mega888",
+      "mega888-scam-elak"
     ],
     "relatedGames": [
       "floating-dragon",
@@ -153,8 +156,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     ],
     "relatedArticles": [
       "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-great-blue-tips",
+      "mega888-progressive-jackpot",
+      "strategi-slot-mega888"
     ],
     "relatedGames": [
       "zombie-carnival",
@@ -186,8 +190,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     ],
     "relatedArticles": [
       "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "bankroll-management-slot",
+      "strategi-slot-mega888",
+      "volatiliti-slot-mega888"
     ],
     "relatedGames": [
       "god-of-cookery",
@@ -219,9 +224,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
+      "rtp-live-cara-baca",
       "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-scanner-ai",
+      "mega888-gacor-hari-ini"
     ],
     "relatedGames": [
       "deep-trek",
@@ -252,9 +258,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "game-senang-jackpot",
+      "mega888-great-blue-tips",
+      "mega888-table-games",
+      "mega888-gacor-hari-ini"
     ],
     "relatedGames": [
       "king-of-ghost",
@@ -285,9 +292,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
+      "mega888-gacor-hari-ini",
       "hack-rtp-mega888",
-      "download-mega888-apk"
+      "rtp-live-cara-baca",
+      "kiosk-mega888-trusted"
     ],
     "relatedGames": [
       "sushi-oishi",
@@ -318,9 +326,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-scanner-ai",
+      "mega888-auto-cuci",
+      "mega888-scam-elak",
+      "mega888-gacor-hari-ini"
     ],
     "relatedGames": [
       "agent51",
@@ -351,9 +360,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "kredit-percuma-mega888",
+      "mega888-bonus-tips",
+      "mega888-withdrawal-guide",
+      "cara-daftar-mega888"
     ],
     "relatedGames": [
       "celebration-of-wealth",
@@ -384,9 +394,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-free-credit",
+      "mega888-bonus-tips",
+      "mega888-withdrawal-guide",
+      "mega888-minimum-deposit"
     ],
     "relatedGames": [
       "lights",
@@ -417,9 +428,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-withdrawal-guide",
+      "kiosk-mega888-trusted",
+      "mega888-scam-elak",
+      "mega888-original-vs-fake"
     ],
     "relatedGames": [
       "golden-beauty",
@@ -450,9 +462,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-scanner-ai",
+      "kiosk-mega888-trusted",
+      "rtp-live-cara-baca",
+      "tips-mega888-pro"
     ],
     "relatedGames": [
       "narcos",
@@ -483,9 +496,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-scam-elak",
+      "kiosk-mega888-trusted",
+      "mega888-auto-cuci",
+      "cara-daftar-mega888"
     ],
     "relatedGames": [
       "temple-of-wealth",
@@ -517,8 +531,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     ],
     "relatedArticles": [
       "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "cara-menang-mega888",
+      "volatiliti-slot-mega888",
+      "bankroll-management-slot"
     ],
     "relatedGames": [
       "cleopatras-riches",
@@ -549,9 +564,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-vs-pussy888",
+      "kelebihan-mega888",
+      "cara-daftar-mega888",
+      "kiosk-mega888-trusted"
     ],
     "relatedGames": [
       "lucky-koi",
@@ -586,9 +602,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "download-mega888-apk",
+      "cara-daftar-mega888",
+      "mega888-scam-elak",
+      "mega888-minimum-deposit"
     ],
     "relatedGames": [
       "gold",
@@ -619,9 +636,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-auto-cuci",
+      "mega888-withdrawal-guide",
+      "mega888-free-credit",
+      "cara-daftar-mega888"
     ],
     "relatedGames": [
       "hotline",
@@ -652,9 +670,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-vs-pussy888",
+      "mega888-918kiss-beza",
+      "mega888-auto-cuci",
+      "tips-mega888-pro"
     ],
     "relatedGames": [
       "lucky-little-gods",
@@ -685,9 +704,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-918kiss-beza",
+      "kelebihan-mega888",
+      "cara-daftar-mega888",
+      "kiosk-mega888-trusted"
     ],
     "relatedGames": [
       "temple-quest",
@@ -718,9 +738,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
+      "mega888-gacor-hari-ini",
       "tips-mega888-pro",
       "hack-rtp-mega888",
-      "download-mega888-apk"
+      "rtp-live-cara-baca"
     ],
     "relatedGames": [
       "santa",
@@ -751,9 +772,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "download-mega888-apk",
+      "mega888-scam-elak",
+      "mega888-minimum-deposit",
+      "mega888-free-credit"
     ],
     "relatedGames": [
       "chinese-lion",
@@ -784,9 +806,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "cara-menang-mega888",
+      "volatiliti-slot-mega888",
+      "mega888-bonus-tips",
+      "tips-mega888-pro"
     ],
     "relatedGames": [
       "desert-gem",
@@ -817,9 +840,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-table-games",
+      "mega888-dragon-slot",
+      "mega888-wild-scatter",
+      "tips-mega888-pro"
     ],
     "relatedGames": [
       "dr-fortune",
@@ -850,9 +874,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "bankroll-management-slot",
+      "cara-menang-mega888",
+      "strategi-slot-mega888",
+      "top-slot-mega888"
     ],
     "relatedGames": [
       "masquerade",
@@ -883,9 +908,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "top-slot-mega888",
+      "mega888-game-fishing",
+      "mega888-dragon-slot",
+      "cara-pilih-game-mega888"
     ],
     "relatedGames": [
       "golden-colts",
@@ -916,9 +942,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
+      "game-senang-jackpot",
+      "mega888-wild-scatter",
       "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "strategi-slot-mega888"
     ],
     "relatedGames": [
       "champions-rome",
@@ -949,9 +976,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-great-blue-tips",
+      "mega888-table-games",
+      "mega888-game-fishing",
+      "tips-mega888-pro"
     ],
     "relatedGames": [
       "hanzo-doji",
@@ -982,9 +1010,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "download-mega888-apk",
+      "mega888-android-install",
+      "cara-daftar-mega888",
+      "mega888-scam-elak"
     ],
     "relatedGames": [
       "cash-vandal",
@@ -1015,9 +1044,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-free-credit",
+      "kredit-percuma-mega888",
+      "mega888-withdrawal-guide",
+      "cara-daftar-mega888"
     ],
     "relatedGames": [
       "wolf-hunters",
@@ -1048,9 +1078,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "game-senang-jackpot",
+      "mega888-wild-scatter",
+      "mega888-lucky-palace",
+      "top-slot-mega888"
     ],
     "relatedGames": [
       "golden-monkey",
@@ -1081,8 +1112,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
+      "mega888-original-vs-fake",
+      "kiosk-mega888-trusted",
+      "mega888-auto-cuci",
       "download-mega888-apk"
     ],
     "relatedGames": [
@@ -1115,8 +1147,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     ],
     "relatedArticles": [
       "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-bonus-tips",
+      "mega888-great-blue-tips",
+      "mega888-wild-scatter"
     ],
     "relatedGames": [
       "sun-wu-kong",
@@ -1147,9 +1180,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-auto-cuci",
+      "mega888-minimum-deposit",
+      "mega888-bonus-tips",
+      "bankroll-management-slot"
     ],
     "relatedGames": [
       "manic-millions",
@@ -1180,9 +1214,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "download-mega888-apk",
+      "mega888-ios-guide",
+      "cara-daftar-mega888",
+      "mega888-scam-elak"
     ],
     "relatedGames": [
       "easter-surprise",
@@ -1213,9 +1248,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
+      "apa-itu-rtp-mega888",
       "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-scanner-ai",
+      "mega888-gacor-hari-ini"
     ],
     "relatedGames": [
       "dragonz",
@@ -1246,9 +1282,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "top-slot-mega888",
+      "mega888-progressive-jackpot",
+      "game-senang-jackpot",
+      "mega888-great-blue-tips"
     ],
     "relatedGames": [
       "da-si-xi",
@@ -1279,9 +1316,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "cara-daftar-mega888",
+      "mega888-scam-elak",
+      "mega888-auto-cuci",
+      "bankroll-management-slot"
     ],
     "relatedGames": [
       "african-wild-life",
@@ -1312,9 +1350,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "mega888-game-fishing",
+      "top-slot-mega888",
+      "mega888-great-blue-tips",
+      "mega888-wild-scatter"
     ],
     "relatedGames": [
       "pirate",
@@ -1345,9 +1384,10 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "tips-mega888-pro",
-      "hack-rtp-mega888",
-      "download-mega888-apk"
+      "top-slot-mega888",
+      "volatiliti-slot-mega888",
+      "rtp-live-cara-baca",
+      "mega888-gacor-hari-ini"
     ],
     "relatedGames": [
       "dolphin",

@@ -408,6 +408,48 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           </section>
         )}
 
+        {/* ── HUB NAVIGATION ── */}
+        <section style={{
+          marginTop: "2.5rem",
+          padding: "1.25rem",
+          background: "linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 100%)",
+          borderRadius: "14px",
+          border: "1px solid rgba(168,85,247,0.2)",
+        }}>
+          <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#a855f7", marginBottom: "0.75rem" }}>
+            🧭 Pautan Penting Dalam Cluster Mega888
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+            {[
+              { href: "/", label: "🏠 Homepage", desc: "Laman utama" },
+              { href: "/mega888", label: "🎰 Mega888 Hub", desc: "Semua tentang Mega888" },
+              { href: "/kiosk-mega888", label: "🎯 AI Scanner", desc: "Scan RTP live" },
+              { href: "/games", label: "🎮 Games", desc: "200+ game tersedia" },
+              { href: "/trusted", label: "🛡️ Trusted", desc: "Platform verified" },
+            ].map((hub) => (
+              <a
+                key={hub.href}
+                href={hub.href}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.35rem",
+                  padding: "0.4rem 0.9rem",
+                  background: "rgba(168,85,247,0.1)",
+                  border: "1px solid rgba(168,85,247,0.25)",
+                  borderRadius: "100px",
+                  color: "#c084fc",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                }}
+              >
+                {hub.label}
+              </a>
+            ))}
+          </div>
+        </section>
+
         {/* ── RELATED ARTICLES ── */}
         {article.relatedArticles.length > 0 && (
           <section style={{ marginTop: "2.5rem" }}>
