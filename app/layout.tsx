@@ -1,9 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import ClientLayout from "./ClientLayout";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const metadata: Metadata = {
   metadataBase: "https://tipsmega888.com",
@@ -77,7 +74,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={inter.className}>
+      <body>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

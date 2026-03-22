@@ -110,6 +110,43 @@ export default function BlogPage() {
           </div>
         </header>
 
+        {/* ── CONVERSION CTA BANNER ── */}
+        <div style={{
+          marginBottom: "2rem",
+          padding: "1.1rem 1.25rem",
+          borderRadius: 16,
+          background: "linear-gradient(135deg, rgba(5,150,105,0.1), rgba(16,185,129,0.06))",
+          border: "1px solid rgba(16,185,129,0.22)",
+          display: "flex",
+          alignItems: "center",
+          gap: "1rem",
+          flexWrap: "wrap",
+        }}>
+          <div style={{ flex: 1, minWidth: 200 }}>
+            <p style={{ margin: 0, fontWeight: 800, fontSize: "0.95rem", color: "#e2e8f0" }}>
+              ⚡ Check RTP sebelum spin!
+            </p>
+            <p style={{ margin: "4px 0 0", color: "#64748b", fontSize: "0.83rem" }}>
+              AI Scanner analisa RTP live Mega888 — percuma
+            </p>
+          </div>
+          <Link
+            href="/"
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 6,
+              padding: "9px 18px",
+              borderRadius: 10,
+              background: "linear-gradient(135deg, #059669, #10b981)",
+              color: "#fff", fontWeight: 800, fontSize: "0.85rem",
+              textDecoration: "none",
+              boxShadow: "0 4px 14px rgba(16,185,129,0.35)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Buka AI Scanner →
+          </Link>
+        </div>
+
         {/* ── FEATURED ARTICLE HERO ── */}
         {featured && (
           <Link

@@ -498,10 +498,10 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
               display: "inline-block",
               padding: "10px 28px",
               borderRadius: 12,
-              background: "linear-gradient(135deg, #d97706, #f59e0b)",
-              color: "#000", fontWeight: 800, fontSize: "0.9rem",
+              background: "linear-gradient(135deg, #059669, #10b981)",
+              color: "#ffffff", fontWeight: 800, fontSize: "0.9rem",
               textDecoration: "none",
-              boxShadow: "0 4px 18px rgba(245,158,11,0.35)",
+              boxShadow: "0 4px 18px rgba(16,185,129,0.35)",
             }}
           >
             Buka AI Scanner →

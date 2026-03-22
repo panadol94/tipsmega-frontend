@@ -99,16 +99,16 @@ export default function BlogEngagement({ slug, title }: Props) {
           gap: 6,
           padding: "10px 14px",
           borderRadius: 999,
-          background: "linear-gradient(135deg, #f59e0b, #f97316)",
-          color: "#111827",
+          background: "linear-gradient(135deg, #059669, #10b981)",
+          color: "#ffffff",
           fontWeight: 800,
           fontSize: "0.85rem",
           textDecoration: "none",
-          boxShadow: "0 8px 30px rgba(245,158,11,0.35)",
-          border: "1px solid rgba(255,255,255,0.45)",
+          boxShadow: "0 8px 30px rgba(16,185,129,0.35)",
+          border: "1px solid rgba(255,255,255,0.25)",
         }}
       >
-        ⚡ Scan RTP Live
+        ⚡ AI Scanner
       </Link>
     </div>
   );

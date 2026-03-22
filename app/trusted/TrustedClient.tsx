@@ -394,14 +394,14 @@ export default function TrustedClient() {
                                                 {url ? (
                                                     <button
                                                         onClick={() => handleAction(url)}
-                                                        className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 border border-white/10 text-white font-bold text-[12px] uppercase py-2 rounded-lg shadow-md hover:scale-105 hover:shadow-amber-500/50 active:scale-95 transition-all duration-200"
+                                                        className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 border border-white/10 text-white font-bold text-[12px] uppercase py-2 rounded-xl shadow-md hover:scale-105 hover:shadow-amber-500/50 active:scale-95 transition-all duration-200"
                                                     >
                                                         🚀 PLAY NOW
                                                     </button>
                                                 ) : (
                                                     <button
                                                         onClick={() => handleAction(waHref)}
-                                                        className="w-full bg-white/5 border border-white/10 text-white/70 font-bold text-[12px] uppercase py-2 rounded-lg active:scale-95"
+                                                        className="w-full bg-white/5 border border-white/10 text-white/70 font-bold text-[12px] uppercase py-2 rounded-xl active:scale-95"
                                                     >
                                                         📱 GET LINK
                                                     </button>
