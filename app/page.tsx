@@ -15,7 +15,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/og-image.webp",
+        url: "https://tipsmega888.com/og-image.webp",
         width: 1200,
         height: 630,
         alt: "Mega888 AI RTP Scanner 2026 - 4.9 Rating",
@@ -27,7 +27,7 @@ export const metadata = {
     title: "Mega888 RTP Scanner Percuma 2026",
     description:
       "Semak RTP Mega888 live dengan AI Scanner percuma dan baca panduan utama di TipsMega888.",
-    images: ["/og-image.webp"],
+    images: ["https://tipsmega888.com/og-image.webp"],
   },
   alternates: {
     canonical: "https://tipsmega888.com",

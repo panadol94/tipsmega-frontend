@@ -26,6 +26,20 @@ export const metadata = {
     siteName: "TipsMega AI Scanner",
     locale: "ms_MY",
     type: "website",
+    images: [
+      {
+        url: "https://tipsmega888.com/og-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "Mega888 Malaysia 2026 - Hub Panduan Lengkap",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mega888 Malaysia 2026: Hub Panduan Lengkap",
+    description: "Satu halaman hub untuk login, download, RTP live, trusted agent, dan strategi Mega888 di Malaysia.",
+    images: ["https://tipsmega888.com/og-image.webp"],
   },
   robots: {
     index: true,

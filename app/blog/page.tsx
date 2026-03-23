@@ -18,6 +18,20 @@ export const metadata = {
     siteName: "TipsMega AI Scanner",
     locale: "ms_MY",
     type: "website",
+    images: [
+      {
+        url: "https://tipsmega888.com/og-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "Blog Tips Mega888 - Strategi & Panduan Menang 2026",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog Tips Mega888 | Strategi & Panduan Menang 2026",
+    description: "Koleksi tips, strategi, dan panduan Mega888 terkini dari pakar AI Scanner.",
+    images: ["https://tipsmega888.com/og-image.webp"],
   },
   robots: {
     index: true, follow: true,
