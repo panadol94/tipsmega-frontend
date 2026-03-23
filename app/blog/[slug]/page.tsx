@@ -113,9 +113,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       images: [imageUrl],
     },
     robots: {
-      index: true,
+      index: !["mega888-test-id","mega888-vs-pussy888","mega888-918kiss-beza","mega888-original-vs-fake"].includes(slug),
       follow: true,
-      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+      googleBot: {
+        index: !["mega888-test-id","mega888-vs-pussy888","mega888-918kiss-beza","mega888-original-vs-fake"].includes(slug),
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }
