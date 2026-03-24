@@ -67,8 +67,6 @@ export default function RootLayout({
     <html lang="ms">
       <head>
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="robots" content="index, follow" />
-        <meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
