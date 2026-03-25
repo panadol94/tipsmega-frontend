@@ -96,7 +96,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     "publishedAt": "2026-02-01",
     "updatedAt": "2026-03-16",
     "featuredImage": "/blog/images/featured-hack-rtp-mega888.webp"
-  }
+  },
   {
     "slug": "game-senang-jackpot",
     "title": "10 Game Mega888 Paling Senang Jackpot 2026",
@@ -346,7 +346,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     "publishedAt": "2026-02-01",
     "updatedAt": "2026-03-16",
     "featuredImage": "/blog/images/featured-mega888-free-credit.webp"
-  }
+  },
   {
     "slug": "mega888-auto-cuci",
     "title": "Mega888 Auto Cuci 2026: Company Trusted Dengan Payout Laju",
@@ -2563,7 +2563,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     ],
     "publishedAt": "2026-03-16",
     "updatedAt": "2026-03-16"
-  }
+  },
 
   {
     "slug": "mega888-download-free-2026",
