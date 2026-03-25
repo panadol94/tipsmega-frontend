@@ -602,19 +602,13 @@ export default function HomeClient() {
                     {/* Hero Text — premium headline */}
                     <div className="text-center flex flex-col items-center">
                         {/* MEGA888 REAL LOGO + AI SCANNER EFFECT */}
-                        <div className="relative w-64 md:w-80 h-24 md:h-28 mb-4 flex items-center justify-center group cursor-default mt-2">
+                        <div className="relative w-64 md:w-80 h-24 md:h-28 mb-0 flex items-center justify-center group cursor-default mt-2">
                             {/* Logo Image */}
                             <img 
                                 src="/mega888.png" 
                                 alt="MEGA888" 
                                 className="relative z-10 w-full h-full object-contain drop-shadow-[0_0_20px_rgba(255,77,77,0.4)] group-hover:scale-105 transition-all duration-500"
                             />
-                            
-                            {/* Scanner Laser Sweep */}
-                            <div className="absolute left-0 right-0 h-[2px] bg-red-400 shadow-[0_0_15px_rgba(255,100,100,1)] z-20 animate-[scan_2s_ease-in-out_infinite]" />
-                            
-                            {/* Overlay scan tint */}
-                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-500/15 to-transparent animate-[scan_2s_ease-in-out_infinite] z-20 mix-blend-overlay pointer-events-none rounded-xl" />
 
                             {/* Tech Nodes (Brackets) */}
                             <div className="absolute -left-2 sm:-left-4 top-1/2 -translate-y-1/2 w-[2px] h-10 bg-red-500/60 shadow-[0_0_10px_rgba(255,77,77,0.8)]" />
@@ -629,7 +623,7 @@ export default function HomeClient() {
                         </div>
 
                         <h1
-                            className="text-3xl font-black italic mt-2"
+                            className="text-3xl font-black italic relative z-20 -mt-2"
                             style={{
                                 background: "linear-gradient(135deg, #ffffff 0%, #fca5a5 40%, #ff4d4d 80%, #991b1b 100%)",
                                 WebkitBackgroundClip: "text",
