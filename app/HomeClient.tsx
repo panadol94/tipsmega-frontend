@@ -110,7 +110,7 @@ export default function HomeClient() {
     // Hacker scan overlay
     const [showHackerOverlay, setShowHackerOverlay] = useState(false);
 
-    const { playSound, triggerHaptic, setScanActive } = useGlobalSettings();
+    const { playSound, triggerHaptic, setScanActive, user } = useGlobalSettings();
 
     const showToast = (msg: string, type: ToastType = "info") => {
         setToast({ msg, type });
@@ -530,7 +530,7 @@ export default function HomeClient() {
                             </div>
                             <div className="flex flex-col leading-none">
                                 <span className="font-black text-white text-[13px] tracking-wide">
-                                    {userName || "User"}
+                                    {user?.username || userName || "User"}
                                 </span>
                                 <span className="text-[9px] text-red-400 font-semibold tracking-wider uppercase mt-0.5">
                                     Premium
