@@ -1,15 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 
 :root {
     --bg0: #050810;
     --bg1: #0a0f1a;
-    --card: #0d1321;
-    --card2: #0b1120;
-    --text: rgba(240, 244, 255, .92);
-    --muted: rgba(136, 146, 176, .85);
-    --line: rgba(136, 146, 176, .15);
-    --shadow: 0 18px 60px rgba(0, 0, 0, .65);
+    --card: rgba(10, 15, 26, 0.65);
+    --card2: rgba(8, 12, 22, 0.55);
+    --text: rgba(240, 244, 255, .94);
+    --muted: rgba(136, 146, 176, .70);
+    --line: rgba(136, 146, 176, .12);
+    --shadow: 0 20px 60px rgba(0, 0, 0, .50);
 
     --gold0: #ff6b6b;
     --gold1: #ff4d4d;
@@ -18,17 +18,17 @@
     --blue0: #00e5cc;
     --blue1: #00c4b0;
 
-    --r: 22px;
+    --r: 16px;
 
-    /* ===== UNIFIED CARD SYSTEM (Phase 4) ===== */
-    --card-border: rgba(255, 255, 255, 0.08);
-    --card-border-hover: rgba(255, 255, 255, 0.16);
-    --card-bg-top: rgba(255, 255, 255, 0.05);
-    --card-bg-bottom: rgba(255, 255, 255, 0.02);
-    --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-    --card-shadow-hover: 0 16px 60px rgba(0, 0, 0, 0.5);
-    --card-radius: 18px;
-    --card-padding: 1.1rem;
+    /* ===== GLASSMORPHISM CARD SYSTEM ===== */
+    --card-border: rgba(136, 146, 176, 0.10);
+    --card-border-hover: rgba(136, 146, 176, 0.22);
+    --card-bg-top: rgba(10, 15, 26, 0.60);
+    --card-bg-bottom: rgba(10, 15, 26, 0.40);
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.4);
+    --card-radius: 16px;
+    --card-padding: 1.25rem;
 }
 
 .text-glow-emerald {
@@ -48,16 +48,18 @@ body {
 
 body {
     margin: 0;
-    font-family: "Exo 2", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial;
     color: var(--text);
-    background:
-        radial-gradient(900px 500px at 15% 5%, rgba(0, 229, 204, .08), transparent 55%),
-        radial-gradient(900px 500px at 85% 10%, rgba(255, 77, 77, .08), transparent 55%),
-        linear-gradient(180deg, var(--bg1), var(--bg0));
+    background: var(--bg0);
+    background-image:
+        radial-gradient(ellipse 800px 600px at 20% 0%, rgba(255, 77, 77, .06), transparent),
+        radial-gradient(ellipse 600px 400px at 80% 5%, rgba(0, 229, 204, .05), transparent),
+        radial-gradient(ellipse 1200px 800px at 50% 100%, rgba(0, 229, 204, .03), transparent);
+    letter-spacing: -0.01em;
 }
 
 
-/* ===== carbon texture overlay ===== */
+/* ===== starfield background ===== */
 .app-bg {
     min-height: 100vh;
     position: relative;
@@ -66,15 +68,35 @@ body {
 
 .app-bg:before {
     content: "";
-    position: absolute;
+    position: fixed;
     inset: 0;
     pointer-events: none;
-    opacity: .18;
     background-image:
-        linear-gradient(135deg, rgba(255, 255, 255, .10) 0%, rgba(255, 255, 255, 0) 60%),
-        repeating-linear-gradient(45deg, rgba(255, 255, 255, .06) 0 1px, rgba(0, 0, 0, 0) 1px 9px),
-        repeating-linear-gradient(-45deg, rgba(255, 255, 255, .04) 0 1px, rgba(0, 0, 0, 0) 1px 11px);
-    mix-blend-mode: overlay;
+        radial-gradient(1.5px 1.5px at 10% 15%, rgba(255,255,255,0.35), transparent),
+        radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.25), transparent),
+        radial-gradient(1.5px 1.5px at 40% 10%, rgba(255,255,255,0.30), transparent),
+        radial-gradient(1px 1px at 55% 45%, rgba(255,255,255,0.20), transparent),
+        radial-gradient(1.5px 1.5px at 70% 20%, rgba(255,255,255,0.28), transparent),
+        radial-gradient(1px 1px at 85% 55%, rgba(255,255,255,0.22), transparent),
+        radial-gradient(1px 1px at 15% 65%, rgba(255,255,255,0.18), transparent),
+        radial-gradient(1.5px 1.5px at 50% 75%, rgba(255,255,255,0.25), transparent),
+        radial-gradient(1px 1px at 75% 85%, rgba(255,255,255,0.20), transparent),
+        radial-gradient(1px 1px at 30% 90%, rgba(255,255,255,0.15), transparent),
+        radial-gradient(1.5px 1.5px at 90% 40%, rgba(255,255,255,0.30), transparent),
+        radial-gradient(1px 1px at 5% 50%, rgba(255,255,255,0.22), transparent),
+        radial-gradient(1px 1px at 65% 60%, rgba(255,255,255,0.18), transparent),
+        radial-gradient(1.5px 1.5px at 35% 25%, rgba(255,255,255,0.28), transparent),
+        radial-gradient(1px 1px at 95% 70%, rgba(255,255,255,0.15), transparent),
+        radial-gradient(1px 1px at 20% 80%, rgba(255,255,255,0.20), transparent),
+        radial-gradient(1.5px 1.5px at 45% 5%, rgba(255,255,255,0.32), transparent),
+        radial-gradient(1px 1px at 60% 95%, rgba(255,255,255,0.18), transparent),
+        radial-gradient(1px 1px at 80% 30%, rgba(255,255,255,0.22), transparent);
+    animation: starsDrift 120s linear infinite;
+}
+
+@keyframes starsDrift {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-40px); }
 }
 
 /* ===== layout shell ===== */
@@ -122,17 +144,20 @@ body {
     top: 0;
     z-index: 30;
     padding: 14px 12px 10px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
 }
 
 .top-brand-inner {
     max-width: 520px;
     margin: 0 auto;
-    border-radius: 22px;
-    border: 1px solid rgba(255, 255, 255, .10);
-    background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
-    box-shadow: var(--shadow);
-    padding: 12px 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(136, 146, 176, .12);
+    background: rgba(10, 15, 26, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    padding: 12px 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -215,13 +240,15 @@ body {
     color: rgba(255, 255, 255, .85);
 }
 
-/* ===== cards, text ===== */
+/* ===== glassmorphism cards ===== */
 .card {
     border-radius: var(--card-radius);
     border: 1px solid var(--card-border);
     background: linear-gradient(180deg, var(--card-bg-top), var(--card-bg-bottom));
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
     box-shadow: var(--card-shadow);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .card:hover {
@@ -231,7 +258,7 @@ body {
 
 @media (hover:hover) {
     .card:hover {
-        transform: translateY(-2px);
+        transform: translateY(-3px);
     }
 }
 
@@ -388,12 +415,16 @@ body {
 .input {
     width: 100%;
     height: 54px;
-    border-radius: 18px;
-    border: 1px solid rgba(255, 255, 255, .12);
-    background: rgba(0, 0, 0, .35);
-    color: rgba(255, 255, 255, .92);
-    padding: 0 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(136, 146, 176, .12);
+    background: rgba(5, 8, 16, .50);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--text);
+    padding: 0 16px;
     outline: none;
+    font-family: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* Larger inputs untuk desktop */
@@ -448,9 +479,11 @@ body {
 /* ===== terminal ===== */
 .terminal {
     border-radius: var(--r);
-    border: 1px solid rgba(255, 255, 255, .10);
-    background: linear-gradient(180deg, rgba(0, 0, 0, .38), rgba(0, 0, 0, .62));
-    box-shadow: var(--shadow);
+    border: 1px solid rgba(136, 146, 176, .10);
+    background: rgba(5, 8, 16, .70);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.30);
     overflow: hidden;
 }
 
@@ -459,8 +492,8 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 12px 14px;
-    border-bottom: 1px solid rgba(255, 255, 255, .08);
-    background: rgba(255, 255, 255, .03);
+    border-bottom: 1px solid rgba(136, 146, 176, .08);
+    background: rgba(255, 255, 255, .02);
 }
 
 .terminal-body {
@@ -514,13 +547,14 @@ body {
     width: 100%;
     max-width: 520px;
     display: flex;
-    gap: 10px;
-    padding: 10px;
-    border-radius: 22px;
-    border: 1px solid rgba(255, 255, 255, .12);
-    background: rgba(10, 14, 26, .55);
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow);
+    gap: 8px;
+    padding: 8px;
+    border-radius: 16px;
+    border: 1px solid rgba(136, 146, 176, .10);
+    background: rgba(10, 15, 26, .60);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.30);
 }
 
 /* Responsive nav untuk desktop */
@@ -902,10 +936,12 @@ a {
 .modal-card {
     width: 100%;
     max-width: 520px;
-    border-radius: 22px;
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    background: linear-gradient(180deg, rgba(15, 22, 42, 0.96), rgba(8, 10, 18, 0.98));
-    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255,255,255,0.03) inset;
+    border-radius: 18px;
+    border: 1px solid rgba(136, 146, 176, 0.12);
+    background: rgba(10, 15, 26, 0.85);
+    backdrop-filter: blur(24px) saturate(150%);
+    -webkit-backdrop-filter: blur(24px) saturate(150%);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(136,146,176,0.05) inset;
     animation: pop .18s ease-out;
 }
 
