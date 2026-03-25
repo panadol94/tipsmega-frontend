@@ -51,17 +51,49 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "TipsMega888",
-    url: "https://tipsmega888.com",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: "https://tipsmega888.com/games?q={search_term_string}",
-      "query-input": "required name=search_term_string",
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "TipsMega888",
+      url: "https://tipsmega888.com",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: "https://tipsmega888.com/games?q={search_term_string}",
+        "query-input": "required name=search_term_string",
+      },
     },
-  };
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Apa itu RTP Mega888?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "RTP atau Return to Player Mega888 adalah anggaran peratusan sistem permainan akan membayar balik kepada pemain dalam jangka masa panjang. Fungsi TipsMega888 adalah memantau algoritma dan statistik RTP terkini bagi setiap slot di aplikasi Mega888 supaya anda boleh buat keputusan secara bijak."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Bolehkah pengimbas TipsMega888 hack sistem Mega888?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Tidak. Sistem ini TIDAK menggodam (hack) aplikasi Mega888. Kami menggunakan analisis AI berasaskan corak kemenangan dan kadar RTP purata harian untuk memberi ramalan kebarangkalian paling tinggi untuk mana-mana permainan slot Mega888."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Macam mana nak download APK Mega888 2026 yang original?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Anda dinasihatkan sentiasa muat turun (download) APK rasmi Mega888 daripada ejen dan pautan yang disahkan (Trusted Platforms). Elakkan memuat turun fail Mega888 dari sumber yang tidak berlesen untuk melindungi maklumat dan baki akaun anda."
+          }
+        }
+      ]
+    }
+  ];
 
   return (
     <html lang="ms">
