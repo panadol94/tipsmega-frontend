@@ -600,7 +600,32 @@ export default function HomeClient() {
                 <div className="w-full max-w-lg space-y-6">
                     
                     {/* Hero Text — premium headline */}
-                    <div className="text-center">
+                    <div className="text-center flex flex-col items-center">
+                        {/* ANIMATED AI CORE LOGO */}
+                        <div className="relative w-28 h-28 mb-6 flex items-center justify-center group cursor-default mt-2">
+                            {/* Glowing Orbit Rings */}
+                            <div className="absolute inset-0 rounded-full border border-red-500/20 border-t-red-500/60 border-r-red-500/60 animate-[spin_6s_linear_infinite]" />
+                            <div className="absolute inset-2 rounded-full border border-red-400/20 border-b-red-400/60 border-l-red-400/60 border-dashed animate-[spin_4s_linear_infinite_reverse]" />
+                            <div className="absolute inset-4 rounded-full border border-white/10 border-t-white/30 animate-[spin_8s_linear_infinite]" />
+                            
+                            {/* Ambient Pulse Core */}
+                            <div className="absolute inset-6 rounded-full bg-gradient-to-tr from-red-600/10 to-rose-400/10 blur-xl group-hover:from-red-500/30 group-hover:to-rose-400/30 transition-all duration-700 animate-pulse" />
+                            
+                            {/* Central Diamond/Eye */}
+                            <div className="relative z-10 w-10 h-10 border border-white/40 bg-black/40 backdrop-blur-md rotate-45 flex items-center justify-center group-hover:scale-125 group-hover:border-red-400/80 group-hover:shadow-[0_0_25px_rgba(255,77,77,0.4)] transition-all duration-700">
+                                {/* Inner pupil ping */}
+                                <div className="absolute w-4 h-4 bg-red-500/20 rounded-full animate-ping" style={{ animationDuration: '2.5s' }} />
+                                {/* Solid pupil center */}
+                                <div className="absolute w-2 h-2 bg-red-400 shadow-[0_0_12px_rgba(255,77,77,1)] transition-colors duration-500 group-hover:bg-white" />
+                            </div>
+
+                            {/* Cardinal Tech Nodes */}
+                            <div className="absolute top-0 w-1.5 h-1.5 bg-red-500 rounded-full shadow-[0_0_8px_rgba(255,77,77,0.9)]" />
+                            <div className="absolute bottom-0 w-1.5 h-1.5 bg-red-500 rounded-full shadow-[0_0_8px_rgba(255,77,77,0.9)]" />
+                            <div className="absolute left-0 w-1 h-1 bg-red-400/60 rounded-full" />
+                            <div className="absolute right-0 w-1 h-1 bg-red-400/60 rounded-full" />
+                        </div>
+
                         <h1
                             className="text-3xl font-black italic"
                             style={{
