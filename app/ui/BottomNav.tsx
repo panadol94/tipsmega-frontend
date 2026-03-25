@@ -102,7 +102,7 @@ export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
               {isActive && (
                 <motion.div
                   layoutId="nav-blob"
-                  className="absolute inset-0 bg-gradient-to-tr from-emerald-600 to-teal-400 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.6),0_0_15px_rgba(16,185,129,0.4)]"
+                  className="absolute inset-0 bg-gradient-to-tr from-red-600 to-rose-400 rounded-xl shadow-[0_0_30px_rgba(255,77,77,0.5),0_0_15px_rgba(255,77,77,0.3)]"
                   transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   style={{ borderRadius: 12 }}
                 />
