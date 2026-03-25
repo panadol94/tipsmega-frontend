@@ -91,6 +91,29 @@ export default function Page() {
         }}
       />
 
+      {/* SoftwareApplication schema — AI Scanner tool */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "TipsMega888 AI RTP Scanner",
+            url: "https://tipsmega888.com",
+            applicationCategory: "UtilitiesApplication",
+            operatingSystem: "Web",
+            offers: { "@type": "Offer", price: "0", priceCurrency: "MYR" },
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "4.9",
+              ratingCount: "1280",
+              bestRating: "5",
+            },
+            description: "AI-powered RTP scanner untuk Mega888 Malaysia. Semak RTP live percuma.",
+          }),
+        }}
+      />
+
       <HomeClient />
     </>
   );

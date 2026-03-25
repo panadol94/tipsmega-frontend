@@ -4,11 +4,11 @@ import SharedPageNav from "../ui/SharedPageNav";
 export const metadata = {
   title: "Help & Panduan AI Scanner | TipsMega888",
   description:
-    "Jawapan untuk soalan paling biasa tentang cara guna AI Scanner dan понятие RTP untuk permainan Mega888. Panduan lengkap cara scan, baca keputusan, dan tips.",
+    "Jawapan untuk soalan paling biasa tentang cara guna AI Scanner dan konsep RTP untuk permainan Mega888. Panduan lengkap cara scan, baca keputusan, dan tips.",
   alternates: { canonical: "https://tipsmega888.com/help" },
   openGraph: {
     title: "Help & Panduan AI Scanner | TipsMega888",
-    description: "Jawapan soalan biasa tentang cara guna AI Scanner dan понятие RTP Mega888.",
+    description: "Jawapan soalan biasa tentang cara guna AI Scanner dan konsep RTP Mega888.",
     url: "https://tipsmega888.com/help",
     siteName: "TipsMega AI Scanner",
     locale: "ms_MY",
@@ -28,9 +28,51 @@ export const metadata = {
   },
 };
 
+const HELP_FAQS = [
+  {
+    q: "Apa itu RTP?",
+    a: "RTP (Return to Player) adalah peratus payout sesuatu game. Semakin tinggi RTP, semakin banyak pemain boleh menang dalam jangka panjang.",
+  },
+  {
+    q: "Bagaimana AI Scanner berfungsi?",
+    a: "AI menganalisis pattern game dan memberikan estimation RTP berdasarkan data dari servers Mega888.",
+  },
+  {
+    q: "Berapa lama cooldown?",
+    a: "Cooldown adalah 2 minit antara setiap scan untuk mengelakkan abuse sistem.",
+  },
+];
+
 export default function HelpPage() {
     return (
         <SharedPageNav>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: HELP_FAQS.map((item) => ({
+                    "@type": "Question",
+                    name: item.q,
+                    acceptedAnswer: { "@type": "Answer", text: item.a },
+                  })),
+                }),
+              }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "BreadcrumbList",
+                  itemListElement: [
+                    { "@type": "ListItem", position: 1, name: "Home", item: "https://tipsmega888.com" },
+                    { "@type": "ListItem", position: 2, name: "Help & Panduan", item: "https://tipsmega888.com/help" },
+                  ],
+                }),
+              }}
+            />
             <div className="app-wrap">
                 <div className="app-shell">
                     {/* Page Header */}
@@ -52,7 +94,7 @@ export default function HelpPage() {
                             Help &amp; Panduan
                         </h1>
                         <p>
-                            Jawapan untuk soalan paling biasa tentang cara guna AI Scanner dan понятие RTP untuk permainan Mega888.
+                            Jawapan untuk soalan paling biasa tentang cara guna AI Scanner dan konsep RTP untuk permainan Mega888.
                         </p>
                     </div>
 
@@ -137,20 +179,7 @@ export default function HelpPage() {
                             ❓ Soalan Lazim
                         </h2>
                         <div className="space-y-3">
-                            {[
-                                {
-                                    q: "Apa itu RTP?",
-                                    a: "RTP (Return to Player) adalah peratus payout sesuatu game. Semakin tinggi RTP, semakin banyak pemain boleh menang dalam jangka panjang.",
-                                },
-                                {
-                                    q: "Bagaimana AI Scanner berfungsi?",
-                                    a: "AI menganalisis pattern game dan memberikan estimation RTP berdasarkan data dari servers Mega888.",
-                                },
-                                {
-                                    q: "Berapa lama cooldown?",
-                                    a: "Cooldown adalah 2 minit antara setiap scan untuk mengelakkan abuse sistem.",
-                                },
-                            ].map((faq) => (
+                            {HELP_FAQS.map((faq) => (
                                 <details
                                     key={faq.q}
                                     className="group"

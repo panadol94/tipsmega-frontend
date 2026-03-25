@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import ClientLayout from "./ClientLayout";
 
-const metadata: Metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL("https://tipsmega888.com"),
   title: "Mega888 Malaysia | TipsMega888 - AI RTP Scanner & Trusted Platform",
   description:

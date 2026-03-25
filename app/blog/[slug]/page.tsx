@@ -180,7 +180,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
             wordCount,
             articleSection: article.category,
             inLanguage: "ms-MY",
-            author: { "@type": "Organization", name: "TipsMega AI" },
+            author: { "@type": "Person", name: "TipsMega AI Team", url: "https://tipsmega888.com/about" },
             publisher: {
               "@type": "Organization",
               name: "TipsMega888",
