@@ -15,7 +15,7 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.co
 
 // --- Avatar Helpers ---
 const AVATAR_COLORS = [
-    "bg-red-500", "bg-orange-500", "bg-amber-500", "bg-yellow-500", "bg-lime-500",
+    "bg-red-500", "bg-orange-500", "bg-red-500", "bg-red-500", "bg-lime-500",
     "bg-green-500", "bg-emerald-500", "bg-teal-500", "bg-cyan-500", "bg-sky-500",
     "bg-blue-500", "bg-indigo-500", "bg-violet-500", "bg-purple-500", "bg-fuchsia-500", "bg-pink-500", "bg-rose-500"
 ];
@@ -98,7 +98,7 @@ type Message = {
 
 const VerifiedBadge = () => (
     <span className="inline-flex items-center justify-center ml-1 align-middle" title="Verified VVIP">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.6)] animate-pulse-slow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-red-400 drop-shadow-[0_0_8px_rgba(255,77,77,0.6)] animate-pulse-slow">
             <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
             <circle cx="12" cy="12" r="8" fill="currentColor" className="opacity-20" />
         </svg>
@@ -208,7 +208,7 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
 
                 {showName && (
                     <div className="flex items-center gap-1.5 mb-1 px-1">
-                        <span className={`text-[10px] font-bold tracking-wide ${isAdmin ? "text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" : "text-white/40"}`}>
+                        <span className={`text-[10px] font-bold tracking-wide ${isAdmin ? "text-red-400 drop-shadow-[0_0_5px_rgba(255,77,77,0.5)]" : "text-white/40"}`}>
                             {isAdmin && "👑 "}{m.sender}
                         </span>
                         {(isAdmin || m.sender === "panadol94" || m.sender === "System") && <VerifiedBadge />}
@@ -314,7 +314,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
         header: "bg-[#1f2937]/90 backdrop-blur-md border-b border-white/5 shadow-sm sticky top-0 z-30",
         me: "bg-emerald-600 text-white shadow-md font-medium border-emerald-500", // WhatsApp-like Green
         other: "bg-[#1f2937] border border-white/5 text-gray-200 shadow-md", // Standard dark bubble
-        admin: "bg-amber-500/10 border border-amber-500/20 text-amber-200",
+        admin: "bg-red-500/10 border border-red-500/20 text-amber-200",
         accent: "emerald",
         bubble: "px-3 py-2 shadow-sm border-0",
     };
@@ -621,7 +621,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                         <h3 className="chat-header-gradient font-bold text-white text-sm tracking-wide uppercase drop-shadow-[0_2px_10px_rgba(245,158,11,0.2)]">
                             {roomId === "global" ? "SEMBANG SANTAI (GLOBAL)" : roomId.toUpperCase()}
                         </h3>
-                        <div className="text-[10px] text-amber-500/60 font-mono tracking-widest">
+                        <div className="text-[10px] text-red-500/60 font-mono tracking-widest">
                             {roomId === "global" ? "PUBLIC CHAT" : "PREMIUM NETWORK"}
                         </div>
                     </div>
@@ -736,7 +736,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                 <div className="flex items-center gap-2">
                     <button
                         onClick={() => setShowEmoji(!showEmoji)}
-                        className="chat-button-press p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-yellow-400 transition-colors"
+                        className="chat-button-press p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-red-400 transition-colors"
                     >
                         😊
                     </button>
@@ -804,7 +804,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
 
                 {user?.username === "Guest" && (
                     <div className="text-center mt-2 animate-pulse">
-                        <span className="text-[10px] text-yellow-400/90 font-semibold bg-yellow-400/10 px-3 py-1 rounded-full border border-yellow-400/20">
+                        <span className="text-[10px] text-red-400/90 font-semibold bg-red-400/10 px-3 py-1 rounded-full border border-red-400/20">
                             🔒 Login required to join the conversation
                         </span>
                     </div>

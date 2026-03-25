@@ -206,26 +206,26 @@ export default function TrustedClient() {
                     <div className="flex items-center justify-between mb-4">
                         <div>
                             <div className="flex items-center gap-2 mb-1">
-                                <div className="h-1 w-6 bg-amber-400 rounded-full shadow-[0_0_10px_rgba(251,191,36,0.5)]" />
-                                <span className="text-[10px] font-black tracking-[0.3em] text-amber-400/80 uppercase">VVIP PARTNERS</span>
+                                <div className="h-1 w-6 bg-red-400 rounded-full shadow-[0_0_10px_rgba(255,77,77,0.5)]" />
+                                <span className="text-[10px] font-black tracking-[0.3em] text-red-400/80 uppercase">VVIP PARTNERS</span>
                             </div>
                             <h1 className="text-3xl font-black italic text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
                                 TRUSTED <span className="elite-gradient-shift elite-glow">ELITE</span>
                             </h1>
                         </div>
-                        <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center animate-pulse-slow">
+                        <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center animate-pulse-slow">
                             <span className="text-xl">🏆</span>
                         </div>
                     </div>
 
                     <p className="text-xs text-white/50 leading-relaxed font-medium bg-white/5 border border-white/10 p-3 rounded-xl backdrop-blur-sm">
-                        <span className="text-amber-400 font-bold">OFFICIAL VERIFIED LIST 2026.</span> All platforms here are monitored 24/7 for integrity, payout speed, and RTP fairness. Safe for Commander deployment.
+                        <span className="text-red-400 font-bold">OFFICIAL VERIFIED LIST 2026.</span> All platforms here are monitored 24/7 for integrity, payout speed, and RTP fairness. Safe for Commander deployment.
                     </p>
 
                     {/* Stats Bar */}
                     <div className="mt-4 grid grid-cols-3 gap-2">
                         <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
-                            <div className="text-base font-black text-amber-400">{list.length || "—"}</div>
+                            <div className="text-base font-black text-red-400">{list.length || "—"}</div>
                             <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Verified Partners</div>
                         </div>
                         <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
@@ -270,7 +270,7 @@ export default function TrustedClient() {
                             // Dynamic badge assignment
                             const badges = [];
                             if (idx === 0) badges.push({ icon: '🔥', text: 'TRENDING', color: 'bg-red-500/90' });
-                            else if (idx === 1) badges.push({ icon: '⚡', text: 'FAST', color: 'bg-yellow-500/90' });
+                            else if (idx === 1) badges.push({ icon: '⚡', text: 'FAST', color: 'bg-red-500/90' });
                             else if (c.caption) badges.push({ icon: '🎁', text: 'BONUS', color: 'bg-purple-500/90' });
 
                             // Mock live player count
@@ -374,7 +374,7 @@ export default function TrustedClient() {
                                             <div className="flex items-center justify-center gap-1">
                                                 <div className="flex">
                                                     {[...Array(5)].map((_, i) => (
-                                                        <span key={i} className={`text-[10px] ${i < stars ? 'text-amber-400' : 'text-white/20'}`}>⭐</span>
+                                                        <span key={i} className={`text-[10px] ${i < stars ? 'text-red-400' : 'text-white/20'}`}>⭐</span>
                                                     ))}
                                                 </div>
                                                 <span className="text-white/50 text-[10px] font-mono">({rating.toFixed(1)})</span>
@@ -383,7 +383,7 @@ export default function TrustedClient() {
                                             {/* Caption - Bonus/Promo Display */}
                                             {c.caption && (
                                                 <div className="min-h-[28px] flex items-center justify-center">
-                                                    <p className="text-[12px] font-bold text-amber-400 leading-tight px-1 animate-pulse">
+                                                    <p className="text-[12px] font-bold text-red-400 leading-tight px-1 animate-pulse">
                                                         🎁 {c.caption}
                                                     </p>
                                                 </div>
@@ -394,7 +394,7 @@ export default function TrustedClient() {
                                                 {url ? (
                                                     <button
                                                         onClick={() => handleAction(url)}
-                                                        className="w-full bg-gradient-to-r from-amber-600 to-yellow-600 border border-white/10 text-white font-bold text-[12px] uppercase py-2 rounded-xl shadow-md hover:scale-105 hover:shadow-amber-500/50 active:scale-95 transition-all duration-200"
+                                                        className="w-full bg-gradient-to-r from-red-600 to-red-600 border border-white/10 text-white font-bold text-[12px] uppercase py-2 rounded-xl shadow-md hover:scale-105 hover:shadow-red-500/50 active:scale-95 transition-all duration-200"
                                                     >
                                                         🚀 PLAY NOW
                                                     </button>
@@ -418,8 +418,8 @@ export default function TrustedClient() {
                 {/* SEO Content Expansion - Educational Information */}
                 <section className="mt-12 space-y-8">
                     {/* Why Choose Trusted Companies */}
-                    <article className="card p-6 border-amber-500/20 bg-amber-500/5">
-                        <h2 className="text-xl font-black text-amber-400 mb-4 flex items-center gap-2">
+                    <article className="card p-6 border-red-500/20 bg-red-500/5">
+                        <h2 className="text-xl font-black text-red-400 mb-4 flex items-center gap-2">
                             <span>🛡️</span>
                             <span>Kenapa Pilih Trusted Company?</span>
                         </h2>
@@ -438,18 +438,18 @@ export default function TrustedClient() {
 
                     {/* How We Verify */}
                     <article className="card p-6 border-cyan-500/20 bg-cyan-500/5">
-                        <div className="text-sm uppercase tracking-wider text-amber-400 font-bold flex items-center justify-center gap-2">
+                        <div className="text-sm uppercase tracking-wider text-red-400 font-bold flex items-center justify-center gap-2">
                             <span>🔒</span>
                             <span>SAFE GAMING</span>
                         </div>
-                        <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-white via-amber-200 to-white bg-clip-text text-transparent">
+                        <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-white via-red-200 to-white bg-clip-text text-transparent">
                             🔥 Withdrawal On Fire 🔥
                         </h1>
-                        <h2 className="mt-2 text-2xl sm:text-3xl font-bold text-amber-400">
+                        <h2 className="mt-2 text-2xl sm:text-3xl font-bold text-red-400">
                             Lightning Fast Trusted Companies
                         </h2>
                         <p className="mt-4 max-w-3xl mx-auto text-white/70 leading-relaxed">
-                            Agent terpanas dengan <strong className="text-amber-400">instant withdraw</strong>! Menang terus dapat, <br className="hidden sm:inline" />
+                            Agent terpanas dengan <strong className="text-red-400">instant withdraw</strong>! Menang terus dapat, <br className="hidden sm:inline" />
                             RTP certified 24/7. Money in your pocket <strong className="text-green-400">dalam minit</strong>!
                         </p>
                         <div className="grid md:grid-cols-2 gap-4 text-sm text-white/70">

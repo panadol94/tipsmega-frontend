@@ -466,7 +466,7 @@ export default function HomeClient() {
                             particleCount: 100,
                             spread: 70,
                             origin: { y: 0.6 },
-                            colors: ['#00d9ff', '#a855f7', '#ff00ff', '#fbbf24'],
+                            colors: ['#00d9ff', '#a855f7', '#ff00ff', '#ff4d4d'],
                         });
                     }, 800);
                 }
@@ -536,7 +536,7 @@ export default function HomeClient() {
                             {isLoggedIn && userName ? userName : "MEGA888"}
                         </span>
                         {isLoggedIn && userName && (
-                            <span className="text-[9px] text-amber-400 font-semibold tracking-wider uppercase mt-0.5">
+                            <span className="text-[9px] text-red-400 font-semibold tracking-wider uppercase mt-0.5">
                                 Premium
                             </span>
                         )}
@@ -604,7 +604,7 @@ export default function HomeClient() {
                         <h1
                             className="text-3xl font-black italic"
                             style={{
-                                background: "linear-gradient(135deg, #7bd7ff 0%, #ffffff 40%, #a5f3fc 60%, #34d399 100%)",
+                                background: "linear-gradient(135deg, #00e5cc 0%, #ffffff 40%, #a5f3fc 60%, #34d399 100%)",
                                 WebkitBackgroundClip: "text",
                                 WebkitTextFillColor: "transparent",
                                 backgroundClip: "text",
@@ -677,7 +677,7 @@ export default function HomeClient() {
                     {/* Quick Links */}
                     <h2 className="sr-only">Pautan Pantas</h2>
                     <div className="grid grid-cols-2 gap-3">
-                        <Link href="/trusted" className="card p-4 text-center border-amber-500/20 bg-amber-500/5 hover:bg-amber-500/10 transition">
+                        <Link href="/trusted" className="card p-4 text-center border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition">
                             <div className="text-2xl mb-1">🔥</div>
                             <div className="text-sm font-bold text-white">Trusted List</div>
                             <div className="text-xs text-white/50">Verified agents</div>
@@ -760,7 +760,7 @@ export default function HomeClient() {
                                             <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e2e8f0" }}>{t.name}</span>
                                             <span style={{ fontSize: "0.72rem", color: "#475569", marginLeft: 6 }}>{t.loc}</span>
                                         </div>
-                                        <div style={{ marginLeft: "auto", color: "#f59e0b", fontSize: "0.7rem", letterSpacing: "0.05em" }}>
+                                        <div style={{ marginLeft: "auto", color: "#ef4444", fontSize: "0.7rem", letterSpacing: "0.05em" }}>
                                             {"★".repeat(t.stars)}
                                         </div>
                                     </div>
@@ -871,9 +871,9 @@ export default function HomeClient() {
                     className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] animate-in slide-in-from-top-4 fade-in duration-500"
                     style={{ minWidth: 300, maxWidth: '90%' }}
                 >
-                    <div className="relative overflow-hidden rounded-2xl border border-yellow-500/30 bg-gradient-to-br from-yellow-500/20 via-amber-500/20 to-orange-500/20 backdrop-blur-xl shadow-[0_0_40px_rgba(234,179,8,0.4)] p-4">
+                    <div className="relative overflow-hidden rounded-2xl border border-red-500/30 bg-gradient-to-br from-red-500/20 via-red-500/20 to-red-500/20 backdrop-blur-xl shadow-[0_0_40px_rgba(255,77,77,0.4)] p-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-yellow-500/20 border border-yellow-500/30 flex items-center justify-center">
+                            <div className="w-10 h-10 rounded-xl bg-red-500/20 border border-red-500/30 flex items-center justify-center">
                                 <span className="text-xl">⭐</span>
                             </div>
                             <p className="font-bold text-white text-sm">{starNotification}</p>

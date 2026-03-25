@@ -161,7 +161,7 @@ function EditCompanyContent() {
                                 <input type="file" accept="video/*,image/*" onChange={handleMediaUpload} className="hidden" />
                                 <div className="text-4xl mb-2">{uploading ? "⏳" : "🎬📸"}</div>
                                 <div className="text-slate-400 font-bold">{uploading ? "Uploading..." : "Click to Upload VIDEO or PHOTO"}</div>
-                                <div className="text-xs text-amber-400 mt-2 font-medium">✅ Supports: MP4, MOV, WebM (Video) | JPG, PNG, WebP (Photo)</div>
+                                <div className="text-xs text-red-400 mt-2 font-medium">✅ Supports: MP4, MOV, WebM (Video) | JPG, PNG, WebP (Photo)</div>
                             </label>
                         )}
                     </div>

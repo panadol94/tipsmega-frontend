@@ -172,7 +172,7 @@ export default function UsersPage() {
                                         <td className="p-4">
                                             {editingUserId === user._id ? (
                                                 <div className="space-y-2">
-                                                    <div className="text-yellow-400 text-sm font-bold">
+                                                    <div className="text-red-400 text-sm font-bold">
                                                         ⭐ Current: {user.stars || 0}
                                                     </div>
                                                     <div className="flex gap-1 flex-wrap">
@@ -233,7 +233,7 @@ export default function UsersPage() {
                                                 </div>
                                             ) : (
                                                 <div className="flex items-center justify-center gap-2">
-                                                    <span className="text-yellow-400">⭐ {user.stars || 0}</span>
+                                                    <span className="text-red-400">⭐ {user.stars || 0}</span>
                                                     <button
                                                         onClick={() => setEditingUserId(user._id)}
                                                         className="text-slate-400 hover:text-white text-sm"

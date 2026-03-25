@@ -108,7 +108,7 @@ function UserDetailContent() {
                             ) : (
                                 <span className="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-xs">✅ Active</span>
                             )}
-                            <span className="text-yellow-400 text-sm">⭐ {user.stars}</span>
+                            <span className="text-red-400 text-sm">⭐ {user.stars}</span>
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@ function UserDetailContent() {
 
                 <div className="flex items-center gap-3">
                     <input type="number" value={starsToAdd} onChange={(e) => setStarsToAdd(parseInt(e.target.value) || 0)} className="w-24 bg-slate-700 border border-slate-600 rounded-xl px-3 py-2 text-white text-center" min={1} />
-                    <button onClick={addStars} className="flex-1 py-2 bg-yellow-500/20 text-yellow-400 rounded-xl font-bold hover:bg-yellow-500/30 transition-colors">⭐ Add Stars</button>
+                    <button onClick={addStars} className="flex-1 py-2 bg-red-500/20 text-red-400 rounded-xl font-bold hover:bg-red-500/30 transition-colors">⭐ Add Stars</button>
                 </div>
 
                 <button onClick={toggleBan} className={`w-full py-3 rounded-xl font-bold transition-colors ${user.isBanned ? "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30" : "bg-red-500/20 text-red-400 hover:bg-red-500/30"}`}>

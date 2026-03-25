@@ -76,7 +76,7 @@ export default function ShareClient() {
                                 RECRUITMENT <span className="text-premium">PROTOCOL</span>
                             </h1>
                             <p className="font-mono text-[11px] text-white/60 leading-relaxed max-w-sm">
-                                Jemput Komander baru ke dalam sistem. Anda akan menerima <span className="text-yellow-400 font-bold">1 STAR</span> bagi setiap pengaktifan berjaya.
+                                Jemput Komander baru ke dalam sistem. Anda akan menerima <span className="text-red-400 font-bold">1 STAR</span> bagi setiap pengaktifan berjaya.
                             </p>
                         </div>
                     </header>

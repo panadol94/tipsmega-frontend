@@ -571,7 +571,7 @@ export default function GamesPage() {
                                             </p>
                                             {duplicateCount > 0 && (
                                                 <p className="text-sm">
-                                                    ⏭️ Skipped (duplicate): <span className="font-bold text-amber-400">{duplicateCount}</span>
+                                                    ⏭️ Skipped (duplicate): <span className="font-bold text-red-400">{duplicateCount}</span>
                                                 </p>
                                             )}
                                         </div>

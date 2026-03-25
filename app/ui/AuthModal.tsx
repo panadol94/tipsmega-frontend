@@ -314,7 +314,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                     <h2
                         className="text-2xl font-black tracking-wide uppercase mb-1"
                         style={{
-                            background: "linear-gradient(135deg, #7bd7ff 0%, #a855f7 50%, #ff6bd6 100%)",
+                            background: "linear-gradient(135deg, #00e5cc 0%, #a855f7 50%, #ff6bd6 100%)",
                             WebkitBackgroundClip: "text",
                             WebkitTextFillColor: "transparent",
                             backgroundClip: "text",
@@ -391,7 +391,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                             <h3 className="text-xs font-black text-white/50 uppercase tracking-widest pl-1">Langkah 3: Dapatkan OTP</h3>
                             <div className="flex gap-2">
                                 <input
-                                    className={`flex-1 h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-yellow-500/50 transition-all font-mono ${otpSent ? "opacity-50 cursor-not-allowed" : ""}`}
+                                    className={`flex-1 h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-red-500/50 transition-all font-mono ${otpSent ? "opacity-50 cursor-not-allowed" : ""}`}
                                     placeholder="No. Tel (e.g. 0123456789)"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
@@ -417,7 +417,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                                             setOtp("");
                                             setBusy(false);
                                         }}
-                                        className="text-[10px] text-yellow-400 underline hover:text-yellow-300"
+                                        className="text-[10px] text-red-400 underline hover:text-red-300"
                                     >
                                         Tukar Nombor?
                                     </button>
@@ -497,7 +497,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                         <div className="space-y-3">
                             <div className="flex gap-2">
                                 <input
-                                    className="flex-1 h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-yellow-500/50 transition-all font-mono"
+                                    className="flex-1 h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-red-500/50 transition-all font-mono"
                                     placeholder="No. Tel (e.g. 0123456789)"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}

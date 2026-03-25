@@ -40,7 +40,7 @@ export const metadata = {
 };
 
 const categoryMeta: Record<string, { label: string; bg: string; text: string; border: string }> = {
-  tips:     { label: "💡 Tips",     bg: "rgba(245,158,11,0.12)",  text: "#f59e0b", border: "rgba(245,158,11,0.3)" },
+  tips:     { label: "💡 Tips",     bg: "rgba(245,158,11,0.12)",  text: "#ef4444", border: "rgba(245,158,11,0.3)" },
   strategy: { label: "🎯 Strategi",  bg: "rgba(139,92,246,0.12)", text: "#a78bfa", border: "rgba(139,92,246,0.3)" },
   guide:    { label: "📚 Panduan",   bg: "rgba(59,130,246,0.12)", text: "#60a5fa", border: "rgba(59,130,246,0.3)" },
   news:     { label: "📰 Berita",    bg: "rgba(16,185,129,0.12)", text: "#34d399", border: "rgba(16,185,129,0.3)" },
@@ -97,8 +97,8 @@ export default function BlogPage() {
         {/* ── PAGE HEADER ── */}
         <header style={{ textAlign: "center", marginBottom: "2.5rem" }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: "0.6rem" }}>
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#f59e0b" }} />
-            <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#f59e0b", letterSpacing: "0.2em", textTransform: "uppercase" }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#ef4444" }} />
+            <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#ef4444", letterSpacing: "0.2em", textTransform: "uppercase" }}>
               TipsMega AI — Updated 2026
             </span>
           </div>
@@ -115,7 +115,7 @@ export default function BlogPage() {
                 display: "inline-flex", alignItems: "center", gap: 6,
                 padding: "7px 14px", borderRadius: 999,
                 border: "1px solid rgba(245,158,11,0.3)",
-                color: "#f59e0b", fontWeight: 700, fontSize: "0.82rem",
+                color: "#ef4444", fontWeight: 700, fontSize: "0.82rem",
                 textDecoration: "none", background: "rgba(245,158,11,0.06)",
               }}
             >
@@ -234,7 +234,7 @@ export default function BlogPage() {
 
               <div style={{
                 marginTop: "1rem", display: "inline-flex", alignItems: "center", gap: 4,
-                color: "#f59e0b", fontWeight: 700, fontSize: "0.85rem",
+                color: "#ef4444", fontWeight: 700, fontSize: "0.85rem",
               }}>
                 Baca Artikel →
               </div>
@@ -314,7 +314,7 @@ export default function BlogPage() {
           background: "rgba(255,255,255,0.03)",
           border: "1px solid rgba(255,255,255,0.07)",
         }}>
-          <Link href="/games" style={{ color: "#f59e0b", fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>🎮 Semua Game</Link>
+          <Link href="/games" style={{ color: "#ef4444", fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>🎮 Semua Game</Link>
           <span style={{ color: "#1e293b", margin: "0 0.25rem" }}>|</span>
           <Link href="/mega888" style={{ color: "#a78bfa", fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>🧭 Mega888 Hub</Link>
           <span style={{ color: "#1e293b", margin: "0 0.25rem" }}>|</span>

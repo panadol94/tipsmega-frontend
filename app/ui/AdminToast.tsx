@@ -46,11 +46,11 @@ function ToastItem({ message, type, onClose }: ToastProps) {
             iconBg: "bg-red-500/20"
         },
         warning: {
-            gradient: "from-amber-500/20 via-yellow-500/20 to-orange-500/20",
-            border: "border-amber-500/30",
+            gradient: "from-red-500/20 via-red-500/20 to-red-500/20",
+            border: "border-red-500/30",
             glow: "shadow-[0_0_30px_rgba(245,158,11,0.3)]",
             icon: "⚠️",
-            iconBg: "bg-amber-500/20"
+            iconBg: "bg-red-500/20"
         },
         info: {
             gradient: "from-cyan-500/20 via-blue-500/20 to-purple-500/20",

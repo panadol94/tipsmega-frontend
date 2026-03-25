@@ -111,7 +111,7 @@ function WinningTicker() {
         <div
           className={`flex-1 text-xs font-medium text-white/80 transition-all duration-500 ${anim ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}
         >
-          <span className="text-yellow-400 font-bold">{current.name}</span>
+          <span className="text-red-400 font-bold">{current.name}</span>
           {" "}berjaya cuci{" "}
           <span className="text-emerald-400 font-bold">{fmtRM(current.amount)}</span>
           {" "}dari{" "}
@@ -175,7 +175,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           <div style={{ maxWidth: 600, margin: "0 auto" }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", fontSize: "0.8rem" }}>
               <div>
-                <div style={{ fontWeight: 700, color: "#f59e0b", marginBottom: 6, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: 1 }}>Mega888</div>
+                <div style={{ fontWeight: 700, color: "#ef4444", marginBottom: 6, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: 1 }}>Mega888</div>
                 <Link href="/" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🏠 AI Scanner</Link>
                 <Link href="/mega888" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🧭 Mega888 Hub</Link>
                 <Link href="/trusted" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>✅ Company Trusted</Link>

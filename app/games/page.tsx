@@ -118,7 +118,7 @@ export default function GamesPage() {
         ))}
 
         <div style={{ textAlign: "center", marginTop: "2rem" }}>
-          <Link href="/blog" style={{ color: "#f59e0b", fontWeight: 600 }}>
+          <Link href="/blog" style={{ color: "#ef4444", fontWeight: 600 }}>
             📝 Baca Tips & Strategi →
           </Link>
           <span style={{ margin: "0 1rem", color: "#334155" }}>|</span>

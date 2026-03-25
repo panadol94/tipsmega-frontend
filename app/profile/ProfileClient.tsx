@@ -150,14 +150,14 @@ export default function ProfileClient() {
                                 {status === "Member" ? "VIP ELITE" : "RESTRICTED"}
                             </div>
                         </div>
-                        <div className="flex-1 bg-yellow-400/[0.03] border border-yellow-400/10 rounded-2xl p-4 backdrop-blur-xl relative shadow-inner overflow-hidden">
+                        <div className="flex-1 bg-red-400/[0.03] border border-red-400/10 rounded-2xl p-4 backdrop-blur-xl relative shadow-inner overflow-hidden">
                             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent" />
-                            <div className="text-[9px] uppercase tracking-[0.2em] text-yellow-500/40 mb-1.5 font-bold">Credit Balance</div>
-                            <div className="flex items-baseline gap-1.5 font-black text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.3)]">
+                            <div className="text-[9px] uppercase tracking-[0.2em] text-red-500/40 mb-1.5 font-bold">Credit Balance</div>
+                            <div className="flex items-baseline gap-1.5 font-black text-red-400 drop-shadow-[0_0_8px_rgba(255,77,77,0.3)]">
                                 <span className="text-xl">{stars}</span>
                                 <span className="text-[10px] opacity-60">STARS</span>
                             </div>
-                            <a href="https://t.me/cyberslotadmin" target="_blank" className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full bg-yellow-400/10 text-yellow-400 text-xs font-bold border border-yellow-400/20 hover:bg-yellow-400 hover:text-black transition-all shadow-lg">+</a>
+                            <a href="https://t.me/cyberslotadmin" target="_blank" className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full bg-red-400/10 text-red-400 text-xs font-bold border border-red-400/20 hover:bg-red-400 hover:text-black transition-all shadow-lg">+</a>
                         </div>
                     </div>
                 </header>
@@ -298,7 +298,7 @@ export default function ProfileClient() {
                                     <div className="text-[9px] text-white/30 uppercase tracking-tight mt-1">{h.ts}</div>
                                 </div>
                                 <div className="text-right">
-                                    <div className="text-lg font-black italic text-yellow-500 leading-none">{h.rtp}%</div>
+                                    <div className="text-lg font-black italic text-red-500 leading-none">{h.rtp}%</div>
                                     <div className="text-[8px] text-white/20 uppercase tracking-tighter mt-1">RTP SCORE</div>
                                 </div>
                             </div>

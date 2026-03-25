@@ -174,7 +174,7 @@ export default function NewGamePage() {
                     <div className="flex items-center gap-4">
                         <div className="flex-1 bg-slate-600 rounded-full h-3 overflow-hidden">
                             <div
-                                className="bg-gradient-to-r from-red-500 via-yellow-500 to-emerald-500 h-full"
+                                className="bg-gradient-to-r from-red-500 via-red-500 to-emerald-500 h-full"
                                 style={{ width: `${form.rtpMax}%`, marginLeft: `${form.rtpMin}%` }}
                             />
                         </div>

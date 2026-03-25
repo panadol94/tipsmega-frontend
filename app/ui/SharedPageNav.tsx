@@ -48,7 +48,7 @@ export default function SharedPageNav({ children }: { children: React.ReactNode 
                             {isLoggedIn && userName ? userName : "MEGA888"}
                         </span>
                         {isLoggedIn && userName && (
-                            <span className="text-[9px] text-amber-400 font-semibold tracking-wider uppercase mt-0.5">
+                            <span className="text-[9px] text-red-400 font-semibold tracking-wider uppercase mt-0.5">
                                 Premium
                             </span>
                         )}

@@ -20,7 +20,7 @@ export default function DisclaimerPage() {
         <nav style={{ fontSize: "0.85rem", color: "#64748b", marginBottom: "1rem" }}>
           <a href="/" style={{ color: "#64748b", textDecoration: "none" }}>Home</a>
           {" › "}
-          <span style={{ color: "#f59e0b" }}>Disclaimer</span>
+          <span style={{ color: "#ef4444" }}>Disclaimer</span>
         </nav>
 
         <h1 style={{ fontSize: "2rem", fontWeight: 800, marginBottom: "0.8rem" }}>Disclaimer</h1>

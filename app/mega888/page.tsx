@@ -173,7 +173,7 @@ export default function Mega888HubPage() {
               padding: "7px 12px",
               border: "1px solid rgba(245,158,11,0.25)",
               background: "rgba(245,158,11,0.08)",
-              color: "#fbbf24",
+              color: "#ff4d4d",
               fontSize: "0.78rem",
               fontWeight: 800,
               letterSpacing: ".08em",
@@ -288,7 +288,7 @@ export default function Mega888HubPage() {
             <h2 style={{ fontSize: "1.15rem", fontWeight: 800, marginTop: 0 }}>Cara pilih trusted agent</h2>
             <p style={{ color: "#cbd5e1", lineHeight: 1.8, marginBottom: 0 }}>
               Semak nama brand, saluran support, kejelasan langkah deposit/withdraw, dan konsistensi maklumat.
-              Jika anda ragu, rujuk dahulu halaman <Link href="/trusted" style={{ color: "#fbbf24" }}>Trusted Agent</Link> sebelum klik sebarang pautan luar.
+              Jika anda ragu, rujuk dahulu halaman <Link href="/trusted" style={{ color: "#ff4d4d" }}>Trusted Agent</Link> sebelum klik sebarang pautan luar.
             </p>
           </article>
         </section>
@@ -347,8 +347,8 @@ export default function Mega888HubPage() {
           <h2 style={{ fontSize: "1.18rem", fontWeight: 800, margin: "0 0 8px" }}>Langkah seterusnya</h2>
           <p style={{ color: "#cbd5e1", lineHeight: 1.8, marginTop: 0 }}>
             Jika anda sudah jumpa topik yang dicari, terus pilih artikel berkaitan di atas. Kalau anda mahu semakan corak dan rujukan tambahan,
-            anda boleh kembali ke <Link href="/" style={{ color: "#fbbf24" }}>homepage AI Scanner</Link>. Untuk semakan ejen pula,
-            terus buka <Link href="/trusted" style={{ color: "#fbbf24" }}>senarai trusted agent</Link>.
+            anda boleh kembali ke <Link href="/" style={{ color: "#ff4d4d" }}>homepage AI Scanner</Link>. Untuk semakan ejen pula,
+            terus buka <Link href="/trusted" style={{ color: "#ff4d4d" }}>senarai trusted agent</Link>.
           </p>
         </section>
       </div>

@@ -34,7 +34,7 @@ export default function AboutPage() {
       <nav style={{ fontSize: "0.85rem", color: "#64748b", marginBottom: "1rem" }}>
         <Link href="/" style={{ color: "#64748b" }}>Home</Link>
         {" › "}
-        <span style={{ color: "#f59e0b" }}>About</span>
+        <span style={{ color: "#ef4444" }}>About</span>
       </nav>
 
       <h1 style={{ fontSize: "2rem", fontWeight: 800, marginBottom: "0.8rem" }}>About TipsMega888</h1>
