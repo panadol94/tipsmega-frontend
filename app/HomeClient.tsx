@@ -601,51 +601,35 @@ export default function HomeClient() {
                     
                     {/* Hero Text — premium headline */}
                     <div className="text-center flex flex-col items-center">
-                        {/* TECH SLOT GAME LOGO */}
-                        <div className="relative w-32 h-32 mb-6 flex items-center justify-center group cursor-default mt-2">
-                            {/* Outer Casino Chip Edge */}
-                            <div className="absolute inset-0 rounded-full border-[6px] border-red-500/20 border-dashed animate-[spin_10s_linear_infinite]" />
+                        {/* MEGA888 REAL LOGO + AI SCANNER EFFECT */}
+                        <div className="relative w-64 md:w-80 h-24 md:h-28 mb-4 flex items-center justify-center group cursor-default mt-2">
+                            {/* Logo Image */}
+                            <img 
+                                src="/mega888.png" 
+                                alt="MEGA888" 
+                                className="relative z-10 w-full h-full object-contain drop-shadow-[0_0_20px_rgba(255,77,77,0.4)] group-hover:scale-105 transition-all duration-500"
+                            />
                             
-                            {/* Inner Cyber Ring */}
-                            <div className="absolute inset-2 rounded-full border-2 border-red-400/30 border-t-red-500/80 border-b-red-500/80 animate-[spin_4s_linear_infinite_reverse]" />
+                            {/* Scanner Laser Sweep */}
+                            <div className="absolute left-0 right-0 h-[2px] bg-red-400 shadow-[0_0_15px_rgba(255,100,100,1)] z-20 animate-[scan_2s_ease-in-out_infinite]" />
                             
-                            {/* Ambient Glow */}
-                            <div className="absolute inset-6 rounded-full bg-red-600/20 blur-2xl group-hover:bg-red-500/40 transition-all duration-700 animate-pulse" />
-                            
-                            {/* Holographic Slot Screen */}
-                            <div className="relative z-10 w-20 h-16 border border-white/20 bg-slate-950/80 backdrop-blur-md rounded-xl flex items-center justify-center overflow-hidden group-hover:scale-110 group-hover:border-red-400/60 group-hover:shadow-[0_0_35px_rgba(255,77,77,0.6)] transition-all duration-500">
-                                
-                                {/* Screen Micro-Grid */}
-                                <div className="absolute inset-0 opacity-30 bg-[linear-gradient(rgba(255,77,77,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(255,77,77,0.2)_1px,transparent_1px)] bg-[size:4px_4px]" />
-                                
-                                {/* Slot Reel Separators */}
-                                <div className="absolute inset-y-0 w-full flex justify-evenly px-2 items-center">
-                                     <div className="w-px h-full bg-gradient-to-b from-transparent via-red-500/50 to-transparent" />
-                                     <div className="w-px h-full bg-gradient-to-b from-transparent via-red-500/50 to-transparent" />
-                                </div>
-
-                                {/* Glowing 777 */}
-                                <div className="relative flex justify-evenly w-full px-1 text-white font-black text-[22px] italic z-10 drop-shadow-[0_0_12px_rgba(255,77,77,1)]">
-                                    <span className="animate-pulse" style={{ animationDelay: '0s' }}>7</span>
-                                    <span className="animate-pulse" style={{ animationDelay: '0.3s' }}>7</span>
-                                    <span className="animate-pulse" style={{ animationDelay: '0.6s' }}>7</span>
-                                </div>
-
-                                {/* Scanner Laser Sweep */}
-                                <div className="absolute left-0 right-0 h-[2px] bg-white shadow-[0_0_15px_rgba(255,77,77,1)] z-20 animate-[scan_1.5s_ease-in-out_infinite]" />
-                                {/* Overlay scan tint */}
-                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-500/20 to-transparent animate-[scan_1.5s_ease-in-out_infinite]" />
-                            </div>
+                            {/* Overlay scan tint */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-red-500/15 to-transparent animate-[scan_2s_ease-in-out_infinite] z-20 mix-blend-overlay pointer-events-none rounded-xl" />
 
                             {/* Tech Nodes (Brackets) */}
-                            <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-[2px] bg-red-400/80 shadow-[0_0_10px_rgba(255,77,77,0.8)]" />
-                            <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-[2px] bg-red-400/80 shadow-[0_0_10px_rgba(255,77,77,0.8)]" />
-                            <div className="absolute left-1/2 -top-2 -translate-x-1/2 w-[2px] h-4 bg-red-400/80 shadow-[0_0_10px_rgba(255,77,77,0.8)]" />
-                            <div className="absolute left-1/2 -bottom-2 -translate-x-1/2 w-[2px] h-4 bg-red-400/80 shadow-[0_0_10px_rgba(255,77,77,0.8)]" />
+                            <div className="absolute -left-2 sm:-left-4 top-1/2 -translate-y-1/2 w-[2px] h-10 bg-red-500/60 shadow-[0_0_10px_rgba(255,77,77,0.8)]" />
+                            <div className="absolute -right-2 sm:-right-4 top-1/2 -translate-y-1/2 w-[2px] h-10 bg-red-500/60 shadow-[0_0_10px_rgba(255,77,77,0.8)]" />
+                            <div className="absolute -left-2 sm:-left-4 top-1/2 -translate-y-[20px] w-3 h-[2px] bg-red-500/60" />
+                            <div className="absolute -left-2 sm:-left-4 top-1/2 translate-y-[20px] w-3 h-[2px] bg-red-500/60" />
+                            <div className="absolute -right-2 sm:-right-4 top-1/2 -translate-y-[20px] w-3 h-[2px] bg-red-500/60" />
+                            <div className="absolute -right-2 sm:-right-4 top-1/2 translate-y-[20px] w-3 h-[2px] bg-red-500/60" />
+                            
+                            {/* Ambient Glow */}
+                            <div className="absolute inset-4 bg-red-600/20 blur-3xl group-hover:bg-red-500/30 transition-all duration-700 animate-pulse -z-10" />
                         </div>
 
                         <h1
-                            className="text-3xl font-black italic"
+                            className="text-3xl font-black italic mt-2"
                             style={{
                                 background: "linear-gradient(135deg, #ffffff 0%, #fca5a5 40%, #ff4d4d 80%, #991b1b 100%)",
                                 WebkitBackgroundClip: "text",
@@ -654,7 +638,7 @@ export default function HomeClient() {
                                 filter: "drop-shadow(0 2px 16px rgba(255,77,77,0.30))",
                             }}
                         >
-                            MEGA888 AI RTP SCANNER
+                            AI RTP SCANNER
                         </h1>
                         <p className="mt-2 text-sm text-white/50">
                             Masukkan ID untuk scan • {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
