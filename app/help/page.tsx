@@ -82,7 +82,7 @@ export default function HelpPage() {
                             style={{
                                 border: "1px solid rgba(123,215,255,0.25)",
                                 background: "rgba(123,215,255,0.08)",
-                                color: "#00e5cc",
+                                color: "#fca5a5",
                             }}
                         >
                             <span>❓</span> Panduan
@@ -105,7 +105,7 @@ export default function HelpPage() {
                     >
                         <h2
                             className="text-lg font-bold mb-4 flex items-center gap-2"
-                            style={{ color: "#00e5cc" }}
+                            style={{ color: "#fca5a5" }}
                         >
                             📡 Cara Guna AI RTP Scanner
                         </h2>
@@ -116,7 +116,7 @@ export default function HelpPage() {
                                     style={{
                                         background: "rgba(123,215,255,0.15)",
                                         border: "1px solid rgba(123,215,255,0.3)",
-                                        color: "#00e5cc",
+                                        color: "#fca5a5",
                                     }}
                                 >
                                     1
@@ -134,7 +134,7 @@ export default function HelpPage() {
                                     style={{
                                         background: "rgba(123,215,255,0.15)",
                                         border: "1px solid rgba(123,215,255,0.3)",
-                                        color: "#00e5cc",
+                                        color: "#fca5a5",
                                     }}
                                 >
                                     2
@@ -152,7 +152,7 @@ export default function HelpPage() {
                                     style={{
                                         background: "rgba(123,215,255,0.15)",
                                         border: "1px solid rgba(123,215,255,0.3)",
-                                        color: "#00e5cc",
+                                        color: "#fca5a5",
                                     }}
                                 >
                                     3

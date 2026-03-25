@@ -115,7 +115,7 @@ function WinningTicker() {
           {" "}berjaya cuci{" "}
           <span className="text-emerald-400 font-bold">{fmtRM(current.amount)}</span>
           {" "}dari{" "}
-          <span className="text-cyan-400 font-bold">{current.company}</span>
+          <span className="text-red-300 font-bold">{current.company}</span>
           <span className="text-white/30 ml-1.5 text-[10px]">• {current.timeAgo}</span>
         </div>
       </div>

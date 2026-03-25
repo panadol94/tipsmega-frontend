@@ -314,7 +314,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                     <h2
                         className="text-2xl font-black tracking-wide uppercase mb-1"
                         style={{
-                            background: "linear-gradient(135deg, #00e5cc 0%, #a855f7 50%, #ff6bd6 100%)",
+                            background: "linear-gradient(135deg, #fca5a5 0%, #a855f7 50%, #ff6bd6 100%)",
                             WebkitBackgroundClip: "text",
                             WebkitTextFillColor: "transparent",
                             backgroundClip: "text",

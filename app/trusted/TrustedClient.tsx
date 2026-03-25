@@ -188,7 +188,7 @@ export default function TrustedClient() {
                 {[...Array(15)].map((_, i) => (
                     <div
                         key={i}
-                        className="particle text-cyan-500"
+                        className="particle text-red-400"
                         style={{
                             left: `${Math.random() * 100}%`,
                             top: `${Math.random() * 100}%`,
@@ -233,7 +233,7 @@ export default function TrustedClient() {
                             <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Active Monitor</div>
                         </div>
                         <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
-                            <div className="text-base font-black text-cyan-400">100%</div>
+                            <div className="text-base font-black text-red-300">100%</div>
                             <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Scam-Free</div>
                         </div>
                     </div>
@@ -437,7 +437,7 @@ export default function TrustedClient() {
                     </article>
 
                     {/* How We Verify */}
-                    <article className="card p-6 border-cyan-500/20 bg-cyan-500/5">
+                    <article className="card p-6 border-red-500/20 bg-red-500/5">
                         <div className="text-sm uppercase tracking-wider text-red-400 font-bold flex items-center justify-center gap-2">
                             <span>🔒</span>
                             <span>SAFE GAMING</span>

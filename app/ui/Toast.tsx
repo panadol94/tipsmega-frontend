@@ -48,10 +48,10 @@ export default function Toast({ message, type, onClose }: ToastProps) {
                 }
                 : {
                     gradient: "from-cyan-500/20 via-blue-500/20 to-purple-500/20",
-                    border: "border-cyan-500/30",
+                    border: "border-red-500/30",
                     glow: "shadow-[0_0_30px_rgba(6,182,212,0.3)]",
                     icon: "ℹ️",
-                    iconBg: "bg-cyan-500/20"
+                    iconBg: "bg-red-500/20"
                 };
 
     return (

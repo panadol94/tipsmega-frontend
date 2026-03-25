@@ -466,7 +466,7 @@ export default function HomeClient() {
                             particleCount: 100,
                             spread: 70,
                             origin: { y: 0.6 },
-                            colors: ['#00d9ff', '#a855f7', '#ff00ff', '#ff4d4d'],
+                            colors: ['#ff6b6b', '#a855f7', '#ff00ff', '#ff4d4d'],
                         });
                     }, 800);
                 }
@@ -604,7 +604,7 @@ export default function HomeClient() {
                         <h1
                             className="text-3xl font-black italic"
                             style={{
-                                background: "linear-gradient(135deg, #00e5cc 0%, #ffffff 40%, #a5f3fc 60%, #34d399 100%)",
+                                background: "linear-gradient(135deg, #fca5a5 0%, #ffffff 40%, #a5f3fc 60%, #34d399 100%)",
                                 WebkitBackgroundClip: "text",
                                 WebkitTextFillColor: "transparent",
                                 backgroundClip: "text",
@@ -619,13 +619,13 @@ export default function HomeClient() {
                     </div>
 
                     {/* Scanner Card */}
-                    <section className="card relative overflow-hidden p-6 tm-scan tm-scan-pulse border-cyan-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40 rounded-3xl">
+                    <section className="card relative overflow-hidden p-6 tm-scan tm-scan-pulse border-red-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40 rounded-3xl">
                         <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(34,211,238,0.10)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.10)_1px,transparent_1px)] [background-size:22px_22px]" />
                         
                         {/* Badges */}
                         <div className="flex flex-wrap items-center gap-2 mb-4">
-                            <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-300">
-                                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 animate-pulse" />
+                            <span className="inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-red-300">
+                                <span className="h-1.5 w-1.5 rounded-full bg-red-300 animate-pulse" />
                                 Live AI
                             </span>
                             <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] ${isValidMegaId ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300" : "border-white/10 bg-white/5 text-white/40"}`}>
@@ -706,7 +706,7 @@ export default function HomeClient() {
                     {/* ── Social Proof ── */}
                     <section
                         aria-label="Social proof"
-                        className="card p-4 border-cyan-500/20 bg-gradient-to-br from-cyan-950/60 to-slate-950/80"
+                        className="card p-4 border-red-500/20 bg-gradient-to-br from-cyan-950/60 to-slate-950/80"
                         style={{ borderRadius: 16 }}
                     >
                         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
@@ -796,7 +796,7 @@ export default function HomeClient() {
             {/* RTP RESULT */}
             <h2 className="sr-only">Keputusan RTP</h2>
             {lastRtp !== null && !busy ? (
-                <section className="card p-5 m-4 border-cyan-500/20 bg-cyan-500/5 rounded-3xl">
+                <section className="card p-5 m-4 border-red-500/20 bg-red-500/5 rounded-3xl">
                     <div className="text-[10px] text-white/60 font-mono tracking-widest uppercase mb-2">
                         [RESULT] Overall RTP
                     </div>
@@ -813,9 +813,9 @@ export default function HomeClient() {
             {showResult && runKey && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                     <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setShowResult(false)} />
-                    <div className="relative w-full max-w-md bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl overflow-hidden">
+                    <div className="relative w-full max-w-md bg-gradient-to-b from-slate-900 to-slate-950 border border-red-500/30 rounded-3xl overflow-hidden">
                         <div className="flex items-center justify-between p-4 border-b border-white/10">
-                            <h3 className="font-bold text-cyan-300">✅ SCAN COMPLETE</h3>
+                            <h3 className="font-bold text-red-300">✅ SCAN COMPLETE</h3>
                             <button onClick={() => setShowResult(false)} className="text-white/60 hover:text-white text-2xl">&times;</button>
                         </div>
                         <div className="p-4">
@@ -831,7 +831,7 @@ export default function HomeClient() {
                             />
                         </div>
                         <div className="flex gap-3 p-4 border-t border-white/10">
-                            <button onClick={() => { const text = `🎰 MEGA888 RTP: ${lastRtp}% | ID: ${idMasked} | TipsMega888.com`; navigator.share ? navigator.share({title:'RTP Result',text}) : (navigator.clipboard.writeText(text),alert('Copied!')); }} className="flex-1 py-3 bg-cyan-500/20 border border-cyan-500/30 rounded-xl text-cyan-300 font-bold text-sm">📤 SHARE</button>
+                            <button onClick={() => { const text = `🎰 MEGA888 RTP: ${lastRtp}% | ID: ${idMasked} | TipsMega888.com`; navigator.share ? navigator.share({title:'RTP Result',text}) : (navigator.clipboard.writeText(text),alert('Copied!')); }} className="flex-1 py-3 bg-red-500/20 border border-red-500/30 rounded-xl text-red-300 font-bold text-sm">📤 SHARE</button>
                             <button onClick={() => setShowResult(false)} className="flex-1 py-3 bg-white/10 border border-white/20 rounded-xl text-white font-bold text-sm">CLOSE</button>
                         </div>
                     </div>

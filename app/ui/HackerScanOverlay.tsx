@@ -131,7 +131,7 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
       ctx.strokeStyle = "rgba(0,217,255,0.8)";
       ctx.lineWidth = 3;
       ctx.shadowBlur = 15;
-      ctx.shadowColor = "#00d9ff";
+      ctx.shadowColor = "#ff6b6b";
       ctx.stroke();
       ctx.shadowBlur = 0;
 
@@ -165,9 +165,9 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
       // Center dot
       ctx.beginPath();
       ctx.arc(cx, cy, 3, 0, Math.PI * 2);
-      ctx.fillStyle = "#00d9ff";
+      ctx.fillStyle = "#ff6b6b";
       ctx.shadowBlur = 8;
-      ctx.shadowColor = "#00d9ff";
+      ctx.shadowColor = "#ff6b6b";
       ctx.fill();
       ctx.shadowBlur = 0;
 
@@ -244,7 +244,7 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
         style={{
           fontSize: 11,
           letterSpacing: 4,
-          color: "#00d9ff",
+          color: "#ff6b6b",
           textTransform: "uppercase",
           animation: "pulse 1.5s ease-in-out infinite",
         }}
@@ -306,7 +306,7 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
             {ln}
           </div>
         ))}
-        <div style={{ color: "#00d9ff", opacity: 0.5 }}>
+        <div style={{ color: "#ff6b6b", opacity: 0.5 }}>
           {hexStream}
         </div>
       </div>
@@ -325,7 +325,7 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
             style={{
               height: "100%",
               width: `${progress}%`,
-              background: "linear-gradient(90deg, #00d9ff, #a855f7, #00ff88)",
+              background: "linear-gradient(90deg, #ff6b6b, #a855f7, #00ff88)",
               borderRadius: 99,
               transition: "width 0.3s ease",
               boxShadow: "0 0 8px rgba(0,217,255,0.5)",

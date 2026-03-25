@@ -48,7 +48,7 @@ export default function InstallPrompt() {
                     onClick={handleTempDismiss}
                 />
 
-                <div className="trusted-popup-card relative z-10 w-full max-w-[390px] overflow-hidden rounded-[28px] border border-cyan-400/20 bg-[#07111a] shadow-[0_20px_70px_rgba(0,0,0,0.45)]">
+                <div className="trusted-popup-card relative z-10 w-full max-w-[390px] overflow-hidden rounded-[28px] border border-red-400/20 bg-[#07111a] shadow-[0_20px_70px_rgba(0,0,0,0.45)]">
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(56,189,248,0.18),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.03),transparent_35%)]" />
                     <div className="trusted-grid absolute inset-0 opacity-[0.06]" />
                     <div className="trusted-beam trusted-beam-a" />
@@ -57,7 +57,7 @@ export default function InstallPrompt() {
                     <div className="relative z-10 max-h-[82vh] overflow-y-auto px-4 pb-4 pt-4 sm:px-5 sm:pb-5 sm:pt-5">
                         <div className="mb-4 flex items-start justify-between gap-3">
                             <div>
-                                <div className="inline-flex rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-cyan-200">
+                                <div className="inline-flex rounded-full border border-red-400/20 bg-red-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.28em] text-red-200">
                                     Trusted Access
                                 </div>
                             </div>
@@ -76,11 +76,11 @@ export default function InstallPrompt() {
                                 Pilih Company Dari <span className="bg-gradient-to-r from-cyan-200 via-white to-emerald-300 bg-clip-text text-transparent">Trusted List</span> Dulu
                             </h3>
                             <p className="mt-2 text-[12px] leading-relaxed text-slate-300/85 sm:text-[13px]">
-                                Scanner result adalah berdasarkan <span className="font-black text-cyan-200">ID company</span> dari trusted list. Ambil ID dulu, baru scan untuk result yang lebih tepat.
+                                Scanner result adalah berdasarkan <span className="font-black text-red-200">ID company</span> dari trusted list. Ambil ID dulu, baru scan untuk result yang lebih tepat.
                             </p>
                         </div>
 
-                        <div className="mb-4 rounded-[22px] border border-cyan-400/15 bg-white/[0.03] p-3 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
+                        <div className="mb-4 rounded-[22px] border border-red-400/15 bg-white/[0.03] p-3 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
                             <div className="mb-3 flex items-center justify-between gap-2">
                                 <div className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-emerald-200">
                                     Live Trusted Flow
@@ -90,7 +90,7 @@ export default function InstallPrompt() {
 
                             <div className="trusted-mini-panel rounded-2xl border border-white/10 bg-[#08131c] p-3">
                                 <div className="mb-2 flex items-center justify-between gap-3">
-                                    <div className="text-[11px] font-black uppercase tracking-[0.18em] text-cyan-200">Trusted Company List</div>
+                                    <div className="text-[11px] font-black uppercase tracking-[0.18em] text-red-200">Trusted Company List</div>
                                     <div className="rounded-full bg-emerald-400/15 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-emerald-200">Verified</div>
                                 </div>
 
@@ -101,11 +101,11 @@ export default function InstallPrompt() {
                                     ].map(([label, id, active]) => (
                                         <div
                                             key={label}
-                                            className={`rounded-xl border px-3 py-2 ${active ? "border-cyan-300/40 bg-cyan-400/12 shadow-[0_0_20px_rgba(34,211,238,0.08)]" : "border-white/8 bg-white/[0.03]"}`}
+                                            className={`rounded-xl border px-3 py-2 ${active ? "border-red-300/40 bg-red-400/12 shadow-[0_0_20px_rgba(34,211,238,0.08)]" : "border-white/8 bg-white/[0.03]"}`}
                                         >
                                             <div className="flex items-center justify-between gap-3">
-                                                <span className={`text-[11px] font-black uppercase tracking-[0.14em] ${active ? "text-cyan-100" : "text-white/70"}`}>{label}</span>
-                                                {active && <span className="rounded-full bg-cyan-300/15 px-2 py-1 text-[8px] font-black uppercase tracking-[0.14em] text-cyan-100">Use This</span>}
+                                                <span className={`text-[11px] font-black uppercase tracking-[0.14em] ${active ? "text-red-100" : "text-white/70"}`}>{label}</span>
+                                                {active && <span className="rounded-full bg-red-300/15 px-2 py-1 text-[8px] font-black uppercase tracking-[0.14em] text-red-100">Use This</span>}
                                             </div>
                                             <div className={`mt-1 text-xs font-semibold ${active ? "text-emerald-200" : "text-white/45"}`}>{id}</div>
                                         </div>
@@ -115,7 +115,7 @@ export default function InstallPrompt() {
 
                             <div className="my-3 flex items-center justify-center gap-2 py-1">
                                 <div className="h-px flex-1 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
-                                <div className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.22em] text-cyan-200">
+                                <div className="rounded-full border border-red-400/20 bg-red-400/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.22em] text-red-200">
                                     ID → Scan
                                 </div>
                                 <div className="h-px flex-1 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
@@ -128,7 +128,7 @@ export default function InstallPrompt() {
                                 </div>
                                 <div className="rounded-xl border border-white/8 bg-[#071019] px-3 py-3 text-left">
                                     <div className="text-[10px] font-black uppercase tracking-[0.16em] text-white/35">Selected Company ID</div>
-                                    <div className="mt-1 text-sm font-black tracking-[0.16em] text-cyan-100">218456782341</div>
+                                    <div className="mt-1 text-sm font-black tracking-[0.16em] text-red-100">218456782341</div>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@ export default function InstallPrompt() {
                                 ["3", "Guna ID"],
                             ].map(([step, text]) => (
                                 <div key={step} className="rounded-2xl border border-white/10 bg-white/[0.04] px-2 py-2.5 text-center">
-                                    <div className="text-[9px] font-black uppercase tracking-[0.2em] text-cyan-200">Step {step}</div>
+                                    <div className="text-[9px] font-black uppercase tracking-[0.2em] text-red-200">Step {step}</div>
                                     <div className="mt-1 text-[10px] font-semibold leading-snug text-white/75">{text}</div>
                                 </div>
                             ))}

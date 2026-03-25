@@ -97,7 +97,7 @@ export default function AdminDashboard() {
                         purple: "hover:border-purple-500/50 hover:shadow-purple-500/10",
                         amber: "hover:border-red-500/50 hover:shadow-red-500/10",
                         pink: "hover:border-pink-500/50 hover:shadow-pink-500/10",
-                        cyan: "hover:border-cyan-500/50 hover:shadow-cyan-500/10",
+                        cyan: "hover:border-red-500/50 hover:shadow-cyan-500/10",
                     }[stat.color] || "hover:border-slate-500/50";
 
                     const textColorClasses = {
@@ -106,7 +106,7 @@ export default function AdminDashboard() {
                         purple: "text-purple-400",
                         amber: "text-red-400",
                         pink: "text-pink-400",
-                        cyan: "text-cyan-400",
+                        cyan: "text-red-300",
                     }[stat.color] || "text-slate-400";
 
                     return (

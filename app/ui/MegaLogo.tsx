@@ -2,7 +2,7 @@ export default function MegaLogo() {
     return (
         <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             {/* Background Glow */}
-            <circle cx="32" cy="32" r="30" fill="url(#blue_grad)" stroke="#00c4b0" strokeWidth="2" />
+            <circle cx="32" cy="32" r="30" fill="url(#blue_grad)" stroke="#f87171" strokeWidth="2" />
 
             {/* Inner Gloss */}
             <circle cx="32" cy="32" r="24" fill="url(#inner_glow)" />

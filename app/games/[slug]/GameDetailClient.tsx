@@ -149,8 +149,8 @@ export default function GameDetailClient({ game }: { game: Game }) {
           {/* Description */}
           <section className="card p-5 sm:p-6 mb-5">
             <div className="flex items-center gap-2 mb-3">
-              <div className="h-1 w-5 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
-              <h2 className="text-sm font-black tracking-wider text-cyan-400 uppercase">
+              <div className="h-1 w-5 bg-red-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
+              <h2 className="text-sm font-black tracking-wider text-red-300 uppercase">
                 About {game.name}
               </h2>
             </div>
