@@ -99,11 +99,11 @@ export default function ShareClient() {
                                     <input
                                         readOnly
                                         value={link}
-                                        className="w-full bg-[#050b14] border border-white/10 rounded-xl py-3 px-4 text-xs font-mono text-emerald-400 focus:outline-none focus:border-emerald-500/50 transition-colors"
+                                        className="w-full bg-[#050b14] border border-white/10 rounded-xl py-3 px-4 text-xs font-mono text-red-400 focus:outline-none focus:border-red-500/50 transition-colors"
                                     />
                                     <button
                                         onClick={onCopy}
-                                        className="absolute right-1 top-1 bottom-1 px-4 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500/20 active:scale-95 transition-all"
+                                        className="absolute right-1 top-1 bottom-1 px-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-black uppercase tracking-widest hover:bg-red-500/20 active:scale-95 transition-all"
                                     >
                                         {copied ? "COPIED!" : "COPY"}
                                     </button>
@@ -257,12 +257,12 @@ export default function ShareClient() {
                                 { step: "4", icon: "⭐", title: "Terima Stars Percuma", desc: "1 Star dikreditkan secara automatik sebaik sahaja kawan berjaya verify. Tiada had — share lebih, dapat lebih!" },
                             ].map((s) => (
                                 <div key={s.step} className="card bg-[#0c1224] border-white/10 p-4 flex items-center gap-4 relative">
-                                    <div className="w-10 h-10 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0">
+                                    <div className="w-10 h-10 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
                                         <span className="text-lg">{s.icon}</span>
                                     </div>
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2">
-                                            <span className="text-[10px] font-black text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">STEP {s.step}</span>
+                                            <span className="text-[10px] font-black text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full">STEP {s.step}</span>
                                             <span className="text-sm font-bold text-white">{s.title}</span>
                                         </div>
                                         <div className="text-sm text-white/40 mt-1 leading-relaxed">{s.desc}</div>
@@ -280,7 +280,7 @@ export default function ShareClient() {
 
                         <div className="card bg-[#0c1224] border-white/10 p-5 space-y-4">
                             <div>
-                                <h3 className="text-sm font-bold text-emerald-400 mb-2">📊 Apa Itu RTP dan Cara Baca Data Scanner?</h3>
+                                <h3 className="text-sm font-bold text-red-400 mb-2">📊 Apa Itu RTP dan Cara Baca Data Scanner?</h3>
                                 <p className="text-sm text-white/50 leading-relaxed">
                                     RTP (Return-to-Player) adalah peratusan yang menunjukkan berapa banyak wang yang akan dikembalikan kepada pemain.
                                     Contohnya, jika sebuah game mempunyai RTP 96%, bermakna untuk setiap RM100 yang dimainkan, secara teori
@@ -290,7 +290,7 @@ export default function ShareClient() {
                             </div>
 
                             <div className="border-t border-white/5 pt-4">
-                                <h3 className="text-sm font-bold text-emerald-400 mb-2">🎰 Strategi Memilih Game Mega888</h3>
+                                <h3 className="text-sm font-bold text-red-400 mb-2">🎰 Strategi Memilih Game Mega888</h3>
                                 <p className="text-sm text-white/50 leading-relaxed">
                                     Pilih game yang menunjukkan RTP tinggi (93% ke atas) pada scanner AI kami. Game dengan RTP yang sedang naik
                                     biasanya menandakan cycle bayaran yang aktif. Gunakan signal dari komuniti WhatsApp dan Telegram kami untuk
@@ -299,7 +299,7 @@ export default function ShareClient() {
                             </div>
 
                             <div className="border-t border-white/5 pt-4">
-                                <h3 className="text-sm font-bold text-emerald-400 mb-2">💡 Cara Maksimumkan Stars Anda</h3>
+                                <h3 className="text-sm font-bold text-red-400 mb-2">💡 Cara Maksimumkan Stars Anda</h3>
                                 <p className="text-sm text-white/50 leading-relaxed">
                                     Share referral link anda di group WhatsApp, status WhatsApp, story Instagram, dan post Facebook.
                                     Semakin ramai kawan yang join dan verify, semakin banyak Stars yang anda dapat. Stars boleh digunakan
@@ -338,7 +338,7 @@ export default function ShareClient() {
                             ].map((t, i) => (
                                 <div key={i} className="card bg-[#0c1224] border-white/10 p-4">
                                     <div className="flex items-center gap-3 mb-3">
-                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500/20 to-emerald-500/20 border border-white/10 flex items-center justify-center text-sm font-black text-white/70">
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500/20 to-red-500/20 border border-white/10 flex items-center justify-center text-sm font-black text-white/70">
                                             {t.name.charAt(0)}
                                         </div>
                                         <div>
@@ -407,7 +407,7 @@ export default function ShareClient() {
                                 },
                             ].map((faq, i) => (
                                 <details key={i} className="card bg-[#0c1224] border-white/10 group">
-                                    <summary className="p-4 cursor-pointer text-sm font-bold text-white/90 hover:text-emerald-400 transition-colors list-none flex items-center justify-between">
+                                    <summary className="p-4 cursor-pointer text-sm font-bold text-white/90 hover:text-red-400 transition-colors list-none flex items-center justify-between">
                                         <span>{faq.q}</span>
                                         <span className="text-white/30 group-open:rotate-180 transition-transform text-xs">▼</span>
                                     </summary>
@@ -437,10 +437,10 @@ export default function ShareClient() {
                                 <a
                                     key={link.href}
                                     href={link.href}
-                                    className="card bg-[#0c1224] border-white/10 hover:border-emerald-500/30 p-4 text-center group transition-all hover:bg-emerald-500/5"
+                                    className="card bg-[#0c1224] border-white/10 hover:border-red-500/30 p-4 text-center group transition-all hover:bg-red-500/5"
                                 >
                                     <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">{link.icon}</div>
-                                    <div className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors">{link.title}</div>
+                                    <div className="text-xs font-bold text-white group-hover:text-red-400 transition-colors">{link.title}</div>
                                     <div className="text-[11px] text-white/40 mt-0.5">{link.desc}</div>
                                 </a>
                             ))}

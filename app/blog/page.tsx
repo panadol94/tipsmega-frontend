@@ -43,7 +43,7 @@ const categoryMeta: Record<string, { label: string; bg: string; text: string; bo
   tips:     { label: "💡 Tips",     bg: "rgba(245,158,11,0.12)",  text: "#ef4444", border: "rgba(245,158,11,0.3)" },
   strategy: { label: "🎯 Strategi",  bg: "rgba(139,92,246,0.12)", text: "#a78bfa", border: "rgba(139,92,246,0.3)" },
   guide:    { label: "📚 Panduan",   bg: "rgba(59,130,246,0.12)", text: "#60a5fa", border: "rgba(59,130,246,0.3)" },
-  news:     { label: "📰 Berita",    bg: "rgba(16,185,129,0.12)", text: "#34d399", border: "rgba(16,185,129,0.3)" },
+  news:     { label: "📰 Berita",    bg: "rgba(16,185,129,0.12)", text: "#ff6b6b", border: "rgba(16,185,129,0.3)" },
 };
 
 function stripHtml(input: string) {
@@ -318,7 +318,7 @@ export default function BlogPage() {
           <span style={{ color: "#1e293b", margin: "0 0.25rem" }}>|</span>
           <Link href="/mega888" style={{ color: "#a78bfa", fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>🧭 Mega888 Hub</Link>
           <span style={{ color: "#1e293b", margin: "0 0.25rem" }}>|</span>
-          <Link href="/trusted" style={{ color: "#34d399", fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>🔥 Trusted Agents</Link>
+          <Link href="/trusted" style={{ color: "#ff6b6b", fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>🔥 Trusted Agents</Link>
           <span style={{ color: "#1e293b", margin: "0 0.25rem" }}>|</span>
           <Link href="/" style={{ color: "#60a5fa", fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>🏠 Home</Link>
         </div>

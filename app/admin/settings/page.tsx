@@ -172,7 +172,7 @@ export default function SettingsPage() {
             </div>
 
             {success && (
-                <div className="bg-emerald-500/20 border border-emerald-500/50 rounded-xl p-3 text-emerald-400 text-sm">
+                <div className="bg-red-500/20 border border-red-500/50 rounded-xl p-3 text-red-400 text-sm">
                     ✅ Settings saved successfully!
                 </div>
             )}
@@ -225,7 +225,7 @@ export default function SettingsPage() {
                             </div>
                             <button
                                 onClick={() => toggleFeature(feature.key)}
-                                className={`w-12 h-6 rounded-full transition-colors ${settings[feature.key] ? "bg-emerald-500" : "bg-slate-600"}`}
+                                className={`w-12 h-6 rounded-full transition-colors ${settings[feature.key] ? "bg-red-500" : "bg-slate-600"}`}
                             >
                                 <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings[feature.key] ? "translate-x-6" : "translate-x-0.5"}`} />
                             </button>

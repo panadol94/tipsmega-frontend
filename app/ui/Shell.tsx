@@ -89,7 +89,7 @@ function WinningTicker() {
   }, [companies]);
 
   return (
-    <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500/5 via-emerald-500/10 to-emerald-500/5 px-4 py-2.5 border-b border-emerald-500/10">
+    <div className="relative overflow-hidden bg-gradient-to-r from-red-500/5 via-red-500/10 to-red-500/5 px-4 py-2.5 border-b border-red-500/10">
       {/* Subtle shimmer */}
       <div
         className="absolute inset-0 pointer-events-none opacity-10"
@@ -103,8 +103,8 @@ function WinningTicker() {
         {/* LIVE dot */}
         <div className="flex items-center gap-1.5 shrink-0">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
           </span>
         </div>
         {/* Withdrawal text */}
@@ -113,7 +113,7 @@ function WinningTicker() {
         >
           <span className="text-red-400 font-bold">{current.name}</span>
           {" "}berjaya cuci{" "}
-          <span className="text-emerald-400 font-bold">{fmtRM(current.amount)}</span>
+          <span className="text-red-400 font-bold">{fmtRM(current.amount)}</span>
           {" "}dari{" "}
           <span className="text-red-300 font-bold">{current.company}</span>
           <span className="text-white/30 ml-1.5 text-[10px]">• {current.timeAgo}</span>

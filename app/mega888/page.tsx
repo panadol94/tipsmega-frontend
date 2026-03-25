@@ -238,7 +238,7 @@ export default function Mega888HubPage() {
           <p style={{ margin: 0, fontWeight: 800 }}>💡 Quick route untuk pengguna baru</p>
           <p style={{ margin: "8px 0 12px", color: "#cbd5e1", lineHeight: 1.8 }}>
             Kalau anda baru nak mula, susunan paling mudah ialah: baca panduan daftar akaun, pilih panduan download ikut device,
-            semak trusted agent, kemudian baru gunakan <Link href="/" style={{ color: "#34d399" }}>AI Scanner</Link> untuk rujuk RTP live semasa.
+            semak trusted agent, kemudian baru gunakan <Link href="/" style={{ color: "#ff6b6b" }}>AI Scanner</Link> untuk rujuk RTP live semasa.
           </p>
           <Link
             href="/"

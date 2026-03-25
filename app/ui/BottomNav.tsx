@@ -83,7 +83,7 @@ export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
         }}
       >
         {/* Ambient top-edge glow */}
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-400/20 to-transparent pointer-events-none" />
 
 
         {items.map((it) => {

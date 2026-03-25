@@ -16,7 +16,7 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.co
 // --- Avatar Helpers ---
 const AVATAR_COLORS = [
     "bg-red-500", "bg-orange-500", "bg-red-500", "bg-red-500", "bg-lime-500",
-    "bg-green-500", "bg-emerald-500", "bg-red-500", "bg-red-500", "bg-sky-500",
+    "bg-green-500", "bg-red-500", "bg-red-500", "bg-red-500", "bg-sky-500",
     "bg-blue-500", "bg-indigo-500", "bg-violet-500", "bg-purple-500", "bg-fuchsia-500", "bg-pink-500", "bg-rose-500"
 ];
 
@@ -312,7 +312,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
     const currentStyle: Theme = {
         bg: "bg-[#111827]", // Gray-900 (Lighter than black)
         header: "bg-[#1f2937]/90 backdrop-blur-md border-b border-white/5 shadow-sm sticky top-0 z-30",
-        me: "bg-emerald-600 text-white shadow-md font-medium border-emerald-500", // WhatsApp-like Green
+        me: "bg-emerald-600 text-white shadow-md font-medium border-red-500", // WhatsApp-like Green
         other: "bg-[#1f2937] border border-white/5 text-gray-200 shadow-md", // Standard dark bubble
         admin: "bg-red-500/10 border border-red-500/20 text-amber-200",
         accent: "emerald",
@@ -614,8 +614,8 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                     )}
                     <div className="relative">
                         {/* Status Indicator: Green=Connected, Red=Disconnected/Pulse */}
-                        <div className={`w-2.5 h-2.5 rounded-full ${isConnected ? "bg-emerald-500 shadow-[0_0_10px_#10b981]" : "bg-red-500 animate-pulse shadow-[0_0_10px_#ef4444]"}`} />
-                        {isConnected && <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping opacity-50" />}
+                        <div className={`w-2.5 h-2.5 rounded-full ${isConnected ? "bg-red-500 shadow-[0_0_10px_#10b981]" : "bg-red-500 animate-pulse shadow-[0_0_10px_#ef4444]"}`} />
+                        {isConnected && <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-red-400 animate-ping opacity-50" />}
                     </div>
                     <div className="flex flex-col">
                         <h3 className="chat-header-gradient font-bold text-white text-sm tracking-wide uppercase drop-shadow-[0_2px_10px_rgba(245,158,11,0.2)]">
@@ -698,10 +698,10 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="bg-[#1f2c34] border-l-4 border-emerald-500 flex justify-between items-center px-4 py-2 border-t border-white/5 relative z-10"
+                        className="bg-[#1f2c34] border-l-4 border-red-500 flex justify-between items-center px-4 py-2 border-t border-white/5 relative z-10"
                     >
                         <div className="flex flex-col overflow-hidden">
-                            <span className="text-[10px] font-bold text-emerald-400">Replying to {replyTo.sender}</span>
+                            <span className="text-[10px] font-bold text-red-400">Replying to {replyTo.sender}</span>
                             <span className="text-xs text-white/60 truncate max-w-[250px]">{replyTo.content || "Media"}</span>
                         </div>
                         <button onClick={() => setReplyTo(null)} className="text-white/40 hover:text-white">✕</button>

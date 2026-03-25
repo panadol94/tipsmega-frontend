@@ -73,7 +73,7 @@ export default function InstallPrompt() {
 
                         <div className="mb-4 text-left">
                             <h3 className="text-[1.15rem] font-black uppercase leading-tight text-white sm:text-[1.35rem]">
-                                Pilih Company Dari <span className="bg-gradient-to-r from-cyan-200 via-white to-emerald-300 bg-clip-text text-transparent">Trusted List</span> Dulu
+                                Pilih Company Dari <span className="bg-gradient-to-r from-red-200 via-white to-red-300 bg-clip-text text-transparent">Trusted List</span> Dulu
                             </h3>
                             <p className="mt-2 text-[12px] leading-relaxed text-slate-300/85 sm:text-[13px]">
                                 Scanner result adalah berdasarkan <span className="font-black text-red-200">ID company</span> dari trusted list. Ambil ID dulu, baru scan untuk result yang lebih tepat.
@@ -82,7 +82,7 @@ export default function InstallPrompt() {
 
                         <div className="mb-4 rounded-[22px] border border-red-400/15 bg-white/[0.03] p-3 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.02)]">
                             <div className="mb-3 flex items-center justify-between gap-2">
-                                <div className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-emerald-200">
+                                <div className="rounded-full border border-red-400/20 bg-red-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-red-200">
                                     Live Trusted Flow
                                 </div>
                                 <div className="text-[10px] font-black uppercase tracking-[0.18em] text-white/35">Scanner Logic</div>
@@ -91,7 +91,7 @@ export default function InstallPrompt() {
                             <div className="trusted-mini-panel rounded-2xl border border-white/10 bg-[#08131c] p-3">
                                 <div className="mb-2 flex items-center justify-between gap-3">
                                     <div className="text-[11px] font-black uppercase tracking-[0.18em] text-red-200">Trusted Company List</div>
-                                    <div className="rounded-full bg-emerald-400/15 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-emerald-200">Verified</div>
+                                    <div className="rounded-full bg-red-400/15 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-red-200">Verified</div>
                                 </div>
 
                                 <div className="space-y-2">
@@ -107,23 +107,23 @@ export default function InstallPrompt() {
                                                 <span className={`text-[11px] font-black uppercase tracking-[0.14em] ${active ? "text-red-100" : "text-white/70"}`}>{label}</span>
                                                 {active && <span className="rounded-full bg-red-300/15 px-2 py-1 text-[8px] font-black uppercase tracking-[0.14em] text-red-100">Use This</span>}
                                             </div>
-                                            <div className={`mt-1 text-xs font-semibold ${active ? "text-emerald-200" : "text-white/45"}`}>{id}</div>
+                                            <div className={`mt-1 text-xs font-semibold ${active ? "text-red-200" : "text-white/45"}`}>{id}</div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
 
                             <div className="my-3 flex items-center justify-center gap-2 py-1">
-                                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
+                                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-red-400/30 to-transparent" />
                                 <div className="rounded-full border border-red-400/20 bg-red-400/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.22em] text-red-200">
                                     ID → Scan
                                 </div>
-                                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
+                                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-red-400/30 to-transparent" />
                             </div>
 
-                            <div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/8 p-3">
+                            <div className="rounded-2xl border border-red-400/20 bg-red-400/8 p-3">
                                 <div className="mb-2 flex items-center justify-between gap-3">
-                                    <span className="text-[10px] font-black uppercase tracking-[0.18em] text-emerald-200">Scanner Input</span>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.18em] text-red-200">Scanner Input</span>
                                     <span className="rounded-full bg-white/8 px-2 py-1 text-[8px] font-black uppercase tracking-[0.14em] text-white/65">Ready</span>
                                 </div>
                                 <div className="rounded-xl border border-white/8 bg-[#071019] px-3 py-3 text-left">
@@ -148,7 +148,7 @@ export default function InstallPrompt() {
 
                         <button
                             onClick={handleGoTrustedList}
-                            className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-400 via-sky-400 to-emerald-400 p-[1px] shadow-[0_12px_40px_-10px_rgba(34,211,238,0.45)] transition-transform active:scale-[0.985]"
+                            className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-red-400 via-sky-400 to-red-400 p-[1px] shadow-[0_12px_40px_-10px_rgba(34,211,238,0.45)] transition-transform active:scale-[0.985]"
                         >
                             <div className="flex items-center justify-center gap-2 rounded-[15px] bg-[#08131c]/96 px-4 py-3.5 transition-all duration-300 group-hover:bg-transparent">
                                 <span className="text-[11px] font-black uppercase tracking-[0.22em] text-white transition-colors group-hover:text-[#03131b] sm:text-xs">Buka Trusted List</span>

@@ -65,7 +65,7 @@ export default function MediaPreviewModal({
                     <input
                         value={caption}
                         onChange={(e) => setCaption(e.target.value)}
-                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-emerald-500 focus:outline-none transition-colors mb-3"
+                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-red-500 focus:outline-none transition-colors mb-3"
                         placeholder="Add a caption..."
                         autoFocus
                         onKeyDown={(e) => {
@@ -84,7 +84,7 @@ export default function MediaPreviewModal({
                         </button>
                         <button
                             onClick={() => onSend(file, caption)}
-                            className="px-6 py-2 rounded-full bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-900/20 hover:bg-emerald-500 transition-all flex items-center gap-2"
+                            className="px-6 py-2 rounded-full bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-900/20 hover:bg-red-500 transition-all flex items-center gap-2"
                         >
                             Send ➤
                         </button>

@@ -88,7 +88,7 @@ export default function HelpPage() {
                             <span>❓</span> Panduan
                         </div>
                         <h1
-                            className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-white to-emerald-300"
+                            className="text-transparent bg-clip-text bg-gradient-to-r from-red-200 via-white to-red-300"
                             style={{ fontStyle: "italic", fontWeight: 900 }}
                         >
                             Help &amp; Panduan

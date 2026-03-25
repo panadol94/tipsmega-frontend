@@ -61,7 +61,7 @@ export default function CreateGroupModal({
                         <input
                             value={groupName}
                             onChange={(e) => setGroupName(e.target.value)}
-                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-emerald-500 focus:outline-none transition-colors"
+                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-red-500 focus:outline-none transition-colors"
                             placeholder="My Awesome Group"
                         />
                     </div>
@@ -77,12 +77,12 @@ export default function CreateGroupModal({
                                         key={friend}
                                         onClick={() => toggleMember(friend)}
                                         className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all ${selectedMembers.includes(friend)
-                                            ? "bg-emerald-500/20 border-emerald-500/50"
+                                            ? "bg-red-500/20 border-red-500/50"
                                             : "bg-black/20 border-white/5 hover:bg-white/5"
                                             }`}
                                     >
                                         <span className="text-sm font-bold text-white">{friend}</span>
-                                        {selectedMembers.includes(friend) && <span className="text-emerald-400">✓</span>}
+                                        {selectedMembers.includes(friend) && <span className="text-red-400">✓</span>}
                                     </div>
                                 ))
                             )}
@@ -99,7 +99,7 @@ export default function CreateGroupModal({
                         <button
                             onClick={handleCreate}
                             disabled={!groupName.trim()}
-                            className="flex-1 py-3 rounded-xl bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-900/20 hover:bg-emerald-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex-1 py-3 rounded-xl bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-900/20 hover:bg-red-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Create Group
                         </button>

@@ -398,7 +398,7 @@ export default function GamesPage() {
                     Total: <span className="text-white font-bold">{games.length}</span>
                 </span>
                 <span className="text-slate-400">
-                    Enabled: <span className="text-emerald-400 font-bold">{games.filter(g => g.enabled).length}</span>
+                    Enabled: <span className="text-red-400 font-bold">{games.filter(g => g.enabled).length}</span>
                 </span>
                 <span className="text-slate-400">
                     Showing: <span className="text-white font-bold">{filteredGames.length}</span>
@@ -481,7 +481,7 @@ export default function GamesPage() {
                                             <button
                                                 onClick={() => toggleGame(game._id, game.enabled)}
                                                 className={`px-3 py-1 rounded-full text-xs font-bold transition-colors ${game.enabled
-                                                    ? "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30"
+                                                    ? "bg-red-500/20 text-red-400 hover:bg-red-500/30"
                                                     : "bg-red-500/20 text-red-400 hover:bg-red-500/30"
                                                     }`}
                                             >
@@ -567,7 +567,7 @@ export default function GamesPage() {
                                     <div className="bg-slate-700/30 rounded-xl p-4">
                                         <div className="flex items-center gap-4 mb-3">
                                             <p className="text-sm">
-                                                ✅ New games: <span className="font-bold text-emerald-400">{importData.length}</span>
+                                                ✅ New games: <span className="font-bold text-red-400">{importData.length}</span>
                                             </p>
                                             {duplicateCount > 0 && (
                                                 <p className="text-sm">

@@ -314,11 +314,11 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                     <h2
                         className="text-2xl font-black tracking-wide uppercase mb-1"
                         style={{
-                            background: "linear-gradient(135deg, #fca5a5 0%, #a855f7 50%, #ff6bd6 100%)",
+                            background: "linear-gradient(135deg, #fca5a5 0%, #ff4d4d 50%, #ff6bd6 100%)",
                             WebkitBackgroundClip: "text",
                             WebkitTextFillColor: "transparent",
                             backgroundClip: "text",
-                            filter: "drop-shadow(0 2px 12px rgba(123,215,255,0.3))",
+                            filter: "drop-shadow(0 2px 12px rgba(255,77,77,0.3))",
                         }}
                     >
                         {mode === "login" ? "Welcome Back" : mode === "recovery" ? "Account Recovery" : "Create Account"}
@@ -462,10 +462,10 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                                 disabled={busy}
                                 onClick={handleRegister}
                                 className={`w-full h-12 rounded-2xl font-black tracking-widest text-xs uppercase transition-all shadow-lg relative z-10 ${busy ? "bg-gray-600 text-gray-400 cursor-not-allowed" :
-                                    "bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600 border border-white/10 text-white hover:-translate-y-0.5 active:translate-y-0"
+                                    "bg-gradient-to-br from-red-400 via-red-500 to-rose-600 border border-white/10 text-white hover:-translate-y-0.5 active:translate-y-0"
                                     }`}
                                 style={!busy ? {
-                                    boxShadow: "0 8px 32px rgba(16,185,129,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
+                                    boxShadow: "0 8px 32px rgba(255,77,77,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
                                 } : {}}
                             >
                                 {busy ? "SEDANG PROSES..." : "DAFTAR SEKARANG"}
@@ -578,10 +578,10 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                             disabled={busy}
                             onClick={handleLogin}
                             className={`w-full h-14 mt-2 rounded-2xl font-black tracking-widest text-sm uppercase transition-all shadow-lg ${busy ? "bg-gray-600 text-gray-400 cursor-not-allowed" :
-                                "bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600 border border-white/10 shadow-indigo-500/30 hover:shadow-indigo-500/60 hover:-translate-y-0.5 active:translate-y-0"
+                                "bg-gradient-to-br from-red-400 via-red-500 to-rose-600 border border-white/10 shadow-red-500/30 hover:shadow-red-500/60 hover:-translate-y-0.5 active:translate-y-0"
                                 }`}
                             style={!busy ? {
-                                boxShadow: "0 8px 32px rgba(79,142,255,0.35), inset 0 1px 0 rgba(255,255,255,0.2)",
+                                boxShadow: "0 8px 32px rgba(255,77,77,0.35), inset 0 1px 0 rgba(255,255,255,0.2)",
                             } : {}}
                         >
                             {busy ? "ACCESSING..." : "ACCESS TERMINAL"}

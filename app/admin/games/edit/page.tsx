@@ -177,7 +177,7 @@ function EditGameContent() {
                     <div className="text-xs text-slate-500 mb-2">RTP Range Preview</div>
                     <div className="flex items-center gap-4">
                         <div className="flex-1 bg-slate-600 rounded-full h-3 overflow-hidden">
-                            <div className="bg-gradient-to-r from-red-500 via-red-500 to-emerald-500 h-full" style={{ width: `${form.rtpMax}%`, marginLeft: `${form.rtpMin}%` }} />
+                            <div className="bg-gradient-to-r from-red-500 via-red-500 to-red-500 h-full" style={{ width: `${form.rtpMax}%`, marginLeft: `${form.rtpMin}%` }} />
                         </div>
                         <span className="text-white font-mono text-sm">{form.rtpMin}% - {form.rtpMax}%</span>
                     </div>
@@ -192,7 +192,7 @@ function EditGameContent() {
                         <div className="text-2xl mb-1">✨</div>
                         <div className="text-xs font-bold">New</div>
                     </button>
-                    <button type="button" onClick={() => setForm({ ...form, enabled: !form.enabled })} className={`p-4 rounded-xl border text-center transition-all ${form.enabled ? "bg-emerald-500/20 border-emerald-500 text-emerald-400" : "bg-slate-700 border-slate-600 text-slate-400"}`}>
+                    <button type="button" onClick={() => setForm({ ...form, enabled: !form.enabled })} className={`p-4 rounded-xl border text-center transition-all ${form.enabled ? "bg-red-500/20 border-red-500 text-red-400" : "bg-slate-700 border-slate-600 text-slate-400"}`}>
                         <div className="text-2xl mb-1">{form.enabled ? "✅" : "❌"}</div>
                         <div className="text-xs font-bold">Enabled</div>
                     </button>

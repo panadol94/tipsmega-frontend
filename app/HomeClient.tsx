@@ -491,8 +491,8 @@ export default function HomeClient() {
 
         scanPulseAnimInstRef.current = animate(".tm-scan-pulse", {
             boxShadow: [
-                "0 0 0 rgba(0,217,255,0)",
-                "0 0 26px rgba(0,217,255,0.25)",
+                "0 0 0 rgba(255,77,77,0)",
+                "0 0 26px rgba(255,77,77,0.20)",
             ],
             scale: [1, 1.01],
             direction: "alternate",
@@ -604,11 +604,11 @@ export default function HomeClient() {
                         <h1
                             className="text-3xl font-black italic"
                             style={{
-                                background: "linear-gradient(135deg, #fca5a5 0%, #ffffff 40%, #a5f3fc 60%, #34d399 100%)",
+                                background: "linear-gradient(135deg, #ffffff 0%, #fca5a5 40%, #ff4d4d 80%, #991b1b 100%)",
                                 WebkitBackgroundClip: "text",
                                 WebkitTextFillColor: "transparent",
                                 backgroundClip: "text",
-                                filter: "drop-shadow(0 2px 16px rgba(123,215,255,0.35))",
+                                filter: "drop-shadow(0 2px 16px rgba(255,77,77,0.30))",
                             }}
                         >
                             MEGA888 AI RTP SCANNER
@@ -619,8 +619,8 @@ export default function HomeClient() {
                     </div>
 
                     {/* Scanner Card */}
-                    <section className="card relative overflow-hidden p-6 tm-scan tm-scan-pulse border-red-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40 rounded-3xl">
-                        <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(34,211,238,0.10)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.10)_1px,transparent_1px)] [background-size:22px_22px]" />
+                    <section className="card relative overflow-hidden p-6 tm-scan tm-scan-pulse border-red-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-red-950/20 rounded-3xl">
+                        <div className="pointer-events-none absolute inset-0 opacity-15 [background-image:linear-gradient(rgba(255,77,77,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,77,77,0.08)_1px,transparent_1px)] [background-size:22px_22px]" />
                         
                         {/* Badges */}
                         <div className="flex flex-wrap items-center gap-2 mb-4">
@@ -628,7 +628,7 @@ export default function HomeClient() {
                                 <span className="h-1.5 w-1.5 rounded-full bg-red-300 animate-pulse" />
                                 Live AI
                             </span>
-                            <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] ${isValidMegaId ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300" : "border-white/10 bg-white/5 text-white/40"}`}>
+                            <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] ${isValidMegaId ? "border-red-400/30 bg-red-400/10 text-red-300" : "border-white/10 bg-white/5 text-white/40"}`}>
                                 {busy ? "Scanning..." : isValidMegaId ? "Ready" : "Awaiting ID"}
                             </span>
                         </div>
@@ -706,14 +706,14 @@ export default function HomeClient() {
                     {/* ── Social Proof ── */}
                     <section
                         aria-label="Social proof"
-                        className="card p-4 border-red-500/20 bg-gradient-to-br from-cyan-950/60 to-slate-950/80"
+                        className="card p-4 border-red-500/20 bg-gradient-to-br from-red-950/30 to-slate-950/80"
                         style={{ borderRadius: 16 }}
                     >
                         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-                            <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#22d3ee", letterSpacing: "0.18em", textTransform: "uppercase" }}>
+                            <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#ff6b6b", letterSpacing: "0.18em", textTransform: "uppercase" }}>
                                 ⭐ Apa Kata Pengguna
                             </span>
-                            <div style={{ flex: 1, height: 1, background: "rgba(34,211,238,0.15)", borderRadius: 1 }} />
+                            <div style={{ flex: 1, height: 1, background: "rgba(255,107,107,0.15)", borderRadius: 1 }} />
                         </div>
 
                         {/* Testimonial row */}
@@ -773,8 +773,8 @@ export default function HomeClient() {
                         <div style={{
                             marginTop: 12, padding: "0.7rem 1rem",
                             borderRadius: 10,
-                            background: "rgba(34,211,238,0.06)",
-                            border: "1px solid rgba(34,211,238,0.15)",
+                            background: "rgba(255,77,77,0.06)",
+                            border: "1px solid rgba(255,77,77,0.12)",
                             display: "flex", justifyContent: "space-around",
                         }}>
                             {[
@@ -783,7 +783,7 @@ export default function HomeClient() {
                                 { val: "2024–2026", lbl: "Online" },
                             ].map((s) => (
                                 <div key={s.lbl} style={{ textAlign: "center" }}>
-                                    <div style={{ fontSize: "0.9rem", fontWeight: 900, color: "#22d3ee" }}>{s.val}</div>
+                                    <div style={{ fontSize: "0.9rem", fontWeight: 900, color: "#ff6b6b" }}>{s.val}</div>
                                     <div style={{ fontSize: "0.68rem", color: "#334155", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>{s.lbl}</div>
                                 </div>
                             ))}
@@ -801,7 +801,7 @@ export default function HomeClient() {
                         [RESULT] Overall RTP
                     </div>
                     <div className="flex items-end gap-2">
-                        <div className="text-5xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-cyan-200 to-cyan-500">
+                        <div className="text-5xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-red-200 to-red-500">
                             {rtpDisplay.toFixed(1)}%
                         </div>
                         <div className="text-xs text-white/60 pb-2">estimated</div>
@@ -917,7 +917,7 @@ export default function HomeClient() {
                     position: absolute;
                     inset: 0 auto 0 -30%;
                     width: 30%;
-                    background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.18), transparent);
+                    background: linear-gradient(90deg, transparent, rgba(255, 77, 77, 0.15), transparent);
                     filter: blur(1px);
                     animation: scannerSweep 3.8s linear infinite;
                     pointer-events: none;

@@ -229,7 +229,7 @@ export default function TrustedClient() {
                             <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Verified Partners</div>
                         </div>
                         <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
-                            <div className="text-base font-black text-emerald-400">24/7</div>
+                            <div className="text-base font-black text-red-400">24/7</div>
                             <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Active Monitor</div>
                         </div>
                         <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
@@ -301,7 +301,7 @@ export default function TrustedClient() {
                                     )}
 
                                     {/* Media Section - Enhanced with Gradient Overlay */}
-                                    <div className="h-48 w-full bg-black relative overflow-hidden group-hover:after:opacity-100 after:absolute after:inset-0 after:bg-gradient-to-br after:from-cyan-500/10 after:to-purple-500/10 after:opacity-0 after:transition-opacity after:duration-500">
+                                    <div className="h-48 w-full bg-black relative overflow-hidden group-hover:after:opacity-100 after:absolute after:inset-0 after:bg-gradient-to-br after:from-red-500/10 after:to-purple-500/10 after:opacity-0 after:transition-opacity after:duration-500">
                                         {c.storageUrl ? (
                                             // Enhanced video detection: check mediaType OR file extension
                                             (() => {
@@ -353,9 +353,9 @@ export default function TrustedClient() {
                                         )}
 
                                         {/* Live Status Indicator */}
-                                        <div className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full border border-emerald-500/30">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_5px_#10b981]" />
-                                            <span className="text-emerald-400 text-[10px] font-mono font-bold">{playerCount.toLocaleString()}</span>
+                                        <div className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full border border-red-500/30">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse shadow-[0_0_5px_#10b981]" />
+                                            <span className="text-red-400 text-[10px] font-mono font-bold">{playerCount.toLocaleString()}</span>
                                         </div>
                                     </div>
 

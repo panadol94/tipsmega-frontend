@@ -93,16 +93,16 @@ export default function AdminDashboard() {
                 {statCards.map((stat) => {
                     const hoverClasses = {
                         blue: "hover:border-blue-500/50 hover:shadow-blue-500/10",
-                        emerald: "hover:border-emerald-500/50 hover:shadow-emerald-500/10",
+                        emerald: "hover:border-red-500/50 hover:shadow-red-500/10",
                         purple: "hover:border-purple-500/50 hover:shadow-purple-500/10",
                         amber: "hover:border-red-500/50 hover:shadow-red-500/10",
                         pink: "hover:border-pink-500/50 hover:shadow-pink-500/10",
-                        cyan: "hover:border-red-500/50 hover:shadow-cyan-500/10",
+                        cyan: "hover:border-red-500/50 hover:shadow-red-500/10",
                     }[stat.color] || "hover:border-slate-500/50";
 
                     const textColorClasses = {
                         blue: "text-blue-400",
-                        emerald: "text-emerald-400",
+                        emerald: "text-red-400",
                         purple: "text-purple-400",
                         amber: "text-red-400",
                         pink: "text-pink-400",
@@ -158,7 +158,7 @@ export default function AdminDashboard() {
                 >
                     <span className="text-2xl">💬</span>
                     <div className="font-bold mt-2">Moderate Chat</div>
-                    <div className="text-xs text-emerald-200">View messages</div>
+                    <div className="text-xs text-red-200">View messages</div>
                 </Link>
                 <Link
                     href="/admin/settings"
@@ -205,28 +205,28 @@ export default function AdminDashboard() {
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                        <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse" />
                         <div>
                             <div className="text-sm font-medium text-white">API Server</div>
                             <div className="text-xs text-slate-500">Online</div>
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                        <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse" />
                         <div>
                             <div className="text-sm font-medium text-white">Database</div>
                             <div className="text-xs text-slate-500">Connected</div>
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                        <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse" />
                         <div>
                             <div className="text-sm font-medium text-white">WebSocket</div>
                             <div className="text-xs text-slate-500">Active</div>
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                        <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse" />
                         <div>
                             <div className="text-sm font-medium text-white">Storage</div>
                             <div className="text-xs text-slate-500">Healthy</div>

@@ -44,12 +44,12 @@ export default function AddFriendModal({
                         <input
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-emerald-500 focus:outline-none transition-colors"
+                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-red-500 focus:outline-none transition-colors"
                             placeholder="Enter username..."
                         />
                     </div>
 
-                    {status && <p className="text-xs text-emerald-400 text-center">{status}</p>}
+                    {status && <p className="text-xs text-red-400 text-center">{status}</p>}
 
                     <div className="flex gap-3 pt-2">
                         <button
@@ -61,7 +61,7 @@ export default function AddFriendModal({
                         <button
                             onClick={handleAdd}
                             disabled={!username.trim()}
-                            className="flex-1 py-3 rounded-xl bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-900/20 hover:bg-emerald-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex-1 py-3 rounded-xl bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-900/20 hover:bg-red-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Add Friend
                         </button>

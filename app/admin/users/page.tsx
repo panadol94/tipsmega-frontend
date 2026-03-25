@@ -179,14 +179,14 @@ export default function UsersPage() {
                                                         <button
                                                             onClick={() => adjustStars(user._id, 10)}
                                                             disabled={adjusting}
-                                                            className="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded text-xs hover:bg-emerald-500/30 disabled:opacity-50"
+                                                            className="px-2 py-1 bg-red-500/20 text-red-400 rounded text-xs hover:bg-red-500/30 disabled:opacity-50"
                                                         >
                                                             +10
                                                         </button>
                                                         <button
                                                             onClick={() => adjustStars(user._id, 50)}
                                                             disabled={adjusting}
-                                                            className="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded text-xs hover:bg-emerald-500/30 disabled:opacity-50"
+                                                            className="px-2 py-1 bg-red-500/20 text-red-400 rounded text-xs hover:bg-red-500/30 disabled:opacity-50"
                                                         >
                                                             +50
                                                         </button>
@@ -250,13 +250,13 @@ export default function UsersPage() {
                                             {user.isBanned ? (
                                                 <span className="px-2 py-1 bg-red-500/20 text-red-400 rounded-lg text-xs">Banned</span>
                                             ) : (
-                                                <span className="px-2 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg text-xs">Active</span>
+                                                <span className="px-2 py-1 bg-red-500/20 text-red-400 rounded-lg text-xs">Active</span>
                                             )}
                                         </td>
                                         <td className="p-4">
                                             <div className="flex justify-end gap-2">
                                                 <Link href={`/admin/users/detail?id=${user._id}`} className="p-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30">👁️</Link>
-                                                <button onClick={() => toggleBan(user._id, user.isBanned || false)} className={`p-2 rounded-lg ${user.isBanned ? "bg-emerald-500/20 text-emerald-400" : "bg-red-500/20 text-red-400"}`}>
+                                                <button onClick={() => toggleBan(user._id, user.isBanned || false)} className={`p-2 rounded-lg ${user.isBanned ? "bg-red-500/20 text-red-400" : "bg-red-500/20 text-red-400"}`}>
                                                     {user.isBanned ? "✅" : "🚫"}
                                                 </button>
                                             </div>
