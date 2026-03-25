@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import BottomNav from "./BottomNav";
+import { useGlobalSettings } from "../context/GlobalSettingsContext";
 
 export default function SharedPageNav({ children }: { children: React.ReactNode }) {
+    const { user } = useGlobalSettings();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userName, setUserName] = useState("");
 
@@ -33,26 +35,34 @@ export default function SharedPageNav({ children }: { children: React.ReactNode 
             >
                 {/* Brand */}
                 <Link href="/" className="flex items-center gap-2.5 group">
-                    {/* Logo badge — larger, richer gradient */}
-                    <div
-                        className="w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm text-white shadow-lg transition-transform group-hover:scale-105"
-                        style={{
-                            background: "linear-gradient(135deg, #4f8EFF 0%, #7B5CFF 50%, #C44EFF 100%)",
-                            boxShadow: "0 4px 16px rgba(79,142,255,0.4)",
-                        }}
-                    >
-                        M
-                    </div>
-                    <div className="flex flex-col leading-none">
-                        <span className="font-black text-white text-[13px] tracking-wide">
-                            {isLoggedIn && userName ? userName : "MEGA888"}
-                        </span>
-                        {isLoggedIn && userName && (
-                            <span className="text-[9px] text-red-400 font-semibold tracking-wider uppercase mt-0.5">
-                                Premium
+                    {isLoggedIn ? (
+                        <>
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center p-[2px] shadow-[0_0_15px_rgba(255,77,77,0.3)]">
+                                <div className="w-full h-full bg-[#07090f] rounded-full flex items-center justify-center">
+                                    <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                                </div>
+                            </div>
+                            <div className="flex flex-col leading-none">
+                                <span className="font-black text-white text-[13px] tracking-wide">
+                                    {user?.username || userName || "User"}
+                                </span>
+                                <span className="text-[9px] text-red-400 font-semibold tracking-wider uppercase mt-0.5">
+                                    Premium
+                                </span>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="flex items-center gap-2">
+                            <img
+                                src="/mega888.png"
+                                alt="MEGA888"
+                                className="h-6 sm:h-7 object-contain drop-shadow-[0_0_5px_rgba(255,77,77,0.4)] group-hover:drop-shadow-[0_0_10px_rgba(255,77,77,0.8)] transition-all duration-300"
+                            />
+                            <span className="text-white/60 text-[10px] font-bold tracking-widest uppercase mt-0.5 max-sm:hidden">
+                                SCANNER
                             </span>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </Link>
 
                 {/* Right nav cluster */}
