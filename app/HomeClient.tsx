@@ -523,9 +523,19 @@ export default function HomeClient() {
                 <Link href="/" className="flex items-center gap-2.5 group">
                     {isLoggedIn ? (
                         <>
-                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center p-[2px] shadow-[0_0_15px_rgba(255,77,77,0.3)] hover:shadow-[0_0_20px_rgba(255,77,77,0.5)] transition-all">
-                                <div className="w-full h-full bg-[#07090f] rounded-full flex items-center justify-center">
-                                    <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                            <div className="relative flex items-center justify-center">
+                                {/* Outer scanning ring 1 */}
+                                <div className="absolute inset-[-4px] rounded-full border border-red-500/20 border-t-red-500 animate-spin" style={{ animationDuration: '3s' }} />
+                                {/* Outer scanning ring 2 (reverse) */}
+                                <div className="absolute inset-[-7px] rounded-full border border-dashed border-red-500/30 animate-spin" style={{ animationDuration: '5s', animationDirection: 'reverse' }} />
+                                
+                                {/* Core pulsing glow */}
+                                <div className="absolute inset-0 rounded-full bg-red-500/30 blur-sm animate-ping" style={{ animationDuration: '2s' }} />
+                                
+                                <div className="relative w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center p-[2px] shadow-[0_0_15px_rgba(255,77,77,0.5)] z-10">
+                                    <div className="w-full h-full bg-[#07090f] rounded-full flex items-center justify-center">
+                                        <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                                    </div>
                                 </div>
                             </div>
                             <div className="flex flex-col leading-none">
