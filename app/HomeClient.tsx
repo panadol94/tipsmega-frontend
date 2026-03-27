@@ -503,7 +503,7 @@ export default function HomeClient() {
     }, [busy]);
 
     return (
-        <>
+        <div className="app-bg min-h-screen w-full relative">
             {/* HACKER SCAN OVERLAY */}
             {showHackerOverlay && (
                 <HackerScanOverlay megaId={megaId} />
