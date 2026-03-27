@@ -724,6 +724,25 @@ export default function HomeClient() {
                         </div>
                     </section>
 
+                    {/* Test ID Lead Magnet Banner */}
+                    <Link href="/test-id" className="card relative overflow-hidden p-4 mb-2 flex items-center justify-between border-green-500/30 bg-gradient-to-r from-green-900/40 to-emerald-900/20 hover:from-green-900/60 hover:to-emerald-900/40 transition-all group shadow-lg shadow-green-900/20">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+                        <div className="flex items-center gap-3 relative z-10">
+                            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/30 shrink-0">
+                                <span className="text-xl md:text-2xl">🎰</span>
+                            </div>
+                            <div>
+                                <h3 className="text-white font-bold text-sm md:text-base">Test ID Mega888 Percuma</h3>
+                                <p className="text-green-300/80 text-[10px] md:text-xs">Cuba main tanpa modal. Password disediakan.</p>
+                            </div>
+                        </div>
+                        <div className="text-green-400 relative z-10 shrink-0">
+                            <svg className="w-5 h-5 md:w-6 md:h-6 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                        </div>
+                    </Link>
+
                     {/* Quick Links */}
                     <h2 className="sr-only">Pautan Pantas</h2>
                     <div className="grid grid-cols-2 gap-3">
