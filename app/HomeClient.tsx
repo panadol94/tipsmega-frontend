@@ -990,6 +990,6 @@ export default function HomeClient() {
                     100% { transform: translateX(430%); opacity: 0; }
                 }
             `}</style>
-        </>
+        </div>
     );
 }
