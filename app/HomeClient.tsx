@@ -103,6 +103,40 @@ export default function HomeClient() {
     // Star notification
     const [starNotification, setStarNotification] = useState<string | null>(null);
 
+    // Cyberpunk Splash Intro
+    const [showIntro, setShowIntro] = useState(false);
+    const [introLines, setIntroLines] = useState<string[]>([]);
+    
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const hasSeen = sessionStorage.getItem("mega888_intro_seen");
+            if (!hasSeen) {
+                setShowIntro(true);
+                const sequence = [
+                    "SYSTEM: INITIALIZING EXPLORATION...",
+                    "UPLINK: ESTABLISHING SECURE CONNECTION...",
+                    "MAINFRAME: BYPASSING CASINO FIREWALL...",
+                    "RTP ALGORITHM: SYNCING LIVE DATA...",
+                    "ACCESS GRANTED."
+                ];
+                let currentLine = 0;
+                const interval = setInterval(() => {
+                    if (currentLine < sequence.length) {
+                        setIntroLines((prev) => [...prev, sequence[currentLine]]);
+                        currentLine++;
+                    } else {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            setShowIntro(false);
+                            sessionStorage.setItem("mega888_intro_seen", "true");
+                        }, 1300);
+                    }
+                }, 800);
+                return () => clearInterval(interval);
+            }
+        }
+    }, []);
+
     // Cooldown state (2 minutes)
     const [cooldownRemaining, setCooldownRemaining] = useState(0);
     const COOLDOWN_DURATION = 120; // 2 minutes in seconds
@@ -503,7 +537,43 @@ export default function HomeClient() {
     }, [busy]);
 
     return (
-        <div className="app-bg min-h-screen w-full relative">
+        <div className="app-bg min-h-screen w-full relative overflow-x-hidden">
+            {/* CYBERPUNK SPLASH INTRO */}
+            {showIntro && (
+                <div className="fixed inset-0 z-[999999] flex flex-col justify-end bg-[#050510]">
+                    <div 
+                        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50 z-0"
+                        style={{ backgroundImage: "url('/cyberpunk-bg.png')" }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#020205] via-[#020205]/80 to-transparent z-10 pointer-events-none" />
+                    
+                    <button 
+                        onClick={() => {
+                            setShowIntro(false);
+                            sessionStorage.setItem("mega888_intro_seen", "true");
+                        }}
+                        className="absolute top-6 right-6 z-30 px-3 py-1.5 md:px-4 md:py-2 border border-red-500/50 text-red-500 text-[10px] md:text-xs font-mono tracking-widest bg-black/50 hover:bg-red-500/20 transition-colors uppercase cursor-pointer"
+                    >
+                        Skip Security [X]
+                    </button>
+
+                    <div className="relative z-20 p-6 md:p-12 mb-16 md:mb-24 w-full max-w-2xl mx-auto font-mono text-green-500 text-xs md:text-base">
+                        <div className="mb-4 space-y-2 md:space-y-3 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]">
+                            {introLines.map((line, idx) => (
+                                <p key={idx} className="animate-[pulse_0.4s_ease-in-out]">
+                                    <span className="text-red-500 font-bold mr-2 text-shadow-red">{'>'}</span> 
+                                    <span style={{ textShadow: "0 0 5px rgba(34,197,94,0.6)" }}>{line}</span>
+                                </p>
+                            ))}
+                            {introLines.length < 5 && (
+                                <p className="animate-pulse">
+                                    <span className="text-green-500 text-shadow-green">_</span>
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
             {/* HACKER SCAN OVERLAY */}
             {showHackerOverlay && (
                 <HackerScanOverlay megaId={megaId} />
