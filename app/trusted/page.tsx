@@ -1,23 +1,25 @@
 import TrustedClient from "./TrustedClient";
 
 export const metadata = {
-  title: "Trusted Company Mega888 | Verified Agents List 2026",
+  title: "Senarai Agent Mega888 Original & Trusted Company 2026 (Cuci Penuh)",
   description:
-    "Senarai company Mega888 yang trusted dan verified. Elakkan scammer, main di platform yang disahkan selamat oleh TipsMega AI.",
+    "Mencari agent Mega888 trusted? Ini adalah senarai rasmi top company Mega888 di Malaysia 2026. 100% no scammer, auto-cuci pantas, dan kiosk original dijamin bayar.",
   keywords: [
-    "Trusted Company Mega888",
-    "Verified Agent Mega888",
+    "agent mega888",
+    "trusted company mega888 2026",
+    "senarai agent original mega888",
+    "kiosk mega888 trusted",
+    "company boleh cuci mega888",
+    "link mega888 ori",
     "Mega888 Original",
     "Company Bayar Penuh",
-    "Top Agent Mega888 2026",
-    "Senarai Company Trusted",
   ],
   alternates: {
     canonical: "https://tipsmega888.com/trusted",
   },
   openGraph: {
-    title: "Trusted Company Mega888 | Verified Agents List 2026",
-    description: "Senarai company Mega888 yang trusted dan verified. Elakkan scammer, main di platform yang disahkan selamat.",
+    title: "Senarai Agent Mega888 Original & Trusted Company 2026",
+    description: "Mencari agent Mega888 trusted? Senarai rasmi top company Mega888 di Malaysia 2026. 100% no scammer, auto-cuci pantas, dan kiosk original.",
     url: "https://tipsmega888.com/trusted",
     siteName: "TipsMega AI Scanner",
     locale: "ms_MY",
@@ -27,14 +29,14 @@ export const metadata = {
         url: "https://tipsmega888.com/og-trusted.png",
         width: 1200,
         height: 630,
-        alt: "Trusted Company Mega888 Verified Agents",
+        alt: "Agent Mega888 Original Trusted Company 2026",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Trusted Company Mega888 | Verified Agents 2026",
-    description: "Senarai company Mega888 yang trusted dan verified. Elakkan scammer!",
+    title: "Agent Mega888 Original & Trusted Company 2026",
+    description: "Senarai rasmi top company Mega888 Malaysia 2026. 100% no scammer!",
     images: ["https://tipsmega888.com/og-trusted.png"],
   },
   robots: {
