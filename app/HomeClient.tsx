@@ -932,6 +932,27 @@ export default function HomeClient() {
                 </div>
             )}
 
+            {/* Internal Link Silo for Top 10 Pillar Articles */}
+            <div className="px-4 py-4 mb-2 mt-4 max-w-4xl mx-auto opacity-90 hover:opacity-100 transition-opacity">
+                <div className="border border-red-500/20 bg-black/40 backdrop-blur-md rounded-2xl p-5 shadow-[0_0_15px_rgba(255,77,77,0.1)]">
+                    <h2 className="text-red-400 font-bold mb-3 text-sm flex items-center gap-2">
+                        <span className="text-lg">🎯</span> Strategi & Panduan Mega888 2026
+                    </h2>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-[11px] text-white/70">
+                        <li><Link href="/blog/mega888-rtp-scanner-malaysia-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Rahsia Scanner AI RTP Mega888 2026</Link></li>
+                        <li><Link href="/blog/mega888-download-apk-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Panduan Selamat Download APK Mega888</Link></li>
+                        <li><Link href="/blog/mega888-free-credit-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Cara Claim Free Credit RM10 Anti-Scam</Link></li>
+                        <li><Link href="/blog/cara-menang-mega888-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>5 Strategi Cara Menang Data-Driven</Link></li>
+                        <li><Link href="/blog/slot-mega888-paling-mudah-menang-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>10 Slot Paling Mudah Menang (Data AI)</Link></li>
+                        <li><Link href="/blog/mega888-test-id-percuma-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Senarai Test ID Mega888 Percuma 2026</Link></li>
+                        <li><Link href="/blog/mega888-original-vs-fake" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Kenal Pasti Mega888 Original vs Fake</Link></li>
+                        <li><Link href="/blog/mega888-maintenance-hari-ini" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Jadual Maintenance Mega888 Hari Ini</Link></li>
+                        <li><Link href="/blog/mega888-vs-pussy888" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Mega888 vs Pussy888: Mana Lebih Untung?</Link></li>
+                        <li><Link href="/blog/mega888-918kiss-beza" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Perbandingan Mega888 & 918Kiss 2026</Link></li>
+                    </ul>
+                </div>
+            </div>
+
             {/* SEO Content Block for 'mega888' highly competitive keyword */}
             <div className="px-4 py-8 mb-6 mt-4 opacity-70 hover:opacity-100 transition-opacity">
                 <article className="prose prose-sm prose-invert max-w-none text-[11px] text-white/50 text-center space-y-3">
