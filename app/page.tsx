@@ -2,13 +2,13 @@
 import HomeClient from "./HomeClient";
 
 export const metadata = {
-  title: "Mega888 RTP Scanner Percuma 2026 | Semak RTP Live AI",
+  title: "Mega888 Hack 2026? Guna AI RTP Scanner Percuma | TipsMega888",
   description:
-    "Semak RTP Mega888 secara live dengan AI Scanner percuma. Rujuk pola permainan, panduan asas, dan akses cepat ke hub Mega888 Malaysia.",
+    "Mencari software hack Mega888? Godam slot adalah mustahil. Gunakan alternatif SAH ini: TipsMega888 AI RTP Scanner untuk analisis live data. Platform trusted 2026.",
   openGraph: {
-    title: "Mega888 RTP Scanner Percuma 2026 | Semak RTP Live AI",
+    title: "Mega888 Hack 2026? Guna AI RTP Scanner Percuma | TipsMega888",
     description:
-      "Semak RTP Mega888 live dengan AI Scanner dan akses panduan Mega888 Malaysia dalam satu platform.",
+      "Mencari software hack Mega888? Gunakan alternatif sah AI Scanner untuk RTP live.",
     url: "https://tipsmega888.com",
     siteName: "TipsMega888 AI",
     locale: "ms_MY",
@@ -18,15 +18,15 @@ export const metadata = {
         url: "https://tipsmega888.com/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "Mega888 AI RTP Scanner 2026 - 4.9 Rating",
+        alt: "Mega888 AI RTP Scanner 2026 - Alternatif Hack",
       },
     ],
   },
   twitter: {
     card: "summary_large_image" as const,
-    title: "Mega888 RTP Scanner Percuma 2026",
+    title: "Mega888 Hack 2026? Guna AI RTP Scanner Percuma",
     description:
-      "Semak RTP Mega888 live dengan AI Scanner percuma dan baca panduan utama di TipsMega888.",
+      "Semak RTP Mega888 live dengan AI Scanner percuma sebagai strategi selamat.",
     images: ["https://tipsmega888.com/og-image.webp"],
   },
   alternates: {
