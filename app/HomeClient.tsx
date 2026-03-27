@@ -932,6 +932,40 @@ export default function HomeClient() {
                 </div>
             )}
 
+            {/* WhatsApp Community VIP Banner */}
+            <div className="px-4 py-2 mt-4 max-w-4xl mx-auto">
+                <a href="https://masuk10.com/Prospinner" target="_blank" rel="noopener noreferrer" className="block relative overflow-hidden rounded-2xl border border-[#25D366]/30 bg-black/60 backdrop-blur-md p-4 shadow-[0_0_20px_rgba(37,211,102,0.15)] group transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,211,102,0.3)] hover:border-[#25D366]/60">
+                    {/* Glowing accents */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#25D366]/10 rounded-full blur-3xl group-hover:bg-[#25D366]/20 transition-all duration-500 pointer-events-none"></div>
+                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-[#128C7E]/10 rounded-full blur-2xl pointer-events-none"></div>
+                    
+                    <div className="relative z-10 flex items-center justify-between gap-4">
+                        <div className="flex-1">
+                            <h2 className="text-[#25D366] font-extrabold text-sm mb-1 flex items-start gap-1.5">
+                                🔥 <span className="uppercase tracking-wider">Akses VIP: Komuniti Spin Mega888</span>
+                            </h2>
+                            <p className="text-[11px] text-white/70 leading-relaxed mb-2">
+                                Bincang pola, dapatkan <strong className="text-white">Test ID percuma</strong> & sembang 'spin' bersama <strong className="text-white">10,000+ ahli</strong> aktif setiap hari!
+                            </p>
+                            <div className="inline-flex items-center justify-center gap-1.5 bg-[#25D366] text-black text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">
+                                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                                </svg>
+                                Join Group WhatsApp
+                            </div>
+                        </div>
+                        
+                        {/* Right side icon illustration / arrow */}
+                        <div className="flex flex-col items-center justify-center w-12 h-12 bg-gradient-to-br from-[#25D366]/20 to-[#128C7E]/10 border border-[#25D366]/20 rounded-full group-hover:scale-110 transition-transform duration-300 shrink-0">
+                           <svg className="w-5 h-5 text-[#25D366] group-hover:translate-x-0.5 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                             <line x1="5" y1="12" x2="19" y2="12"></line>
+                             <polyline points="12 5 19 12 12 19"></polyline>
+                           </svg>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
             {/* Internal Link Silo for Top 10 Pillar Articles */}
             <div className="px-4 py-4 mb-2 mt-4 max-w-4xl mx-auto opacity-90 hover:opacity-100 transition-opacity">
                 <div className="border border-red-500/20 bg-black/40 backdrop-blur-md rounded-2xl p-5 shadow-[0_0_15px_rgba(255,77,77,0.1)]">
