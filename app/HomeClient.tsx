@@ -640,18 +640,21 @@ export default function HomeClient() {
                             <div className="absolute inset-4 bg-red-600/20 blur-3xl group-hover:bg-red-500/30 transition-all duration-700 animate-pulse -z-10" />
                         </div>
 
-                        <h1
-                            className="text-3xl font-black italic relative z-20 -mt-2"
-                            style={{
-                                background: "linear-gradient(135deg, #ffffff 0%, #fca5a5 40%, #ff4d4d 80%, #991b1b 100%)",
-                                WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent",
-                                backgroundClip: "text",
-                                filter: "drop-shadow(0 2px 16px rgba(255,77,77,0.30))",
-                            }}
-                        >
-                            AI RTP SCANNER
-                        </h1>
+                        <div className="glitch-wrapper">
+                            <h1
+                                className="text-3xl font-black italic relative z-20 -mt-2 glitch"
+                                data-text="AI RTP SCANNER"
+                                style={{
+                                    background: "linear-gradient(135deg, #ffffff 0%, #fca5a5 40%, #ff4d4d 80%, #991b1b 100%)",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    backgroundClip: "text",
+                                    filter: "drop-shadow(0 2px 16px rgba(255,77,77,0.30))",
+                                }}
+                            >
+                                AI RTP SCANNER
+                            </h1>
+                        </div>
                         <p className="mt-2 text-sm text-white/50">
                             Masukkan ID untuk scan • {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
                         </p>
@@ -659,7 +662,15 @@ export default function HomeClient() {
 
                     {/* Scanner Card */}
                     <section className="card relative overflow-hidden p-6 tm-scan tm-scan-pulse border-red-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-red-950/20 rounded-3xl">
+                        {/* Matrix Grid Overflow */}
                         <div className="pointer-events-none absolute inset-0 opacity-15 [background-image:linear-gradient(rgba(255,77,77,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,77,77,0.08)_1px,transparent_1px)] [background-size:22px_22px]" />
+                        
+                        {/* HUD Elements */}
+                        <div className="hud-bracket hud-tl" />
+                        <div className="hud-bracket hud-tr" />
+                        <div className="hud-bracket hud-bl" />
+                        <div className="hud-bracket hud-br" />
+                        <div className="hud-crosshair" />
                         
                         {/* Badges */}
                         <div className="flex flex-wrap items-center gap-2 mb-4">
@@ -696,7 +707,7 @@ export default function HomeClient() {
 
                         {/* Scan Button */}
                         <button
-                            className={cooldownRemaining > 0 ? "tm-scan-item tm-scan-cta btn-cooldown" : "tm-scan-item tm-scan-cta btn-green-spin ripple-effect"}
+                            className={cooldownRemaining > 0 ? "tm-scan-item tm-scan-cta btn-cooldown" : "tm-scan-item tm-scan-cta btn-red-scan ripple-effect"}
                             style={{ width: '100%', opacity: (!isValidMegaId || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
                             onClick={runScan}
                             disabled={busy || cooldownRemaining > 0 || !isValidMegaId}
