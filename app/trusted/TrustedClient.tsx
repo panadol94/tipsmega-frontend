@@ -505,6 +505,27 @@ export default function TrustedClient() {
                             </p>
                         </div>
                     </article>
+
+                    <article className="card p-6 border-emerald-500/20 bg-emerald-500/5">
+                        <h2 className="text-xl font-black text-emerald-400 mb-4 flex items-center gap-2">
+                            <span>🔗</span>
+                            <span>Panduan Berkaitan Untuk Pengguna Baru</span>
+                        </h2>
+                        <div className="grid md:grid-cols-3 gap-3 text-sm">
+                            <Link href="/mega888" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white no-underline hover:border-emerald-400/40 transition-colors">
+                                <div className="font-bold mb-1 text-emerald-300">Mega888 Malaysia Hub</div>
+                                <div className="text-white/60 leading-relaxed">Panduan login, register, download APK, RTP live, dan withdraw dalam satu halaman.</div>
+                            </Link>
+                            <Link href="/blog/kiosk-mega888-trusted" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white no-underline hover:border-emerald-400/40 transition-colors">
+                                <div className="font-bold mb-1 text-emerald-300">Kiosk Trusted & Verified</div>
+                                <div className="text-white/60 leading-relaxed">Checklist ringkas untuk semak company yang lebih selamat dan elak scammer.</div>
+                            </Link>
+                            <Link href="/blog/mega888-withdraw-cepat-malaysia-2026" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white no-underline hover:border-emerald-400/40 transition-colors">
+                                <div className="font-bold mb-1 text-emerald-300">Panduan Withdraw Cepat</div>
+                                <div className="text-white/60 leading-relaxed">Cara kurangkan reject dan pilih company yang payout lebih lancar.</div>
+                            </Link>
+                        </div>
+                    </article>
                 </section>
 
 

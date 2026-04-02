@@ -51,13 +51,13 @@ export const metadata = {
 const HUB_LINKS = [
   {
     title: "Mega888 Malaysia 2026: Panduan Lengkap",
-    href: "/blog/mega888-malaysia-2026-panduan-lengkap",
+    href: "/blog/mega888-rtp-scanner-panduan-lengkap-2026",
     note: "Artikel utama untuk pengguna Malaysia: login, APK, trusted agent, RTP live, dan flow terbaik.",
   },
   {
-    title: "Mega888 Login Link Terkini 2026",
-    href: "/blog/mega888-login-link-terkini-2026",
-    note: "Masuk akaun dengan lebih selamat dan elak link palsu.",
+    title: "Mega888 Login & Register Akaun 2026",
+    href: "/blog/mega888-register-akaun-baru-2026",
+    note: "Panduan masuk dan daftar akaun dengan lebih selamat sambil elak link palsu.",
   },
   {
     title: "Cara Register Akaun Mega888 Baru",
@@ -86,7 +86,7 @@ const HUB_LINKS = [
   },
   {
     title: "Trusted Agent Malaysia",
-    href: "/blog/mega888-trusted-agent-malaysia-2026",
+    href: "/blog/kiosk-mega888-trusted",
     note: "Checklist ejen selamat dan red flag scam.",
   },
   {
@@ -201,8 +201,8 @@ export default function Mega888HubPage() {
           }}
         >
           {[
-            ["Mega888 Malaysia", "/blog/mega888-malaysia-2026-panduan-lengkap"],
-            ["Login Guide", "/blog/mega888-login-link-terkini-2026"],
+            ["Mega888 Malaysia", "/blog/mega888-rtp-scanner-panduan-lengkap-2026"],
+            ["Login Guide", "/blog/mega888-register-akaun-baru-2026"],
             ["Download APK", "/blog/mega888-download-android-apk-terbaru-2026"],
             ["RTP Live", "/blog/mega888-rtp-live-malaysia-2026"],
             ["Trusted Agent", "/trusted"],

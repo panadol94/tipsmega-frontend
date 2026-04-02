@@ -124,6 +124,49 @@ export default function BlogPage() {
           </div>
         </header>
 
+        <div
+          style={{
+            marginBottom: "1.5rem",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "0.75rem",
+          }}
+        >
+          {[
+            {
+              href: "/",
+              title: "RTP Scanner Malaysia",
+              note: "Semak RTP live sebelum pilih game.",
+            },
+            {
+              href: "/trusted",
+              title: "Trusted Company Mega888",
+              note: "Semak company verified dan elak scammer.",
+            },
+            {
+              href: "/games",
+              title: "Senarai Game Mega888",
+              note: "Browse 197+ slot ikut kategori dan RTP.",
+            },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                borderRadius: 14,
+                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.03)",
+                padding: "0.95rem 1rem",
+              }}
+            >
+              <div style={{ fontWeight: 800, color: "#e2e8f0", marginBottom: 4 }}>{item.title}</div>
+              <div style={{ fontSize: "0.82rem", color: "#64748b" }}>{item.note}</div>
+            </Link>
+          ))}
+        </div>
+
         {/* ── CONVERSION CTA BANNER ── */}
         <div style={{
           marginBottom: "2rem",

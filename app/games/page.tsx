@@ -78,6 +78,49 @@ export default function GamesPage() {
           </p>
         </header>
 
+        <div
+          style={{
+            marginBottom: "1.5rem",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "0.75rem",
+          }}
+        >
+          {[
+            {
+              href: "/",
+              title: "Semak RTP Live",
+              note: "Gunakan AI Scanner untuk tengok signal RTP semasa.",
+            },
+            {
+              href: "/mega888",
+              title: "Mega888 Malaysia Hub",
+              note: "Panduan login, download, trusted agent dan withdraw.",
+            },
+            {
+              href: "/trusted",
+              title: "Trusted Company",
+              note: "Semak company verified sebelum register atau deposit.",
+            },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                borderRadius: 14,
+                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.03)",
+                padding: "0.95rem 1rem",
+              }}
+            >
+              <div style={{ fontWeight: 800, color: "#e2e8f0", marginBottom: 4 }}>{item.title}</div>
+              <div style={{ fontSize: "0.82rem", color: "#94a3b8" }}>{item.note}</div>
+            </Link>
+          ))}
+        </div>
+
         {categories.map((cat) => (
           <section key={cat} style={{ marginBottom: "2.5rem" }}>
             <h2 style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: "1rem", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: 8 }}>
