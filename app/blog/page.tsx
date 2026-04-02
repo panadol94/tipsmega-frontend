@@ -3,9 +3,9 @@ import { BLOG_ARTICLES } from "../data/blogArticles";
 import { BLOG_REDIRECT_SOURCE_SLUGS } from "../data/blogRedirects";
 
 export const metadata = {
-  title: "Blog Tips Mega888 | Strategi, Panduan & Tips Menang 2026",
+  title: "Blog Tips Mega888 Malaysia | Strategi, Panduan RTP & Artikel 2026",
   description:
-    "Blog tips dan strategi Mega888 terkini 2026. Panduan lengkap cara menang, hack RTP, download APK, jackpot, dan tips dari pemain profesional.",
+    "Blog tips Mega888 Malaysia 2026 dengan strategi, panduan RTP, download APK, trusted agent, withdraw, dan artikel game-specific untuk pengguna baru dan lama.",
   keywords: [
     "blog mega888", "tips mega888", "strategi mega888", "panduan mega888",
     "mega888 hack", "download mega888", "jackpot mega888", "mega888 2026",

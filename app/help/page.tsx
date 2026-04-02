@@ -2,9 +2,9 @@ import Link from "next/link";
 import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
-  title: "Help & Panduan AI Scanner | TipsMega888",
+  title: "Help & Panduan AI Scanner Mega888 | FAQ RTP & Cara Guna",
   description:
-    "Jawapan untuk soalan paling biasa tentang cara guna AI Scanner dan konsep RTP untuk permainan Mega888. Panduan lengkap cara scan, baca keputusan, dan tips.",
+    "Jawapan untuk soalan paling biasa tentang cara guna AI Scanner dan konsep RTP untuk permainan Mega888. Panduan scan, baca keputusan, dan FAQ asas.",
   alternates: { canonical: "https://tipsmega888.com/help" },
   openGraph: {
     title: "Help & Panduan AI Scanner | TipsMega888",
@@ -18,7 +18,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Help & Panduan AI Scanner | TipsMega888",
-    description: "Panduan lengkap cara guna AI Scanner dan понятие RTP Mega888.",
+    description: "Panduan lengkap cara guna AI Scanner dan konsep RTP Mega888.",
     images: ["/og-image.webp"],
   },
   robots: {

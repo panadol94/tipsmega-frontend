@@ -1,9 +1,9 @@
 import TrustedClient from "./TrustedClient";
 
 export const metadata = {
-  title: "Senarai Agent Mega888 Original & Trusted Company 2026 (Cuci Penuh)",
+  title: "Agent Mega888 Original & Trusted Company Malaysia 2026 | Senarai Verified",
   description:
-    "Mencari agent Mega888 trusted? Ini adalah senarai rasmi top company Mega888 di Malaysia 2026. 100% no scammer, auto-cuci pantas, dan kiosk original dijamin bayar.",
+    "Mencari agent Mega888 trusted? Semak senarai trusted company Mega888 Malaysia yang verified, lebih selamat untuk login, deposit, withdraw, dan elak scammer atau kiosk palsu.",
   keywords: [
     "agent mega888",
     "trusted company mega888 2026",

@@ -2,9 +2,9 @@ import Link from "next/link";
 import { GAME_PAGES } from "../data/gamePages";
 
 export const metadata = {
-  title: "Semua Game Mega888 2026 | Senarai Lengkap 197+ Slot",
+  title: "Senarai Game Mega888 Malaysia 2026 | RTP, Tips & 197+ Slot",
   description:
-    "Senarai lengkap semua 197+ game slot Mega888 2026. Lihat RTP, tips menang, dan strategi untuk setiap game. Pilih game terbaik dengan AI Scanner.",
+    "Senarai game Mega888 Malaysia 2026 dengan 197+ slot. Semak RTP, kategori, tips asas, dan pilih game terbaik menggunakan rujukan AI Scanner.",
   keywords: [
     "game mega888", "senarai game mega888", "slot mega888", "mega888 game list",
     "mega888 slot terbaik", "mega888 2026",

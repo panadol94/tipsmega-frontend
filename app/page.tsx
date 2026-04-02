@@ -2,13 +2,13 @@
 import HomeClient from "./HomeClient";
 
 export const metadata = {
-  title: "Mega888 Hack 2026? Guna AI RTP Scanner Percuma | TipsMega888",
+  title: "Mega888 Hack 2026? Guna AI RTP Scanner Malaysia Percuma | TipsMega888",
   description:
-    "Mencari software hack Mega888? Godam slot adalah mustahil. Gunakan alternatif SAH ini: TipsMega888 AI RTP Scanner untuk analisis live data. Platform trusted 2026.",
+    "Mencari alternatif kepada carian hack Mega888? Semak RTP Mega888 Malaysia secara live dengan AI Scanner percuma, rujuk pola game, trusted company, dan game list dalam satu platform.",
   openGraph: {
-    title: "Mega888 Hack 2026? Guna AI RTP Scanner Percuma | TipsMega888",
+    title: "Mega888 Hack 2026? Guna AI RTP Scanner Malaysia Percuma | TipsMega888",
     description:
-      "Mencari software hack Mega888? Gunakan alternatif sah AI Scanner untuk RTP live.",
+      "Alternatif lebih selamat untuk carian hack Mega888: AI RTP Scanner Malaysia dengan panduan RTP, trusted company, dan game list.",
     url: "https://tipsmega888.com",
     siteName: "TipsMega888 AI",
     locale: "ms_MY",

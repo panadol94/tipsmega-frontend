@@ -3,9 +3,9 @@ import Link from "next/link";
 import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
-  title: "Mega888 Malaysia 2026: Login, Download APK, RTP Live, Trusted Agent & Withdraw",
+  title: "Mega888 Malaysia 2026 | Login, Register, Download APK, RTP Live & Trusted Agent",
   description:
-    "Panduan lengkap Mega888 Malaysia 2026. Rujuk login, daftar akaun, download APK Android/iOS, RTP live, trusted agent, free credit, dan withdraw cepat dalam satu halaman hub.",
+    "Panduan lengkap Mega888 Malaysia 2026 untuk login, register akaun, download APK Android/iOS, semak RTP live, pilih trusted agent, dan rujuk panduan withdraw cepat.",
   keywords: [
     "mega888 malaysia 2026",
     "mega888 login",
