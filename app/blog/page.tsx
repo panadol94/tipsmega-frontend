@@ -187,21 +187,38 @@ export default function BlogPage() {
               AI Scanner analisa RTP live Mega888 — percuma
             </p>
           </div>
-          <Link
-            href="/"
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 6,
-              padding: "9px 18px",
-              borderRadius: 10,
-              background: "linear-gradient(135deg, #059669, #10b981)",
-              color: "#fff", fontWeight: 800, fontSize: "0.85rem",
-              textDecoration: "none",
-              boxShadow: "0 4px 14px rgba(16,185,129,0.35)",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Buka AI Scanner →
-          </Link>
+          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+            <Link
+              href="/"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 6,
+                padding: "9px 18px",
+                borderRadius: 10,
+                background: "linear-gradient(135deg, #059669, #10b981)",
+                color: "#fff", fontWeight: 800, fontSize: "0.85rem",
+                textDecoration: "none",
+                boxShadow: "0 4px 14px rgba(16,185,129,0.35)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Buka AI Scanner →
+            </Link>
+            <Link
+              href="/trusted"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 6,
+                padding: "9px 18px",
+                borderRadius: 10,
+                background: "rgba(239,68,68,0.15)",
+                border: "1px solid rgba(239,68,68,0.3)",
+                color: "#ef4444", fontWeight: 800, fontSize: "0.85rem",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Trusted Agent →
+            </Link>
+          </div>
         </div>
 
         {/* ── FEATURED ARTICLE HERO ── */}

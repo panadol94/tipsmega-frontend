@@ -102,6 +102,11 @@ export default function GamesPage() {
               title: "Trusted Company",
               note: "Semak company verified sebelum register atau deposit.",
             },
+            {
+              href: "/blog",
+              title: "Blog Tips & Strategi",
+              note: "Panduan download, withdraw, trusted agent & more.",
+            },
           ].map((item) => (
             <Link
               key={item.href}

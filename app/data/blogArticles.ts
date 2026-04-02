@@ -154,9 +154,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "rahsia-menang-slot-otai-scanner-ai-rtp-mega888",
-      "tips-mega888-pro",
-      "hack-rtp-mega888"
+      "mega888-download-panduan-lengkap-2026",
+      "kiosk-mega888-trusted",
+      "mega888-withdraw-cepat-malaysia-2026"
     ],
     "relatedGames": [
       "zombie-carnival",
@@ -357,9 +357,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "rahsia-menang-slot-otai-scanner-ai-rtp-mega888",
-      "tips-mega888-pro",
-      "hack-rtp-mega888"
+      "mega888-download-panduan-lengkap-2026",
+      "mega888-withdraw-cepat-malaysia-2026",
+      "mega888-auto-cuci"
     ],
     "relatedGames": [
       "celebration-of-wealth",
@@ -456,9 +456,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "rahsia-menang-slot-otai-scanner-ai-rtp-mega888",
-      "tips-mega888-pro",
-      "hack-rtp-mega888"
+      "kiosk-mega888-trusted",
+      "mega888-withdraw-cepat-malaysia-2026",
+      "mega888-download-panduan-lengkap-2026"
     ],
     "relatedGames": [
       "narcos",
@@ -1186,9 +1186,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "rahsia-menang-slot-otai-scanner-ai-rtp-mega888",
-      "tips-mega888-pro",
-      "hack-rtp-mega888"
+      "mega888-withdraw-cepat-malaysia-2026",
+      "kiosk-mega888-trusted",
+      "mega888-auto-cuci"
     ],
     "relatedGames": [
       "easter-surprise",
@@ -1756,9 +1756,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "rahsia-menang-slot-otai-scanner-ai-rtp-mega888",
-      "tips-mega888-pro",
-      "hack-rtp-mega888"
+      "mega888-rtp-live-malaysia-2026",
+      "mega888-download-panduan-lengkap-2026",
+      "kiosk-mega888-trusted"
     ],
     "relatedGames": [
       "glamorous-world",
@@ -1798,9 +1798,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "rahsia-menang-slot-otai-scanner-ai-rtp-mega888",
-      "tips-mega888-pro",
-      "hack-rtp-mega888"
+      "download-mega888-apk",
+      "kiosk-mega888-trusted",
+      "mega888-withdraw-cepat-malaysia-2026"
     ],
     "relatedGames": [
       "big-shot",
@@ -2008,9 +2008,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "rahsia-menang-slot-otai-scanner-ai-rtp-mega888",
-      "tips-mega888-pro",
-      "hack-rtp-mega888"
+      "mega888-rtp-scanner-panduan-lengkap-2026",
+      "mega888-download-panduan-lengkap-2026",
+      "kiosk-mega888-trusted"
     ],
     "relatedGames": [
       "highway-kings",
@@ -2050,9 +2050,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "rahsia-menang-slot-otai-scanner-ai-rtp-mega888",
-      "tips-mega888-pro",
-      "hack-rtp-mega888"
+      "kiosk-mega888-trusted",
+      "mega888-auto-cuci",
+      "mega888-download-panduan-lengkap-2026"
     ],
     "relatedGames": [
       "kimochiii",

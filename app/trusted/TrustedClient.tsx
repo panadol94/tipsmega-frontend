@@ -516,13 +516,13 @@ export default function TrustedClient() {
                                 <div className="font-bold mb-1 text-emerald-300">Mega888 Malaysia Hub</div>
                                 <div className="text-white/60 leading-relaxed">Panduan login, register, download APK, RTP live, dan withdraw dalam satu halaman.</div>
                             </Link>
-                            <Link href="/blog/kiosk-mega888-trusted" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white no-underline hover:border-emerald-400/40 transition-colors">
-                                <div className="font-bold mb-1 text-emerald-300">Kiosk Trusted & Verified</div>
-                                <div className="text-white/60 leading-relaxed">Checklist ringkas untuk semak company yang lebih selamat dan elak scammer.</div>
+                            <Link href="/games" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white no-underline hover:border-emerald-400/40 transition-colors">
+                                <div className="font-bold mb-1 text-emerald-300">Semua Game Mega888</div>
+                                <div className="text-white/60 leading-relaxed">Browse 197+ slot dengan RTP, volatiliti, dan tips memilih game terbaik.</div>
                             </Link>
-                            <Link href="/blog/mega888-withdraw-cepat-malaysia-2026" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white no-underline hover:border-emerald-400/40 transition-colors">
-                                <div className="font-bold mb-1 text-emerald-300">Panduan Withdraw Cepat</div>
-                                <div className="text-white/60 leading-relaxed">Cara kurangkan reject dan pilih company yang payout lebih lancar.</div>
+                            <Link href="/blog" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white no-underline hover:border-emerald-400/40 transition-colors">
+                                <div className="font-bold mb-1 text-emerald-300">Blog Tips & Strategi</div>
+                                <div className="text-white/60 leading-relaxed">Koleksi artikel download, withdraw, trusted agent, dan panduan menang.</div>
                             </Link>
                         </div>
                     </article>

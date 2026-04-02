@@ -113,6 +113,38 @@ export default function Page() {
         }}
       />
 
+      {/* ── INTERNAL LINK CARDS: money / conversion pages ── */}
+      <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 1rem 2rem" }}>
+        <p style={{ textAlign: "center", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", color: "#475569", marginBottom: "0.75rem" }}>
+          Explore Mega888 Malaysia
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "0.65rem" }}>
+          {[
+            ["🔥 Trusted Company", "/trusted", "Verified agents & payout speed"],
+            ["🎮 Semua Game", "/games", "197+ slot dengan RTP & volatiliti"],
+            ["📝 Blog Tips & Strategi", "/blog", "Panduan, download, withdraw & more"],
+            ["🧭 Mega888 Hub", "/mega888", "Login, APK, RTP live, trusted agent"],
+          ].map(([label, href, note]) => (
+            <a
+              key={href}
+              href={href}
+              style={{
+                display: "block",
+                textDecoration: "none",
+                color: "inherit",
+                borderRadius: 12,
+                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.03)",
+                padding: "0.85rem 1rem",
+              }}
+            >
+              <div style={{ fontWeight: 800, color: "#e2e8f0", marginBottom: 3, fontSize: "0.88rem" }}>{label}</div>
+              <div style={{ fontSize: "0.78rem", color: "#64748b" }}>{note}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+
       <HomeClient />
     </>
   );

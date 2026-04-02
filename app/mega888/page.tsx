@@ -206,6 +206,7 @@ export default function Mega888HubPage() {
             ["Download APK", "/blog/mega888-download-android-apk-terbaru-2026"],
             ["RTP Live", "/blog/mega888-rtp-live-malaysia-2026"],
             ["Trusted Agent", "/trusted"],
+            ["Semua Game", "/games"],
           ].map(([label, href]) => (
             <Link
               key={href}
