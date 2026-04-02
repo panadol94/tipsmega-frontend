@@ -1,25 +1,24 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { animate, utils } from "animejs";
+import { useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import Toast, { ToastType } from "./ui/Toast";
-import TypewriterText from "./ui/TypewriterText";
-
-import TerminalScan from "./ui/TerminalScan";
-import HackerScanOverlay from "./ui/HackerScanOverlay";
-import AuthModal from "./ui/AuthModal";
-import InstallPrompt from "./ui/InstallPrompt";
-import BottomNav from "./ui/BottomNav";
+import type { ToastType } from "./ui/Toast";
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
 import { useStarSync } from "./lib/useStarSync";
-import confetti from "canvas-confetti";
 
 type InitRes = { deviceId: string; stars: number; isNew: boolean };
 type ScanRes = { ok?: boolean; overallRtp?: number; stars?: number; error?: string; detail?: string };
 type Game = { _id: string; name: string; icon: string; enabled: boolean };
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
+
+const Toast = dynamic(() => import("./ui/Toast"), { ssr: false });
+const TerminalScan = dynamic(() => import("./ui/TerminalScan"), { ssr: false });
+const HackerScanOverlay = dynamic(() => import("./ui/HackerScanOverlay"), { ssr: false });
+const AuthModal = dynamic(() => import("./ui/AuthModal"), { ssr: false });
+const InstallPrompt = dynamic(() => import("./ui/InstallPrompt"), { ssr: false });
+const BottomNav = dynamic(() => import("./ui/BottomNav"), { ssr: false });
 
 /** ---------- utils ---------- */
 function sleep(ms: number) {
@@ -87,11 +86,6 @@ export default function HomeClient() {
     const [idMasked, setIdMasked] = useState<string>("");
     const [lastRtp, setLastRtp] = useState<number | null>(null);
 
-    // RTP UI animation
-    const rtpAnimRef = useRef<{ val: number }>({ val: 0 });
-    const rtpPrevRef = useRef<number>(0);
-    const rtpAnimInstRef = useRef<ReturnType<typeof animate> | null>(null);
-    const scanPulseAnimInstRef = useRef<ReturnType<typeof animate> | null>(null);
     const [rtpDisplay, setRtpDisplay] = useState<number>(0);
 
     // auth UI
@@ -110,7 +104,8 @@ export default function HomeClient() {
     useEffect(() => {
         if (typeof window !== "undefined") {
             const hasSeen = sessionStorage.getItem("mega888_intro_seen");
-            if (!hasSeen) {
+            const prefersLightMode = window.innerWidth < 768 || Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
+            if (!hasSeen && !prefersLightMode) {
                 setShowIntro(true);
                 const sequence = [
                     "SYSTEM: INITIALIZING EXPLORATION...",
@@ -133,6 +128,9 @@ export default function HomeClient() {
                     }
                 }, 800);
                 return () => clearInterval(interval);
+            }
+            if (!hasSeen && prefersLightMode) {
+                sessionStorage.setItem("mega888_intro_seen", "true");
             }
         }
     }, []);
@@ -160,135 +158,10 @@ export default function HomeClient() {
 
     const isValidMegaId = /^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim());
 
-    // Entrance animation
-    useLayoutEffect(() => {
-        const prefersReducedMotion =
-            typeof window !== "undefined" &&
-            typeof window.matchMedia === "function" &&
-            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-        let safetyTimeout: number | null = null;
-
-        const queryEls = () => {
-            const heroEls = Array.from(document.querySelectorAll<HTMLElement>(".tm-hero"));
-            const scanEls = Array.from(document.querySelectorAll<HTMLElement>(".tm-scan"));
-            return { heroEls, scanEls };
-        };
-
-        const forceFinalState = () => {
-            const { heroEls, scanEls } = queryEls();
-            heroEls.forEach((el) => {
-                el.style.opacity = "1";
-                el.style.transform = "none";
-                el.style.willChange = "";
-            });
-            scanEls.forEach((el) => {
-                el.style.opacity = "1";
-                el.style.transform = "none";
-                el.style.willChange = "";
-            });
-        };
-
-        const applyInitialHiddenState = () => {
-            const { heroEls, scanEls } = queryEls();
-            for (const el of heroEls) {
-                el.style.opacity = "0";
-                el.style.transform = "translateY(18px)";
-                el.style.willChange = "opacity, transform";
-            }
-            for (const el of scanEls) {
-                el.style.opacity = "0";
-                el.style.transform = "translateY(10px)";
-                el.style.willChange = "opacity, transform";
-            }
-        };
-
-        const animateIn = () => {
-            if (prefersReducedMotion) {
-                forceFinalState();
-                return;
-            }
-
-            applyInitialHiddenState();
-
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    try {
-                        const { heroEls, scanEls } = queryEls();
-                        animate(heroEls, {
-                            opacity: [0, 1],
-                            translateY: [18, 0],
-                            delay: utils.stagger(110),
-                            duration: 750,
-                            easing: "easeOutCubic",
-                            complete: forceFinalState,
-                        });
-
-                        animate(scanEls, {
-                            opacity: [0, 1],
-                            translateY: [10, 0],
-                            duration: 650,
-                            easing: "easeOutCubic",
-                            delay: 250,
-                            complete: forceFinalState,
-                        });
-                    } catch {
-                        forceFinalState();
-                    }
-                });
-            });
-
-            if (safetyTimeout) window.clearTimeout(safetyTimeout);
-            safetyTimeout = window.setTimeout(forceFinalState, 2000);
-        };
-
-        const handlePageShow = (event: PageTransitionEvent) => {
-            if (event.persisted) animateIn();
-        };
-
-        const handleVisibilityChange = () => {
-            if (document.visibilityState === "visible") {
-                const { heroEls } = queryEls();
-                const isHidden = heroEls.some((el) => el.style.opacity === "0");
-                if (isHidden) animateIn();
-            }
-        };
-
-        animateIn();
-
-        window.addEventListener("pageshow", handlePageShow);
-        document.addEventListener("visibilitychange", handleVisibilityChange);
-
-        return () => {
-            window.removeEventListener("pageshow", handlePageShow);
-            document.removeEventListener("visibilitychange", handleVisibilityChange);
-            if (safetyTimeout) window.clearTimeout(safetyTimeout);
-            forceFinalState();
-        };
-    }, []);
-
-    // Animate RTP number when result changes
     useEffect(() => {
         if (lastRtp === null || Number.isNaN(lastRtp)) return;
 
-        const from = rtpPrevRef.current || 0;
-        rtpPrevRef.current = lastRtp;
-
-        if (rtpAnimInstRef.current) {
-            rtpAnimInstRef.current.pause();
-            rtpAnimInstRef.current = null;
-        }
-        rtpAnimRef.current.val = from;
-
-        rtpAnimInstRef.current = animate(rtpAnimRef.current, {
-            val: lastRtp,
-            duration: 900,
-            easing: "easeOutExpo",
-            update: () => {
-                const v = Math.round((rtpAnimRef.current.val + Number.EPSILON) * 10) / 10;
-                setRtpDisplay(v);
-            },
-        });
+        setRtpDisplay(Math.round((lastRtp + Number.EPSILON) * 10) / 10);
     }, [lastRtp]);
 
     // Fetch games from API
@@ -359,32 +232,7 @@ export default function HomeClient() {
         const ref = params.get("ref");
         if (ref) {
             localStorage.setItem("tipsmega_joined_from_ref", ref);
-            console.log("Ref detected:", ref);
         }
-
-        const checkIpChange = async () => {
-            try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                const currentIp = data.ip;
-                const storedIp = localStorage.getItem('user_last_ip');
-
-                if (storedIp && storedIp !== currentIp) {
-                    showToast(
-                        `⚠️ IP berubah! Cooldown masih aktif per device.`,
-                        "error"
-                    );
-                    playSound("error");
-                    triggerHaptic(300);
-                }
-
-                localStorage.setItem('user_last_ip', currentIp);
-            } catch (error) {
-                console.error('IP check failed:', error);
-            }
-        };
-
-        checkIpChange();
 
         apiInit(did)
             .then((d) => setStars(d?.stars ?? 0))
@@ -496,12 +344,16 @@ export default function HomeClient() {
 
                 if (sig > 80) {
                     setTimeout(() => {
-                        confetti({
-                            particleCount: 100,
-                            spread: 70,
-                            origin: { y: 0.6 },
-                            colors: ['#ff6b6b', '#a855f7', '#ff00ff', '#ff4d4d'],
-                        });
+                        import("canvas-confetti")
+                            .then(({ default: confetti }) => {
+                                confetti({
+                                    particleCount: 100,
+                                    spread: 70,
+                                    origin: { y: 0.6 },
+                                    colors: ['#ff6b6b', '#a855f7', '#ff00ff', '#ff4d4d'],
+                                });
+                            })
+                            .catch(() => null);
                     }, 800);
                 }
             }
@@ -512,29 +364,6 @@ export default function HomeClient() {
             setShowHackerOverlay(false);
         }
     }
-
-    // Scan pulse while busy
-    useEffect(() => {
-        if (!busy) {
-            if (scanPulseAnimInstRef.current) {
-                scanPulseAnimInstRef.current.pause();
-                scanPulseAnimInstRef.current = null;
-            }
-            return;
-        }
-
-        scanPulseAnimInstRef.current = animate(".tm-scan-pulse", {
-            boxShadow: [
-                "0 0 0 rgba(255,77,77,0)",
-                "0 0 26px rgba(255,77,77,0.20)",
-            ],
-            scale: [1, 1.01],
-            direction: "alternate",
-            loop: true,
-            duration: 850,
-            easing: "easeInOutSine",
-        });
-    }, [busy]);
 
     return (
         <div className="app-bg min-h-screen w-full relative overflow-x-hidden">
@@ -731,7 +560,7 @@ export default function HomeClient() {
                     </div>
 
                     {/* Scanner Card */}
-                    <section className="card relative overflow-hidden p-6 tm-scan tm-scan-pulse border-red-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-red-950/20 rounded-3xl">
+                    <section className={`card relative overflow-hidden p-6 tm-scan border-red-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-red-950/20 rounded-3xl ${busy ? "scan-busy" : ""}`}>
                         {/* Matrix Grid Overflow */}
                         <div className="pointer-events-none absolute inset-0 opacity-15 [background-image:linear-gradient(rgba(255,77,77,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,77,77,0.08)_1px,transparent_1px)] [background-size:22px_22px]" />
                         
@@ -772,7 +601,7 @@ export default function HomeClient() {
                         {/* Terminal Animation */}
                         <div className="scanner-terminal-shell mb-4 rounded-2xl border border-white/10 bg-white/5 px-3 py-3">
                             <div className="scanner-terminal-line" />
-                            <TypewriterText text="[AI] SIGNAL READY • ENTER ID TO BEGIN SCAN..." speed={24} />
+                            <div className="text-xs text-white/70 font-mono tracking-wide">[AI] SIGNAL READY • ENTER ID TO BEGIN SCAN...</div>
                         </div>
 
                         {/* Scan Button */}
@@ -1107,9 +936,19 @@ export default function HomeClient() {
                     min-height: 56px;
                 }
 
+                .scan-busy {
+                    animation: scanBusyPulse 1.2s ease-in-out infinite alternate;
+                    box-shadow: 0 0 18px rgba(255, 77, 77, 0.18);
+                }
+
                 @keyframes pulse-cooldown {
                     0%, 100% { transform: scale(1); }
                     50% { transform: scale(0.985); }
+                }
+
+                @keyframes scanBusyPulse {
+                    0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 77, 77, 0.12); }
+                    100% { transform: scale(1.005); box-shadow: 0 0 24px rgba(255, 77, 77, 0.22); }
                 }
 
                 .scanner-terminal-shell {

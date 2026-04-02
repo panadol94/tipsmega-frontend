@@ -95,10 +95,10 @@ export default function InstallPrompt() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    {[
+                                    {([
                                         ["WINBOX PRIME", "ID: 120456789012", false],
                                         ["MEGA ACE VIP", "ID: 218456782341", true],
-                                    ].map(([label, id, active]) => (
+                                    ] as Array<[string, string, boolean]>).map(([label, id, active]) => (
                                         <div
                                             key={label}
                                             className={`rounded-xl border px-3 py-2 ${active ? "border-red-300/40 bg-red-400/12 shadow-[0_0_20px_rgba(34,211,238,0.08)]" : "border-white/8 bg-white/[0.03]"}`}

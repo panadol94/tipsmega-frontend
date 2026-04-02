@@ -7,6 +7,7 @@ export interface BlogArticle {
   description: string;
   keywords: string[];
   category: string;
+  featuredImage?: string;
   content: string;
   faq: { q: string; a: string }[];
   relatedGames: string[];

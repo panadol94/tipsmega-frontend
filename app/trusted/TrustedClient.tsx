@@ -195,7 +195,7 @@ export default function TrustedClient() {
             <div className="fixed bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none" />
 
             {/* Floating Particles */}
-            <div className="particle-container fixed">
+            <div className="particle-container fixed hidden md:block">
                 {PARTICLES.map((particle, i) => (
                     <div
                         key={i}
@@ -327,7 +327,7 @@ export default function TrustedClient() {
 
                                                 return isVideo ? (
                                                     <video
-                                                        data-src={mediaUrl} ref={(el) => { if (el) { const observer = new IntersectionObserver((entries) => { entries[0].isIntersecting && (el.src = el.dataset.src, observer.disconnect()); }, { threshold: 0.1 }); observer.observe(el); } }}
+                                                        data-src={mediaUrl} ref={(el) => { if (el) { const observer = new IntersectionObserver((entries) => { const nextSrc = el.dataset.src; if (entries[0]?.isIntersecting && nextSrc) { el.src = nextSrc; observer.disconnect(); } }, { threshold: 0.1 }); observer.observe(el); } }}
                                                         title={`${c.name} - Trusted Mega888 Platform Video | Verified Agent ${new Date().getFullYear()}`}
                                                         aria-label={`${c.name} promotional video - Verified Mega888 gaming platform`}
                                                         preload="metadata"
@@ -355,7 +355,7 @@ export default function TrustedClient() {
                                         )}
 
                                         {/* Live Status Indicator */}
-                                        <div className="absolute top-2 right-2 z-10 flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full border border-red-500/30">
+                                        <div className="absolute top-2 right-2 z-10 hidden sm:flex items-center gap-1 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full border border-red-500/30">
                                             <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse shadow-[0_0_5px_#10b981]" />
                                             <span className="text-red-400 text-[10px] font-mono font-bold">{playerCount.toLocaleString()}</span>
                                         </div>
