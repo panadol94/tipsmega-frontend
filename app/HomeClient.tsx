@@ -410,7 +410,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
 
             {/* Premium Navigation — glassmorphism */}
             <nav
-                className="flex items-center justify-between px-4 py-3 sticky top-0 z-50"
+                className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 sticky top-0 z-50"
                 style={{
                     background: "rgba(7,9,15,0.85)",
                     backdropFilter: "blur(16px)",
@@ -419,7 +419,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                     boxShadow: "0 1px 24px rgba(0,0,0,0.5)",
                 }}
             >
-                <Link href="/" className="flex items-center gap-2.5 group">
+                <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group min-w-0">
                     {isLoggedIn ? (
                         <>
                             <div className="relative flex items-center justify-center">
@@ -431,17 +431,17 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                                 {/* Core pulsing glow */}
                                 <div className="absolute inset-0 rounded-full bg-red-500/30 blur-sm animate-ping" style={{ animationDuration: '2s' }} />
                                 
-                                <div className="relative w-8 h-8 rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center p-[2px] shadow-[0_0_15px_rgba(255,77,77,0.5)] z-10">
+                                <div className="relative w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center p-[2px] shadow-[0_0_15px_rgba(255,77,77,0.5)] z-10">
                                     <div className="w-full h-full bg-[#07090f] rounded-full flex items-center justify-center">
-                                        <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                                        <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                                     </div>
                                 </div>
                             </div>
                             <div className="flex flex-col leading-none">
-                                <span className="font-black text-white text-[13px] tracking-wide">
+                                <span className="font-black text-white text-[12px] sm:text-[13px] tracking-wide truncate max-w-[88px] sm:max-w-none">
                                     {user?.username || userName || "User"}
                                 </span>
-                                <span className="text-[9px] text-red-400 font-semibold tracking-wider uppercase mt-0.5">
+                                <span className="text-[8px] sm:text-[9px] text-red-400 font-semibold tracking-wider uppercase mt-0.5">
                                     Premium
                                 </span>
                             </div>
@@ -451,7 +451,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                             <img
                                 src="/mega888.png"
                                 alt="MEGA888"
-                                className="h-6 sm:h-7 object-contain drop-shadow-[0_0_5px_rgba(255,77,77,0.4)] group-hover:drop-shadow-[0_0_10px_rgba(255,77,77,0.8)] transition-all duration-300"
+                                className="h-[22px] sm:h-7 object-contain drop-shadow-[0_0_5px_rgba(255,77,77,0.4)] group-hover:drop-shadow-[0_0_10px_rgba(255,77,77,0.8)] transition-all duration-300"
                             />
                             <span className="text-white/60 text-[10px] font-bold tracking-widest uppercase mt-0.5 max-sm:hidden">
                                 SCANNER
@@ -461,7 +461,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                 </Link>
 
                 {/* Right nav cluster */}
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
                     <Link
                         href="/trusted"
                         className="px-3 py-1.5 text-[11px] font-bold text-white/50 hover:text-white transition-colors hidden sm:inline-flex"
@@ -479,14 +479,14 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                         <>
                             <button
                                 onClick={() => setAuthOpen("register")}
-                                className="px-3 py-1.5 rounded-full text-[11px] font-bold text-white/70 border border-white/15 hover:border-white/30 hover:text-white transition-all"
+                                className="px-2.5 sm:px-3 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold text-white/70 border border-white/15 hover:border-white/30 hover:text-white transition-all"
                                 style={{ background: "rgba(255,255,255,0.04)" }}
                             >
                                 Daftar
                             </button>
                             <button
                                 onClick={() => setAuthOpen("login")}
-                                className="px-4 py-1.5 rounded-full text-[11px] font-bold text-white transition-all hover:scale-105 hover:shadow-md"
+                                className="px-3 sm:px-4 py-1.5 rounded-full text-[10px] sm:text-[11px] font-bold text-white transition-all hover:scale-105 hover:shadow-md"
                                 style={{
                                     background: "linear-gradient(135deg, #4f8EFF, #7B5CFF)",
                                     boxShadow: "0 4px 14px rgba(79,142,255,0.35)",
@@ -504,7 +504,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                                     window.location.reload();
                                 }
                             }}
-                            className="px-3 py-1.5 text-[11px] font-bold text-white/70 hover:text-white transition-colors"
+                            className="px-2.5 sm:px-3 py-1.5 text-[10px] sm:text-[11px] font-bold text-white/70 hover:text-white transition-colors"
                         >
                             Logout
                         </button>
@@ -513,13 +513,13 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
             </nav>
 
             {/* Scanner Section - CENTERED & CLEAN */}
-            <main className="flex flex-col items-center justify-start min-h-screen py-8 px-4 pb-32">
-                <div className="w-full max-w-lg space-y-6">
+            <main className="flex flex-col items-center justify-start min-h-screen pt-3 sm:pt-6 md:pt-8 px-4 pb-32">
+                <div className="w-full max-w-lg space-y-4 sm:space-y-6">
                     
                     {/* Hero Text — premium headline */}
                     <div className="text-center flex flex-col items-center">
                         {/* MEGA888 REAL LOGO + AI SCANNER EFFECT */}
-                        <div className="relative w-64 md:w-80 h-24 md:h-28 mb-0 flex items-center justify-center group cursor-default mt-2">
+                        <div className="relative w-56 sm:w-64 md:w-80 h-20 sm:h-24 md:h-28 mb-0 flex items-center justify-center group cursor-default mt-0 sm:mt-1">
                             {/* Logo Image */}
                             <img 
                                 src="/mega888.png" 
@@ -541,7 +541,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
 
                         <div className="glitch-wrapper">
                             <h1
-                                className="text-3xl font-black italic relative z-20 -mt-2 glitch"
+                                className="text-[1.7rem] sm:text-3xl font-black italic relative z-20 -mt-1 sm:-mt-2 glitch"
                                 data-text="AI RTP SCANNER"
                                 style={{
                                     background: "linear-gradient(135deg, #ffffff 0%, #fca5a5 40%, #ff4d4d 80%, #991b1b 100%)",
@@ -554,13 +554,13 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                                 AI RTP SCANNER
                             </h1>
                         </div>
-                        <p className="mt-2 text-sm text-white/50">
+                        <p className="mt-1.5 text-xs sm:text-sm text-white/50">
                             Masukkan ID untuk scan • {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
                         </p>
                     </div>
 
                     {/* Scanner Card */}
-                    <section className={`card relative overflow-hidden p-6 tm-scan border-red-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-red-950/20 rounded-3xl ${busy ? "scan-busy" : ""}`}>
+                    <section className={`card relative overflow-hidden p-4 sm:p-6 tm-scan border-red-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-red-950/20 rounded-3xl ${busy ? "scan-busy" : ""}`}>
                         {/* Matrix Grid Overflow */}
                         <div className="pointer-events-none absolute inset-0 opacity-15 [background-image:linear-gradient(rgba(255,77,77,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,77,77,0.08)_1px,transparent_1px)] [background-size:22px_22px]" />
                         
