@@ -357,9 +357,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "mega888-download-panduan-lengkap-2026",
-      "mega888-withdraw-cepat-malaysia-2026",
-      "mega888-auto-cuci"
+      "mega888-register-akaun-baru-2026",
+      "mega888-deposit-cara-ewallet-malaysia-2026",
+      "mega888-withdraw-cepat-malaysia-2026"
     ],
     "relatedGames": [
       "celebration-of-wealth",
@@ -369,7 +369,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "caishen-gold"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-02-19"
+    "updatedAt": "2026-04-02"
   },
   {
     "slug": "mega888-free-credit",
@@ -1798,9 +1798,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "download-mega888-apk",
       "kiosk-mega888-trusted",
-      "mega888-withdraw-cepat-malaysia-2026"
+      "mega888-register-akaun-baru-2026",
+      "game-mega888-untuk-pemula-modal-kecil"
     ],
     "relatedGames": [
       "big-shot",
@@ -1810,7 +1810,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "golden-slot"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-02-19"
+    "updatedAt": "2026-04-02"
   },
   {
     "slug": "mega888-download-ios-terbaru-2026",
@@ -1840,9 +1840,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "rahsia-menang-slot-otai-scanner-ai-rtp-mega888",
-      "tips-mega888-pro",
-      "hack-rtp-mega888"
+      "kiosk-mega888-trusted",
+      "mega888-download-panduan-lengkap-2026",
+      "mega888-deposit-cara-ewallet-malaysia-2026"
     ],
     "relatedGames": [
       "striper-night",
@@ -1852,7 +1852,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "japan-fortune"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-02-19"
+    "updatedAt": "2026-04-02"
   },
   {
     "slug": "mega888-download-android-apk-terbaru-2026",
@@ -2008,9 +2008,9 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       }
     ],
     "relatedArticles": [
-      "mega888-rtp-scanner-panduan-lengkap-2026",
       "mega888-download-panduan-lengkap-2026",
-      "kiosk-mega888-trusted"
+      "game-mega888-untuk-pemula-modal-kecil",
+      "mega888-vs-918kiss"
     ],
     "relatedGames": [
       "highway-kings",
@@ -2020,7 +2020,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "nian-nian-you-yu"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-02-19"
+    "updatedAt": "2026-04-02"
   },
   {
     "slug": "mega888-withdraw-cepat-malaysia-2026",
@@ -2051,8 +2051,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     ],
     "relatedArticles": [
       "kiosk-mega888-trusted",
-      "mega888-auto-cuci",
-      "mega888-download-panduan-lengkap-2026"
+      "mega888-register-akaun-baru-2026",
+      "mega888-deposit-cara-ewallet-malaysia-2026"
     ],
     "relatedGames": [
       "kimochiii",
@@ -2062,7 +2062,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "silver-bullet"
     ],
     "publishedAt": "2026-02-01",
-    "updatedAt": "2026-02-19"
+    "updatedAt": "2026-04-02"
   },
   {
     "slug": "mega888-slot-paling-mudah-menang-2026",
@@ -2189,8 +2189,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "bonus-bears",
       "dolphin-reef"
     ],
-    "publishedAt": "2026-03-15",
-    "updatedAt": "2026-03-15"
+    "publishedAt": "2026-04-02",
+    "updatedAt": "2026-04-02"
   },
   {
     "slug": "mega888-vs-918kiss",
@@ -2229,8 +2229,8 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "new-year-bash",
       "frost-queen"
     ],
-    "publishedAt": "2026-03-15",
-    "updatedAt": "2026-03-15"
+    "publishedAt": "2026-04-02",
+    "updatedAt": "2026-04-02"
   },
   {
     "slug": "mega888-deposit-cara-ewallet-malaysia-2026",
@@ -2272,7 +2272,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
       "great-blue",
       "bonus-bears"
     ],
-    "publishedAt": "2026-04-01",
+    "publishedAt": "2026-04-02",
     "updatedAt": "2026-04-02"
   }
 ];

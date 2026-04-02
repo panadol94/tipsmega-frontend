@@ -21,6 +21,17 @@ const API_URL = `${API_BASE}/api/companies`;
 const WHATSAPP_NUMBER = "60108691034";
 const WHATSAPP_TEXT = "Hi admin, saya nak minta link register untuk platform ini: ";
 
+const PARTICLES = [
+    { left: "8%", top: "12%", duration: "4s", delay: "0s" },
+    { left: "18%", top: "62%", duration: "5s", delay: "0.8s" },
+    { left: "30%", top: "28%", duration: "4.5s", delay: "1.2s" },
+    { left: "42%", top: "74%", duration: "6s", delay: "0.5s" },
+    { left: "57%", top: "18%", duration: "5.5s", delay: "1.6s" },
+    { left: "68%", top: "54%", duration: "4.8s", delay: "0.4s" },
+    { left: "79%", top: "32%", duration: "5.2s", delay: "1.1s" },
+    { left: "90%", top: "70%", duration: "4.3s", delay: "0.9s" },
+];
+
 function normalizeUrl(url?: string) {
     if (!url) return "";
     const t = url.trim();
@@ -185,15 +196,15 @@ export default function TrustedClient() {
 
             {/* Floating Particles */}
             <div className="particle-container fixed">
-                {[...Array(15)].map((_, i) => (
+                {PARTICLES.map((particle, i) => (
                     <div
                         key={i}
                         className="particle text-red-400"
                         style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            animation: `floatParticle ${3 + Math.random() * 4}s ease-in-out infinite`,
-                            animationDelay: `${Math.random() * 5}s`,
+                            left: particle.left,
+                            top: particle.top,
+                            animation: `floatParticle ${particle.duration} ease-in-out infinite`,
+                            animationDelay: particle.delay,
                         }}
                     />
                 ))}
@@ -273,11 +284,11 @@ export default function TrustedClient() {
                             else if (idx === 1) badges.push({ icon: '⚡', text: 'FAST', color: 'bg-red-500/90' });
                             else if (c.caption) badges.push({ icon: '🎁', text: 'BONUS', color: 'bg-purple-500/90' });
 
-                            // Mock live player count
-                            const playerCount = Math.floor(Math.random() * 2000) + 500;
+                            // Stable UI metrics to avoid render-time randomness
+                            const playerCount = 650 + ((idx * 173) % 1700);
 
-                            // Trust rating (hardcoded premium values)
-                            const rating = idx === 0 ? 5.0 : (4.5 + Math.random() * 0.4);
+                            // Trust rating (deterministic premium values)
+                            const rating = idx === 0 ? 5.0 : 4.5 + ((idx % 4) * 0.1);
                             const stars = Math.round(rating);
 
                             return (
@@ -314,21 +325,11 @@ export default function TrustedClient() {
                                                     ? c.storageUrl
                                                     : `${API_BASE.replace(/\/$/, "")}${c.storageUrl.startsWith("/") ? "" : "/"}${c.storageUrl}`;
 
-                                                // Debug log - ALWAYS show in console
-                                                console.log('🎬 Media Debug:', {
-                                                    name: c.name,
-                                                    mediaType: c.mediaType,
-                                                    storageUrl: c.storageUrl,
-                                                    finalUrl: mediaUrl,
-                                                    isVideo
-                                                });
-
                                                 return isVideo ? (
                                                     <video
                                                         data-src={mediaUrl} ref={(el) => { if (el) { const observer = new IntersectionObserver((entries) => { entries[0].isIntersecting && (el.src = el.dataset.src, observer.disconnect()); }, { threshold: 0.1 }); observer.observe(el); } }}
                                                         title={`${c.name} - Trusted Mega888 Platform Video | Verified Agent ${new Date().getFullYear()}`}
                                                         aria-label={`${c.name} promotional video - Verified Mega888 gaming platform`}
-                                                        preload="none"
                                                         preload="metadata"
                                                         className="w-full h-full object-cover object-center transition-opacity hover:opacity-90"
                                                     />
@@ -348,6 +349,7 @@ export default function TrustedClient() {
                                             <img
                                                 src="/mega888.webp"
                                                 alt="Mega888 Default Logo | Verified Gaming Platform"
+                                                loading="lazy"
                                                 className="w-full h-full object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-500"
                                             />
                                         )}

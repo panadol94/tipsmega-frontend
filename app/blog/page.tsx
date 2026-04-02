@@ -154,6 +154,16 @@ export default function BlogPage() {
               title: "Mega888 vs 918Kiss",
               note: "Perbandingan lengkap sebelum decide platform.",
             },
+            {
+              href: "/blog/mega888-deposit-cara-ewallet-malaysia-2026",
+              title: "Cara Deposit Mega888",
+              note: "E-wallet, DuitNow dan online banking Malaysia.",
+            },
+            {
+              href: "/blog/game-mega888-untuk-pemula-modal-kecil",
+              title: "Game Untuk Pemula",
+              note: "Pilihan modal kecil dan silap biasa beginner.",
+            },
           ].map((item) => (
             <Link
               key={item.href}
