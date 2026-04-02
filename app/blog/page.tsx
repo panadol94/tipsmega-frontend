@@ -40,10 +40,11 @@ export const metadata = {
 };
 
 const categoryMeta: Record<string, { label: string; bg: string; text: string; border: string }> = {
-  tips:     { label: "💡 Tips",     bg: "rgba(245,158,11,0.12)",  text: "#ef4444", border: "rgba(245,158,11,0.3)" },
-  strategy: { label: "🎯 Strategi",  bg: "rgba(139,92,246,0.12)", text: "#a78bfa", border: "rgba(139,92,246,0.3)" },
-  guide:    { label: "📚 Panduan",   bg: "rgba(59,130,246,0.12)", text: "#60a5fa", border: "rgba(59,130,246,0.3)" },
-  news:     { label: "📰 Berita",    bg: "rgba(16,185,129,0.12)", text: "#ff6b6b", border: "rgba(16,185,129,0.3)" },
+  tips:       { label: "💡 Tips",       bg: "rgba(245,158,11,0.12)",  text: "#ef4444", border: "rgba(245,158,11,0.3)" },
+  strategy:   { label: "🎯 Strategi",    bg: "rgba(139,92,246,0.12)", text: "#a78bfa", border: "rgba(139,92,246,0.3)" },
+  guide:      { label: "📚 Panduan",     bg: "rgba(59,130,246,0.12)", text: "#60a5fa", border: "rgba(59,130,246,0.3)" },
+  news:       { label: "📰 Berita",      bg: "rgba(16,185,129,0.12)", text: "#ff6b6b", border: "rgba(16,185,129,0.3)" },
+  comparison: { label: "⚖️ Perbandingan", bg: "rgba(245,158,11,0.12)", text: "#f59e0b", border: "rgba(245,158,11,0.3)" },
 };
 
 function stripHtml(input: string) {
@@ -147,6 +148,11 @@ export default function BlogPage() {
               href: "/games",
               title: "Senarai Game Mega888",
               note: "Browse 197+ slot ikut kategori dan RTP.",
+            },
+            {
+              href: "/blog/mega888-vs-918kiss",
+              title: "Mega888 vs 918Kiss",
+              note: "Perbandingan lengkap sebelum decide platform.",
             },
           ].map((item) => (
             <Link
@@ -381,6 +387,8 @@ export default function BlogPage() {
           <Link href="/trusted" style={{ color: "#ff6b6b", fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>🔥 Trusted Agents</Link>
           <span style={{ color: "#1e293b", margin: "0 0.25rem" }}>|</span>
           <Link href="/" style={{ color: "#60a5fa", fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>🏠 Home</Link>
+          <span style={{ color: "#1e293b", margin: "0 0.25rem" }}>|</span>
+          <Link href="/blog/game-mega888-untuk-pemula-modal-kecil" style={{ color: "#f59e0b", fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>📘 Pemula? Baca Ini →</Link>
         </div>
       </div>
 

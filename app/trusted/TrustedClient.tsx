@@ -511,14 +511,18 @@ export default function TrustedClient() {
                             <span>🔗</span>
                             <span>Panduan Berkaitan Untuk Pengguna Baru</span>
                         </h2>
-                        <div className="grid md:grid-cols-3 gap-3 text-sm">
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
                             <Link href="/mega888" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white no-underline hover:border-emerald-400/40 transition-colors">
                                 <div className="font-bold mb-1 text-emerald-300">Mega888 Malaysia Hub</div>
                                 <div className="text-white/60 leading-relaxed">Panduan login, register, download APK, RTP live, dan withdraw dalam satu halaman.</div>
                             </Link>
-                            <Link href="/games" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white no-underline hover:border-emerald-400/40 transition-colors">
-                                <div className="font-bold mb-1 text-emerald-300">Semua Game Mega888</div>
-                                <div className="text-white/60 leading-relaxed">Browse 197+ slot dengan RTP, volatiliti, dan tips memilih game terbaik.</div>
+                            <Link href="/blog/mega888-deposit-cara-ewallet-malaysia-2026" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white no-underline hover:border-emerald-400/40 transition-colors">
+                                <div className="font-bold mb-1 text-emerald-300">Cara Deposit Mega888</div>
+                                <div className="text-white/60 leading-relaxed">E-wallet, DuitNow, Touch 'n Go, Boost — semua cara deposit dengan agent trusted.</div>
+                            </Link>
+                            <Link href="/blog/kiosk-mega888-trusted" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white no-underline hover:border-emerald-400/40 transition-colors">
+                                <div className="font-bold mb-1 text-emerald-300">Kiosk & Agent Trusted</div>
+                                <div className="text-white/60 leading-relaxed">Senarai company Mega888 verified, 100% no scammer, fast withdrawal.</div>
                             </Link>
                             <Link href="/blog" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white no-underline hover:border-emerald-400/40 transition-colors">
                                 <div className="font-bold mb-1 text-emerald-300">Blog Tips & Strategi</div>

@@ -90,6 +90,11 @@ const HUB_LINKS = [
     note: "Checklist ejen selamat dan red flag scam.",
   },
   {
+    title: "Mega888 vs 918Kiss Malaysia 2026",
+    href: "/blog/mega888-vs-918kiss",
+    note: "Perbandingan lengkap Mega888 dan 918Kiss — games, RTP, keselamatan, dan pengalaman pengguna.",
+  },
+  {
     title: "Free Credit No Deposit",
     href: "/blog/mega888-free-credit-no-deposit-2026",
     note: "Cara semak promo dengan lebih berhati-hati.",
