@@ -6,7 +6,6 @@ import Link from "next/link";
 import MegaLogo from "./MegaLogo";
 import MatrixRain from "./MatrixRain";
 import BottomNav from "./BottomNav";
-import VisitorTracker from "./VisitorTracker";
 
 /* ---------- Withdrawal Notification Ticker ---------- */
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
@@ -205,9 +204,6 @@ export default function Shell({ children }: { children: React.ReactNode }) {
 
       {/* GLOBAL CHATROOM & NAV */}
       <BottomNav />
-
-      {/* Visitor notification - sends alert to admin Telegram group */}
-      <VisitorTracker />
     </div>
   );
 }
