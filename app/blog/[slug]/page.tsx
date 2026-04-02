@@ -113,10 +113,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       images: [imageUrl],
     },
     robots: {
-      index: !["mega888-test-id","mega888-vs-pussy888","mega888-918kiss-beza","mega888-original-vs-fake"].includes(slug),
+      // Thin/redirected articles — do not index to conserve crawl budget & avoid thin-content flags
+      index: ![
+        "mega888-test-id","mega888-vs-pussy888","mega888-918kiss-beza","mega888-original-vs-fake",
+        "mega888-gacor-hari-ini","mega888-auto-cuci","mega888-whatsapp-group","mega888-agent-jadi",
+        // Redirected source slugs — article content lives at the canonical target URL
+        "mega888-withdrawal-guide","mega888-login-link-terkini-2026","mega888-trusted-agent-malaysia-2026",
+      ].includes(slug),
       follow: true,
       googleBot: {
-        index: !["mega888-test-id","mega888-vs-pussy888","mega888-918kiss-beza","mega888-original-vs-fake"].includes(slug),
+        index: ![
+          "mega888-test-id","mega888-vs-pussy888","mega888-918kiss-beza","mega888-original-vs-fake",
+          "mega888-gacor-hari-ini","mega888-auto-cuci","mega888-whatsapp-group","mega888-agent-jadi",
+          "mega888-withdrawal-guide","mega888-login-link-terkini-2026","mega888-trusted-agent-malaysia-2026",
+        ].includes(slug),
         follow: true,
         "max-image-preview": "large",
         "max-snippet": -1,

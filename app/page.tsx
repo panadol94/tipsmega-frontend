@@ -2,13 +2,13 @@
 import HomeClient from "./HomeClient";
 
 export const metadata = {
-  title: "Mega888 Hack 2026? Guna AI RTP Scanner Malaysia Percuma | TipsMega888",
+  title: "Mega888 AI RTP Scanner Malaysia 2026 — Scan RTP Live Percuma | TipsMega888",
   description:
-    "Mencari alternatif kepada carian hack Mega888? Semak RTP Mega888 Malaysia secara live dengan AI Scanner percuma, rujuk pola game, trusted company, dan game list dalam satu platform.",
+    "Guna AI RTP Scanner Mega888 Malaysia untuk check RTP live, pola game, dan pilih game terbaik sebelum spin. Percuma untuk semua pemain Malaysia 2026.",
   openGraph: {
-    title: "Mega888 Hack 2026? Guna AI RTP Scanner Malaysia Percuma | TipsMega888",
+    title: "Mega888 AI RTP Scanner Malaysia 2026 — Scan RTP Live Percuma",
     description:
-      "Alternatif lebih selamat untuk carian hack Mega888: AI RTP Scanner Malaysia dengan panduan RTP, trusted company, dan game list.",
+      "Platform AI Scanner untuk check RTP Mega888 Malaysia secara live, rujuk pola game, trusted company, dan game list.",
     url: "https://tipsmega888.com",
     siteName: "TipsMega888 AI",
     locale: "ms_MY",
@@ -18,16 +18,15 @@ export const metadata = {
         url: "https://tipsmega888.com/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "Mega888 AI RTP Scanner 2026 - Alternatif Hack",
+        alt: "Mega888 AI RTP Scanner Malaysia 2026 — Scan RTP Live Percuma",
       },
     ],
   },
   twitter: {
     card: "summary_large_image" as const,
-    title: "Mega888 Hack 2026? Guna AI RTP Scanner Percuma",
+    title: "Mega888 AI RTP Scanner Malaysia 2026 — Scan RTP Live Percuma",
     description:
-      "Semak RTP Mega888 live dengan AI Scanner percuma sebagai strategi selamat.",
-    images: ["https://tipsmega888.com/og-image.webp"],
+      "AI RTP Scanner Mega888 Malaysia — check RTP live, pola game, dan pilih game terbaik sebelum spin. Percuma!",
   },
   alternates: {
     canonical: "https://tipsmega888.com",
