@@ -156,9 +156,12 @@ export default function TrustedPage() {
                     <div className="h-1 w-6 bg-red-400 rounded-full shadow-[0_0_10px_rgba(255,77,77,0.5)]" />
                     <span className="text-[10px] font-black tracking-[0.3em] text-red-400/80 uppercase">VVIP PARTNERS</span>
                   </div>
-                  <h1 className="text-3xl font-black italic text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
-                    TRUSTED <span className="elite-gradient-shift elite-glow">ELITE</span>
+                  <h1 className="text-3xl font-black italic text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] leading-tight">
+                    Trusted Company <span className="elite-gradient-shift elite-glow">Mega888 Malaysia 2026</span>
                   </h1>
+                  <p className="mt-2 text-xs sm:text-sm text-white/55 max-w-xl leading-relaxed">
+                    Agent Mega888 original, verified company list, dan pilihan trusted agent Malaysia untuk login, deposit, dan withdraw dengan lebih selamat.
+                  </p>
                 </div>
                 <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
                   <span className="text-xl">🏆</span>
@@ -166,7 +169,7 @@ export default function TrustedPage() {
               </div>
 
               <p className="text-xs text-white/50 leading-relaxed font-medium bg-white/5 border border-white/10 p-3 rounded-xl backdrop-blur-sm">
-                <span className="text-red-400 font-bold">OFFICIAL VERIFIED LIST 2026.</span> Semua platform di sini dipilih untuk payout speed, safety, dan pengalaman yang lebih stabil untuk pemain Malaysia.
+                <span className="text-red-400 font-bold">OFFICIAL VERIFIED LIST 2026.</span> Semak trusted company Mega888 Malaysia yang lebih kuat dari segi payout speed, trust signal, safety, dan pengalaman pemain.
               </p>
 
               <div className="mt-4 grid grid-cols-3 gap-2">

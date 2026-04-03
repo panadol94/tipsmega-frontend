@@ -541,8 +541,8 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
 
                         <div className="glitch-wrapper">
                             <h1
-                                className="text-[1.7rem] sm:text-3xl font-black italic relative z-20 -mt-1 sm:-mt-2 glitch"
-                                data-text="AI RTP SCANNER"
+                                className="text-[1.45rem] sm:text-3xl font-black italic relative z-20 -mt-1 sm:-mt-2 glitch leading-tight"
+                                data-text="MEGA888 AI RTP SCANNER MALAYSIA"
                                 style={{
                                     background: "linear-gradient(135deg, #ffffff 0%, #fca5a5 40%, #ff4d4d 80%, #991b1b 100%)",
                                     WebkitBackgroundClip: "text",
@@ -551,11 +551,11 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                                     filter: "drop-shadow(0 2px 16px rgba(255,77,77,0.30))",
                                 }}
                             >
-                                AI RTP SCANNER
+                                Mega888 AI RTP Scanner Malaysia
                             </h1>
                         </div>
                         <p className="mt-1.5 text-xs sm:text-sm text-white/50">
-                            Masukkan ID untuk scan • {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
+                            Semak RTP live Mega888 Malaysia sebelum spin • {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
                         </p>
                     </div>
 
