@@ -784,12 +784,12 @@ export default function HomeClient() {
                                     <Trophy className="w-5 h-5 text-amber-400" />
                                 </div>
                                 <div>
-                                    <h3 className="text-sm font-black text-white tracking-wide">
+                                    <h1 className="text-sm font-black text-white tracking-wide">
                                         🏆 KEMENANGAN AHLI
-                                    </h3>
-                                    <p className="text-[10px] text-amber-400/70 font-medium tracking-wider uppercase">
+                                    </h1>
+                                    <h2 className="text-[10px] text-amber-400/70 font-medium tracking-wider uppercase">
                                         Community Wins
-                                    </p>
+                                    </h2>
                                 </div>
                             </div>
                             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
@@ -811,11 +811,11 @@ export default function HomeClient() {
                             >
                                 {/* First set of wins */}
                                 {[
-                                    { img: '/wins/win-1.jpg', amount: '4,500', game: 'Ultra Mega Big Win', player: 'Player 1' },
-                                    { img: '/wins/win-2.jpg', amount: '750', game: 'Big Win', player: 'Player 2' },
-                                    { img: '/wins/win-3.jpg', amount: '2,500', game: 'Gates of Olympus', player: 'Player 3' },
-                                    { img: '/wins/win-4.jpg', amount: '15,000,000', game: 'CM8 Jackpot', player: 'Player 4' },
-                                    { img: '/wins/win-5.jpg', amount: '6,567', game: 'Rush Xmas', player: 'Player 5' },
+                                    { img: '/wins/win-1.jpg', amount: '4,500', game: 'Ultra Mega Big Win', player: 'Player 1', alt: 'Mega888 big win screenshot - Group WhatsApp Mega888 member RM 4,500 win' },
+                                    { img: '/wins/win-2.jpg', amount: '750', game: 'Big Win', player: 'Player 2', alt: 'Group WhatsApp spin member win - Mega888 RM 750 win screenshot' },
+                                    { img: '/wins/win-3.jpg', amount: '2,500', game: 'Gates of Olympus', player: 'Player 3', alt: 'Mega888 community member win - Gates of Olympus RM 2,500 jackpot' },
+                                    { img: '/wins/win-4.jpg', amount: '15,000,000', game: 'CM8 Jackpot', player: 'Player 4', alt: 'Mega888 big jackpot community win - RM 15 Million CM8 Jackpot screenshot' },
+                                    { img: '/wins/win-5.jpg', amount: '6,567', game: 'Rush Xmas', player: 'Player 5', alt: 'Group WhatsApp Mega888 spin win - Rush Xmas RM 6,567 big win' },
                                 ].map((win, i) => (
                                     <div 
                                         key={`win-a-${i}`}
@@ -825,7 +825,7 @@ export default function HomeClient() {
                                         <div className="relative aspect-[4/3] overflow-hidden">
                                             <img 
                                                 src={win.img} 
-                                                alt={`Win ${win.amount}`}
+                                                alt={win.alt}
                                                 className="w-full h-full object-cover transition-transform duration-500 group-hover/win:scale-110"
                                             />
                                             {/* Gradient Overlay */}
@@ -857,11 +857,11 @@ export default function HomeClient() {
 
                                 {/* Duplicate set for seamless loop */}
                                 {[
-                                    { img: '/wins/win-1.jpg', amount: '4,500', game: 'Ultra Mega Big Win', player: 'Player 1' },
-                                    { img: '/wins/win-2.jpg', amount: '750', game: 'Big Win', player: 'Player 2' },
-                                    { img: '/wins/win-3.jpg', amount: '2,500', game: 'Gates of Olympus', player: 'Player 3' },
-                                    { img: '/wins/win-4.jpg', amount: '15,000,000', game: 'CM8 Jackpot', player: 'Player 4' },
-                                    { img: '/wins/win-5.jpg', amount: '6,567', game: 'Rush Xmas', player: 'Player 5' },
+                                    { img: '/wins/win-1.jpg', amount: '4,500', game: 'Ultra Mega Big Win', player: 'Player 1', alt: 'Mega888 big win screenshot - Group WhatsApp Mega888 member RM 4,500 win' },
+                                    { img: '/wins/win-2.jpg', amount: '750', game: 'Big Win', player: 'Player 2', alt: 'Group WhatsApp spin member win - Mega888 RM 750 win screenshot' },
+                                    { img: '/wins/win-3.jpg', amount: '2,500', game: 'Gates of Olympus', player: 'Player 3', alt: 'Mega888 community member win - Gates of Olympus RM 2,500 jackpot' },
+                                    { img: '/wins/win-4.jpg', amount: '15,000,000', game: 'CM8 Jackpot', player: 'Player 4', alt: 'Mega888 big jackpot community win - RM 15 Million CM8 Jackpot screenshot' },
+                                    { img: '/wins/win-5.jpg', amount: '6,567', game: 'Rush Xmas', player: 'Player 5', alt: 'Group WhatsApp Mega888 spin win - Rush Xmas RM 6,567 big win' },
                                 ].map((win, i) => (
                                     <div 
                                         key={`win-b-${i}`}
@@ -870,7 +870,7 @@ export default function HomeClient() {
                                         <div className="relative aspect-[4/3] overflow-hidden">
                                             <img 
                                                 src={win.img} 
-                                                alt={`Win ${win.amount}`}
+                                                alt={win.alt}
                                                 className="w-full h-full object-cover transition-transform duration-500 group-hover/win:scale-110"
                                             />
                                             

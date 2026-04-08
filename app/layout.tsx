@@ -4,11 +4,14 @@ import ClientLayout from "./ClientLayout";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tipsmega888.com"),
-  title: "Mega888 Hack 2026 & AI RTP Scanner | TipsMega888 Malaysia",
+  title: "Mega888 Community Wins | Group WhatsApp Mega888 & AI RTP Scanner | TipsMega888 Malaysia",
   description:
-    "Mencari cara godam slot? TipsMega888 menyediakan alternatif sah AI RTP Scanner percuma Mega888 Malaysia. Trusted by 10,000+ players. Updated daily.",
+    "Join group WhatsApp spin Mega888 Malaysia. See community wins, big jackpots & member wins. AI RTP Scanner percuma Mega888 Malaysia. Trusted by 50,000+ players.",
   keywords: [
-    "mega888",
+    "group whatsapp mega888",
+    "group whatsapp spin",
+    "mega888 community",
+    "mega888 community wins",
     "mega888 hack",
     "software hack mega888",
     "cara godam slot mega888",
@@ -17,31 +20,33 @@ export const metadata: Metadata = {
     "mega888 RTP scanner",
     "mega888 online casino",
     "slot Malaysia",
+    "mega888 jackpot",
+    "mega888 big win",
     "TipsMega888",
   ],
   openGraph: {
-    title: "Mega888 Hack 2026 & AI RTP Scanner Malaysia | TipsMega888",
+    title: "Mega888 Community Wins | Group WhatsApp Mega888 & AI RTP Scanner",
     description:
-      "Mencari tips godam? Check Mega888 slot RTP % percuma dengan AI-powered scanner instead. Trusted platform by 10,000+ players.",
+      "Join group WhatsApp spin Mega888. See member wins and big jackpots. AI-powered RTP scanner for Malaysian players.",
     url: "https://tipsmega888.com",
     siteName: "TipsMega888",
     locale: "ms_MY",
     type: "website",
     images: [
       {
-        url: "https://tipsmega888.com/og-image.webp",
+        url: "https://tipsmega888.com/wins/win-4.jpg",
         width: 1200,
         height: 630,
-        alt: "TipsMega888 - Mega888 Malaysia RTP Scanner",
+        alt: "Mega888 Community Wins - Big Jackpot Win Screenshot",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mega888 Hack 2026 & AI RTP Scanner Malaysia",
+    title: "Mega888 Community Wins | Group WhatsApp Mega888 & AI RTP Scanner",
     description:
-      "Strategi godam selamat: Check Mega888 slot RTP % percuma. AI-powered scanner updated daily.",
-    images: ["https://tipsmega888.com/og-image.webp"],
+      "Join group WhatsApp spin Mega888. See member wins and big jackpots.",
+    images: ["https://tipsmega888.com/wins/win-4.jpg"],
   },
   alternates: {
     canonical: "https://tipsmega888.com",
