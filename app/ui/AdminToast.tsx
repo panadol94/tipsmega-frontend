@@ -100,7 +100,7 @@ function ToastItem({ message, type, onClose }: ToastProps) {
             </div>
 
             {/* Bottom shine effect */}
-            <div className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-${type === 'success' ? 'emerald' : type === 'error' ? 'red' : type === 'warning' ? 'amber' : 'cyan'}-400/40 to-transparent`} />
+            <div className={`absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-${type === 'success' ? 'emerald' : type === 'error' ? 'red' : type === 'warning' ? 'amber' : 'red'}-400/40 to-transparent`} />
         </div>
     );
 }

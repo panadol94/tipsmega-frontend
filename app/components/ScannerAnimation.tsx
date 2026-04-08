@@ -54,7 +54,7 @@ export default function ScannerAnimation({ isScanning, progress = 0 }: ScannerAn
                 {/* Progress ring with gradient */}
                 <defs>
                     <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#00f0ff" />
+                        <stop offset="0%" stopColor="#ff3333" />
                         <stop offset="100%" stopColor="#ff006e" />
                     </linearGradient>
                 </defs>
@@ -77,7 +77,7 @@ export default function ScannerAnimation({ isScanning, progress = 0 }: ScannerAn
 
             {/* Percentage text */}
             <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-cyan-400 font-bold text-lg" style={{ textShadow: "0 0 10px rgba(0, 240, 255, 0.8)" }}>
+                <span className="text-red-400 font-bold text-lg" style={{ textShadow: "0 0 10px rgba(0, 240, 255, 0.8)" }}>
                     {Math.round(animatedProgress)}%
                 </span>
             </div>
@@ -85,7 +85,7 @@ export default function ScannerAnimation({ isScanning, progress = 0 }: ScannerAn
             {/* Spinning inner ring when scanning */}
             {isScanning && (
                 <div
-                    className="absolute inset-[20px] rounded-full border-2 border-dashed border-cyan-500/40"
+                    className="absolute inset-[20px] rounded-full border-2 border-dashed border-red-500/40"
                     style={{
                         animation: "spinBorder 1.5s linear infinite",
                     }}
@@ -104,7 +104,7 @@ export function WaveformBars() {
                     key={i}
                     className="waveform-bar w-1 rounded-full"
                     style={{
-                        background: i % 2 === 0 ? "#00f0ff" : "#ff006e",
+                        background: i % 2 === 0 ? "#ff3333" : "#ff006e",
                         boxShadow: i % 2 === 0 ? "0 0 6px rgba(0, 240, 255, 0.6)" : "0 0 6px rgba(255, 0, 110, 0.6)",
                     }}
                 />
@@ -127,7 +127,7 @@ export function ScanVisualizer({ isScanning }: { isScanning: boolean }) {
 
             {/* Scan status text */}
             <div className="mt-2 text-center">
-                <span className="text-xs font-mono text-cyan-400/70 tracking-wider">
+                <span className="text-xs font-mono text-red-400/70 tracking-wider">
                     {isScanning ? "SCANNING RTP..." : "READY"}
                 </span>
             </div>

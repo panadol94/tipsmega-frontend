@@ -50,7 +50,7 @@ export default function MatrixBackground({
             ctx.fillRect(0, 0, width, height);
 
             // Alternate between cyan and green
-            const hue = Math.random() > 0.7 ? 160 : 170; // cyan vs green
+            const hue = Math.random() > 0.7 ? 0 : 10; // cyan vs green
             ctx.fillStyle = `hsla(${hue}, 100%, 50%, 0.9)`;
             ctx.font = `bold ${fontSize}px 'JetBrains Mono', monospace`;
 
@@ -63,10 +63,10 @@ export default function MatrixBackground({
                 const brightness = Math.random();
                 if (brightness > 0.95) {
                     ctx.fillStyle = "#ffffff";
-                    ctx.shadowColor = "#00e5cc";
+                    ctx.shadowColor = "#ff3333";
                     ctx.shadowBlur = 15;
                 } else if (brightness > 0.7) {
-                    ctx.fillStyle = "#00e5cc";
+                    ctx.fillStyle = "#ff3333";
                     ctx.shadowBlur = 8;
                 } else {
                     ctx.fillStyle = `hsla(${hue}, 100%, 50%, ${0.4 + brightness * 0.4})`;

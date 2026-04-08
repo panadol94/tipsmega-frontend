@@ -2071,7 +2071,7 @@ a {
 
 .progress-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, #00d9ff, #a855f7, #ff00ff);
+    background: linear-gradient(90deg, #ff3333, #ff0066, #ff4444);
     background-size: 200% 100%;
     animation: progressSlide 2s ease-in-out forwards;
 }
@@ -2251,14 +2251,14 @@ a {
 }
 
 /* Enhanced Button Glow */
-.btn-glow-cyan {
+.btn-glow-red {
     position: relative;
     background: linear-gradient(135deg, #06b6d4, #0891b2);
     box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
     transition: all 0.3s ease;
 }
 
-.btn-glow-cyan:hover {
+.btn-glow-red:hover {
     box-shadow: 0 8px 30px rgba(6, 182, 212, 0.6),
         0 0 40px rgba(6, 182, 212, 0.3);
     transform: translateY(-2px) scale(1.02);

@@ -468,7 +468,7 @@ export default function HomeClient() {
                             particleCount: 100,
                             spread: 70,
                             origin: { y: 0.6 },
-                            colors: ['#00d9ff', '#a855f7', '#ff00ff', '#ff4d4d'],
+                            colors: ['#ff3333', '#ff0066', '#ff4444', '#ff4d4d'],
                         });
                     }, 800);
                 }
@@ -606,23 +606,42 @@ export default function HomeClient() {
                     
                     {/* Hero Text — terminal style with holographic scan */}
                     <div className="text-center tm-hero">
-                        <div className="terminal-border-cyan rounded-xl p-4 mb-3 bg-black/40 inline-block relative overflow-hidden">
-                            <div className="text-[10px] font-mono text-cyan-400/70 tracking-widest uppercase mb-1">
+                        <div className="terminal-border-red rounded-xl p-5 mb-3 bg-black/50 inline-block relative overflow-hidden">
+                            <div className="text-[10px] font-mono text-red-400/70 tracking-widest uppercase mb-2">
                                 System // v2.0.26
                             </div>
-                            <h1
-                                className="text-2xl font-black italic terminal-glow-cyan holographic-title"
-                                style={{
-                                    fontFamily: "'JetBrains Mono', monospace",
-                                    background: "linear-gradient(135deg, #00e5cc 0%, #ffffff 40%, #22c55e 100%)",
-                                    WebkitBackgroundClip: "text",
-                                    WebkitTextFillColor: "transparent",
-                                    backgroundClip: "text",
-                                    position: "relative",
-                                }}
-                            >
-                                MEGA888 AI RTP SCANNER
-                            </h1>
+                            
+                            {/* Premium animated MEGA888 logo */}
+                            <div className="mega888-logo-container" style={{ position: "relative", display: "inline-block", marginBottom: "2px" }}>
+                                {/* 3D depth shadow layers */}
+                                <div className="mega888-3d-layer mega888-shadow-1">MEGA888</div>
+                                <div className="mega888-3d-layer mega888-shadow-2">MEGA888</div>
+                                <div className="mega888-3d-layer mega888-shadow-3">MEGA888</div>
+                                
+                                {/* RGB Glitch layers */}
+                                <div className="mega888-glitch mega888-glitch-red" aria-hidden="true">MEGA888</div>
+                                <div className="mega888-glitch mega888-glitch-red" aria-hidden="true">MEGA888</div>
+                                <div className="mega888-glitch mega888-glitch-white" aria-hidden="true">MEGA888</div>
+                                
+                                {/* Main text */}
+                                <div className="mega888-main-text">MEGA888</div>
+                                
+                                {/* Neon pulse overlay */}
+                                <div className="mega888-neon-pulse" aria-hidden="true">MEGA888</div>
+                                
+                                {/* Electric spark particles */}
+                                <div className="mega888-spark mega888-spark-1"></div>
+                                <div className="mega888-spark mega888-spark-2"></div>
+                                <div className="mega888-spark mega888-spark-3"></div>
+                                <div className="mega888-spark mega888-spark-4"></div>
+                            </div>
+                            
+                            {/* AI RTP SCANNER subtitle */}
+                            <div className="mega888-subtitle">
+                                <span className="mega888-subtitle-text">AI RTP SCANNER</span>
+                                <span className="mega888-subtitle-cursor">▋</span>
+                            </div>
+                            
                             {/* Red holographic scanning line */}
                             <div className="holographic-scan-line" />
                         </div>
@@ -636,7 +655,7 @@ export default function HomeClient() {
                             ]}
                             showLive={true}
                             showCursor={true}
-                            variant="cyan"
+                            variant="red"
                         />
 
                         <p className="mt-4 text-sm text-white/50 font-mono text-[11px]">
@@ -645,15 +664,15 @@ export default function HomeClient() {
                     </div>
 
                     {/* Scanner Card - Terminal Style */}
-                    <section className="card relative overflow-hidden p-5 tm-scan tm-scan-pulse terminal-border-cyan bg-black/60 rounded-2xl">
+                    <section className="card relative overflow-hidden p-5 tm-scan tm-scan-pulse terminal-border-red bg-black/60 rounded-2xl">
                         {/* Terminal header bar */}
-                        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-cyan-500/20">
+                        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-red-500/20">
                             <div className="flex gap-1.5">
                                 <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
                                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
                                 <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
                             </div>
-                            <span className="text-[10px] font-mono text-cyan-400/60 tracking-widest ml-2">
+                            <span className="text-[10px] font-mono text-red-400/60 tracking-widest ml-2">
                                 SCANNER_TERMINAL_v2.exe
                             </span>
                             <div className="ml-auto flex items-center gap-2">
@@ -664,8 +683,8 @@ export default function HomeClient() {
                         
                         {/* Badges */}
                         <div className="flex flex-wrap items-center gap-2 mb-4">
-                            <span className="inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-300">
-                                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 animate-pulse" />
+                            <span className="inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-red-300">
+                                <span className="h-1.5 w-1.5 rounded-full bg-red-300 animate-pulse" />
                                 Live AI
                             </span>
                             <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] ${isValidMegaId ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300" : "border-white/10 bg-white/5 text-white/40"}`}>
@@ -678,7 +697,7 @@ export default function HomeClient() {
                         </div>
 
                         {/* Input - Terminal Style */}
-                        <div className="rounded-xl border border-cyan-500/30 bg-black/50 p-3 mb-4">
+                        <div className="rounded-xl border border-red-600/30 bg-black/50 p-3 mb-4">
                             <input
                                 className={`tm-scan-item terminal-input ${inputError ? 'shake-error' : ''}`}
                                 value={megaId}
@@ -688,7 +707,7 @@ export default function HomeClient() {
                                 maxLength={12}
                                 style={{ fontFamily: "'JetBrains Mono', monospace" }}
                             />
-                            <div className="mt-2 flex justify-between text-xs font-mono text-cyan-400/50">
+                            <div className="mt-2 flex justify-between text-xs font-mono text-red-400/50">
                                 <span className="flex items-center gap-1">
                                     <span className="text-[10px]">&gt;_</span> {megaId.trim().length}/12 digit
                                 </span>
@@ -753,7 +772,7 @@ export default function HomeClient() {
                     {/* ── Social Proof ── */}
                     <section
                         aria-label="Social proof"
-                        className="card p-4 border-cyan-500/20 bg-gradient-to-br from-cyan-950/60 to-slate-950/80 overflow-hidden"
+                        className="card p-4 border-red-500/20 bg-gradient-to-br from-red-950/60 to-slate-950/80 overflow-hidden"
                         style={{ borderRadius: 16 }}
                     >
                         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
@@ -894,12 +913,12 @@ export default function HomeClient() {
             {/* RTP RESULT */}
             <h2 className="sr-only">Keputusan RTP</h2>
             {lastRtp !== null && !busy ? (
-                <section className="card p-5 m-4 border-cyan-500/20 bg-cyan-500/5 rounded-3xl">
+                <section className="card p-5 m-4 border-red-500/20 bg-red-500/5 rounded-3xl">
                     <div className="text-[10px] text-white/60 font-mono tracking-widest uppercase mb-2">
                         [RESULT] Overall RTP
                     </div>
                     <div className="flex items-end gap-2">
-                        <div className="text-5xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-cyan-200 to-cyan-500">
+                        <div className="text-5xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-red-200 to-red-500">
                             {rtpDisplay.toFixed(1)}%
                         </div>
                         <div className="text-xs text-white/60 pb-2">estimated</div>
@@ -911,9 +930,9 @@ export default function HomeClient() {
             {showResult && runKey && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
                     <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setShowResult(false)} />
-                    <div className="relative w-full max-w-md bg-gradient-to-b from-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl overflow-hidden">
+                    <div className="relative w-full max-w-md bg-gradient-to-b from-slate-900 to-slate-950 border border-red-600/30 rounded-3xl overflow-hidden">
                         <div className="flex items-center justify-between p-4 border-b border-white/10">
-                            <h3 className="font-bold text-cyan-300">✅ SCAN COMPLETE</h3>
+                            <h3 className="font-bold text-red-300">✅ SCAN COMPLETE</h3>
                             <button onClick={() => setShowResult(false)} className="text-white/60 hover:text-white text-2xl">&times;</button>
                         </div>
                         <div className="p-4">
@@ -929,7 +948,7 @@ export default function HomeClient() {
                             />
                         </div>
                         <div className="flex gap-3 p-4 border-t border-white/10">
-                            <button onClick={() => { const text = `🎰 MEGA888 RTP: ${lastRtp}% | ID: ${idMasked} | TipsMega888.com`; navigator.share ? navigator.share({title:'RTP Result',text}) : (navigator.clipboard.writeText(text),alert('Copied!')); }} className="flex-1 py-3 bg-cyan-500/20 border border-cyan-500/30 rounded-xl text-cyan-300 font-bold text-sm">📤 SHARE</button>
+                            <button onClick={() => { const text = `🎰 MEGA888 RTP: ${lastRtp}% | ID: ${idMasked} | TipsMega888.com`; navigator.share ? navigator.share({title:'RTP Result',text}) : (navigator.clipboard.writeText(text),alert('Copied!')); }} className="flex-1 py-3 bg-red-500/20 border border-red-600/30 rounded-xl text-red-300 font-bold text-sm">📤 SHARE</button>
                             <button onClick={() => setShowResult(false)} className="flex-1 py-3 bg-white/10 border border-white/20 rounded-xl text-white font-bold text-sm">CLOSE</button>
                         </div>
                     </div>
@@ -969,9 +988,9 @@ export default function HomeClient() {
                     className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] animate-in slide-in-from-top-4 fade-in duration-500"
                     style={{ minWidth: 300, maxWidth: '90%' }}
                 >
-                    <div className="relative overflow-hidden rounded-2xl border border-red-500/30 bg-gradient-to-br from-red-500/20 via-red-500/20 to-red-500/20 backdrop-blur-xl shadow-[0_0_40px_rgba(255,77,77,0.4)] p-4">
+                    <div className="relative overflow-hidden rounded-2xl border border-red-600/30 bg-gradient-to-br from-red-500/20 via-red-500/20 to-red-500/20 backdrop-blur-xl shadow-[0_0_40px_rgba(255,77,77,0.4)] p-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-red-500/20 border border-red-500/30 flex items-center justify-center">
+                            <div className="w-10 h-10 rounded-xl bg-red-500/20 border border-red-600/30 flex items-center justify-center">
                                 <span className="text-xl">⭐</span>
                             </div>
                             <p className="font-bold text-white text-sm">{starNotification}</p>

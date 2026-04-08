@@ -15,10 +15,10 @@ interface Particle {
 }
 
 const COLORS = [
-    "rgba(0, 240, 255, 0.6)",  // cyan
-    "rgba(0, 240, 255, 0.4)",  // cyan dim
+    "rgba(255, 51, 51, 0.6)",  // cyan
+    "rgba(255, 51, 51, 0.4)",  // cyan dim
     "rgba(255, 0, 110, 0.4)",  // pink
-    "rgba(0, 240, 255, 0.5)",  // cyan
+    "rgba(255, 51, 51, 0.5)",  // cyan
     "rgba(168, 85, 247, 0.4)", // purple
 ];
 

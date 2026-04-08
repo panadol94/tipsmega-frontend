@@ -121,14 +121,14 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
       // Outer ring
       ctx.beginPath();
       ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(0,217,255,0.15)";
+      ctx.strokeStyle = "rgba(255,51,51,0.15)";
       ctx.lineWidth = 2;
       ctx.stroke();
 
       // Scanning arc
       ctx.beginPath();
       ctx.arc(cx, cy, r, angle, angle + Math.PI * 0.6);
-      ctx.strokeStyle = "rgba(0,217,255,0.8)";
+      ctx.strokeStyle = "rgba(255,51,51,0.8)";
       ctx.lineWidth = 3;
       ctx.shadowBlur = 15;
       ctx.shadowColor = "#ff6b6b";
@@ -153,7 +153,7 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
       ctx.shadowBlur = 0;
 
       // Crosshair
-      ctx.strokeStyle = "rgba(0,217,255,0.3)";
+      ctx.strokeStyle = "rgba(255,51,51,0.3)";
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(cx - r * 0.3, cy);
@@ -173,7 +173,7 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
 
       // Target ID in center
       ctx.font = "bold 11px monospace";
-      ctx.fillStyle = "rgba(0,217,255,0.9)";
+      ctx.fillStyle = "rgba(255,51,51,0.9)";
       ctx.textAlign = "center";
       ctx.fillText(`TARGET: ${megaId.slice(0, 4)}****${megaId.slice(-2)}`, cx, cy + 22);
 
@@ -184,7 +184,7 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
         const py = cy + Math.sin(a) * r * 0.82;
         ctx.beginPath();
         ctx.arc(px, py, 2, 0, Math.PI * 2);
-        ctx.fillStyle = i % 3 === 0 ? "#00ff88" : "rgba(0,217,255,0.5)";
+        ctx.fillStyle = i % 3 === 0 ? "#ff6666" : "rgba(255,51,51,0.5)";
         ctx.fill();
       }
 
@@ -220,7 +220,7 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
           position: "absolute",
           inset: 0,
           opacity: 0.06,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='40' font-size='30' fill='%2300d9ff' font-family='monospace'%3E01%3C/text%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='40' font-size='30' fill='%23ff3333' font-family='monospace'%3E01%3C/text%3E%3C/svg%3E")`,
           backgroundSize: "60px 60px",
           animation: "matrixScroll 20s linear infinite",
         }}
@@ -284,7 +284,7 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
           maxHeight: 180,
           overflow: "auto",
           background: "rgba(0,0,0,0.6)",
-          border: "1px solid rgba(0,217,255,0.2)",
+          border: "1px solid rgba(255,51,51,0.2)",
           borderRadius: 8,
           padding: "8px 12px",
           fontSize: 10,
@@ -296,10 +296,10 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
             key={i}
             style={{
               color: ln.includes("✓")
-                ? "#00ff88"
+                ? "#ff6666"
                 : ln.includes("ERROR")
                   ? "#ff4444"
-                  : "rgba(0,217,255,0.85)",
+                  : "rgba(255,51,51,0.85)",
               opacity: i === lines.length - 1 ? 1 : 0.6,
             }}
           >
@@ -325,10 +325,10 @@ export default function HackerScanOverlay({ megaId, onPhaseChange }: Props) {
             style={{
               height: "100%",
               width: `${progress}%`,
-              background: "linear-gradient(90deg, #ff6b6b, #a855f7, #00ff88)",
+              background: "linear-gradient(90deg, #ff6b6b, #a855f7, #ff6666)",
               borderRadius: 99,
               transition: "width 0.3s ease",
-              boxShadow: "0 0 8px rgba(0,217,255,0.5)",
+              boxShadow: "0 0 8px rgba(255,51,51,0.5)",
             }}
           />
         </div>

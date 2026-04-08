@@ -6,27 +6,27 @@ interface TerminalStatusProps {
     messages?: string[];
     showLive?: boolean;
     showCursor?: boolean;
-    variant?: "cyan" | "green" | "yellow";
+    variant?: "red" | "green" | "yellow";
 }
 
 export default function TerminalStatus({
     messages = [],
     showLive = true,
     showCursor = true,
-    variant = "cyan",
+    variant = "red",
 }: TerminalStatusProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [displayedText, setDisplayedText] = useState("");
     const [isTyping, setIsTyping] = useState(true);
 
     const variantColors = {
-        cyan: "#00e5cc",
+        red: "#ff3333",
         green: "#22c55e",
         yellow: "#eab308",
     };
 
     const variantShadow = {
-        cyan: "rgba(0, 229, 204, 0.5)",
+        red: "rgba(255, 51, 51, 0.5)",
         green: "rgba(34, 197, 94, 0.5)",
         yellow: "rgba(234, 179, 8, 0.5)",
     };
