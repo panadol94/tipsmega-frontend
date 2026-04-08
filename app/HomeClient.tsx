@@ -1100,6 +1100,273 @@ export default function HomeClient() {
                     0% { transform: translateX(0); }
                     100% { transform: translateX(-50%); }
                 }
+
+                /* ===== MEGA888 PREMIUM ANIMATED LOGO ===== */
+                
+                /* Main logo container */
+                .mega888-logo-container {
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 2rem;
+                    font-weight: 900;
+                    letter-spacing: 0.08em;
+                    position: relative;
+                }
+
+                /* 3D Depth Layers */
+                .mega888-3d-layer {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 2rem;
+                    font-weight: 900;
+                    letter-spacing: 0.08em;
+                }
+
+                .mega888-shadow-1 {
+                    color: rgba(255, 0, 0, 0.4);
+                    transform: translate(3px, 3px);
+                    animation: shadowFloat 3s ease-in-out infinite;
+                }
+
+                .mega888-shadow-2 {
+                    color: rgba(0, 255, 255, 0.25);
+                    transform: translate(6px, 6px);
+                    animation: shadowFloat 3s ease-in-out infinite 0.2s;
+                }
+
+                .mega888-shadow-3 {
+                    color: rgba(0, 0, 255, 0.15);
+                    transform: translate(9px, 9px);
+                    animation: shadowFloat 3s ease-in-out infinite 0.4s;
+                }
+
+                @keyframes shadowFloat {
+                    0%, 100% { transform: translate(3px, 3px); }
+                    50% { transform: translate(5px, 5px); }
+                }
+
+                /* RGB Glitch Effect */
+                .mega888-glitch {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 2rem;
+                    font-weight: 900;
+                    letter-spacing: 0.08em;
+                    opacity: 0.8;
+                }
+
+                .mega888-glitch-red {
+                    color: #ff0040;
+                    animation: glitchRed 2.5s infinite linear alternate-reverse;
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                }
+
+                .mega888-glitch-cyan {
+                    color: #00ffff;
+                    animation: glitchCyan 3s infinite linear alternate-reverse;
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                }
+
+                .mega888-glitch-white {
+                    color: #ffffff;
+                    animation: glitchWhite 1.8s infinite linear alternate-reverse;
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                }
+
+                @keyframes glitchRed {
+                    0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 0); opacity: 0; }
+                    10% { clip-path: inset(60% 0 10% 0); transform: translate(-3px, 0); opacity: 0.7; }
+                    20% { clip-path: inset(30% 0 50% 0); transform: translate(2px, 0); opacity: 0; }
+                    30% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 0); opacity: 0.6; }
+                    40% { clip-path: inset(10% 0 70% 0); transform: translate(3px, 0); opacity: 0; }
+                    50% { clip-path: inset(50% 0 30% 0); transform: translate(-2px, 0); opacity: 0.5; }
+                    60% { clip-path: inset(5% 0 85% 0); transform: translate(2px, 0); opacity: 0; }
+                    70% { clip-path: inset(70% 0 20% 0); transform: translate(-3px, 0); opacity: 0.7; }
+                    80% { clip-path: inset(40% 0 40% 0); transform: translate(2px, 0); opacity: 0; }
+                    90% { clip-path: inset(15% 0 75% 0); transform: translate(-2px, 0); opacity: 0.5; }
+                    100% { clip-path: inset(25% 0 65% 0); transform: translate(3px, 0); opacity: 0; }
+                }
+
+                @keyframes glitchCyan {
+                    0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, 0); opacity: 0; }
+                    15% { clip-path: inset(80% 0 5% 0); transform: translate(3px, 0); opacity: 0.6; }
+                    25% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 0); opacity: 0; }
+                    35% { clip-path: inset(15% 0 80% 0); transform: translate(2px, 0); opacity: 0.5; }
+                    45% { clip-path: inset(55% 0 10% 0); transform: translate(-3px, 0); opacity: 0; }
+                    55% { clip-path: inset(40% 0 30% 0); transform: translate(2px, 0); opacity: 0.7; }
+                    65% { clip-path: inset(5% 0 90% 0); transform: translate(-2px, 0); opacity: 0; }
+                    75% { clip-path: inset(65% 0 15% 0); transform: translate(3px, 0); opacity: 0.5; }
+                    85% { clip-path: inset(20% 0 55% 0); transform: translate(-2px, 0); opacity: 0; }
+                    95% { clip-path: inset(45% 0 35% 0); transform: translate(2px, 0); opacity: 0.6; }
+                    100% { clip-path: inset(35% 0 45% 0); transform: translate(-3px, 0); opacity: 0; }
+                }
+
+                @keyframes glitchWhite {
+                    0% { clip-path: inset(25% 0 65% 0); transform: translate(1px, 0); opacity: 0; }
+                    20% { clip-path: inset(5% 0 85% 0); transform: translate(-1px, 0); opacity: 0.8; }
+                    40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, 0); opacity: 0; }
+                    60% { clip-path: inset(35% 0 45% 0); transform: translate(-2px, 0); opacity: 0.6; }
+                    80% { clip-path: inset(50% 0 25% 0); transform: translate(1px, 0); opacity: 0; }
+                    100% { clip-path: inset(15% 0 70% 0); transform: translate(-1px, 0); opacity: 0.7; }
+                }
+
+                /* Main Text with Neon Glow */
+                .mega888-main-text {
+                    position: relative;
+                    background: linear-gradient(135deg, #ff0040 0%, #ff4d88 25%, #ffffff 50%, #00d4ff 75%, #00ffff 100%);
+                    background-size: 200% 200%;
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    animation: gradientShift 3s ease-in-out infinite, subtleFloat 2s ease-in-out infinite;
+                    filter: drop-shadow(0 0 10px rgba(255, 0, 64, 0.5)) drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
+                }
+
+                @keyframes gradientShift {
+                    0%, 100% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                }
+
+                @keyframes subtleFloat {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-2px); }
+                }
+
+                /* Neon Pulse Overlay */
+                .mega888-neon-pulse {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 2rem;
+                    font-weight: 900;
+                    letter-spacing: 0.08em;
+                    color: transparent;
+                    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
+                    animation: neonPulse 1.5s ease-in-out infinite;
+                    pointer-events: none;
+                }
+
+                @keyframes neonPulse {
+                    0%, 100% { 
+                        opacity: 0.3;
+                        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+                        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+                    }
+                    50% { 
+                        opacity: 0.8;
+                        -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.9);
+                        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 15px rgba(0, 255, 255, 0.6));
+                    }
+                }
+
+                /* Electric Spark Particles */
+                .mega888-spark {
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background: #fff;
+                    border-radius: 50%;
+                    box-shadow: 0 0 6px #fff, 0 0 12px #00ffff, 0 0 18px #ff0040;
+                    animation: sparkFloat 1.5s ease-in-out infinite;
+                }
+
+                .mega888-spark-1 {
+                    top: 10%;
+                    left: 5%;
+                    animation-delay: 0s;
+                    animation-duration: 1.2s;
+                }
+
+                .mega888-spark-2 {
+                    top: 20%;
+                    right: 8%;
+                    animation-delay: 0.3s;
+                    animation-duration: 1.5s;
+                }
+
+                .mega888-spark-3 {
+                    bottom: 25%;
+                    left: 15%;
+                    animation-delay: 0.6s;
+                    animation-duration: 1.3s;
+                }
+
+                .mega888-spark-4 {
+                    bottom: 15%;
+                    right: 12%;
+                    animation-delay: 0.9s;
+                    animation-duration: 1.4s;
+                }
+
+                @keyframes sparkFloat {
+                    0%, 100% { 
+                        opacity: 0; 
+                        transform: scale(0) translateY(0); 
+                    }
+                    25% { 
+                        opacity: 1; 
+                        transform: scale(1.2) translateY(-5px); 
+                    }
+                    50% { 
+                        opacity: 1; 
+                        transform: scale(0.8) translateY(-12px); 
+                        box-shadow: 0 0 8px #fff, 0 0 16px #00ffff, 0 0 24px #ff0040;
+                    }
+                    75% { 
+                        opacity: 0.5; 
+                        transform: scale(0.4) translateY(-18px); 
+                    }
+                    100% { 
+                        opacity: 0; 
+                        transform: scale(0) translateY(-25px); 
+                    }
+                }
+
+                /* AI RTP SCANNER Subtitle */
+                .mega888-subtitle {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 2px;
+                    margin-top: 4px;
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 0.9rem;
+                    font-weight: 700;
+                    letter-spacing: 0.25em;
+                    color: rgba(255, 255, 255, 0.9);
+                    text-shadow: 0 0 10px rgba(255, 0, 64, 0.6), 0 0 20px rgba(0, 255, 255, 0.4);
+                }
+
+                .mega888-subtitle-text {
+                    animation: subtitleGlow 2s ease-in-out infinite;
+                }
+
+                @keyframes subtitleGlow {
+                    0%, 100% { 
+                        color: rgba(255, 255, 255, 0.85);
+                        text-shadow: 0 0 8px rgba(255, 0, 64, 0.5);
+                    }
+                    50% { 
+                        color: #ffffff;
+                        text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(255, 0, 64, 0.5);
+                    }
+                }
+
+                .mega888-subtitle-cursor {
+                    display: inline-block;
+                    color: #00ffff;
+                    animation: cursorBlink 0.8s steps(1) infinite;
+                    text-shadow: 0 0 8px rgba(0, 255, 255, 0.9);
+                }
+
+                @keyframes cursorBlink {
+                    0%, 50% { opacity: 1; }
+                    51%, 100% { opacity: 0; }
+                }
             `}</style>
         </>
     );
