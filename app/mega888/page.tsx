@@ -3,9 +3,9 @@ import Link from "next/link";
 import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
-  title: "Mega888 Malaysia 2026 | Login, Register, Download APK, RTP Live & Trusted Agent",
+  title: "Mega888 Malaysia 2026 | Login, Download, RTP Live & Trusted Agent",
   description:
-    "Panduan lengkap Mega888 Malaysia 2026 untuk login, register akaun, download APK Android/iOS, semak RTP live, pilih trusted agent, dan rujuk panduan withdraw cepat.",
+    "Halaman rujukan Mega888 Malaysia untuk login, daftar akaun, download APK Android atau iPhone, semak RTP live, dan baca panduan trusted agent dengan lebih tersusun.",
   keywords: [
     "mega888 malaysia 2026",
     "mega888 login",
@@ -20,10 +20,10 @@ export const metadata = {
   ],
   alternates: { canonical: "https://tipsmega888.com/mega888" },
   openGraph: {
-    title: "Mega888 Malaysia 2026: Hub Panduan Lengkap",
-    description: "Satu halaman hub untuk login, download, RTP live, trusted agent, dan strategi Mega888 di Malaysia.",
+    title: "Mega888 Malaysia 2026 | Hub Panduan Lengkap",
+    description: "Halaman hub Mega888 Malaysia untuk login, download, RTP live, trusted agent, dan panduan asas lain dalam satu tempat.",
     url: "https://tipsmega888.com/mega888",
-    siteName: "TipsMega AI Scanner",
+    siteName: "TipsMega888",
     locale: "ms_MY",
     type: "website",
     images: [
@@ -37,8 +37,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mega888 Malaysia 2026: Hub Panduan Lengkap",
-    description: "Satu halaman hub untuk login, download, RTP live, trusted agent, dan strategi Mega888 di Malaysia.",
+    title: "Mega888 Malaysia 2026 | Hub Panduan Lengkap",
+    description: "Halaman hub Mega888 Malaysia untuk login, download, RTP live, trusted agent, dan panduan asas lain dalam satu tempat.",
     images: ["https://tipsmega888.com/og-image.webp"],
   },
   robots: {
@@ -132,7 +132,7 @@ export default function Mega888HubPage() {
             name: "Mega888 Malaysia 2026 Hub",
             url: "https://tipsmega888.com/mega888",
             description:
-              "Hub utama Mega888 Malaysia untuk login, register, download, RTP live, withdraw, trusted agent, dan free credit.",
+              "Halaman hub Mega888 Malaysia untuk login, daftar, download, RTP live, trusted agent, dan rujukan panduan asas lain.",
             inLanguage: "ms-MY",
           }),
         }}
@@ -193,7 +193,7 @@ export default function Mega888HubPage() {
           <p style={{ color: "#94a3b8", lineHeight: 1.8, maxWidth: 860, margin: 0 }}>
             Kalau anda cari maklumat paling penting tentang <strong>Mega888 Malaysia</strong>, ini ialah halaman rujukan utama.
             Dalam satu tempat, anda boleh terus pergi ke panduan login, cara daftar akaun baru, download Android APK,
-            setup iPhone/iPad, semak RTP live, pilih trusted agent, dan faham proses withdraw dengan lebih tersusun.
+            setup iPhone atau iPad, semak RTP live, pilih trusted agent, dan faham aliran asas dengan lebih tersusun.
           </p>
         </header>
 
@@ -257,8 +257,8 @@ export default function Mega888HubPage() {
         <section style={{ marginBottom: "2rem" }}>
           <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 10 }}>📚 Artikel utama dalam cluster Mega888</h2>
           <p style={{ color: "#94a3b8", lineHeight: 1.8, marginTop: 0 }}>
-            Halaman ini disusun sebagai hub supaya pengguna dan enjin carian boleh faham struktur kandungan laman dengan lebih jelas.
-            Setiap artikel di bawah fokus pada intent yang berbeza — contohnya login, APK, RTP, trusted agent, dan withdraw.
+            Halaman ini disusun sebagai hub supaya pengguna boleh faham struktur kandungan laman dengan lebih mudah.
+            Setiap artikel di bawah fokus pada topik yang berbeza seperti login, APK, RTP, trusted agent, dan withdrawal.
           </p>
           <div style={{ display: "grid", gap: "0.8rem" }}>
             {HUB_LINKS.map((item, idx) => (
