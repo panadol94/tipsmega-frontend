@@ -602,29 +602,60 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                                 System // v2.0.26
                             </div>
                             
-                            {/* Premium animated MEGA888 logo */}
-                            <div className="mega888-logo-container" style={{ position: "relative", display: "inline-block", marginBottom: "2px" }}>
-                                {/* 3D depth shadow layers */}
-                                <div className="mega888-3d-layer mega888-shadow-1">MEGA888</div>
-                                <div className="mega888-3d-layer mega888-shadow-2">MEGA888</div>
-                                <div className="mega888-3d-layer mega888-shadow-3">MEGA888</div>
+                            {/* Cinematic Hollywood Style MEGA888 Logo */}
+                            <div className="mega888-cinematic-container" style={{ position: "relative", display: "inline-block", marginBottom: "2px" }}>
+                                {/* Letterbox bars - top */}
+                                <div className="mega888-letterbox mega888-letterbox-top" />
                                 
-                                {/* RGB Glitch layers */}
-                                <div className="mega888-glitch mega888-glitch-red" aria-hidden="true">MEGA888</div>
-                                <div className="mega888-glitch mega888-glitch-red" aria-hidden="true">MEGA888</div>
-                                <div className="mega888-glitch mega888-glitch-white" aria-hidden="true">MEGA888</div>
+                                {/* Film grain overlay */}
+                                <div className="mega888-film-grain" />
                                 
-                                {/* Main text */}
-                                <div className="mega888-main-text">MEGA888</div>
+                                {/* Cinematic spotlight sweep */}
+                                <div className="mega888-spotlight" />
                                 
-                                {/* Neon pulse overlay */}
-                                <div className="mega888-neon-pulse" aria-hidden="true">MEGA888</div>
+                                {/* Anamorphic lens flare */}
+                                <div className="mega888-lens-flare" />
                                 
-                                {/* Electric spark particles */}
-                                <div className="mega888-spark mega888-spark-1"></div>
-                                <div className="mega888-spark mega888-spark-2"></div>
-                                <div className="mega888-spark mega888-spark-3"></div>
-                                <div className="mega888-spark mega888-spark-4"></div>
+                                {/* 3D perspective tilt container */}
+                                <div className="mega888-perspective-container">
+                                    {/* 3D depth shadow layers */}
+                                    <div className="mega888-3d-layer mega888-shadow-1">MEGA888</div>
+                                    <div className="mega888-3d-layer mega888-shadow-2">MEGA888</div>
+                                    <div className="mega888-3d-layer mega888-shadow-3">MEGA888</div>
+                                    
+                                    {/* RGB Glitch layers */}
+                                    <div className="mega888-glitch mega888-glitch-red" aria-hidden="true">MEGA888</div>
+                                    <div className="mega888-glitch mega888-glitch-cyan" aria-hidden="true">MEGA888</div>
+                                    <div className="mega888-glitch mega888-glitch-white" aria-hidden="true">MEGA888</div>
+                                    
+                                    {/* Main text with letter-by-letter reveal */}
+                                    <div className="mega888-main-text mega888-letter-reveal">
+                                        <span className="mega888-letter">M</span>
+                                        <span className="mega888-letter">E</span>
+                                        <span className="mega888-letter">G</span>
+                                        <span className="mega888-letter">A</span>
+                                        <span className="mega888-letter mega888-letter-888">8</span>
+                                        <span className="mega888-letter mega888-letter-888">8</span>
+                                        <span className="mega888-letter mega888-letter-888">8</span>
+                                    </div>
+                                    
+                                    {/* Golden shimmer overlay */}
+                                    <div className="mega888-golden-shimmer" aria-hidden="true">
+                                        <span>M</span><span>E</span><span>G</span><span>A</span><span className="mega888-letter-888">8</span><span className="mega888-letter-888">8</span><span className="mega888-letter-888">8</span>
+                                    </div>
+                                    
+                                    {/* Neon pulse overlay */}
+                                    <div className="mega888-neon-pulse" aria-hidden="true">MEGA888</div>
+                                    
+                                    {/* Electric spark particles */}
+                                    <div className="mega888-spark mega888-spark-1"></div>
+                                    <div className="mega888-spark mega888-spark-2"></div>
+                                    <div className="mega888-spark mega888-spark-3"></div>
+                                    <div className="mega888-spark mega888-spark-4"></div>
+                                </div>
+                                
+                                {/* Letterbox bars - bottom */}
+                                <div className="mega888-letterbox mega888-letterbox-bottom" />
                             </div>
                             
                             {/* AI RTP SCANNER subtitle */}
@@ -1780,6 +1811,292 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                 @keyframes pulse-glow {
                     0%, 100% { filter: drop-shadow(0 0 5px currentColor); }
                     50% { filter: drop-shadow(0 0 15px currentColor); }
+                }
+
+                /* ================================================
+                   CINEMATIC HOLLYWOOD MEGA888 ANIMATIONS
+                   ================================================ */
+
+                /* Letter-by-letter reveal animation */
+                @keyframes letterReveal {
+                    0% {
+                        opacity: 0;
+                        transform: translateY(30px) scale(0.8);
+                        filter: blur(10px);
+                    }
+                    50% {
+                        opacity: 0.7;
+                        filter: blur(2px);
+                    }
+                    100% {
+                        opacity: 1;
+                        transform: translateY(0) scale(1);
+                        filter: blur(0);
+                    }
+                }
+
+                /* Golden shimmer/metallic reflection */
+                @keyframes goldenShimmer {
+                    0% {
+                        background-position: -200% center;
+                    }
+                    100% {
+                        background-position: 200% center;
+                    }
+                }
+
+                /* Cinematic spotlight sweep */
+                @keyframes spotlightSweep {
+                    0% {
+                        transform: translateX(-100%) skewX(-15deg);
+                        opacity: 0;
+                    }
+                    15% {
+                        opacity: 0.4;
+                    }
+                    50% {
+                        opacity: 0.25;
+                    }
+                    85% {
+                        opacity: 0.4;
+                    }
+                    100% {
+                        transform: translateX(200%) skewX(-15deg);
+                        opacity: 0;
+                    }
+                }
+
+                /* Film grain overlay animation */
+                @keyframes filmGrain {
+                    0%, 100% { transform: translate(0, 0); }
+                    10% { transform: translate(-2%, -2%); }
+                    20% { transform: translate(2%, 2%); }
+                    30% { transform: translate(-1%, 1%); }
+                    40% { transform: translate(1%, -1%); }
+                    50% { transform: translate(-2%, 2%); }
+                    60% { transform: translate(2%, -2%); }
+                    70% { transform: translate(-1%, -1%); }
+                    80% { transform: translate(1%, 1%); }
+                    90% { transform: translate(-2%, -2%); }
+                }
+
+                /* Anamorphic lens flare */
+                @keyframes lensFlare {
+                    0%, 100% {
+                        opacity: 0;
+                        transform: scale(0.5) translateX(-50%);
+                    }
+                    10% {
+                        opacity: 0.8;
+                        transform: scale(1) translateX(-50%);
+                    }
+                    30% {
+                        opacity: 0.4;
+                        transform: scale(0.8) translateX(-50%);
+                    }
+                    50% {
+                        opacity: 0.9;
+                        transform: scale(1.2) translateX(-50%);
+                    }
+                    70% {
+                        opacity: 0.3;
+                        transform: scale(0.7) translateX(-50%);
+                    }
+                    90% {
+                        opacity: 0.7;
+                        transform: scale(0.9) translateX(-50%);
+                    }
+                }
+
+                /* Letterbox bar animation */
+                @keyframes letterboxReveal {
+                    0% {
+                        transform: scaleY(0);
+                    }
+                    60% {
+                        transform: scaleY(0);
+                    }
+                    100% {
+                        transform: scaleY(1);
+                    }
+                }
+
+                /* 3D perspective container */
+                .mega888-perspective-container {
+                    transform: perspective(1000px) rotateX(5deg) rotateY(-2deg) rotateZ(0.5deg);
+                    transform-style: preserve-3d;
+                    animation: perspectiveFloat 6s ease-in-out infinite;
+                }
+
+                @keyframes perspectiveFloat {
+                    0%, 100% {
+                        transform: perspective(1000px) rotateX(5deg) rotateY(-2deg) rotateZ(0.5deg) translateZ(0);
+                    }
+                    50% {
+                        transform: perspective(1000px) rotateX(3deg) rotateY(2deg) rotateZ(-0.5deg) translateZ(10px);
+                    }
+                }
+
+                /* Cinematic container */
+                .mega888-cinematic-container {
+                    position: relative;
+                    display: inline-block;
+                    padding: 30px 20px;
+                    overflow: hidden;
+                }
+
+                /* Letterbox bars */
+                .mega888-letterbox {
+                    position: absolute;
+                    left: -10%;
+                    right: -10%;
+                    height: 12%;
+                    background: linear-gradient(to bottom, #000 50%, transparent 50%),
+                                linear-gradient(to top, #000 50%, transparent 50%);
+                    background-size: 100% 100%;
+                    transform-origin: center;
+                    animation: letterboxReveal 2s ease-out forwards;
+                    z-index: 10;
+                }
+
+                .mega888-letterbox-top {
+                    top: 0;
+                    background: linear-gradient(to bottom, rgba(0,0,0,0.95) 45%, transparent 55%);
+                }
+
+                .mega888-letterbox-bottom {
+                    bottom: 0;
+                    background: linear-gradient(to top, rgba(0,0,0,0.95) 45%, transparent 55%);
+                }
+
+                /* Film grain overlay using SVG noise */
+                .mega888-film-grain {
+                    position: absolute;
+                    top: -50%;
+                    left: -50%;
+                    width: 200%;
+                    height: 200%;
+                    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+                    opacity: 0.04;
+                    pointer-events: none;
+                    animation: filmGrain 0.5s steps(10) infinite;
+                    z-index: 5;
+                    mix-blend-mode: overlay;
+                }
+
+                /* Cinematic spotlight */
+                .mega888-spotlight {
+                    position: absolute;
+                    top: -20%;
+                    left: -50%;
+                    width: 200%;
+                    height: 150%;
+                    background: linear-gradient(
+                        90deg,
+                        transparent 0%,
+                        rgba(255, 215, 100, 0.08) 20%,
+                        rgba(255, 215, 100, 0.15) 40%,
+                        rgba(255, 255, 255, 0.12) 50%,
+                        rgba(255, 215, 100, 0.15) 60%,
+                        rgba(255, 215, 100, 0.08) 80%,
+                        transparent 100%
+                    );
+                    animation: spotlightSweep 4s ease-in-out infinite;
+                    z-index: 4;
+                    pointer-events: none;
+                }
+
+                /* Anamorphic lens flare - horizontal light streak */
+                .mega888-lens-flare {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 300%;
+                    height: 3px;
+                    background: linear-gradient(
+                        90deg,
+                        transparent 0%,
+                        transparent 20%,
+                        rgba(100, 180, 255, 0.4) 35%,
+                        rgba(255, 255, 255, 0.7) 45%,
+                        rgba(255, 255, 255, 0.9) 50%,
+                        rgba(255, 255, 255, 0.7) 55%,
+                        rgba(100, 180, 255, 0.4) 65%,
+                        transparent 80%,
+                        transparent 100%
+                    );
+                    transform: translateX(-50%) scaleY(8);
+                    animation: lensFlare 3s ease-in-out infinite;
+                    z-index: 3;
+                    pointer-events: none;
+                    filter: blur(1px);
+                }
+
+                /* Golden shimmer text */
+                .mega888-golden-shimmer {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: linear-gradient(
+                        110deg,
+                        transparent 20%,
+                        rgba(255, 215, 0, 0.4) 35%,
+                        rgba(255, 255, 200, 0.8) 45%,
+                        rgba(255, 215, 0, 0.6) 50%,
+                        rgba(255, 200, 100, 0.5) 60%,
+                        transparent 80%
+                    );
+                    background-size: 200% 100%;
+                    animation: goldenShimmer 3s ease-in-out infinite;
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                    font-family: inherit;
+                    font-weight: inherit;
+                    letter-spacing: inherit;
+                    font-size: inherit;
+                    line-height: inherit;
+                    z-index: 6;
+                    pointer-events: none;
+                    display: flex;
+                }
+
+                .mega888-golden-shimmer span {
+                    display: inline-block;
+                }
+
+                /* Letter reveal animation for each letter */
+                .mega888-letter-reveal .mega888-letter {
+                    display: inline-block;
+                    opacity: 0;
+                    animation: letterReveal 0.6s ease-out forwards;
+                }
+
+                .mega888-letter-reveal .mega888-letter:nth-child(1) { animation-delay: 0.1s; }
+                .mega888-letter-reveal .mega888-letter:nth-child(2) { animation-delay: 0.2s; }
+                .mega888-letter-reveal .mega888-letter:nth-child(3) { animation-delay: 0.3s; }
+                .mega888-letter-reveal .mega888-letter:nth-child(4) { animation-delay: 0.4s; }
+                .mega888-letter-reveal .mega888-letter:nth-child(5) { animation-delay: 0.55s; }
+                .mega888-letter-reveal .mega888-letter:nth-child(6) { animation-delay: 0.7s; }
+                .mega888-letter-reveal .mega888-letter:nth-child(7) { animation-delay: 0.85s; }
+
+                /* Special styling for 888 numbers */
+                .mega888-letter-888 {
+                    background: linear-gradient(
+                        180deg,
+                        #FFD700 0%,
+                        #FFA500 30%,
+                        #FF8C00 50%,
+                        #FF6347 70%,
+                        #FFD700 100%
+                    );
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent !important;
+                    text-shadow: none !important;
+                    filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6)) drop-shadow(0 0 16px rgba(255, 215, 0, 0.4));
                 }
             `}</style>
         </>
