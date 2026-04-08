@@ -781,13 +781,13 @@ export default function HomeClient() {
                             <div className="marquee-track" style={{ display: "flex", gap: "0.75rem", width: "max-content" }}>
                                 {/* First set of testimonials */}
                                 {[
-                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner这名堂真系Work! 头先scan紧个game先知系 high RTP", stars: 5, hue: 180 },
-                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu menang konsisten. Odds memang improves ✔️", stars: 5, hue: 220 },
-                                    { name: "Chuan L.", loc: "Penang", text: "Best part — totally free. Daily untuk check RTP sebelum main!", stars: 5, hue: 280 },
-                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni confirm bagitahu RTP yang accurate. Dah biasa everyday use", stars: 5, hue: 340 },
-                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih consistent", stars: 5, hue: 40 },
-                                    { name: "Raj K.", loc: "Sarawak", text: "Best tool untuk Mega888! Free dan semua orang harus try", stars: 5, hue: 120 },
-                                    { name: "Lisa T.", loc: "Melaka", text: "AI Scanner这名堂勆都用得着！scan完就知道边只game payout高", stars: 5, hue: 200 },
+                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner这名堂真系Work! 头先scan紧个game先知系 high RTP", stars: 5, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu menang konsisten. Odds memang improves ✔️", stars: 5, photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Chuan L.", loc: "Penang", text: "Best part — totally free. Daily untuk check RTP sebelum main!", stars: 5, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni confirm bagitahu RTP yang accurate. Dah biasa everyday use", stars: 5, photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih consistent", stars: 5, photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Raj K.", loc: "Sarawak", text: "Best tool untuk Mega888! Free dan semua orang harus try", stars: 5, photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Lisa T.", loc: "Melaka", text: "AI Scanner这名堂勆都用得着！scan完就知道边只game payout高", stars: 5, photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face" },
                                 ].map((t, i) => (
                                     <div key={`a-${i}`} style={{
                                         minWidth: 280, maxWidth: 280,
@@ -798,18 +798,19 @@ export default function HomeClient() {
                                         flexShrink: 0,
                                     }}>
                                         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
-                                            {/* Avatar circle */}
-                                            <div style={{
-                                                width: 32, height: 32, borderRadius: "50%",
-                                                background: `linear-gradient(135deg, hsl(${t.hue},70%,55%), hsl(${t.hue + 40},70%,45%))`,
-                                                border: "1px solid rgba(255,255,255,0.15)",
-                                                display: "flex", alignItems: "center", justifyContent: "center",
-                                                fontSize: "0.78rem", fontWeight: 800, color: "#fff",
-                                                flexShrink: 0,
-                                                boxShadow: `0 2px 8px hsla(${t.hue},70%,50%,0.3)`,
-                                            }}>
-                                                {t.name.charAt(0)}
-                                            </div>
+                                            {/* Avatar photo */}
+                                            <img
+                                                src={t.photo}
+                                                alt={t.name}
+                                                width={32}
+                                                height={32}
+                                                style={{
+                                                    width: 32, height: 32, borderRadius: "50%",
+                                                    border: "2px solid rgba(255,255,255,0.15)",
+                                                    objectFit: "cover",
+                                                    flexShrink: 0,
+                                                }}
+                                            />
                                             <div>
                                                 <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e2e8f0" }}>{t.name}</span>
                                                 <span style={{ fontSize: "0.72rem", color: "#475569", marginLeft: 6 }}>{t.loc}</span>
@@ -823,13 +824,13 @@ export default function HomeClient() {
                                 ))}
                                 {/* Duplicate set for seamless loop */}
                                 {[
-                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner这名堂真系Work! 头先scan紧个game先知系 high RTP", stars: 5, hue: 180 },
-                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu menang konsisten. Odds memang improves ✔️", stars: 5, hue: 220 },
-                                    { name: "Chuan L.", loc: "Penang", text: "Best part — totally free. Daily untuk check RTP sebelum main!", stars: 5, hue: 280 },
-                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni confirm bagitahu RTP yang accurate. Dah biasa everyday use", stars: 5, hue: 340 },
-                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih consistent", stars: 5, hue: 40 },
-                                    { name: "Raj K.", loc: "Sarawak", text: "Best tool untuk Mega888! Free dan semua orang harus try", stars: 5, hue: 120 },
-                                    { name: "Lisa T.", loc: "Melaka", text: "AI Scanner这名堂勆都用得着！scan完就知道边只game payout高", stars: 5, hue: 200 },
+                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner这名堂真系Work! 头先scan紧个game先知系 high RTP", stars: 5, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu menang konsisten. Odds memang improves ✔️", stars: 5, photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Chuan L.", loc: "Penang", text: "Best part — totally free. Daily untuk check RTP sebelum main!", stars: 5, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni confirm bagitahu RTP yang accurate. Dah biasa everyday use", stars: 5, photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih consistent", stars: 5, photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Raj K.", loc: "Sarawak", text: "Best tool untuk Mega888! Free dan semua orang harus try", stars: 5, photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Lisa T.", loc: "Melaka", text: "AI Scanner这名堂勆都用得着！scan完就知道边只game payout高", stars: 5, photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face" },
                                 ].map((t, i) => (
                                     <div key={`b-${i}`} style={{
                                         minWidth: 280, maxWidth: 280,
@@ -840,17 +841,18 @@ export default function HomeClient() {
                                         flexShrink: 0,
                                     }}>
                                         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
-                                            <div style={{
-                                                width: 32, height: 32, borderRadius: "50%",
-                                                background: `linear-gradient(135deg, hsl(${t.hue},70%,55%), hsl(${t.hue + 40},70%,45%))`,
-                                                border: "1px solid rgba(255,255,255,0.15)",
-                                                display: "flex", alignItems: "center", justifyContent: "center",
-                                                fontSize: "0.78rem", fontWeight: 800, color: "#fff",
-                                                flexShrink: 0,
-                                                boxShadow: `0 2px 8px hsla(${t.hue},70%,50%,0.3)`,
-                                            }}>
-                                                {t.name.charAt(0)}
-                                            </div>
+                                            <img
+                                                src={t.photo}
+                                                alt={t.name}
+                                                width={32}
+                                                height={32}
+                                                style={{
+                                                    width: 32, height: 32, borderRadius: "50%",
+                                                    border: "2px solid rgba(255,255,255,0.15)",
+                                                    objectFit: "cover",
+                                                    flexShrink: 0,
+                                                }}
+                                            />
                                             <div>
                                                 <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e2e8f0" }}>{t.name}</span>
                                                 <span style={{ fontSize: "0.72rem", color: "#475569", marginLeft: 6 }}>{t.loc}</span>
