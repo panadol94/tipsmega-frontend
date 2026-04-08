@@ -739,7 +739,7 @@ export default function HomeClient() {
                             <div className="text-xs text-white/50">Verified agents</div>
                         </Link>
                         <Link href="/help" className="card p-3 text-center border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/10 transition">
-                            <div className="text-xl mb-0.5">❓</div>
+                            <div className="text-xl mb-0.5 emoji-glow">❓</div>
                             <div className="text-sm font-bold text-white">Help</div>
                             <div className="text-xs text-white/50">Panduan & FAQ</div>
                         </Link>
@@ -1520,6 +1520,18 @@ export default function HomeClient() {
                 @keyframes iconGlow {
                   0%, 100% { box-shadow: 0 0 5px rgba(37,211,102,0.2); }
                   50% { box-shadow: 0 0 15px rgba(37,211,102,0.5), 0 0 25px rgba(37,211,102,0.3); }
+                }
+
+                /* Emoji Glow Animation */
+                .emoji-glow {
+                    filter: drop-shadow(0 0 8px currentColor);
+                    text-shadow: 0 0 10px currentColor;
+                    animation: pulse-glow 2s ease-in-out infinite;
+                }
+
+                @keyframes pulse-glow {
+                    0%, 100% { filter: drop-shadow(0 0 5px currentColor); }
+                    50% { filter: drop-shadow(0 0 15px currentColor); }
                 }
             `}</style>
         </>
