@@ -596,7 +596,7 @@ export default function HomeClient() {
                     
                     {/* Hero Text — terminal style with holographic scan */}
                     <div className="text-center tm-hero">
-                        <div className="terminal-border-red rounded-xl p-3 mb-2 bg-black/50 inline-block relative overflow-hidden">
+                        <div className="terminal-border-red rounded-xl p-3 mb-2 bg-[#0a0f1a]/80 inline-block relative overflow-hidden">
                             <div className="text-[10px] font-mono text-red-400/70 tracking-widest uppercase mb-2">
                                 System // v2.0.26
                             </div>
@@ -654,7 +654,7 @@ export default function HomeClient() {
                     </div>
 
                     {/* Scanner Card - Terminal Style */}
-                    <section className="card relative overflow-hidden p-4 tm-scan tm-scan-pulse terminal-border-red bg-black/60 rounded-2xl">
+                    <section className="card relative overflow-hidden p-4 tm-scan tm-scan-pulse terminal-border-red bg-[#0d1321]/90 rounded-2xl">
                         {/* Terminal header bar */}
                         <div className="flex items-center gap-2 mb-3 pb-2 border-b border-red-500/20">
                             <div className="flex gap-1.5">
@@ -687,7 +687,7 @@ export default function HomeClient() {
                         </div>
 
                         {/* Input - Terminal Style */}
-                        <div className="rounded-xl border border-red-600/30 bg-black/50 p-3 mb-3">
+                        <div className="rounded-xl border border-red-600/30 bg-[#0a0f1a]/70 p-3 mb-3">
                             <input
                                 className={`tm-scan-item terminal-input ${inputError ? 'shake-error' : ''}`}
                                 value={megaId}

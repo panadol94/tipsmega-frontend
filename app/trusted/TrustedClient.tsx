@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 
 type Company = {
@@ -18,6 +18,228 @@ const API_URL = `${API_BASE}/api/companies`;
 const WHATSAPP_NUMBER = "60108691034";
 const WHATSAPP_TEXT = "Hi admin, saya nak minta link register untuk platform ini: ";
 
+// ================================
+// PREMIUM ANIMATED COUNTER
+// ================================
+function AnimatedCounter({ target, duration = 2000 }: { target: number; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const frameRef = useRef<number>(0);
+
+  useEffect(() => {
+    const start = performance.now();
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) {
+        frameRef.current = requestAnimationFrame(tick);
+      }
+    };
+    frameRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameRef.current);
+  }, [target, duration]);
+
+  return <>{count.toLocaleString()}</>;
+}
+
+// ================================
+// PREMIUM TRUST METER BAR
+// ================================
+function TrustMeterBar({ label, value, delay = 0 }: { label: string; value: number; delay?: number }) {
+  const [filled, setFilled] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setFilled(true), delay);
+    return () => clearTimeout(t);
+  }, [delay]);
+
+  const gradientColors = [
+    "rgba(255,77,77,0.9)",
+    "rgba(255,102,102,0.95)",
+    "rgba(255,51,51,1)",
+    "rgba(220,38,38,1)",
+  ];
+
+  return (
+    <div className="trust-meter-item">
+      <div className="trust-meter-header">
+        <span className="trust-meter-label">{label}</span>
+        <span className="trust-meter-value">{value}%</span>
+      </div>
+      <div className="trust-meter-track">
+        <div
+          className="trust-meter-fill"
+          style={{
+            width: filled ? `${value}%` : "0%",
+            transitionDelay: `${delay}ms`,
+            background: `linear-gradient(90deg, ${gradientColors.join(", ")})`,
+          }}
+        >
+          <div className="trust-meter-shine" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ================================
+// PREMIUM PLAY NOW BUTTON
+// ================================
+function PlayNowButton({ hasLink, url, waHref, onClick }: {
+  hasLink: boolean;
+  url: string;
+  waHref: string;
+  onClick: (url: string) => void;
+}) {
+  return (
+    <button
+      onClick={() => onClick(hasLink ? url : waHref)}
+      className="play-now-btn"
+    >
+      <span className="play-now-glow" />
+      <span className="play-now-content">
+        <span className="play-now-icon">⚡</span>
+        <span className="play-now-text">PLAY NOW</span>
+      </span>
+    </button>
+  );
+}
+
+// ================================
+// PREMIUM VERIFIED SEAL
+// ================================
+function VerifiedSeal() {
+  return (
+    <div className="verified-seal-container">
+      <div className="verified-seal">
+        <div className="verified-seal-inner">
+          <svg viewBox="0 0 24 24" fill="none" className="verified-seal-icon">
+            <path d="M9 12L11 14L15 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="1.5"/>
+          </svg>
+        </div>
+        <div className="verified-seal-scan" />
+      </div>
+      <span className="verified-seal-label">VERIFIED</span>
+    </div>
+  );
+}
+
+// ================================
+// SOCIAL PROOF NOTIFICATION
+// ================================
+type SocialProofItem = {
+  id: number;
+  name: string;
+  amount: string;
+  game: string;
+  time: string;
+};
+
+const SOCIAL_PROOF_POOL: Omit<SocialProofItem, "id">[] = [
+  { name: "Ahmad R.", amount: "RM 2,340", game: "Fortune Dragon", time: " baru sekarang" },
+  { name: "Syazwana M.", amount: "RM 8,920", game: "Ocean Princess", time: " baru sekarang" },
+  { name: "Chen W.L.", amount: "RM 1,500", game: "Gates of Olympus", time: " baru sekarang" },
+  { name: "Nurul H.", amount: "RM 4,200", game: "Sweet Bonanza", time: " baru sekarang" },
+  { name: "Rajesh K.", amount: "RM 3,750", game: "Wild West Gold", time: " baru sekarang" },
+  { name: "Siti A.", amount: "RM 6,100", game: "Aztec Gems", time: " baru sekarang" },
+  { name: "Tan K.M.", amount: "RM 1,280", game: "Fire Joker", time: " baru sekarang" },
+  { name: "Farah D.", amount: "RM 9,400", game: "Great Rhino", time: " baru sekarang" },
+];
+
+function SocialProofToast() {
+  const [visible, setVisible] = useState(false);
+  const [current, setCurrent] = useState<SocialProofItem | null>(null);
+  const queueRef = useRef<SocialProofItem[]>([]);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
+
+  const showNext = () => {
+    if (queueRef.current.length === 0) {
+      setVisible(false);
+      return;
+    }
+    const next = queueRef.current.shift()!;
+    setCurrent(next);
+    setVisible(true);
+    timeoutRef.current = setTimeout(() => {
+      setVisible(false);
+      setTimeout(showNext, 800);
+    }, 4000);
+  };
+
+  useEffect(() => {
+    queueRef.current = SOCIAL_PROOF_POOL.map((item, i) => ({ ...item, id: i }));
+    // Shuffle
+    for (let i = queueRef.current.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [queueRef.current[i], queueRef.current[j]] = [queueRef.current[j], queueRef.current[i]];
+    }
+    const initialDelay = setTimeout(showNext, 2000);
+    return () => clearTimeout(initialDelay);
+  }, []);
+
+  if (!current) return null;
+
+  return (
+    <div className={`social-proof-toast ${visible ? "social-proof-visible" : "social-proof-hidden"}`}>
+      <div className="social-proof-icon">🎉</div>
+      <div className="social-proof-content">
+        <div className="social-proof-name">{current.name}</div>
+        <div className="social-proof-text">Win <span className="social-proof-amount">{current.amount}</span></div>
+        <div className="social-proof-game">{current.game}{current.time}</div>
+      </div>
+    </div>
+  );
+}
+
+// ================================
+// PREMIUM HEADER SECTION
+// ================================
+function PremiumTrustHeader({ totalCompanies }: { totalCompanies: number }) {
+  return (
+    <div className="premium-trust-header">
+      <div className="premium-header-bg" />
+      
+      <div className="premium-stats-row">
+        <div className="premium-stat-card">
+          <div className="premium-stat-value">
+            <AnimatedCounter target={totalCompanies} duration={1500} />
+          </div>
+          <div className="premium-stat-label">Trusted Platforms</div>
+        </div>
+        <div className="premium-stat-card">
+          <div className="premium-stat-value winner-counter">
+            <AnimatedCounter target={12847} duration={2500} />
+            <span className="winner-suffix">+</span>
+          </div>
+          <div className="premium-stat-label">Winners This Month</div>
+        </div>
+        <div className="premium-stat-card">
+          <div className="premium-stat-value">
+            <AnimatedCounter target={99} duration={1200} />
+            <span className="winner-suffix">%</span>
+          </div>
+          <div className="premium-stat-label">Trust Score</div>
+        </div>
+      </div>
+
+      <div className="trust-meters-section">
+        <TrustMeterBar label="Platform Verification" value={97} delay={200} />
+        <TrustMeterBar label="Withdrawal Speed" value={94} delay={400} />
+        <TrustMeterBar label="Customer Support" value={96} delay={600} />
+        <TrustMeterBar label="User Satisfaction" value={98} delay={800} />
+      </div>
+
+      <VerifiedSeal />
+    </div>
+  );
+}
+
+// ================================
+// MAIN TRUSTED CLIENT
+// ================================
 function normalizeUrl(url?: string) {
   if (!url) return "";
   const t = url.trim();
@@ -70,38 +292,39 @@ export default function TrustedClient() {
   };
 
   return (
-    <section className="mt-8">
+    <section className="premium-trust-section">
+      <SocialProofToast />
+
       {err && (
-        <div className="card p-6 border-red-500/20 bg-red-500/5 mb-6 text-center animate-in fade-in zoom-in">
-          <div className="text-2xl mb-2 emoji-glow-red">⚠️</div>
-          <p className="text-red-400 text-xs font-bold uppercase tracking-widest mb-4">Connection Failed</p>
-          <button
-            onClick={fetchCompanies}
-            className="bg-red-500/20 border border-red-500/50 text-red-200 px-6 py-2 rounded-full text-xs font-bold hover:bg-red-500/40 transition-all active:scale-95"
-          >
-            RETRY CONNECTION
+        <div className="premium-error-card">
+          <div className="premium-error-icon">⚠️</div>
+          <p className="premium-error-text">Connection Failed</p>
+          <button onClick={fetchCompanies} className="premium-retry-btn">
+            RETRY
           </button>
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      <PremiumTrustHeader totalCompanies={list.length} />
+
+      <div className="premium-company-grid">
         {loading ? (
           Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="skeleton-premium rounded-xl h-[160px]" />
+            <div key={i} className="skeleton-premium premium-skeleton-card" />
           ))
         ) : list.length === 0 && !err ? (
-          <div className="col-span-3 text-center py-20 opacity-40">
-            <div className="text-4xl mb-4 grayscale">📭</div>
-            <p className="text-[10px] font-bold tracking-widest uppercase">No Partners Listed</p>
+          <div className="premium-empty-state">
+            <div className="premium-empty-icon">📭</div>
+            <p className="premium-empty-text">No Partners Listed</p>
           </div>
         ) : (
           list.map((c, idx) => {
             const url = normalizeUrl(c.link);
             const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`${WHATSAPP_TEXT}${c.name}`)}`;
-            const badges: Array<{ icon: string; text: string; color: string }> = [];
-            if (idx === 0) badges.push({ icon: "🔥", text: "TRENDING", color: "bg-red-500/90" });
-            else if (idx === 1) badges.push({ icon: "⚡", text: "FAST", color: "bg-red-500/90" });
-            else if (c.caption) badges.push({ icon: "🎁", text: "BONUS", color: "bg-purple-500/90" });
+            const badges: Array<{ icon: string; text: string; className: string }> = [];
+            if (idx === 0) badges.push({ icon: "🔥", text: "TOP RATED", className: "premium-badge-trending" });
+            else if (idx === 1) badges.push({ icon: "⚡", text: "FAST WITHDRAW", className: "premium-badge-fast" });
+            else if (c.caption) badges.push({ icon: "🎁", text: "EXCLUSIVE BONUS", className: "premium-badge-bonus" });
 
             const rating = idx === 0 ? 5.0 : 4.5 + ((idx % 4) * 0.1);
             const stars = Math.round(rating);
@@ -109,115 +332,77 @@ export default function TrustedClient() {
             return (
               <article
                 key={c.id || idx}
-                className="group relative bg-[#151c27] border border-white/10 rounded-xl shadow-lg transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,217,255,0.16)] hover:-translate-y-1 active:scale-95"
+                className="premium-company-card"
               >
                 {badges.length > 0 && (
-                  <div className="absolute top-2 left-2 z-20 flex flex-wrap gap-1 max-w-[80%]">
+                  <div className="premium-badge-row">
                     {badges.map((badge, i) => (
-                      <span
-                        key={i}
-                        className={`${badge.color} text-white text-[7px] font-black px-1.5 py-0.5 rounded-full shadow-lg backdrop-blur-sm whitespace-nowrap`}
-                      >
+                      <span key={i} className={`premium-badge ${badge.className}`}>
                         {badge.icon} {badge.text}
                       </span>
                     ))}
                   </div>
                 )}
 
-                <div className="h-44 w-full bg-black relative overflow-hidden">
+                <div className="premium-media-container">
                   {c.storageUrl ? (
                     (() => {
                       const isVideo =
                         c.mediaType?.toLowerCase() === "video" ||
                         c.storageUrl.match(/\.(mp4|webm|mov|avi|mkv|m4v|flv)$/i);
-
                       const mediaUrl = c.storageUrl.startsWith("http")
                         ? c.storageUrl
-                        : `${API_BASE.replace(/\/$/, "")}${c.storageUrl.startsWith("/") ? "" : "/"}${c.storageUrl}`;
+                        : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.startsWith("/") ? c.storageUrl.slice(1) : c.storageUrl}`;
 
                       return isVideo ? (
                         <video
-                          data-src={mediaUrl}
-                          ref={(el) => {
-                            if (!el) return;
-                            const observer = new IntersectionObserver(
-                              (entries) => {
-                                const nextSrc = el.dataset.src;
-                                if (entries[0]?.isIntersecting && nextSrc) {
-                                  el.src = nextSrc;
-                                  observer.disconnect();
-                                }
-                              },
-                              { threshold: 0.1 }
-                            );
-                            observer.observe(el);
-                          }}
-                          title={`${c.name} - Trusted Mega888 Platform Video | Verified Agent ${new Date().getFullYear()}`}
-                          aria-label={`${c.name} promotional video - Verified Mega888 gaming platform`}
+                          src={mediaUrl}
+                          title={`${c.name} - Mega888 Platform`}
                           preload="metadata"
-                          className="w-full h-full object-cover object-center transition-opacity hover:opacity-90"
+                          className="premium-media"
                         />
                       ) : (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={mediaUrl}
-                          alt={`${c.name} - Trusted Mega888 Agent Logo | Verified Platform ${new Date().getFullYear()}`}
-                          loading="lazy"
-                          className="w-full h-full object-cover object-center transition-opacity"
-                        />
+                        <img src={mediaUrl} alt={c.name} loading="lazy" className="premium-media" />
                       );
                     })()
                   ) : (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src="/mega888.webp"
-                      alt="Mega888 Default Logo | Verified Gaming Platform"
-                      loading="lazy"
-                      className="w-full h-full object-cover opacity-50"
-                    />
+                    <img src="/mega888.webp" alt="Mega888" loading="lazy" className="premium-media" />
                   )}
+                  <div className="premium-media-overlay" />
                 </div>
 
-                <div className="p-3 flex flex-col items-center text-center">
-                  <div className="w-full space-y-2">
-                    <h2 className="text-[14px] font-black italic text-white uppercase tracking-wide truncate w-full">
-                      {c.name}
-                    </h2>
+                <div className="premium-card-body">
+                  <div className="premium-verified-row">
+                    <VerifiedSeal />
+                  </div>
+                  
+                  <h2 className="premium-company-name">{c.name}</h2>
 
-                    <div className="flex items-center justify-center gap-1">
-                      <div className="flex">
-                        {[...Array(5)].map((_, i) => (
-                          <span key={i} className={`text-[10px] ${i < stars ? "text-red-400 emoji-glow-gold" : "text-white/20"}`}>
-                            ⭐
-                          </span>
-                        ))}
-                      </div>
-                      <span className="text-white/50 text-[10px] font-mono">({rating.toFixed(1)})</span>
+                  <div className="premium-rating-row">
+                    <div className="premium-stars">
+                      {[...Array(5)].map((_, i) => (
+                        <span key={i} className={`premium-star ${i < stars ? "premium-star-filled" : "premium-star-empty"}`}>⭐</span>
+                      ))}
                     </div>
+                    <span className="premium-rating-value">({rating.toFixed(1)})</span>
+                  </div>
 
-                    {c.caption && (
-                      <div className="min-h-[28px] flex items-center justify-center">
-                        <p className="text-[12px] font-bold text-red-400 leading-tight px-1"><span className="emoji-glow-gold">🎁</span> {c.caption}</p>
-                      </div>
+                  {c.caption && (
+                    <div className="premium-caption">
+                      <span>🎁</span> {c.caption}
+                    </div>
+                  )}
+
+                  <div className="premium-btn-container">
+                    {url ? (
+                      <PlayNowButton hasLink={true} url={url} waHref={waHref} onClick={handleAction} />
+                    ) : (
+                      <button onClick={() => handleAction(waHref)} className="premium-get-link-btn">
+                        <span>📱</span> GET LINK
+                      </button>
                     )}
-
-                    <div className="w-full">
-                      {url ? (
-                        <button
-                          onClick={() => handleAction(url)}
-                          className="w-full bg-gradient-to-r from-red-600 to-red-600 border border-white/10 text-white font-bold text-[12px] uppercase py-2 rounded-xl shadow-md hover:scale-105 hover:shadow-red-500/40 active:scale-95 transition-all duration-200"
-                        >
-                          <span className="emoji-glow-static">🚀</span> PLAY NOW
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => handleAction(waHref)}
-                          className="w-full bg-white/5 border border-white/10 text-white/70 font-bold text-[12px] uppercase py-2 rounded-xl active:scale-95"
-                        >
-                          <span className="emoji-glow-green">📱</span> GET LINK
-                        </button>
-                      )}
-                    </div>
                   </div>
                 </div>
               </article>
