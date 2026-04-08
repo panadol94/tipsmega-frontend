@@ -527,13 +527,44 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                 }}
             >
                 <Link href="/" className="flex items-center gap-2.5 group">
+                    {/* Premium Crown Icon - only show when logged in */}
+                    {isLoggedIn && userName && (
+                        <div 
+                            className="w-8 h-8 rounded-lg flex items-center justify-center"
+                            style={{
+                                background: "linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6B35 100%)",
+                                boxShadow: "0 2px 8px rgba(255, 215, 0, 0.4)",
+                            }}
+                        >
+                            <svg 
+                                width="18" 
+                                height="18" 
+                                viewBox="0 0 24 24" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                strokeWidth="2" 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round"
+                                className="text-white"
+                            >
+                                <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/>
+                            </svg>
+                        </div>
+                    )}
                     <div className="flex flex-col leading-none">
                         <span className="font-black text-white text-[13px] tracking-wide">
                             {isLoggedIn && userName ? userName : "MEGA888"}
                         </span>
                         {isLoggedIn && userName && (
-                            <span className="text-[9px] text-red-400 font-semibold tracking-wider uppercase mt-0.5">
-                                Premium
+                            <span className="text-[9px] font-bold tracking-wider uppercase mt-0.5"
+                                style={{
+                                    background: "linear-gradient(90deg, #FFD700, #FFA500)",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    backgroundClip: "text",
+                                }}
+                            >
+                                PREMIUM
                             </span>
                         )}
                     </div>
