@@ -73,7 +73,7 @@ async function apiScan(deviceId: string, megaId: string) {
     return json as ScanRes;
 }
 
-export default function HomeClient() {
+export default function HomeClient({ children }: { children?: React.ReactNode }) {
     const [deviceId, setDeviceId] = useState<string>("");
     const [stars, setStars] = useState<number>(0);
 

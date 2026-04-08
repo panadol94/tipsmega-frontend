@@ -204,7 +204,8 @@ export default function Page() {
         }}
       />
 
-      <HomeClient>
+      <>
+        <HomeClient />
         <section
           aria-label="Social proof"
           className="card p-4 border-red-500/20 bg-gradient-to-br from-red-950/30 to-slate-950/80"
@@ -302,7 +303,7 @@ export default function Page() {
             ))}
           </div>
         </section>
-      </HomeClient>
+      </>
 
       {/* ── INTERNAL LINK CARDS: compact above-the-fold design ── */}
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 0.75rem 0.75rem" }}>
