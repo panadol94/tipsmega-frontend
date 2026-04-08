@@ -1367,6 +1367,170 @@ export default function HomeClient() {
                     0%, 50% { opacity: 1; }
                     51%, 100% { opacity: 0; }
                 }
+
+                /* Tech VIP Section Animations */
+                .tech-vip-section {
+                  position: relative;
+                }
+
+                .tech-grid-bg {
+                  position: absolute;
+                  inset: 0;
+                  background-image:
+                    linear-gradient(rgba(37,211,102,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(37,211,102,0.03) 1px, transparent 1px);
+                  background-size: 20px 20px;
+                  pointer-events: none;
+                  z-index: 0;
+                }
+
+                .circuit-corner {
+                  position: absolute;
+                  width: 20px;
+                  height: 20px;
+                  pointer-events: none;
+                  z-index: 1;
+                }
+                .circuit-tl {
+                  top: 6px;
+                  left: 6px;
+                  border-top: 2px solid rgba(37,211,102,0.5);
+                  border-left: 2px solid rgba(37,211,102,0.5);
+                  animation: circuitPulse 2s ease-in-out infinite;
+                }
+                .circuit-br {
+                  bottom: 6px;
+                  right: 6px;
+                  border-bottom: 2px solid rgba(37,211,102,0.5);
+                  border-right: 2px solid rgba(37,211,102,0.5);
+                  animation: circuitPulse 2s ease-in-out infinite 1s;
+                }
+
+                @keyframes circuitPulse {
+                  0%, 100% { opacity: 0.4; }
+                  50% { opacity: 1; box-shadow: 0 0 8px rgba(37,211,102,0.5); }
+                }
+
+                .electric-border-glow {
+                  position: absolute;
+                  inset: 0;
+                  border-radius: inherit;
+                  pointer-events: none;
+                  z-index: 0;
+                  animation: electricPulse 3s ease-in-out infinite;
+                }
+
+                @keyframes electricPulse {
+                  0%, 100% {
+                    box-shadow: inset 0 0 10px rgba(37,211,102,0.1), 0 0 5px rgba(37,211,102,0.1);
+                  }
+                  50% {
+                    box-shadow: inset 0 0 20px rgba(37,211,102,0.25), 0 0 15px rgba(37,211,102,0.3);
+                  }
+                }
+
+                .tech-scan-line {
+                  position: absolute;
+                  left: -100%;
+                  top: 0;
+                  width: 60%;
+                  height: 100%;
+                  background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(37,211,102,0.08) 30%,
+                    rgba(37,211,102,0.2) 50%,
+                    rgba(37,211,102,0.08) 70%,
+                    transparent 100%
+                  );
+                  pointer-events: none;
+                  z-index: 2;
+                  animation: techScan 4s ease-in-out infinite;
+                }
+
+                @keyframes techScan {
+                  0% { left: -100%; opacity: 0; }
+                  10% { opacity: 1; }
+                  90% { opacity: 1; }
+                  100% { left: 200%; opacity: 0; }
+                }
+
+                .spark {
+                  position: absolute;
+                  width: 3px;
+                  height: 3px;
+                  border-radius: 50%;
+                  background: #25D366;
+                  pointer-events: none;
+                  z-index: 3;
+                  animation: sparkFloat 3s ease-in-out infinite;
+                }
+                .spark-1 {
+                  top: 20%;
+                  left: 15%;
+                  animation-delay: 0s;
+                  box-shadow: 0 0 6px rgba(37,211,102,0.8), 0 0 12px rgba(37,211,102,0.4);
+                }
+                .spark-2 {
+                  top: 60%;
+                  right: 20%;
+                  animation-delay: 1s;
+                  box-shadow: 0 0 6px rgba(37,211,102,0.8), 0 0 12px rgba(37,211,102,0.4);
+                }
+                .spark-3 {
+                  bottom: 25%;
+                  left: 40%;
+                  animation-delay: 2s;
+                  box-shadow: 0 0 6px rgba(37,211,102,0.8), 0 0 12px rgba(37,211,102,0.4);
+                }
+
+                @keyframes sparkFloat {
+                  0%, 100% { transform: translateY(0) scale(1); opacity: 0; }
+                  10% { opacity: 1; }
+                  50% { transform: translateY(-8px) scale(1.5); opacity: 1; }
+                  90% { opacity: 1; }
+                }
+
+                .vip-badge-pulse {
+                  position: absolute;
+                  top: 10px;
+                  right: 12px;
+                  z-index: 10;
+                  animation: badgePulse 2s ease-in-out infinite;
+                }
+
+                @keyframes badgePulse {
+                  0%, 100% { transform: scale(1); }
+                  50% { transform: scale(1.08); }
+                }
+
+                .tech-text-glow {
+                  text-shadow: 0 0 10px rgba(37,211,102,0.5), 0 0 20px rgba(37,211,102,0.3);
+                  animation: textGlow 3s ease-in-out infinite;
+                }
+
+                @keyframes textGlow {
+                  0%, 100% { text-shadow: 0 0 10px rgba(37,211,102,0.4), 0 0 20px rgba(37,211,102,0.2); }
+                  50% { text-shadow: 0 0 15px rgba(37,211,102,0.7), 0 0 30px rgba(37,211,102,0.4); }
+                }
+
+                .tech-btn-glow {
+                  box-shadow: 0 0 10px rgba(37,211,102,0.3);
+                  animation: btnGlow 2s ease-in-out infinite;
+                }
+
+                @keyframes btnGlow {
+                  0%, 100% { box-shadow: 0 0 8px rgba(37,211,102,0.3); }
+                  50% { box-shadow: 0 0 18px rgba(37,211,102,0.6), 0 0 30px rgba(37,211,102,0.3); }
+                }
+
+                .electric-icon-glow {
+                  animation: iconGlow 2.5s ease-in-out infinite;
+                }
+
+                @keyframes iconGlow {
+                  0%, 100% { box-shadow: 0 0 5px rgba(37,211,102,0.2); }
+                  50% { box-shadow: 0 0 15px rgba(37,211,102,0.5), 0 0 25px rgba(37,211,102,0.3); }
+                }
             `}</style>
         </>
     );
