@@ -2,15 +2,15 @@
 import HomeClient from "./HomeClient";
 
 export const metadata = {
-  title: "Mega888 AI RTP Scanner Malaysia 2026 — Scan RTP Live Percuma | TipsMega888",
+  title: "Mega888 AI RTP Scanner Malaysia 2026 | TipsMega888",
   description:
-    "Guna AI RTP Scanner Mega888 Malaysia untuk check RTP live, pola game, dan pilih game terbaik sebelum spin. Percuma untuk semua pemain Malaysia 2026.",
+    "Semak RTP Mega888 secara live, baca panduan scanner, dan rujuk halaman utama Mega888 Malaysia dalam satu tempat. TipsMega888 menghimpunkan scanner, panduan, dan halaman rujukan penting.",
   openGraph: {
-    title: "Mega888 AI RTP Scanner Malaysia 2026 — Scan RTP Live Percuma",
+    title: "Mega888 AI RTP Scanner Malaysia 2026 | TipsMega888",
     description:
-      "Platform AI Scanner untuk check RTP Mega888 Malaysia secara live, rujuk pola game, trusted company, dan game list.",
+      "Platform rujukan Mega888 Malaysia dengan AI scanner, panduan penggunaan, dan halaman trusted untuk rujukan lanjut.",
     url: "https://tipsmega888.com",
-    siteName: "TipsMega888 AI",
+    siteName: "TipsMega888",
     locale: "ms_MY",
     type: "website",
     images: [
@@ -18,15 +18,16 @@ export const metadata = {
         url: "https://tipsmega888.com/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "Mega888 AI RTP Scanner Malaysia 2026 — Scan RTP Live Percuma",
+        alt: "TipsMega888 AI RTP Scanner Malaysia",
       },
     ],
   },
   twitter: {
     card: "summary_large_image" as const,
-    title: "Mega888 AI RTP Scanner Malaysia 2026 — Scan RTP Live Percuma",
+    title: "Mega888 AI RTP Scanner Malaysia 2026 | TipsMega888",
     description:
-      "AI RTP Scanner Mega888 Malaysia — check RTP live, pola game, dan pilih game terbaik sebelum spin. Percuma!",
+      "Semak RTP secara live, baca panduan, dan rujuk halaman utama Mega888 Malaysia.",
+    images: ["https://tipsmega888.com/og-image.webp"],
   },
   alternates: {
     canonical: "https://tipsmega888.com",
@@ -45,7 +46,7 @@ export default function Page() {
             "@type": "WebSite",
             name: "TipsMega888",
             url: "https://tipsmega888.com",
-            description: "Platform AI Scanner untuk semakan RTP live dan panduan utama Mega888 Malaysia.",
+            description: "Platform rujukan Mega888 Malaysia dengan scanner, panduan penggunaan, dan halaman utama untuk topik berkaitan RTP, download, serta trusted agent.",
             inLanguage: "ms-MY",
             potentialAction: {
               "@type": "SearchAction",
@@ -80,7 +81,7 @@ export default function Page() {
             name: "TipsMega888",
             url: "https://tipsmega888.com",
             logo: "https://tipsmega888.com/og-image.webp",
-            description: "Platform rujukan Mega888 Malaysia dengan AI Scanner, panduan, dan halaman trusted agent.",
+            description: "Platform rujukan Mega888 Malaysia dengan scanner, panduan, dan halaman trusted untuk rujukan tambahan.",
             sameAs: [
               "https://tipsmega888.com/mega888",
               "https://tipsmega888.com/blog",
@@ -102,13 +103,7 @@ export default function Page() {
             applicationCategory: "UtilitiesApplication",
             operatingSystem: "Web",
             offers: { "@type": "Offer", price: "0", priceCurrency: "MYR" },
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: "4.9",
-              ratingCount: "1280",
-              bestRating: "5",
-            },
-            description: "AI-powered RTP scanner untuk Mega888 Malaysia. Semak RTP live percuma.",
+            description: "Alat rujukan berasaskan web untuk semakan RTP live dan panduan penggunaan di TipsMega888.",
           }),
         }}
       />

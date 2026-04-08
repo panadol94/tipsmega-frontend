@@ -3,26 +3,24 @@ import TrustedClient from "./TrustedClient";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Agent Mega888 Original & Trusted Company Malaysia 2026 | Senarai Verified",
+  title: "Trusted Company Mega888 Malaysia 2026 | TipsMega888",
   description:
-    "Mencari agent Mega888 trusted? Semak senarai trusted company Mega888 Malaysia yang verified, lebih selamat untuk login, deposit, withdraw, dan elak scammer atau kiosk palsu.",
+    "Rujuk senarai trusted company Mega888 di TipsMega888, bersama penerangan ringkas tentang cara semakan dibuat dan perkara yang patut diperhatikan sebelum memilih platform.",
   keywords: [
-    "agent mega888",
-    "trusted company mega888 2026",
-    "senarai agent original mega888",
-    "kiosk mega888 trusted",
-    "company boleh cuci mega888",
-    "link mega888 ori",
-    "Mega888 Original",
-    "Company Bayar Penuh",
+    "trusted company mega888",
+    "agent mega888 malaysia",
+    "senarai trusted mega888",
+    "platform mega888 malaysia",
+    "cara pilih agent mega888",
+    "tipsmega888 trusted",
   ],
   alternates: {
     canonical: "https://tipsmega888.com/trusted",
   },
   openGraph: {
-    title: "Senarai Agent Mega888 Original & Trusted Company 2026",
+    title: "Trusted Company Mega888 Malaysia 2026 | TipsMega888",
     description:
-      "Mencari agent Mega888 trusted? Senarai rasmi top company Mega888 di Malaysia 2026. 100% no scammer, auto-cuci pantas, dan kiosk original.",
+      "Senarai trusted company Mega888 di TipsMega888 dengan penerangan ringkas tentang kriteria semakan dan panduan memilih platform.",
     url: "https://tipsmega888.com/trusted",
     siteName: "TipsMega AI Scanner",
     locale: "ms_MY",
@@ -38,8 +36,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Agent Mega888 Original & Trusted Company 2026",
-    description: "Senarai rasmi top company Mega888 Malaysia 2026. 100% no scammer!",
+    title: "Trusted Company Mega888 Malaysia 2026 | TipsMega888",
+    description: "Rujuk trusted company Mega888 bersama panduan ringkas sebelum memilih platform.",
     images: ["https://tipsmega888.com/og-trusted.png"],
   },
   robots: {
@@ -65,18 +63,18 @@ export default function TrustedPage() {
             "@type": "WebPage",
             name: "Trusted Company Mega888",
             description:
-              "Senarai company Mega888 yang trusted dan verified. Elakkan scammer, main di platform yang disahkan selamat.",
+              "Senarai trusted company Mega888 dengan panduan ringkas tentang perkara yang patut diperhatikan sebelum memilih platform.",
             url: "https://tipsmega888.com/trusted",
             inLanguage: "ms-MY",
             publisher: {
               "@type": "Organization",
-              name: "TipsMega AI Scanner",
+              name: "TipsMega888",
               url: "https://tipsmega888.com",
             },
             mainEntity: {
               "@type": "ItemList",
-              name: "Verified Mega888 Agents",
-              description: "List of verified and trusted Mega888 platform agents",
+              name: "Trusted Company Mega888",
+              description: "Senarai platform yang dipaparkan untuk rujukan awal pengguna",
             },
           }),
         }}
@@ -91,26 +89,26 @@ export default function TrustedPage() {
             mainEntity: [
               {
                 "@type": "Question",
-                name: "Bagaimana Kenal Pasti Agent Mega888 Original vs Scammer?",
+                name: "Bagaimana kenal pasti platform yang patut dipertimbangkan?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Agent Mega888 original sentiasa mempunyai rekod auto-cuci yang pantas di bawah 5 minit tanpa syarat withdrawal merepek. Elakkan kiosk scammer yang letak bonus tinggi tidak masuk akal. Rujuk terus ke senarai Trusted Company Mega888 2026 kami yang dijamin selamat.",
+                  text: "Semak kejelasan maklumat platform, cara deposit dan withdrawal, saluran support, serta sama ada arahan yang diberi konsisten. Elakkan platform yang membuat janji terlalu besar atau memberi maklumat yang bercanggah.",
                 },
               },
               {
                 "@type": "Question",
-                name: "Adakah Kiosk Mega888 Trusted Ini Dijamin Bayar Penuh?",
+                name: "Adakah senarai ini jamin selamat atau jamin menang?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Ya. Semua senarai agent Mega888 di TipsMega888 ialah VVIP Partners yang mempunyai track record payout yang stabil dan cepat.",
+                  text: "Tidak. Senarai ini disediakan sebagai rujukan untuk membantu pengguna menilai pilihan yang ada. Pengguna masih perlu membuat semakan sendiri dan menggunakan pertimbangan sendiri sebelum berurusan dengan mana-mana platform.",
                 },
               },
               {
                 "@type": "Question",
-                name: "Berapa lama masa withdrawal?",
+                name: "Berapa lama proses withdrawal biasanya berlaku?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Company dengan badge FAST biasanya process withdrawal dalam 5-15 minit. VVIP partners biasanya kurang daripada 30 minit.",
+                  text: "Tempoh withdrawal boleh berbeza mengikut platform dan keadaan semasa. TipsMega888 tidak menjamin tempoh tertentu, jadi pengguna disaran semak maklumat terkini terus dengan platform yang dipilih.",
                 },
               },
             ],
@@ -154,13 +152,13 @@ export default function TrustedPage() {
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <div className="h-1 w-6 bg-red-400 rounded-full shadow-[0_0_10px_rgba(255,77,77,0.5)]" />
-                    <span className="text-[10px] font-black tracking-[0.3em] text-red-400/80 uppercase">VVIP PARTNERS</span>
+                    <span className="text-[10px] font-black tracking-[0.3em] text-red-400/80 uppercase">Trusted List</span>
                   </div>
                   <h1 className="text-3xl font-black italic text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] leading-tight">
                     Trusted Company <span className="elite-gradient-shift elite-glow">Mega888 Malaysia 2026</span>
                   </h1>
                   <p className="mt-2 text-xs sm:text-sm text-white/55 max-w-xl leading-relaxed">
-                    Agent Mega888 original, verified company list, dan pilihan trusted agent Malaysia untuk login, deposit, dan withdraw dengan lebih selamat.
+                    Halaman rujukan untuk menilai beberapa platform Mega888 Malaysia dengan lebih tersusun sebelum anda membuat pilihan sendiri.
                   </p>
                 </div>
                 <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
@@ -169,21 +167,21 @@ export default function TrustedPage() {
               </div>
 
               <p className="text-xs text-white/50 leading-relaxed font-medium bg-white/5 border border-white/10 p-3 rounded-xl backdrop-blur-sm">
-                <span className="text-red-400 font-bold">OFFICIAL VERIFIED LIST 2026.</span> Semak trusted company Mega888 Malaysia yang lebih kuat dari segi payout speed, trust signal, safety, dan pengalaman pemain.
+                <span className="text-red-400 font-bold">Rujukan pilihan 2026.</span> Halaman ini menghimpunkan platform yang dipaparkan bersama nota ringkas supaya pengguna boleh buat semakan awal dengan lebih teratur.
               </p>
 
               <div className="mt-4 grid grid-cols-3 gap-2">
                 <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
                   <div className="text-base font-black text-red-400">Live</div>
-                  <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Verified List</div>
+                  <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Company List</div>
                 </div>
                 <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
                   <div className="text-base font-black text-red-400">24/7</div>
                   <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Active Monitor</div>
                 </div>
                 <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 text-center backdrop-blur-sm">
-                  <div className="text-base font-black text-red-300">100%</div>
-                  <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Scam-Free</div>
+                  <div className="text-base font-black text-red-300">Semak</div>
+                  <div className="text-[9px] text-white/40 font-bold uppercase tracking-wider mt-0.5">Dengan Teliti</div>
                 </div>
               </div>
             </header>
@@ -198,13 +196,13 @@ export default function TrustedPage() {
                 </h2>
                 <div className="text-sm text-white/70 space-y-3 leading-relaxed">
                   <p>
-                    <strong className="text-white">Verified 24/7:</strong> Semua company dalam senarai ini dipantau untuk payout speed, trust signal, dan kestabilan service.
+                    <strong className="text-white">Rujukan awal:</strong> Senarai ini disediakan untuk membantu pengguna menilai beberapa pilihan platform dalam satu tempat.
                   </p>
                   <p>
-                    <strong className="text-white">No Scammer Focus:</strong> Hanya platform yang ada signal lebih kuat dan reputasi lebih selamat akan diketengahkan dalam trusted list.
+                    <strong className="text-white">Semak maklumat penting:</strong> Fokus pada kejelasan langkah daftar, arahan deposit dan withdrawal, serta konsistensi saluran support.
                   </p>
                   <p>
-                    <strong className="text-white">Fast Withdrawal:</strong> Platform yang baik biasanya process withdrawal dalam masa lebih cepat dan kurang drama semasa cuci.
+                    <strong className="text-white">Guna pertimbangan sendiri:</strong> TipsMega888 tidak memberi jaminan terhadap mana-mana platform, jadi pengguna tetap perlu menyemak sendiri sebelum membuat keputusan.
                   </p>
                 </div>
               </article>
@@ -212,28 +210,28 @@ export default function TrustedPage() {
               <article className="card p-6 border-red-500/20 bg-red-500/5">
                 <div className="text-sm uppercase tracking-wider text-red-400 font-bold flex items-center justify-center gap-2">
                   <span>🔒</span>
-                  <span>SAFE GAMING</span>
+                  <span>Cara Semakan</span>
                 </div>
-                <h2 className="mt-3 text-2xl sm:text-3xl font-bold text-red-400">Lightning Fast Trusted Companies</h2>
+                <h2 className="mt-3 text-2xl sm:text-3xl font-bold text-red-400">Gunakan halaman ini sebagai rujukan, bukan jaminan</h2>
                 <p className="mt-4 max-w-3xl mx-auto text-white/70 leading-relaxed">
-                  Agent yang stabil akan memudahkan deposit, login, dan withdrawal. Fokus utama ialah trust, bukan sekadar bonus besar yang nampak terlalu cantik.
+                  Fokus pada maklumat, kejelasan proses, dan respons support, bukan janji yang terlalu cantik atau tuntutan yang sukar dibuktikan.
                 </p>
                 <div className="grid md:grid-cols-2 gap-4 text-sm text-white/70 mt-5">
                   <div>
-                    <h3 className="text-white font-bold mb-2">✅ Financial Check</h3>
-                    <p className="leading-relaxed">Signal pembayaran, kestabilan admin, dan consistency payout lebih penting daripada tawaran bonus keterlaluan.</p>
+                    <h3 className="text-white font-bold mb-2">✅ Maklumat asas</h3>
+                    <p className="leading-relaxed">Semak sama ada penerangan platform, langkah daftar, dan pautan yang diberi kelihatan jelas serta konsisten.</p>
                   </div>
                   <div>
-                    <h3 className="text-white font-bold mb-2">⚡ Speed Test</h3>
-                    <p className="leading-relaxed">Company yang bagus biasanya cepat reply dan lebih laju untuk deposit/withdraw berbanding kiosk rawak.</p>
+                    <h3 className="text-white font-bold mb-2">⚡ Respons support</h3>
+                    <p className="leading-relaxed">Lihat sama ada saluran support mudah dihubungi dan memberi penerangan yang masuk akal sebelum anda teruskan.</p>
                   </div>
                   <div>
-                    <h3 className="text-white font-bold mb-2">🎯 RTP Monitoring</h3>
-                    <p className="leading-relaxed">Gunakan trusted page bersama AI scanner supaya flow anda lebih selamat: trusted company dulu, lepas tu scan RTP.</p>
+                    <h3 className="text-white font-bold mb-2">🎯 Syarat penggunaan</h3>
+                    <p className="leading-relaxed">Semak syarat bonus, deposit, dan withdrawal supaya anda tidak terlepas maklumat penting sebelum mendaftar.</p>
                   </div>
                   <div>
-                    <h3 className="text-white font-bold mb-2">💬 Customer Feedback</h3>
-                    <p className="leading-relaxed">Maklum balas pengguna sebenar membantu tapis company yang banyak issue, lambat bayar, atau berisiko scam.</p>
+                    <h3 className="text-white font-bold mb-2">💬 Penilaian sendiri</h3>
+                    <p className="leading-relaxed">Gunakan maklumat pada halaman ini sebagai panduan awal, kemudian buat semakan tambahan sendiri jika perlu.</p>
                   </div>
                 </div>
               </article>
@@ -244,11 +242,11 @@ export default function TrustedPage() {
                   <span>Cara Register &amp; Mula Main</span>
                 </h2>
                 <ol className="text-sm text-white/70 space-y-2 leading-relaxed list-decimal list-inside">
-                  <li><strong className="text-white">Pilih Company:</strong> pilih trusted company yang nampak sesuai untuk anda.</li>
-                  <li><strong className="text-white">Klik PLAY NOW:</strong> system akan buka link atau WhatsApp admin.</li>
-                  <li><strong className="text-white">Terima Link:</strong> admin bagi link register dan info bonus/current flow.</li>
-                  <li><strong className="text-white">Complete Registration:</strong> daftar akaun dan mula dengan modal yang anda selesa.</li>
-                  <li><strong className="text-white">Guna AI Scanner:</strong> selepas ada ID/company, semak RTP untuk pilih game lebih bijak.</li>
+                  <li><strong className="text-white">Pilih platform:</strong> semak senarai dan pilih platform yang anda mahu nilai dengan lebih lanjut.</li>
+                  <li><strong className="text-white">Buka pautan:</strong> gunakan butang yang disediakan untuk melihat saluran admin atau pautan berkaitan.</li>
+                  <li><strong className="text-white">Semak penerangan:</strong> pastikan arahan daftar, syarat, dan maklumat penting diterangkan dengan jelas.</li>
+                  <li><strong className="text-white">Tanya soalan penting:</strong> semak proses deposit, withdrawal, dan sokongan sebelum anda meneruskan.</li>
+                  <li><strong className="text-white">Buat keputusan sendiri:</strong> gunakan pertimbangan sendiri sebelum mendaftar atau berurusan dengan mana-mana platform.</li>
                 </ol>
               </article>
 
