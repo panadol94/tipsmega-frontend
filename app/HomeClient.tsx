@@ -753,7 +753,7 @@ export default function HomeClient() {
                     {/* ── Social Proof ── */}
                     <section
                         aria-label="Social proof"
-                        className="card p-4 border-cyan-500/20 bg-gradient-to-br from-cyan-950/60 to-slate-950/80"
+                        className="card p-4 border-cyan-500/20 bg-gradient-to-br from-cyan-950/60 to-slate-950/80 overflow-hidden"
                         style={{ borderRadius: 16 }}
                     >
                         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
@@ -763,57 +763,106 @@ export default function HomeClient() {
                             <div style={{ flex: 1, height: 1, background: "rgba(34,211,238,0.15)", borderRadius: 1 }} />
                         </div>
 
-                        {/* Testimonial row */}
-                        <div style={{ display: "grid", gap: "0.6rem" }}>
-                            {[
-                                {
-                                    name: "Ahmad R.",
-                                    loc: "Kuala Lumpur",
-                                    text: "AI Scanner这名堂真系Work! 头先scan紧个game先知系 high RTP，跟住中咗个大彩 🎰",
-                                    stars: 5,
-                                },
-                                {
-                                    name: "Siti M.",
-                                    loc: "Johor Bahru",
-                                    text: "Guna AI Scanner ni lepas tu menang konsisten sikit. Takdak guarantee tapi odds memang improves ✔️",
-                                    stars: 5,
-                                },
-                                {
-                                    name: "Chuan L.",
-                                    loc: "Penang",
-                                    text: "Best part — totally free. Daugunakan daily untuk check RTP sebelum main. Highly recommend!",
-                                    stars: 5,
-                                },
-                            ].map((t, i) => (
-                                <div key={i} style={{
-                                    padding: "0.85rem 1rem",
-                                    borderRadius: 12,
-                                    background: "rgba(255,255,255,0.04)",
-                                    border: "1px solid rgba(255,255,255,0.07)",
-                                }}>
-                                    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
-                                        {/* Avatar circle */}
-                                        <div style={{
-                                            width: 30, height: 30, borderRadius: "50%",
-                                            background: `hsl(${i * 60 + 180},70%,50%,0.2)`,
-                                            border: "1px solid rgba(255,255,255,0.1)",
-                                            display: "flex", alignItems: "center", justifyContent: "center",
-                                            fontSize: "0.75rem", fontWeight: 800, color: "#fff",
-                                            flexShrink: 0,
-                                        }}>
-                                            {t.name.charAt(0)}
+                        {/* Marquee container */}
+                        <div className="relative overflow-hidden">
+                            {/* Fade edges */}
+                            <div style={{
+                                position: "absolute", left: 0, top: 0, bottom: 0, width: 40,
+                                background: "linear-gradient(to right, rgba(8,15,25,0.95), transparent)",
+                                zIndex: 10, pointerEvents: "none",
+                            }} />
+                            <div style={{
+                                position: "absolute", right: 0, top: 0, bottom: 0, width: 40,
+                                background: "linear-gradient(to left, rgba(8,15,25,0.95), transparent)",
+                                zIndex: 10, pointerEvents: "none",
+                            }} />
+
+                            {/* Marquee track - duplicated for infinite scroll */}
+                            <div className="marquee-track" style={{ display: "flex", gap: "0.75rem", width: "max-content" }}>
+                                {/* First set of testimonials */}
+                                {[
+                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner这名堂真系Work! 头先scan紧个game先知系 high RTP", stars: 5, hue: 180 },
+                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu menang konsisten. Odds memang improves ✔️", stars: 5, hue: 220 },
+                                    { name: "Chuan L.", loc: "Penang", text: "Best part — totally free. Daily untuk check RTP sebelum main!", stars: 5, hue: 280 },
+                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni confirm bagitahu RTP yang accurate. Dah biasa everyday use", stars: 5, hue: 340 },
+                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih consistent", stars: 5, hue: 40 },
+                                    { name: "Raj K.", loc: "Sarawak", text: "Best tool untuk Mega888! Free dan semua orang harus try", stars: 5, hue: 120 },
+                                    { name: "Lisa T.", loc: "Melaka", text: "AI Scanner这名堂勆都用得着！scan完就知道边只game payout高", stars: 5, hue: 200 },
+                                ].map((t, i) => (
+                                    <div key={`a-${i}`} style={{
+                                        minWidth: 280, maxWidth: 280,
+                                        padding: "0.85rem 1rem",
+                                        borderRadius: 12,
+                                        background: "rgba(255,255,255,0.04)",
+                                        border: "1px solid rgba(255,255,255,0.07)",
+                                        flexShrink: 0,
+                                    }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
+                                            {/* Avatar circle */}
+                                            <div style={{
+                                                width: 32, height: 32, borderRadius: "50%",
+                                                background: `linear-gradient(135deg, hsl(${t.hue},70%,55%), hsl(${t.hue + 40},70%,45%))`,
+                                                border: "1px solid rgba(255,255,255,0.15)",
+                                                display: "flex", alignItems: "center", justifyContent: "center",
+                                                fontSize: "0.78rem", fontWeight: 800, color: "#fff",
+                                                flexShrink: 0,
+                                                boxShadow: `0 2px 8px hsla(${t.hue},70%,50%,0.3)`,
+                                            }}>
+                                                {t.name.charAt(0)}
+                                            </div>
+                                            <div>
+                                                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e2e8f0" }}>{t.name}</span>
+                                                <span style={{ fontSize: "0.72rem", color: "#475569", marginLeft: 6 }}>{t.loc}</span>
+                                            </div>
+                                            <div style={{ marginLeft: "auto", color: "#ef4444", fontSize: "0.7rem", letterSpacing: "0.05em" }}>
+                                                {"★".repeat(t.stars)}
+                                            </div>
                                         </div>
-                                        <div>
-                                            <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e2e8f0" }}>{t.name}</span>
-                                            <span style={{ fontSize: "0.72rem", color: "#475569", marginLeft: 6 }}>{t.loc}</span>
-                                        </div>
-                                        <div style={{ marginLeft: "auto", color: "#ef4444", fontSize: "0.7rem", letterSpacing: "0.05em" }}>
-                                            {"★".repeat(t.stars)}
-                                        </div>
+                                        <p style={{ fontSize: "0.83rem", color: "#64748b", lineHeight: 1.55, margin: 0 }}>{t.text}</p>
                                     </div>
-                                    <p style={{ fontSize: "0.83rem", color: "#64748b", lineHeight: 1.55, margin: 0 }}>{t.text}</p>
-                                </div>
-                            ))}
+                                ))}
+                                {/* Duplicate set for seamless loop */}
+                                {[
+                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner这名堂真系Work! 头先scan紧个game先知系 high RTP", stars: 5, hue: 180 },
+                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu menang konsisten. Odds memang improves ✔️", stars: 5, hue: 220 },
+                                    { name: "Chuan L.", loc: "Penang", text: "Best part — totally free. Daily untuk check RTP sebelum main!", stars: 5, hue: 280 },
+                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni confirm bagitahu RTP yang accurate. Dah biasa everyday use", stars: 5, hue: 340 },
+                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih consistent", stars: 5, hue: 40 },
+                                    { name: "Raj K.", loc: "Sarawak", text: "Best tool untuk Mega888! Free dan semua orang harus try", stars: 5, hue: 120 },
+                                    { name: "Lisa T.", loc: "Melaka", text: "AI Scanner这名堂勆都用得着！scan完就知道边只game payout高", stars: 5, hue: 200 },
+                                ].map((t, i) => (
+                                    <div key={`b-${i}`} style={{
+                                        minWidth: 280, maxWidth: 280,
+                                        padding: "0.85rem 1rem",
+                                        borderRadius: 12,
+                                        background: "rgba(255,255,255,0.04)",
+                                        border: "1px solid rgba(255,255,255,0.07)",
+                                        flexShrink: 0,
+                                    }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
+                                            <div style={{
+                                                width: 32, height: 32, borderRadius: "50%",
+                                                background: `linear-gradient(135deg, hsl(${t.hue},70%,55%), hsl(${t.hue + 40},70%,45%))`,
+                                                border: "1px solid rgba(255,255,255,0.15)",
+                                                display: "flex", alignItems: "center", justifyContent: "center",
+                                                fontSize: "0.78rem", fontWeight: 800, color: "#fff",
+                                                flexShrink: 0,
+                                                boxShadow: `0 2px 8px hsla(${t.hue},70%,50%,0.3)`,
+                                            }}>
+                                                {t.name.charAt(0)}
+                                            </div>
+                                            <div>
+                                                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e2e8f0" }}>{t.name}</span>
+                                                <span style={{ fontSize: "0.72rem", color: "#475569", marginLeft: 6 }}>{t.loc}</span>
+                                            </div>
+                                            <div style={{ marginLeft: "auto", color: "#ef4444", fontSize: "0.7rem", letterSpacing: "0.05em" }}>
+                                                {"★".repeat(t.stars)}
+                                            </div>
+                                        </div>
+                                        <p style={{ fontSize: "0.83rem", color: "#64748b", lineHeight: 1.55, margin: 0 }}>{t.text}</p>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
                         {/* Trust stats bar */}
@@ -1019,6 +1068,16 @@ export default function HomeClient() {
                     15% { opacity: 1; }
                     85% { opacity: 1; }
                     100% { transform: translateX(430%); opacity: 0; }
+                }
+
+                /* Marquee animation for testimonials */
+                .marquee-track {
+                    animation: marquee 40s linear infinite;
+                }
+
+                @keyframes marquee {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
                 }
             `}</style>
         </>
