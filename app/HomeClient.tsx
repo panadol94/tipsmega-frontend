@@ -985,7 +985,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                         style={{ borderRadius: 16 }}
                     >
                         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                            <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#22d3ee", letterSpacing: "0.18em", textTransform: "uppercase" }}>
+                            <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#ff3333", letterSpacing: "0.18em", textTransform: "uppercase" }}>
                                 ⭐ Apa Kata Pengguna
                             </span>
                             <div style={{ flex: 1, height: 1, background: "rgba(34,211,238,0.15)", borderRadius: 1 }} />
@@ -1109,7 +1109,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                                 { val: "2024–2026", lbl: "Online" },
                             ].map((s) => (
                                 <div key={s.lbl} style={{ textAlign: "center" }}>
-                                    <div style={{ fontSize: "0.9rem", fontWeight: 900, color: "#22d3ee" }}>{s.val}</div>
+                                    <div style={{ fontSize: "0.9rem", fontWeight: 900, color: "#ff3333" }}>{s.val}</div>
                                     <div style={{ fontSize: "0.68rem", color: "#334155", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>{s.lbl}</div>
                                 </div>
                             ))}
@@ -1388,7 +1388,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                 }
 
                 .mega888-glitch-cyan {
-                    color: #00ffff;
+                    color: #ff3333;
                     animation: glitchCyan 3s infinite linear alternate-reverse;
                     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
                 }
@@ -1792,7 +1792,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                 }
 
                 .premium-icon-glow-cyan {
-                    color: #22d3ee;
+                    color: #ff3333;
                     filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.8)) drop-shadow(0 0 16px rgba(34, 211, 238, 0.4));
                     animation: icon-pulse-cyan 2s ease-in-out infinite;
                 }

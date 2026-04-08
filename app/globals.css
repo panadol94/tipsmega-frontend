@@ -12,12 +12,15 @@
     --line: rgba(136, 146, 176, .15);
     --shadow: 0 18px 60px rgba(0, 0, 0, .65);
 
-    --gold0: #ff6b6b;
-    --gold1: #ff4d4d;
-    --gold2: #991b1b;
+    --gold0: #ff3333;
+    --gold1: #ff0000;
+    --gold2: #990000;
+
+    --accent-red: #ff3333;
+    --glow-red: rgba(255, 51, 51, 0.5);
 
     --blue0: #ff3333;
-    --blue1: #ff2222;
+    --blue1: #ff0000;
 
     --r: 22px;
 
@@ -35,7 +38,7 @@
 /* ===== Terminal / Cyberpunk Styles ===== */
 .terminal-text {
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    text-shadow: 0 0 10px rgba(0, 229, 204, 0.5);
+    text-shadow: 0 0 10px rgba(255, 51, 51, 0.6);
 }
 
 .terminal-glow-cyan {
@@ -60,6 +63,11 @@
     box-shadow: 0 0 10px rgba(34, 197, 94, 0.1), inset 0 0 10px rgba(34, 197, 94, 0.05);
 }
 
+.terminal-border-red {
+    border: 1px solid rgba(255, 51, 51, 0.4);
+    box-shadow: 0 0 20px rgba(255, 51, 51, 0.15), inset 0 0 20px rgba(255, 51, 51, 0.08);
+}
+
 /* Matrix rain container */
 .matrix-bg {
     position: fixed;
@@ -69,7 +77,7 @@
     height: 100%;
     z-index: 0;
     pointer-events: none;
-    opacity: 0.12;
+    opacity: 0.15;
 }
 
 /* Terminal cursor blink */
@@ -3454,4 +3462,82 @@ a {
     filter: drop-shadow(0 0 8px currentColor);
     text-shadow: 0 0 10px currentColor;
     animation: emoji-pulse-glow 2s ease-in-out infinite;
+}
+
+/* ===== RED HOLOGRAPHIC SCAN LINE ANIMATION ===== */
+@keyframes holographicScan {
+    0% {
+        top: -10%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        top: 110%;
+        opacity: 0;
+    }
+}
+
+.holographic-scan-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 51, 51, 0.1) 20%, 
+        rgba(255, 51, 51, 0.8) 50%, 
+        rgba(255, 51, 51, 0.1) 80%, 
+        transparent 100%
+    );
+    box-shadow: 
+        0 0 10px rgba(255, 51, 51, 0.8),
+        0 0 20px rgba(255, 51, 51, 0.5),
+        0 0 40px rgba(255, 51, 51, 0.3);
+    animation: holographicScan 3s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Alternative horizontal scan for logo section */
+@keyframes horizontalScan {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.holographic-scan-horizontal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, 
+        transparent 0%, 
+        rgba(255, 51, 51, 0.3) 30%, 
+        rgba(255, 51, 51, 0.9) 50%, 
+        rgba(255, 51, 51, 0.3) 70%, 
+        transparent 100%
+    );
+    box-shadow: 
+        0 0 15px rgba(255, 51, 51, 0.9),
+        0 0 30px rgba(255, 51, 51, 0.6),
+        0 0 60px rgba(255, 51, 51, 0.3);
+    animation: horizontalScan 2.5s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 10;
 }
