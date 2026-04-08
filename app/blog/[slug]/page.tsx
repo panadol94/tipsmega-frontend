@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BLOG_ARTICLES, getArticleBySlug, type BlogArticle } from "../../data/blogArticles";
+import { BLOG_REDIRECTS, BLOG_REDIRECT_SOURCE_SLUGS } from "../../data/blogRedirects";
 import { notFound } from "next/navigation";
 import BlogEngagement from "./BlogEngagement";
 
@@ -91,17 +92,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) return {};
+  const redirectTarget = BLOG_REDIRECTS[slug];
+  const canonicalSlug = redirectTarget ?? article.slug;
+  const canonicalUrl = `https://tipsmega888.com/blog/${canonicalSlug}`;
   const imageUrl = resolveHeroImage(article);
   return {
     title: article.title,
     description: article.description,
     keywords: article.keywords,
-    alternates: { canonical: `https://tipsmega888.com/blog/${article.slug}` },
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: article.title,
       description: article.description,
-      url: `https://tipsmega888.com/blog/${article.slug}`,
-      siteName: "TipsMega AI Scanner",
+      url: canonicalUrl,
+      siteName: "TipsMega888",
       locale: "ms_MY",
       type: "article",
       images: [{ url: imageUrl, width: 1200, height: 675, alt: article.title }],
@@ -114,19 +118,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     },
     robots: {
       // Thin/redirected articles — do not index to conserve crawl budget & avoid thin-content flags
-      index: ![
-        "mega888-test-id","mega888-vs-pussy888","mega888-918kiss-beza","mega888-original-vs-fake",
-        "mega888-gacor-hari-ini","mega888-auto-cuci","mega888-whatsapp-group","mega888-agent-jadi",
-        // Redirected source slugs — article content lives at the canonical target URL
-        "mega888-withdrawal-guide","mega888-login-link-terkini-2026","mega888-trusted-agent-malaysia-2026",
-      ].includes(slug),
-      follow: true,
-      googleBot: {
-        index: ![
+      index: !(
+        BLOG_REDIRECT_SOURCE_SLUGS.has(slug) || [
           "mega888-test-id","mega888-vs-pussy888","mega888-918kiss-beza","mega888-original-vs-fake",
           "mega888-gacor-hari-ini","mega888-auto-cuci","mega888-whatsapp-group","mega888-agent-jadi",
-          "mega888-withdrawal-guide","mega888-login-link-terkini-2026","mega888-trusted-agent-malaysia-2026",
-        ].includes(slug),
+        ].includes(slug)
+      ),
+      follow: true,
+      googleBot: {
+        index: !(
+          BLOG_REDIRECT_SOURCE_SLUGS.has(slug) || [
+            "mega888-test-id","mega888-vs-pussy888","mega888-918kiss-beza","mega888-original-vs-fake",
+            "mega888-gacor-hari-ini","mega888-auto-cuci","mega888-whatsapp-group","mega888-agent-jadi",
+          ].includes(slug)
+        ),
         follow: true,
         "max-image-preview": "large",
         "max-snippet": -1,
@@ -165,6 +170,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) return notFound();
+  const redirectTarget = BLOG_REDIRECTS[slug];
 
   const heroImage = resolveHeroImage(article);
   const internalLinkRules = buildInternalLinkRules(article.slug, article.relatedArticles);
@@ -386,6 +392,15 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         </div>
 
         {/* ── ARTICLE CONTENT ── */}
+        {redirectTarget && (
+          <div className="card mb-4 border-amber-500/20 bg-amber-500/5 p-4 text-sm text-white/75">
+            Artikel ini telah digabungkan ke halaman yang lebih utama untuk elak pertindihan topik.
+            <Link href={`/blog/${redirectTarget}`} className="ml-2 font-bold text-amber-300 underline">
+              Buka artikel utama →
+            </Link>
+          </div>
+        )}
+
         <article
           className="seo-article-content"
           dangerouslySetInnerHTML={{ __html: linkedContent }}
