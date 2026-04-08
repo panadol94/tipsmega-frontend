@@ -526,16 +526,6 @@ export default function HomeClient() {
                 }}
             >
                 <Link href="/" className="flex items-center gap-2.5 group">
-                    {/* Premium logo badge */}
-                    <div
-                        className="w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm text-white shadow-lg transition-transform group-hover:scale-105"
-                        style={{
-                            background: "linear-gradient(135deg, #4f8EFF 0%, #7B5CFF 50%, #C44EFF 100%)",
-                            boxShadow: "0 4px 16px rgba(79,142,255,0.4)",
-                        }}
-                    >
-                        M
-                    </div>
                     <div className="flex flex-col leading-none">
                         <span className="font-black text-white text-[13px] tracking-wide">
                             {isLoggedIn && userName ? userName : "MEGA888"}
