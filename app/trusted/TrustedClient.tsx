@@ -73,7 +73,7 @@ export default function TrustedClient() {
     <section className="mt-8">
       {err && (
         <div className="card p-6 border-red-500/20 bg-red-500/5 mb-6 text-center animate-in fade-in zoom-in">
-          <div className="text-2xl mb-2">⚠️</div>
+          <div className="text-2xl mb-2 emoji-glow-red">⚠️</div>
           <p className="text-red-400 text-xs font-bold uppercase tracking-widest mb-4">Connection Failed</p>
           <button
             onClick={fetchCompanies}
@@ -187,7 +187,7 @@ export default function TrustedClient() {
                     <div className="flex items-center justify-center gap-1">
                       <div className="flex">
                         {[...Array(5)].map((_, i) => (
-                          <span key={i} className={`text-[10px] ${i < stars ? "text-red-400" : "text-white/20"}`}>
+                          <span key={i} className={`text-[10px] ${i < stars ? "text-red-400 emoji-glow-gold" : "text-white/20"}`}>
                             ⭐
                           </span>
                         ))}
@@ -197,7 +197,7 @@ export default function TrustedClient() {
 
                     {c.caption && (
                       <div className="min-h-[28px] flex items-center justify-center">
-                        <p className="text-[12px] font-bold text-red-400 leading-tight px-1">🎁 {c.caption}</p>
+                        <p className="text-[12px] font-bold text-red-400 leading-tight px-1"><span className="emoji-glow-gold">🎁</span> {c.caption}</p>
                       </div>
                     )}
 
@@ -207,14 +207,14 @@ export default function TrustedClient() {
                           onClick={() => handleAction(url)}
                           className="w-full bg-gradient-to-r from-red-600 to-red-600 border border-white/10 text-white font-bold text-[12px] uppercase py-2 rounded-xl shadow-md hover:scale-105 hover:shadow-red-500/40 active:scale-95 transition-all duration-200"
                         >
-                          🚀 PLAY NOW
+                          <span className="emoji-glow-static">🚀</span> PLAY NOW
                         </button>
                       ) : (
                         <button
                           onClick={() => handleAction(waHref)}
                           className="w-full bg-white/5 border border-white/10 text-white/70 font-bold text-[12px] uppercase py-2 rounded-xl active:scale-95"
                         >
-                          📱 GET LINK
+                          <span className="emoji-glow-green">📱</span> GET LINK
                         </button>
                       )}
                     </div>

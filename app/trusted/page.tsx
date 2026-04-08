@@ -162,7 +162,7 @@ export default function TrustedPage() {
                   </p>
                 </div>
                 <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-                  <span className="text-xl">🏆</span>
+                  <span className="text-xl emoji-glow-gold">🏆</span>
                 </div>
               </div>
 
@@ -191,7 +191,7 @@ export default function TrustedPage() {
             <section className="mt-12 space-y-8">
               <article className="card p-6 border-red-500/20 bg-red-500/5">
                 <h2 className="text-xl font-black text-red-400 mb-4 flex items-center gap-2">
-                  <span>🛡️</span>
+                  <span className="emoji-glow-red">🛡️</span>
                   <span>Kenapa Pilih Trusted Company?</span>
                 </h2>
                 <div className="text-sm text-white/70 space-y-3 leading-relaxed">
@@ -209,7 +209,7 @@ export default function TrustedPage() {
 
               <article className="card p-6 border-red-500/20 bg-red-500/5">
                 <div className="text-sm uppercase tracking-wider text-red-400 font-bold flex items-center justify-center gap-2">
-                  <span>🔒</span>
+                  <span className="emoji-glow">🔒</span>
                   <span>Cara Semakan</span>
                 </div>
                 <h2 className="mt-3 text-2xl sm:text-3xl font-bold text-red-400">Gunakan halaman ini sebagai rujukan, bukan jaminan</h2>
@@ -218,19 +218,19 @@ export default function TrustedPage() {
                 </p>
                 <div className="grid md:grid-cols-2 gap-4 text-sm text-white/70 mt-5">
                   <div>
-                    <h3 className="text-white font-bold mb-2">✅ Maklumat asas</h3>
+                    <h3 className="text-white font-bold mb-2"><span className="emoji-glow-green">✅</span> Maklumat asas</h3>
                     <p className="leading-relaxed">Semak sama ada penerangan platform, langkah daftar, dan pautan yang diberi kelihatan jelas serta konsisten.</p>
                   </div>
                   <div>
-                    <h3 className="text-white font-bold mb-2">⚡ Respons support</h3>
+                    <h3 className="text-white font-bold mb-2"><span className="emoji-glow-cyan">⚡</span> Respons support</h3>
                     <p className="leading-relaxed">Lihat sama ada saluran support mudah dihubungi dan memberi penerangan yang masuk akal sebelum anda teruskan.</p>
                   </div>
                   <div>
-                    <h3 className="text-white font-bold mb-2">🎯 Syarat penggunaan</h3>
+                    <h3 className="text-white font-bold mb-2"><span className="emoji-glow-purple">🎯</span> Syarat penggunaan</h3>
                     <p className="leading-relaxed">Semak syarat bonus, deposit, dan withdrawal supaya anda tidak terlepas maklumat penting sebelum mendaftar.</p>
                   </div>
                   <div>
-                    <h3 className="text-white font-bold mb-2">💬 Penilaian sendiri</h3>
+                    <h3 className="text-white font-bold mb-2"><span className="emoji-glow-blue">💬</span> Penilaian sendiri</h3>
                     <p className="leading-relaxed">Gunakan maklumat pada halaman ini sebagai panduan awal, kemudian buat semakan tambahan sendiri jika perlu.</p>
                   </div>
                 </div>
@@ -238,7 +238,7 @@ export default function TrustedPage() {
 
               <article className="card p-6 border-purple-500/20 bg-purple-500/5">
                 <h2 className="text-xl font-black text-purple-400 mb-4 flex items-center gap-2">
-                  <span>🚀</span>
+                  <span className="emoji-glow-purple">🚀</span>
                   <span>Cara Register &amp; Mula Main</span>
                 </h2>
                 <ol className="text-sm text-white/70 space-y-2 leading-relaxed list-decimal list-inside">
@@ -252,7 +252,7 @@ export default function TrustedPage() {
 
               <article className="card p-6 border-blue-500/20 bg-blue-500/5">
                 <h2 className="text-xl font-black text-blue-400 mb-4 flex items-center gap-2">
-                  <span>🔍</span>
+                  <span className="emoji-glow-blue">🔍</span>
                   <span>Cara Kenal Pasti Agent Mega888 Original vs Kiosk Scammer 2026</span>
                 </h2>
                 <div className="text-sm text-white/70 space-y-3 leading-relaxed">
@@ -270,7 +270,7 @@ export default function TrustedPage() {
 
               <article className="card p-6 border-emerald-500/20 bg-emerald-500/5">
                 <h2 className="text-xl font-black text-emerald-400 mb-4 flex items-center gap-2">
-                  <span>🔗</span>
+                  <span className="emoji-glow-green">🔗</span>
                   <span>Panduan Berkaitan Untuk Pengguna Baru</span>
                 </h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
