@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { animate, utils } from "animejs";
 import Link from "next/link";
+import { Flame, HelpCircle, Star, Gamepad2, Send, Trophy } from "lucide-react";
 import Toast, { ToastType } from "./ui/Toast";
 import TypewriterText from "./ui/TypewriterText";
 import MatrixBackground from "./components/MatrixBackground";
@@ -733,13 +734,17 @@ export default function HomeClient() {
                     {/* Quick Links */}
                     <h2 className="sr-only">Pautan Pantas</h2>
                     <div className="grid grid-cols-2 gap-2">
-                        <Link href="/trusted" className="card p-3 text-center border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition">
-                            <div className="text-xl mb-0.5">🔥</div>
+                        <Link href="/trusted" className="card p-3 text-center border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition group">
+                            <div className="mb-1 flex justify-center">
+                                <Flame className="w-6 h-6 premium-icon-glow-red group-hover:scale-110 transition-transform" />
+                            </div>
                             <div className="text-sm font-bold text-white">Trusted List</div>
                             <div className="text-xs text-white/50">Verified agents</div>
                         </Link>
-                        <Link href="/help" className="card p-3 text-center border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/10 transition">
-                            <div className="text-xl mb-0.5 emoji-glow">❓</div>
+                        <Link href="/help" className="card p-3 text-center border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/10 transition group">
+                            <div className="mb-1 flex justify-center">
+                                <HelpCircle className="w-6 h-6 premium-icon-glow-purple group-hover:scale-110 transition-transform" />
+                            </div>
                             <div className="text-sm font-bold text-white">Help</div>
                             <div className="text-xs text-white/50">Panduan & FAQ</div>
                         </Link>
@@ -750,8 +755,11 @@ export default function HomeClient() {
                     <div className="card p-3 border-white/10 bg-white/5">
                         <div className="flex items-center justify-between">
                             <div>
-                                <div className="text-sm font-bold text-white">⭐ {stars} Stars</div>
-                                <div className="text-xs text-white/40">{stars > 0 ? "1 scan = 1 star" : "Login untuk bonus harian"}</div>
+                                <div className="flex items-center gap-2">
+                                    <Star className="w-4 h-4 text-amber-400 premium-icon-glow-gold" />
+                                    <span className="text-sm font-bold text-white">{stars} Stars</span>
+                                </div>
+                                <div className="text-xs text-white/40 ml-6">{stars > 0 ? "1 scan = 1 star" : "Login untuk bonus harian"}</div>
                             </div>
                             <Link href="/mega888" className="px-3 py-1.5 bg-white/10 rounded-full text-xs font-bold text-white/70 hover:text-white transition">
                                 Mega888 Hub →
@@ -981,7 +989,7 @@ export default function HomeClient() {
                     <div className="relative overflow-hidden rounded-2xl border border-red-600/30 bg-gradient-to-br from-red-500/20 via-red-500/20 to-red-500/20 backdrop-blur-xl shadow-[0_0_40px_rgba(255,77,77,0.4)] p-4">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-xl bg-red-500/20 border border-red-600/30 flex items-center justify-center">
-                                <span className="text-xl">⭐</span>
+                                <Star className="w-5 h-5 text-amber-400 premium-icon-glow-gold" />
                             </div>
                             <p className="font-bold text-white text-sm">{starNotification}</p>
                         </div>

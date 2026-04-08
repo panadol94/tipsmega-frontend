@@ -108,26 +108,6 @@ function PlayNowButton({ hasLink, url, waHref, onClick }: {
 }
 
 // ================================
-// PREMIUM VERIFIED SEAL
-// ================================
-function VerifiedSeal() {
-  return (
-    <div className="verified-seal-container">
-      <div className="verified-seal">
-        <div className="verified-seal-inner">
-          <svg viewBox="0 0 24 24" fill="none" className="verified-seal-icon">
-            <path d="M9 12L11 14L15 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="1.5"/>
-          </svg>
-        </div>
-        <div className="verified-seal-scan" />
-      </div>
-      <span className="verified-seal-label">VERIFIED</span>
-    </div>
-  );
-}
-
-// ================================
 // SOCIAL PROOF NOTIFICATION
 // ================================
 type SocialProofItem = {
@@ -231,8 +211,6 @@ function PremiumTrustHeader({ totalCompanies }: { totalCompanies: number }) {
         <TrustMeterBar label="Customer Support" value={96} delay={600} />
         <TrustMeterBar label="User Satisfaction" value={98} delay={800} />
       </div>
-
-      <VerifiedSeal />
     </div>
   );
 }
@@ -374,10 +352,6 @@ export default function TrustedClient() {
                 </div>
 
                 <div className="premium-card-body">
-                  <div className="premium-verified-row">
-                    <VerifiedSeal />
-                  </div>
-                  
                   <h2 className="premium-company-name">{c.name}</h2>
 
                   <div className="premium-rating-row">

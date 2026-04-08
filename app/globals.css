@@ -3011,73 +3011,6 @@ a {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, transparent 100%);
 }
 
-/* ---- Verified Seal ---- */
-.verified-seal-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  position: relative;
-  z-index: 1;
-}
-
-.verified-seal {
-  position: relative;
-  width: 48px;
-  height: 48px;
-}
-
-.verified-seal-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(16, 185, 129, 0.3));
-  border: 2px solid rgba(34, 197, 94, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 4px 20px rgba(34, 197, 94, 0.2),
-    0 0 30px rgba(34, 197, 94, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-}
-
-.verified-seal-icon {
-  width: 22px;
-  height: 22px;
-  color: #4ade80;
-  filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.6));
-}
-
-.verified-seal-scan {
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 1px solid rgba(74, 222, 128, 0.3);
-  animation: sealPulse 2s ease-in-out infinite;
-}
-
-@keyframes sealPulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.08);
-    opacity: 0.6;
-  }
-}
-
-.verified-seal-label {
-  font-size: 0.55rem;
-  font-weight: 800;
-  color: #4ade80;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  text-shadow: 0 0 10px rgba(74, 222, 128, 0.4);
-}
-
 /* ---- Company Grid ---- */
 .premium-company-grid {
   display: grid;
@@ -3213,10 +3146,6 @@ a {
   align-items: center;
   gap: 8px;
   text-align: center;
-}
-
-.premium-verified-row {
-  margin-bottom: 2px;
 }
 
 .premium-company-name {
