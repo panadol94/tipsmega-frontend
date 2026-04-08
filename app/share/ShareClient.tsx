@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useEffect } from "react";
 import SharedPageNav from "../ui/SharedPageNav";
+import { Gift, Zap, Trophy, Star, Target, Gamepad2, HelpCircle, Send, Link2, BarChart3, Lightbulb } from "lucide-react";
 
 export default function ShareClient() {
     const [copied, setCopied] = useState(false);
@@ -187,7 +188,8 @@ export default function ShareClient() {
                     <div className="mt-8">
                         <div className="text-center mb-4">
                             <h2 className="text-lg font-black text-white tracking-wide">
-                                🏆 Join Komuniti <span className="text-premium">Mega888 Malaysia</span>
+                                <Trophy className="w-5 h-5 inline-block mr-1 text-amber-400 premium-icon-glow-gold" />
+                                Join Komuniti <span className="text-premium">Mega888 Malaysia</span>
                             </h2>
                             <p className="text-sm text-white/50 mt-1">
                                 Sertai ribuan pemain untuk tips harian, strategi RTP &amp; update terkini
@@ -251,14 +253,17 @@ export default function ShareClient() {
 
                         <div className="space-y-3">
                             {[
-                                { step: "1", icon: "🔗", title: "Copy Referral Link", desc: "Salin link referral peribadi anda dari bahagian atas halaman ini. Link ini unik untuk akaun anda sahaja." },
-                                { step: "2", icon: "�", title: "Share kepada Kawan", desc: "Kongsikan link melalui WhatsApp, Telegram, Facebook, TikTok atau mana-mana platform sosial media." },
+                                { step: "1", icon: "link", title: "Copy Referral Link", desc: "Salin link referral peribadi anda dari bahagian atas halaman ini. Link ini unik untuk akaun anda sahaja." },
+                                { step: "2", icon: "share", title: "Share kepada Kawan", desc: "Kongsikan link melalui WhatsApp, Telegram, Facebook, TikTok atau mana-mana platform sosial media." },
                                 { step: "3", icon: "👥", title: "Kawan Daftar & Verify", desc: "Kawan anda klik link, mendaftar di tipsmega888.com dan mengesahkan akaun melalui Telegram bot kami." },
-                                { step: "4", icon: "⭐", title: "Terima Stars Percuma", desc: "1 Star dikreditkan secara automatik sebaik sahaja kawan berjaya verify. Tiada had — share lebih, dapat lebih!" },
+                                { step: "4", icon: "STAR", title: "Terima Stars Percuma", desc: "1 Star dikreditkan secara automatik sebaik sahaja kawan berjaya verify. Tiada had — share lebih, dapat lebih!" },
                             ].map((s) => (
                                 <div key={s.step} className="card bg-[#0c1224] border-white/10 p-4 flex items-center gap-4 relative">
                                     <div className="w-10 h-10 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center shrink-0">
-                                        <span className="text-lg">{s.icon}</span>
+                                        {s.icon === "link" && <Link2 className="w-5 h-5 text-red-400" />}
+                                        {s.icon === "share" && <Send className="w-5 h-5 text-red-400" />}
+                                        {s.icon === "👥" && <span className="text-lg">👥</span>}
+                                        {s.icon === "STAR" && <Star className="w-5 h-5 text-amber-400 premium-icon-glow-gold" />}
                                     </div>
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2">
@@ -275,12 +280,16 @@ export default function ShareClient() {
                     {/* TIPS & STRATEGI (SEO Content Block) */}
                     <div className="mt-10">
                         <h2 className="text-center text-lg font-black text-white tracking-wide mb-5">
-                            🎯 Tips <span className="text-premium">Mega888 AI Scanner</span>
+                            <Target className="w-5 h-5 inline-block mr-1 text-red-400 premium-icon-glow-red" />
+                            Tips <span className="text-premium">Mega888 AI Scanner</span>
                         </h2>
 
                         <div className="card bg-[#0c1224] border-white/10 p-5 space-y-4">
                             <div>
-                                <h3 className="text-sm font-bold text-red-400 mb-2">📊 Apa Itu RTP dan Cara Baca Data Scanner?</h3>
+                                <h3 className="text-sm font-bold text-red-400 mb-2 flex items-center gap-1">
+                                    <BarChart3 className="w-4 h-4" />
+                                    Apa Itu RTP dan Cara Baca Data Scanner?
+                                </h3>
                                 <p className="text-sm text-white/50 leading-relaxed">
                                     RTP (Return-to-Player) adalah peratusan yang menunjukkan berapa banyak wang yang akan dikembalikan kepada pemain.
                                     Contohnya, jika sebuah game mempunyai RTP 96%, bermakna untuk setiap RM100 yang dimainkan, secara teori
@@ -290,7 +299,10 @@ export default function ShareClient() {
                             </div>
 
                             <div className="border-t border-white/5 pt-4">
-                                <h3 className="text-sm font-bold text-red-400 mb-2">🎰 Strategi Memilih Game Mega888</h3>
+                                <h3 className="text-sm font-bold text-red-400 mb-2 flex items-center gap-1">
+                                    <Gamepad2 className="w-4 h-4" />
+                                    Strategi Memilih Game Mega888
+                                </h3>
                                 <p className="text-sm text-white/50 leading-relaxed">
                                     Pilih game yang menunjukkan RTP tinggi (93% ke atas) pada scanner AI kami. Game dengan RTP yang sedang naik
                                     biasanya menandakan cycle bayaran yang aktif. Gunakan signal dari komuniti WhatsApp dan Telegram kami untuk
@@ -299,7 +311,7 @@ export default function ShareClient() {
                             </div>
 
                             <div className="border-t border-white/5 pt-4">
-                                <h3 className="text-sm font-bold text-red-400 mb-2">💡 Cara Maksimumkan Stars Anda</h3>
+                                <h3 className="text-sm font-bold text-red-400 mb-2 flex items-center gap-1"><Lightbulb className="w-4 h-4 text-yellow-400" />Cara Maksimumkan Stars Anda</h3>
                                 <p className="text-sm text-white/50 leading-relaxed">
                                     Share referral link anda di group WhatsApp, status WhatsApp, story Instagram, dan post Facebook.
                                     Semakin ramai kawan yang join dan verify, semakin banyak Stars yang anda dapat. Stars boleh digunakan
@@ -360,7 +372,8 @@ export default function ShareClient() {
                     {/* FAQ SECTION (SEO-rich) */}
                     <div className="mt-10">
                         <h2 className="text-center text-lg font-black text-white tracking-wide mb-5">
-                            ❓ Soalan Lazim <span className="text-premium">Mega888 AI</span>
+                            <HelpCircle className="w-5 h-5 inline-block mr-1 text-purple-400 premium-icon-glow-purple" />
+                            Soalan Lazim <span className="text-premium">Mega888 AI</span>
                         </h2>
 
                         <div className="space-y-3">

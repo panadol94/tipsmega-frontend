@@ -771,6 +771,151 @@ export default function HomeClient() {
                         </div>
                     </div>
 
+                    {/* ── Community Wins Marquee ── */}
+                    <section
+                        aria-label="Community wins"
+                        className="card p-4 border-amber-500/30 bg-gradient-to-br from-amber-950/40 via-slate-950/80 to-slate-950/90 overflow-hidden"
+                        style={{ borderRadius: 16 }}
+                    >
+                        {/* Header */}
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/20 to-yellow-500/20 border border-amber-500/30 flex items-center justify-center">
+                                    <Trophy className="w-5 h-5 text-amber-400" />
+                                </div>
+                                <div>
+                                    <h3 className="text-sm font-black text-white tracking-wide">
+                                        🏆 KEMENANGAN AHLI
+                                    </h3>
+                                    <p className="text-[10px] text-amber-400/70 font-medium tracking-wider uppercase">
+                                        Community Wins
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                <span className="text-[10px] font-bold text-emerald-400 tracking-wider">LIVE</span>
+                            </div>
+                        </div>
+
+                        {/* Marquee Container */}
+                        <div className="relative overflow-hidden group">
+                            {/* Fade edges */}
+                            <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0a0f1a] to-transparent z-10 pointer-events-none" />
+                            <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0a0f1a] to-transparent z-10 pointer-events-none" />
+
+                            {/* Marquee Track */}
+                            <div 
+                                className="flex gap-3 wins-marquee-track"
+                                style={{ width: 'max-content' }}
+                            >
+                                {/* First set of wins */}
+                                {[
+                                    { img: '/wins/win-1.jpg', amount: '4,500', game: 'Ultra Mega Big Win', player: 'Player 1' },
+                                    { img: '/wins/win-2.jpg', amount: '750', game: 'Big Win', player: 'Player 2' },
+                                    { img: '/wins/win-3.jpg', amount: '2,500', game: 'Gates of Olympus', player: 'Player 3' },
+                                    { img: '/wins/win-4.jpg', amount: '15,000,000', game: 'CM8 Jackpot', player: 'Player 4' },
+                                    { img: '/wins/win-5.jpg', amount: '6,567', game: 'Rush Xmas', player: 'Player 5' },
+                                ].map((win, i) => (
+                                    <div 
+                                        key={`win-a-${i}`}
+                                        className="relative group/win flex-shrink-0 w-[200px] rounded-xl overflow-hidden bg-slate-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300"
+                                    >
+                                        {/* Win Image */}
+                                        <div className="relative aspect-[4/3] overflow-hidden">
+                                            <img 
+                                                src={win.img} 
+                                                alt={`Win ${win.amount}`}
+                                                className="w-full h-full object-cover transition-transform duration-500 group-hover/win:scale-110"
+                                            />
+                                            {/* Gradient Overlay */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                                            
+                                            {/* Amount Badge */}
+                                            <div className="absolute top-2 right-2 px-2 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 shadow-lg shadow-amber-500/30">
+                                                <span className="text-[10px] font-black text-slate-950">
+                                                    RM {win.amount}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {/* Win Info */}
+                                        <div className="p-2.5">
+                                            <p className="text-[11px] font-bold text-white truncate">
+                                                {win.game}
+                                            </p>
+                                            <div className="flex items-center justify-between mt-1">
+                                                <span className="text-[9px] text-white/50">{win.player}</span>
+                                                <span className="text-[9px] text-emerald-400 flex items-center gap-0.5">
+                                                    <span className="w-1 h-1 rounded-full bg-emerald-400" />
+                                                    Verified
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+
+                                {/* Duplicate set for seamless loop */}
+                                {[
+                                    { img: '/wins/win-1.jpg', amount: '4,500', game: 'Ultra Mega Big Win', player: 'Player 1' },
+                                    { img: '/wins/win-2.jpg', amount: '750', game: 'Big Win', player: 'Player 2' },
+                                    { img: '/wins/win-3.jpg', amount: '2,500', game: 'Gates of Olympus', player: 'Player 3' },
+                                    { img: '/wins/win-4.jpg', amount: '15,000,000', game: 'CM8 Jackpot', player: 'Player 4' },
+                                    { img: '/wins/win-5.jpg', amount: '6,567', game: 'Rush Xmas', player: 'Player 5' },
+                                ].map((win, i) => (
+                                    <div 
+                                        key={`win-b-${i}`}
+                                        className="relative group/win flex-shrink-0 w-[200px] rounded-xl overflow-hidden bg-slate-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300"
+                                    >
+                                        <div className="relative aspect-[4/3] overflow-hidden">
+                                            <img 
+                                                src={win.img} 
+                                                alt={`Win ${win.amount}`}
+                                                className="w-full h-full object-cover transition-transform duration-500 group-hover/win:scale-110"
+                                            />
+                                            
+                                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                                            <div className="absolute top-2 right-2 px-2 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 shadow-lg shadow-amber-500/30">
+                                                <span className="text-[10px] font-black text-slate-950">
+                                                    RM {win.amount}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="p-2.5">
+                                            <p className="text-[11px] font-bold text-white truncate">
+                                                {win.game}
+                                            </p>
+                                            <div className="flex items-center justify-between mt-1">
+                                                <span className="text-[9px] text-white/50">{win.player}</span>
+                                                <span className="text-[9px] text-emerald-400 flex items-center gap-0.5">
+                                                    <span className="w-1 h-1 rounded-full bg-emerald-400" />
+                                                    Verified
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Stats Bar */}
+                        <div className="mt-4 grid grid-cols-3 gap-2">
+                            {[
+                                { val: 'RM 15M+', lbl: 'Total Won' },
+                                { val: '1,200+', lbl: 'Winners' },
+                                { val: 'Today', lbl: 'Just Now' },
+                            ].map((s, i) => (
+                                <div 
+                                    key={i} 
+                                    className="text-center py-2 rounded-xl bg-amber-500/5 border border-amber-500/10"
+                                >
+                                    <div className="text-sm font-black text-amber-400">{s.val}</div>
+                                    <div className="text-[9px] text-white/40 font-medium uppercase tracking-wider">{s.lbl}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
                     {/* ── Social Proof ── */}
                     <section
                         aria-label="Social proof"
@@ -1099,6 +1244,20 @@ export default function HomeClient() {
                 }
 
                 @keyframes marquee {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+
+                /* Wins marquee animation with pause on hover */
+                .wins-marquee-track {
+                    animation: winsMarquee 30s linear infinite;
+                }
+                
+                .group:hover .wins-marquee-track {
+                    animation-play-state: paused;
+                }
+                
+                @keyframes winsMarquee {
                     0% { transform: translateX(0); }
                     100% { transform: translateX(-50%); }
                 }
