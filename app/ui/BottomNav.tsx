@@ -91,6 +91,8 @@ export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
           if (it.href === "/") isActive = pathname === "/";
           else isActive = pathname.startsWith(it.href);
 
+          const isKomuniti = it.key === "chat";
+
           return (
             <Link
               key={it.key}
@@ -108,13 +110,70 @@ export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
                 />
               )}
 
+              {/* Subtle pulse glow for Komuniti tab - only when not active */}
+              {isKomuniti && !isActive && !isDisabled && (
+                <>
+                  {/* Breathing glow background */}
+                  <motion.div
+                    className="absolute inset-0 rounded-xl bg-gradient-to-tr from-emerald-500/20 to-green-400/10"
+                    animate={{
+                      opacity: [0.3, 0.6, 0.3],
+                      scale: [0.95, 1.02, 0.95],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    style={{ borderRadius: 12 }}
+                  />
+                  {/* Subtle shimmer effect */}
+                  <motion.div
+                    className="absolute inset-0 overflow-hidden rounded-xl"
+                    style={{ borderRadius: 12 }}
+                  >
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                      initial={{ x: "-100%" }}
+                      animate={{ x: "100%" }}
+                      transition={{
+                        duration: 2.5,
+                        repeat: Infinity,
+                        repeatDelay: 4,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  </motion.div>
+                </>
+              )}
+
               <div className="relative z-20 flex flex-col items-center gap-1">
-                <it.icon
-                  className={`w-5 h-5 transition-all duration-300 ${isActive ? "text-white scale-110 drop-shadow-md" : "text-white/40 hover:text-white/70"
-                    }`}
-                />
+                <div className="relative">
+                  <it.icon
+                    className={`w-5 h-5 transition-all duration-300 ${isActive ? "text-white scale-110 drop-shadow-md" : isKomuniti ? "text-emerald-300 hover:text-emerald-200" : "text-white/40 hover:text-white/70"
+                      }`}
+                  />
+                  {/* Small pulsing dot indicator for Komuniti */}
+                  {isKomuniti && !isActive && !isDisabled && (
+                    <motion.span
+                      className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400"
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [0.8, 1, 0.8],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      style={{
+                        boxShadow: "0 0 6px rgba(52, 211, 153, 0.6)",
+                      }}
+                    />
+                  )}
+                </div>
                 <span
-                  className={`text-[9px] font-bold uppercase tracking-wider transition-all duration-300 ${isActive ? "text-white/90 translate-y-0" : "text-white/30 translate-y-0.5"
+                  className={`text-[9px] font-bold uppercase tracking-wider transition-all duration-300 ${isActive ? "text-white/90 translate-y-0" : isKomuniti ? "text-emerald-200/80 translate-y-0.5" : "text-white/30 translate-y-0.5"
                     }`}
                 >
                   {it.label}
