@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState, useRef } from "react";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
+import SlotMachineButton from "../components/SlotMachineButton";
 
 type Company = {
   id?: string;
@@ -85,7 +86,7 @@ function TrustMeterBar({ label, value, delay = 0 }: { label: string; value: numb
 }
 
 // ================================
-// PREMIUM PLAY NOW BUTTON
+// SLOT MACHINE PLAY NOW BUTTON WRAPPER
 // ================================
 function PlayNowButton({ hasLink, url, waHref, onClick }: {
   hasLink: boolean;
@@ -93,17 +94,16 @@ function PlayNowButton({ hasLink, url, waHref, onClick }: {
   waHref: string;
   onClick: (url: string) => void;
 }) {
+  const targetUrl = hasLink ? url : waHref;
   return (
-    <button
-      onClick={() => onClick(hasLink ? url : waHref)}
-      className="play-now-btn"
-    >
-      <span className="play-now-glow" />
-      <span className="play-now-content">
-        <span className="play-now-icon">⚡</span>
-        <span className="play-now-text">PLAY NOW</span>
-      </span>
-    </button>
+    <div onClick={() => onClick(targetUrl)}>
+      <SlotMachineButton
+        href={targetUrl}
+        label="PLAY NOW"
+        sublabel="Tap for jackpot access"
+        pattern={["7", "MEGA", "7"]}
+      />
+    </div>
   );
 }
 
