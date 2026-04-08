@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -31,8 +32,174 @@
     --card-padding: 1.1rem;
 }
 
-.text-glow-emerald {
-    text-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+/* ===== Terminal / Cyberpunk Styles ===== */
+.terminal-text {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    text-shadow: 0 0 10px rgba(0, 229, 204, 0.5);
+}
+
+.terminal-glow-cyan {
+    text-shadow: 0 0 5px rgba(0, 229, 204, 0.8), 0 0 10px rgba(0, 229, 204, 0.5), 0 0 20px rgba(0, 229, 204, 0.3);
+}
+
+.terminal-glow-green {
+    text-shadow: 0 0 5px rgba(34, 197, 94, 0.8), 0 0 10px rgba(34, 197, 94, 0.5), 0 0 20px rgba(34, 197, 94, 0.3);
+}
+
+.terminal-glow-yellow {
+    text-shadow: 0 0 5px rgba(234, 179, 8, 0.8), 0 0 10px rgba(234, 179, 8, 0.5), 0 0 20px rgba(234, 179, 8, 0.3);
+}
+
+.terminal-border-cyan {
+    border: 1px solid rgba(0, 229, 204, 0.3);
+    box-shadow: 0 0 10px rgba(0, 229, 204, 0.1), inset 0 0 10px rgba(0, 229, 204, 0.05);
+}
+
+.terminal-border-green {
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.1), inset 0 0 10px rgba(34, 197, 94, 0.05);
+}
+
+/* Matrix rain container */
+.matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.12;
+}
+
+/* Terminal cursor blink */
+.terminal-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 18px;
+    background: #00e5cc;
+    animation: terminalCursorBlink 1s steps(1) infinite;
+    vertical-align: text-bottom;
+    box-shadow: 0 0 8px rgba(0, 229, 204, 0.8);
+}
+
+@keyframes terminalCursorBlink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Live status indicator */
+.live-indicator {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: livePulse 2s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.8);
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* RTP Badge terminal style */
+.rtp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid;
+}
+
+.rtp-badge-high {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: rgba(34, 197, 94, 0.5);
+    color: #22c55e;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+}
+
+.rtp-badge-medium {
+    background: rgba(234, 179, 8, 0.15);
+    border-color: rgba(234, 179, 8, 0.5);
+    color: #eab308;
+    box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+}
+
+.rtp-badge-low {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.5);
+    color: #ef4444;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+}
+
+/* Terminal scanner input */
+.terminal-input {
+    width: 100%;
+    height: 56px;
+    border-radius: 12px;
+    border: 2px solid rgba(0, 229, 204, 0.4);
+    background: rgba(0, 0, 0, 0.6);
+    color: #00e5cc;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    padding: 0 16px;
+    outline: none;
+    text-align: center;
+    caret-color: #00e5cc;
+    box-shadow: 0 0 20px rgba(0, 229, 204, 0.15), inset 0 0 20px rgba(0, 229, 204, 0.05);
+    transition: all 0.3s ease;
+}
+
+.terminal-input:focus {
+    border-color: rgba(0, 229, 204, 0.8);
+    box-shadow: 0 0 30px rgba(0, 229, 204, 0.3), inset 0 0 20px rgba(0, 229, 204, 0.1);
+}
+
+.terminal-input::placeholder {
+    color: rgba(0, 229, 204, 0.4);
+    letter-spacing: 0.1em;
+}
+
+/* System status bar */
+.system-status {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 229, 204, 0.2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(0, 229, 204, 0.8);
+}
+
+.system-status-ok {
+    color: #22c55e;
+}
+
+.system-status-warn {
+    color: #eab308;
+}
+
+.system-status-error {
+    color: #ef4444;
 }
 
 * {
@@ -48,12 +215,40 @@ body {
 
 body {
     margin: 0;
-    font-family: "Exo 2", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    font-family: "JetBrains Mono", "Exo 2", system-ui, -apple-system, Segoe UI, Roboto, Arial;
     color: var(--text);
-    background:
-        radial-gradient(900px 500px at 15% 5%, rgba(0, 229, 204, .08), transparent 55%),
-        radial-gradient(900px 500px at 85% 10%, rgba(255, 77, 77, .08), transparent 55%),
-        linear-gradient(180deg, var(--bg1), var(--bg0));
+    background: #0a0a0f;
+    position: relative;
+}
+
+/* Terminal background pattern */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: 
+        linear-gradient(rgba(0, 229, 204, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 204, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+}
+
+/* CRT Scanline effect */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0.15) 4px
+    );
+    z-index: 9999;
+    opacity: 0.3;
 }
 
 

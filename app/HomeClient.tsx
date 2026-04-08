@@ -5,6 +5,8 @@ import { animate, utils } from "animejs";
 import Link from "next/link";
 import Toast, { ToastType } from "./ui/Toast";
 import TypewriterText from "./ui/TypewriterText";
+import MatrixBackground from "./components/MatrixBackground";
+import TerminalStatus from "./components/TerminalStatus";
 
 import TerminalScan from "./ui/TerminalScan";
 import HackerScanOverlay from "./ui/HackerScanOverlay";
@@ -504,6 +506,9 @@ export default function HomeClient() {
 
     return (
         <>
+            {/* Matrix Background */}
+            <MatrixBackground opacity={0.08} speed={1} density={1} />
+
             {/* HACKER SCAN OVERLAY */}
             {showHackerOverlay && (
                 <HackerScanOverlay megaId={megaId} />
@@ -599,28 +604,60 @@ export default function HomeClient() {
             <main className="flex flex-col items-center justify-start min-h-screen py-8 px-4 pb-32">
                 <div className="w-full max-w-lg space-y-6">
                     
-                    {/* Hero Text — premium headline */}
-                    <div className="text-center">
-                        <h1
-                            className="text-3xl font-black italic"
-                            style={{
-                                background: "linear-gradient(135deg, #00e5cc 0%, #ffffff 40%, #a5f3fc 60%, #34d399 100%)",
-                                WebkitBackgroundClip: "text",
-                                WebkitTextFillColor: "transparent",
-                                backgroundClip: "text",
-                                filter: "drop-shadow(0 2px 16px rgba(123,215,255,0.35))",
-                            }}
-                        >
-                            MEGA888 AI RTP SCANNER
-                        </h1>
-                        <p className="mt-2 text-sm text-white/50">
-                            Masukkan ID untuk scan • {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
+                    {/* Hero Text — terminal style */}
+                    <div className="text-center tm-hero">
+                        <div className="terminal-border-cyan rounded-xl p-4 mb-3 bg-black/40 inline-block">
+                            <div className="text-[10px] font-mono text-cyan-400/70 tracking-widest uppercase mb-1">
+                                System // v2.0.26
+                            </div>
+                            <h1
+                                className="text-2xl font-black italic terminal-glow-cyan"
+                                style={{
+                                    fontFamily: "'JetBrains Mono', monospace",
+                                    background: "linear-gradient(135deg, #00e5cc 0%, #ffffff 40%, #22c55e 100%)",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    backgroundClip: "text",
+                                }}
+                            >
+                                MEGA888 AI RTP SCANNER
+                            </h1>
+                        </div>
+
+                        {/* Status bar */}
+                        <TerminalStatus
+                            messages={[
+                                "SIGNAL LOCKED // AWAITING INPUT",
+                                "LIVE SYNC: OK // NEURAL NET ONLINE",
+                                "RTP ANALYSIS ENGINE: READY",
+                            ]}
+                            showLive={true}
+                            showCursor={true}
+                            variant="cyan"
+                        />
+
+                        <p className="mt-4 text-sm text-white/50 font-mono text-[11px]">
+                            &gt;_ Masukkan ID untuk scan &bull; {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
                         </p>
                     </div>
 
-                    {/* Scanner Card */}
-                    <section className="card relative overflow-hidden p-6 tm-scan tm-scan-pulse border-cyan-500/30 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40 rounded-3xl">
-                        <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(34,211,238,0.10)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.10)_1px,transparent_1px)] [background-size:22px_22px]" />
+                    {/* Scanner Card - Terminal Style */}
+                    <section className="card relative overflow-hidden p-5 tm-scan tm-scan-pulse terminal-border-cyan bg-black/60 rounded-2xl">
+                        {/* Terminal header bar */}
+                        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-cyan-500/20">
+                            <div className="flex gap-1.5">
+                                <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                                <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                            </div>
+                            <span className="text-[10px] font-mono text-cyan-400/60 tracking-widest ml-2">
+                                SCANNER_TERMINAL_v2.exe
+                            </span>
+                            <div className="ml-auto flex items-center gap-2">
+                                <span className="live-dot" />
+                                <span className="text-[10px] font-mono text-green-400 tracking-widest">LIVE_SYNC: OK</span>
+                            </div>
+                        </div>
                         
                         {/* Badges */}
                         <div className="flex flex-wrap items-center gap-2 mb-4">
@@ -631,21 +668,28 @@ export default function HomeClient() {
                             <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] ${isValidMegaId ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300" : "border-white/10 bg-white/5 text-white/40"}`}>
                                 {busy ? "Scanning..." : isValidMegaId ? "Ready" : "Awaiting ID"}
                             </span>
+                            {/* RTP Badge */}
+                            <span className="rtp-badge rtp-badge-medium">
+                                <span>◆</span> RTP SCORE
+                            </span>
                         </div>
 
-                        {/* Input */}
-                        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3 mb-4">
+                        {/* Input - Terminal Style */}
+                        <div className="rounded-xl border border-cyan-500/30 bg-black/50 p-3 mb-4">
                             <input
-                                className={`tm-scan-item input input-premium text-center text-lg ${inputError ? 'shake-error' : ''}`}
+                                className={`tm-scan-item terminal-input ${inputError ? 'shake-error' : ''}`}
                                 value={megaId}
                                 onChange={(e) => setMegaId(e.target.value)}
                                 inputMode="numeric"
-                                placeholder="Masukkan 12-digit ID"
+                                placeholder="ENTER_ID_HERE"
                                 maxLength={12}
+                                style={{ fontFamily: "'JetBrains Mono', monospace" }}
                             />
-                            <div className="mt-2 flex justify-between text-xs text-white/40">
-                                <span>{megaId.trim().length}/12 digit</span>
-                                <span>Format: 123456789012 atau 091234567890</span>
+                            <div className="mt-2 flex justify-between text-xs font-mono text-cyan-400/50">
+                                <span className="flex items-center gap-1">
+                                    <span className="text-[10px]">&gt;_</span> {megaId.trim().length}/12 digit
+                                </span>
+                                <span>Format: 1xxxxxxxxxxx | 09xxxxxxxx</span>
                             </div>
                         </div>
 
