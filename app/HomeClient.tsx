@@ -601,12 +601,12 @@ export default function HomeClient() {
             </nav>
 
             {/* Scanner Section - CENTERED & CLEAN */}
-            <main className="flex flex-col items-center justify-start min-h-screen py-8 px-4 pb-32">
-                <div className="w-full max-w-lg space-y-6">
+            <main className="flex flex-col items-center justify-start min-h-screen py-4 px-4 pb-24">
+                <div className="w-full max-w-lg space-y-3">
                     
                     {/* Hero Text — terminal style with holographic scan */}
                     <div className="text-center tm-hero">
-                        <div className="terminal-border-red rounded-xl p-5 mb-3 bg-black/50 inline-block relative overflow-hidden">
+                        <div className="terminal-border-red rounded-xl p-3 mb-2 bg-black/50 inline-block relative overflow-hidden">
                             <div className="text-[10px] font-mono text-red-400/70 tracking-widest uppercase mb-2">
                                 System // v2.0.26
                             </div>
@@ -658,15 +658,15 @@ export default function HomeClient() {
                             variant="red"
                         />
 
-                        <p className="mt-4 text-sm text-white/50 font-mono text-[11px]">
+                        <p className="mt-2 text-sm text-white/50 font-mono text-[11px]">
                             &gt;_ Masukkan ID untuk scan &bull; {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
                         </p>
                     </div>
 
                     {/* Scanner Card - Terminal Style */}
-                    <section className="card relative overflow-hidden p-5 tm-scan tm-scan-pulse terminal-border-red bg-black/60 rounded-2xl">
+                    <section className="card relative overflow-hidden p-4 tm-scan tm-scan-pulse terminal-border-red bg-black/60 rounded-2xl">
                         {/* Terminal header bar */}
-                        <div className="flex items-center gap-2 mb-4 pb-3 border-b border-red-500/20">
+                        <div className="flex items-center gap-2 mb-3 pb-2 border-b border-red-500/20">
                             <div className="flex gap-1.5">
                                 <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
                                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
@@ -682,7 +682,7 @@ export default function HomeClient() {
                         </div>
                         
                         {/* Badges */}
-                        <div className="flex flex-wrap items-center gap-2 mb-4">
+                        <div className="flex flex-wrap items-center gap-2 mb-3">
                             <span className="inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-red-300">
                                 <span className="h-1.5 w-1.5 rounded-full bg-red-300 animate-pulse" />
                                 Live AI
@@ -697,7 +697,7 @@ export default function HomeClient() {
                         </div>
 
                         {/* Input - Terminal Style */}
-                        <div className="rounded-xl border border-red-600/30 bg-black/50 p-3 mb-4">
+                        <div className="rounded-xl border border-red-600/30 bg-black/50 p-3 mb-3">
                             <input
                                 className={`tm-scan-item terminal-input ${inputError ? 'shake-error' : ''}`}
                                 value={megaId}
@@ -716,7 +716,7 @@ export default function HomeClient() {
                         </div>
 
                         {/* Terminal Animation */}
-                        <div className="scanner-terminal-shell mb-4 rounded-2xl border border-white/10 bg-white/5 px-3 py-3">
+                        <div className="scanner-terminal-shell mb-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
                             <div className="scanner-terminal-line" />
                             <TypewriterText text="[AI] SIGNAL READY • ENTER ID TO BEGIN SCAN..." speed={24} />
                         </div>
@@ -742,14 +742,14 @@ export default function HomeClient() {
 
                     {/* Quick Links */}
                     <h2 className="sr-only">Pautan Pantas</h2>
-                    <div className="grid grid-cols-2 gap-3">
-                        <Link href="/trusted" className="card p-4 text-center border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition">
-                            <div className="text-2xl mb-1">🔥</div>
+                    <div className="grid grid-cols-2 gap-2">
+                        <Link href="/trusted" className="card p-3 text-center border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition">
+                            <div className="text-xl mb-0.5">🔥</div>
                             <div className="text-sm font-bold text-white">Trusted List</div>
                             <div className="text-xs text-white/50">Verified agents</div>
                         </Link>
-                        <Link href="/help" className="card p-4 text-center border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/10 transition">
-                            <div className="text-2xl mb-1">❓</div>
+                        <Link href="/help" className="card p-3 text-center border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/10 transition">
+                            <div className="text-xl mb-0.5">❓</div>
                             <div className="text-sm font-bold text-white">Help</div>
                             <div className="text-xs text-white/50">Panduan & FAQ</div>
                         </Link>
@@ -757,13 +757,13 @@ export default function HomeClient() {
 
                     {/* Stars Info */}
                     <h2 className="sr-only">Maklumat Stars</h2>
-                    <div className="card p-4 border-white/10 bg-white/5">
+                    <div className="card p-3 border-white/10 bg-white/5">
                         <div className="flex items-center justify-between">
                             <div>
                                 <div className="text-sm font-bold text-white">⭐ {stars} Stars</div>
                                 <div className="text-xs text-white/40">{stars > 0 ? "1 scan = 1 star" : "Login untuk bonus harian"}</div>
                             </div>
-                            <Link href="/mega888" className="px-4 py-2 bg-white/10 rounded-full text-xs font-bold text-white/70 hover:text-white transition">
+                            <Link href="/mega888" className="px-3 py-1.5 bg-white/10 rounded-full text-xs font-bold text-white/70 hover:text-white transition">
                                 Mega888 Hub →
                             </Link>
                         </div>
@@ -772,10 +772,10 @@ export default function HomeClient() {
                     {/* ── Social Proof ── */}
                     <section
                         aria-label="Social proof"
-                        className="card p-4 border-red-500/20 bg-gradient-to-br from-red-950/60 to-slate-950/80 overflow-hidden"
+                        className="card p-3 border-red-500/20 bg-gradient-to-br from-red-950/60 to-slate-950/80 overflow-hidden"
                         style={{ borderRadius: 16 }}
                     >
-                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
                             <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#22d3ee", letterSpacing: "0.18em", textTransform: "uppercase" }}>
                                 ⭐ Apa Kata Pengguna
                             </span>
@@ -888,7 +888,7 @@ export default function HomeClient() {
 
                         {/* Trust stats bar */}
                         <div style={{
-                            marginTop: 12, padding: "0.7rem 1rem",
+                            marginTop: 8, padding: "0.5rem 0.75rem",
                             borderRadius: 10,
                             background: "rgba(34,211,238,0.06)",
                             border: "1px solid rgba(34,211,238,0.15)",
