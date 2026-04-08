@@ -757,7 +757,11 @@ export default function HomeClient() {
                             <div>
                                 <div className="flex items-center gap-2">
                                     <Star className="w-4 h-4 text-amber-400 premium-icon-glow-gold" />
-                                    <span className="text-sm font-bold text-white">{stars} Stars</span>
+                                    {stars > 0 ? (
+                                        <span className="text-sm font-bold text-white">{stars} Stars</span>
+                                    ) : (
+                                        <span className="text-sm font-bold text-white/60">No Stars</span>
+                                    )}
                                 </div>
                                 <div className="text-xs text-white/40 ml-6">{stars > 0 ? "1 scan = 1 star" : "Login untuk bonus harian"}</div>
                             </div>
@@ -1530,7 +1534,84 @@ export default function HomeClient() {
                   50% { box-shadow: 0 0 15px rgba(37,211,102,0.5), 0 0 25px rgba(37,211,102,0.3); }
                 }
 
-                /* Emoji Glow Animation */
+                /* Premium Icon Glow Effects */
+                .premium-icon-glow {
+                    filter: drop-shadow(0 0 6px currentColor);
+                    animation: icon-pulse-glow 2s ease-in-out infinite;
+                }
+
+                .premium-icon-glow-red {
+                    color: #ff4d4d;
+                    filter: drop-shadow(0 0 8px rgba(255, 77, 77, 0.8)) drop-shadow(0 0 16px rgba(255, 77, 77, 0.4));
+                    animation: icon-pulse-red 2s ease-in-out infinite;
+                }
+
+                .premium-icon-glow-gold {
+                    color: #fbbf24;
+                    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8)) drop-shadow(0 0 16px rgba(251, 191, 36, 0.4));
+                    animation: icon-pulse-gold 2s ease-in-out infinite;
+                }
+
+                .premium-icon-glow-purple {
+                    color: #a855f7;
+                    filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.8)) drop-shadow(0 0 16px rgba(168, 85, 247, 0.4));
+                    animation: icon-pulse-purple 2s ease-in-out infinite;
+                }
+
+                .premium-icon-glow-blue {
+                    color: #3b82f6;
+                    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 16px rgba(59, 130, 246, 0.4));
+                    animation: icon-pulse-blue 2s ease-in-out infinite;
+                }
+
+                .premium-icon-glow-green {
+                    color: #22c55e;
+                    filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.8)) drop-shadow(0 0 16px rgba(34, 197, 94, 0.4));
+                    animation: icon-pulse-green 2s ease-in-out infinite;
+                }
+
+                .premium-icon-glow-cyan {
+                    color: #22d3ee;
+                    filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.8)) drop-shadow(0 0 16px rgba(34, 211, 238, 0.4));
+                    animation: icon-pulse-cyan 2s ease-in-out infinite;
+                }
+
+                @keyframes icon-pulse-glow {
+                    0%, 100% { filter: drop-shadow(0 0 4px currentColor); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 10px currentColor) drop-shadow(0 0 20px currentColor); transform: scale(1.05); }
+                }
+
+                @keyframes icon-pulse-red {
+                    0%, 100% { filter: drop-shadow(0 0 6px rgba(255, 77, 77, 0.6)); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 12px rgba(255, 77, 77, 0.9)) drop-shadow(0 0 24px rgba(255, 77, 77, 0.5)); transform: scale(1.08); }
+                }
+
+                @keyframes icon-pulse-gold {
+                    0%, 100% { filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.6)); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.9)) drop-shadow(0 0 24px rgba(251, 191, 36, 0.5)); transform: scale(1.08); }
+                }
+
+                @keyframes icon-pulse-purple {
+                    0%, 100% { filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.6)); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.9)) drop-shadow(0 0 24px rgba(168, 85, 247, 0.5)); transform: scale(1.08); }
+                }
+
+                @keyframes icon-pulse-blue {
+                    0%, 100% { filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.6)); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.9)) drop-shadow(0 0 24px rgba(59, 130, 246, 0.5)); transform: scale(1.08); }
+                }
+
+                @keyframes icon-pulse-green {
+                    0%, 100% { filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.6)); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.9)) drop-shadow(0 0 24px rgba(34, 197, 94, 0.5)); transform: scale(1.08); }
+                }
+
+                @keyframes icon-pulse-cyan {
+                    0%, 100% { filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.6)); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.9)) drop-shadow(0 0 24px rgba(34, 211, 238, 0.5)); transform: scale(1.08); }
+                }
+
+                /* Legacy Emoji Glow Animation (deprecated, kept for compatibility) */
                 .emoji-glow {
                     filter: drop-shadow(0 0 8px currentColor);
                     text-shadow: 0 0 10px currentColor;

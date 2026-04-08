@@ -154,8 +154,14 @@ export default function ProfileClient() {
                             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-yellow-400/20 to-transparent" />
                             <div className="text-[9px] uppercase tracking-[0.2em] text-red-500/40 mb-1.5 font-bold">Credit Balance</div>
                             <div className="flex items-baseline gap-1.5 font-black text-red-400 drop-shadow-[0_0_8px_rgba(255,77,77,0.3)]">
-                                <span className="text-xl">{stars}</span>
-                                <span className="text-[10px] opacity-60">STARS</span>
+                                {stars > 0 ? (
+                                    <>
+                                        <span className="text-xl">{stars}</span>
+                                        <span className="text-[10px] opacity-60">STARS</span>
+                                    </>
+                                ) : (
+                                    <span className="text-xl text-white/30">-</span>
+                                )}
                             </div>
                             <a href="https://t.me/cyberslotadmin" target="_blank" className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center rounded-full bg-red-400/10 text-red-400 text-xs font-bold border border-red-400/20 hover:bg-red-400 hover:text-black transition-all shadow-lg">+</a>
                         </div>
