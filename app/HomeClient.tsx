@@ -604,24 +604,27 @@ export default function HomeClient() {
             <main className="flex flex-col items-center justify-start min-h-screen py-8 px-4 pb-32">
                 <div className="w-full max-w-lg space-y-6">
                     
-                    {/* Hero Text — terminal style */}
+                    {/* Hero Text — terminal style with holographic scan */}
                     <div className="text-center tm-hero">
-                        <div className="terminal-border-cyan rounded-xl p-4 mb-3 bg-black/40 inline-block">
+                        <div className="terminal-border-cyan rounded-xl p-4 mb-3 bg-black/40 inline-block relative overflow-hidden">
                             <div className="text-[10px] font-mono text-cyan-400/70 tracking-widest uppercase mb-1">
                                 System // v2.0.26
                             </div>
                             <h1
-                                className="text-2xl font-black italic terminal-glow-cyan"
+                                className="text-2xl font-black italic terminal-glow-cyan holographic-title"
                                 style={{
                                     fontFamily: "'JetBrains Mono', monospace",
                                     background: "linear-gradient(135deg, #00e5cc 0%, #ffffff 40%, #22c55e 100%)",
                                     WebkitBackgroundClip: "text",
                                     WebkitTextFillColor: "transparent",
                                     backgroundClip: "text",
+                                    position: "relative",
                                 }}
                             >
                                 MEGA888 AI RTP SCANNER
                             </h1>
+                            {/* Red holographic scanning line */}
+                            <div className="holographic-scan-line" />
                         </div>
 
                         {/* Status bar */}
@@ -950,6 +953,50 @@ export default function HomeClient() {
                 @keyframes pulse-cooldown {
                     0%, 100% { transform: scale(1); }
                     50% { transform: scale(0.985); }
+                }
+
+                .holographic-title {
+                    position: relative;
+                }
+
+                .holographic-scan-line {
+                    position: absolute;
+                    left: -100%;
+                    top: 50%;
+                    width: 50%;
+                    height: 2px;
+                    background: linear-gradient(90deg, 
+                        transparent 0%, 
+                        rgba(255, 0, 0, 0.3) 20%, 
+                        rgba(255, 50, 50, 0.9) 50%, 
+                        rgba(255, 0, 0, 0.3) 80%, 
+                        transparent 100%
+                    );
+                    box-shadow: 
+                        0 0 8px rgba(255, 0, 0, 0.8),
+                        0 0 16px rgba(255, 50, 50, 0.6),
+                        0 0 32px rgba(255, 0, 0, 0.4),
+                        0 0 64px rgba(255, 0, 0, 0.2);
+                    animation: holographicScan 3s ease-in-out infinite;
+                    pointer-events: none;
+                    z-index: 10;
+                }
+
+                @keyframes holographicScan {
+                    0% {
+                        left: -100%;
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 1;
+                    }
+                    90% {
+                        opacity: 1;
+                    }
+                    100% {
+                        left: 150%;
+                        opacity: 0;
+                    }
                 }
 
                 .scanner-terminal-shell {
