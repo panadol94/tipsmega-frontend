@@ -338,6 +338,10 @@ export default function TrustedClient() {
                           title={`${c.name} - Mega888 Platform`}
                           preload="metadata"
                           className="premium-media"
+                          muted
+                          playsInline
+                          autoPlay
+                          loop
                         />
                       ) : (
                         // eslint-disable-next-line @next/next/no-img-element
