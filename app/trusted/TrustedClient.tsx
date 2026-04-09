@@ -231,6 +231,16 @@ function openNewTab(url: string) {
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
+function forcePlay(video: HTMLVideoElement | null) {
+  if (!video) return;
+  video.muted = true;
+  video.defaultMuted = true;
+  video.autoplay = true;
+  video.playsInline = true;
+  const p = video.play();
+  if (p && typeof p.catch === "function") p.catch(() => {});
+}
+
 export default function TrustedClient() {
   const { playSound, triggerHaptic } = useGlobalSettings();
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -343,6 +353,8 @@ export default function TrustedClient() {
                           autoPlay
                           loop
                           poster="/mega888.webp"
+                          onLoadedData={(e) => forcePlay(e.currentTarget)}
+                          onCanPlay={(e) => forcePlay(e.currentTarget)}
                         />
                       ) : (
                         // eslint-disable-next-line @next/next/no-img-element
