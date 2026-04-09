@@ -2,9 +2,9 @@ import Link from "next/link";
 import { GAME_PAGES } from "../data/gamePages";
 
 export const metadata = {
-  title: "Semua Game Mega888 2026 | Senarai Lengkap 197+ Slot",
+  title: "Senarai Game Mega888 Malaysia 2026 | RTP, Tips & 197+ Slot",
   description:
-    "Senarai lengkap semua 197+ game slot Mega888 2026. Lihat RTP, tips menang, dan strategi untuk setiap game. Pilih game terbaik dengan AI Scanner.",
+    "Senarai game Mega888 Malaysia 2026 dengan 197+ slot. Semak RTP, kategori, tips asas, dan pilih game terbaik menggunakan rujukan AI Scanner.",
   keywords: [
     "game mega888", "senarai game mega888", "slot mega888", "mega888 game list",
     "mega888 slot terbaik", "mega888 2026",
@@ -78,6 +78,54 @@ export default function GamesPage() {
           </p>
         </header>
 
+        <div
+          style={{
+            marginBottom: "1.5rem",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "0.75rem",
+          }}
+        >
+          {[
+            {
+              href: "/",
+              title: "Semak RTP Live",
+              note: "Gunakan AI Scanner untuk tengok signal RTP semasa.",
+            },
+            {
+              href: "/mega888",
+              title: "Mega888 Malaysia Hub",
+              note: "Panduan login, download, trusted agent dan withdraw.",
+            },
+            {
+              href: "/trusted",
+              title: "Trusted Company",
+              note: "Semak company verified sebelum register atau deposit.",
+            },
+            {
+              href: "/blog",
+              title: "Blog Tips & Strategi",
+              note: "Panduan download, withdraw, trusted agent & more.",
+            },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                borderRadius: 14,
+                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(255,255,255,0.03)",
+                padding: "0.95rem 1rem",
+              }}
+            >
+              <div style={{ fontWeight: 800, color: "#e2e8f0", marginBottom: 4 }}>{item.title}</div>
+              <div style={{ fontSize: "0.82rem", color: "#94a3b8" }}>{item.note}</div>
+            </Link>
+          ))}
+        </div>
+
         {categories.map((cat) => (
           <section key={cat} style={{ marginBottom: "2.5rem" }}>
             <h2 style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: "1rem", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: 8 }}>
@@ -118,7 +166,7 @@ export default function GamesPage() {
         ))}
 
         <div style={{ textAlign: "center", marginTop: "2rem" }}>
-          <Link href="/blog" style={{ color: "#f59e0b", fontWeight: 600 }}>
+          <Link href="/blog" style={{ color: "#ef4444", fontWeight: 600 }}>
             📝 Baca Tips & Strategi →
           </Link>
           <span style={{ margin: "0 1rem", color: "#334155" }}>|</span>

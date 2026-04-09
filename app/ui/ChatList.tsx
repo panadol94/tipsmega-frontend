@@ -119,7 +119,7 @@ export default function ChatList({
                         whileTap={{ scale: 0.98 }}
                         onClick={() => onSelect(chat.id)}
                         className={`p-4 border-b border-white/5 cursor-pointer transition-all duration-200 ${selectedIds === chat.id
-                                ? "bg-gradient-to-r from-emerald-600/20 to-blue-600/20 border-l-4 border-l-emerald-500 shadow-lg shadow-emerald-500/10"
+                                ? "bg-gradient-to-r from-emerald-600/20 to-blue-600/20 border-l-4 border-l-red-500 shadow-lg shadow-red-500/10"
                                 : "hover:border-l-2 hover:border-l-white/20"
                             }`}
                         style={{
@@ -127,7 +127,7 @@ export default function ChatList({
                         }}
                     >
                         <div className="flex justify-between items-start">
-                            <h3 className={`font-semibold text-sm ${selectedIds === chat.id ? "text-emerald-400" : "text-white"
+                            <h3 className={`font-semibold text-sm ${selectedIds === chat.id ? "text-red-400" : "text-white"
                                 }`}>
                                 {chat.name}
                             </h3>

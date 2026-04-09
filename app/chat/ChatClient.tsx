@@ -12,8 +12,8 @@ export default function ChatClient() {
     const [selectedId, setSelectedId] = useState<string | null>("global");
 
     return (
-        <div className="w-full flex justify-center px-3">
-            <main className="w-full max-w-[520px] md:max-w-[720px] lg:max-w-[1200px] flex flex-row h-[calc(100vh-140px)] min-h-[500px] border-l border-r border-white/5">
+        <div className="w-full flex justify-center px-3 overflow-x-hidden">
+            <main className="w-full max-w-[520px] md:max-w-[720px] lg:max-w-[1200px] max-w-full flex flex-row h-[calc(100dvh-140px)] min-h-[500px] border-l border-r border-white/5 overflow-hidden">
                 {/* Sidebar (List) - Hidden on mobile if chat selected */}
                 <div className={`${selectedId ? "hidden md:flex" : "flex"} w-full md:w-[320px] shrink-0 border-r border-white/10`}>
                     <ChatList

@@ -216,7 +216,7 @@ export default function TerminalScan({
         {showShareBtn && (
           <button
             onClick={handleShare}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-bold rounded-lg shadow-md transition-all active:scale-95"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-red-600 to-blue-600 hover:from-red-500 hover:to-blue-500 text-white text-xs font-bold rounded-lg shadow-md transition-all active:scale-95"
           >
             <span>📤</span>
             <span>SHARE RESULT</span>

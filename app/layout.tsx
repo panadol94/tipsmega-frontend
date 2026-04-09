@@ -1,151 +1,118 @@
 import "./globals.css";
-import { Exo_2 } from "next/font/google";
-import Script from "next/script";
-import Shell from "./ui/Shell";
-import { GlobalSettingsProvider } from "./context/GlobalSettingsContext";
+import type { Metadata } from "next";
+import ClientLayout from "./ClientLayout";
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX";
-
-const exo2 = Exo_2({
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "800", "900"],
-  display: "swap",
-});
-
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL("https://tipsmega888.com"),
-  title: {
-    default: "Mega888 AI Tips RTP 2026 | AI Scanner",
-    template: "%s | Mega888 AI",
-  },
+  title: "Mega888 Community Wins | Group WhatsApp Mega888 & AI RTP Scanner | TipsMega888 Malaysia",
   description:
-    "Gunakan Mega888 AI Tips RTP Scanner terbaru untuk analisis kemenangan anda. Sistem AI canggih untuk mengira peratusan RTP secara live. Percuma dan mudah.",
+    "Join group WhatsApp spin Mega888 Malaysia. See community wins, big jackpots & member wins. AI RTP Scanner percuma Mega888 Malaysia. Trusted by 50,000+ players.",
   keywords: [
-    "Mega888",
-    "Mega888 Tips",
-    "Mega888 RTP",
-    "Mega888 Scanner",
-    "Mega888 Hack",
-    "Tips Mega888 Hari Ini",
-    "Mega888 APK",
-    "918Kiss RTP",
-    "Scanner Mega888",
-    "Mega888 Download",
-    "Mega888 Original",
-    "Mega888 Gacor 2026",
-    "Mega888 Auto Cuci",
-    "Kiosk Rasmi Mega888",
-    "RTP Live Mega888",
-    "Tips Mega888 Padu",
+    "group whatsapp mega888",
+    "group whatsapp spin",
+    "mega888 community",
+    "mega888 community wins",
+    "mega888 hack",
+    "software hack mega888",
+    "cara godam slot mega888",
+    "mega888 hack 2026",
+    "mega888 Malaysia",
+    "mega888 RTP scanner",
+    "mega888 online casino",
+    "slot Malaysia",
+    "mega888 jackpot",
+    "mega888 big win",
+    "TipsMega888",
   ],
-  authors: [{ name: "TipsMega Admin" }],
-  creator: "TipsMega AI Team",
-  publisher: "TipsMega888",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
   openGraph: {
-    title: "Mega888 AI Tips RTP 2026",
+    title: "Mega888 Community Wins | Group WhatsApp Mega888 & AI RTP Scanner",
     description:
-      "Analisis RTP Mega888 Live dengan AI. Dapatkan tips kemenangan tertinggi hari ini.",
+      "Join group WhatsApp spin Mega888. See member wins and big jackpots. AI-powered RTP scanner for Malaysian players.",
     url: "https://tipsmega888.com",
-    siteName: "TipsMega888 AI",
+    siteName: "TipsMega888",
     locale: "ms_MY",
     type: "website",
     images: [
       {
-        url: '/og-image.webp',
+        url: "https://tipsmega888.com/wins/win-4.jpg",
         width: 1200,
         height: 630,
-        alt: 'Mega888 AI RTP Scanner 2026 - 4.9 Rating',
+        alt: "Mega888 Community Wins - Big Jackpot Win Screenshot",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mega888 AI Tips RTP",
-    description: "Scan RTP Mega888 sekarang dengan AI kami.",
-    images: ['/og-image.webp'],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    title: "Mega888 Community Wins | Group WhatsApp Mega888 & AI RTP Scanner",
+    description:
+      "Join group WhatsApp spin Mega888. See member wins and big jackpots.",
+    images: ["https://tipsmega888.com/wins/win-4.jpg"],
   },
   alternates: {
-    canonical: 'https://tipsmega888.com',
+    canonical: "https://tipsmega888.com",
   },
-  manifest: "/manifest.json",
-};
-
-export const viewport = {
-  themeColor: "#000000",
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "TipsMega888",
+      url: "https://tipsmega888.com",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: "https://tipsmega888.com/games?q={search_term_string}",
+        "query-input": "required name=search_term_string",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Apa itu RTP Mega888?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "RTP atau Return to Player Mega888 adalah anggaran peratusan sistem permainan akan membayar balik kepada pemain dalam jangka masa panjang. Fungsi TipsMega888 adalah memantau algoritma dan statistik RTP terkini bagi setiap slot di aplikasi Mega888 supaya anda boleh buat keputusan secara bijak."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Bolehkah pengimbas TipsMega888 hack sistem Mega888?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Tidak. Sistem ini TIDAK menggodam (hack) aplikasi Mega888. Kami menggunakan analisis AI berasaskan corak kemenangan dan kadar RTP purata harian untuk memberi ramalan kebarangkalian paling tinggi untuk mana-mana permainan slot Mega888."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Macam mana nak download APK Mega888 2026 yang original?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Anda dinasihatkan sentiasa muat turun (download) APK rasmi Mega888 daripada ejen dan pautan yang disahkan (Trusted Platforms). Elakkan memuat turun fail Mega888 dari sumber yang tidak berlesen untuk melindungi maklumat dan baki akaun anda."
+          }
+        }
+      ]
+    }
+  ];
+
   return (
-    <html lang="ms" suppressHydrationWarning className={exo2.className}>
+    <html lang="ms">
       <head>
-        {/* Google Analytics 4 */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="ga4-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}');
-          `}
-        </Script>
-      </head>
-      <body>
-        <GlobalSettingsProvider>
-          <main id="main-content">
-            <Shell>{children}</Shell>
-          </main>
-        </GlobalSettingsProvider>
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              name: "Mega888 AI Tips RTP",
-              applicationCategory: "UtilityApplication",
-              operatingSystem: "Web",
-              offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "MYR",
-              },
-              description:
-                "Sistem AI Canggih untuk analisis RTP Mega888 dan Tips Kemenangan.",
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "4.9",
-                ratingCount: "1280",
-              },
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+      </head>
+      <body>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

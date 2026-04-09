@@ -1,14 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { animate, utils } from "animejs";
 import Link from "next/link";
+import { Flame, HelpCircle, Star, Gamepad2, Send, Trophy } from "lucide-react";
 import Toast, { ToastType } from "./ui/Toast";
 import TypewriterText from "./ui/TypewriterText";
+import MatrixBackground from "./components/MatrixBackground";
+import TerminalStatus from "./components/TerminalStatus";
 
 import TerminalScan from "./ui/TerminalScan";
 import HackerScanOverlay from "./ui/HackerScanOverlay";
 import AuthModal from "./ui/AuthModal";
 import InstallPrompt from "./ui/InstallPrompt";
+import BottomNav from "./ui/BottomNav";
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
 import { useStarSync } from "./lib/useStarSync";
 import confetti from "canvas-confetti";
@@ -29,8 +34,6 @@ function trimText(s: string, max = 90) {
     if (t.length <= max) return t;
     return t.slice(0, max - 1) + "…";
 }
-
-
 
 function maskMegaId(id: string) {
     const t = String(id || "").trim();
@@ -70,7 +73,7 @@ async function apiScan(deviceId: string, megaId: string) {
     return json as ScanRes;
 }
 
-export default function HomeClient() {
+export default function HomeClient({ children }: { children?: React.ReactNode }) {
     const [deviceId, setDeviceId] = useState<string>("");
     const [stars, setStars] = useState<number>(0);
 
@@ -83,12 +86,21 @@ export default function HomeClient() {
 
     // ✅ TerminalScan (animated)
     const [runKey, setRunKey] = useState<string>("");
+    const [showResult, setShowResult] = useState(false);
     const [idMasked, setIdMasked] = useState<string>("");
     const [lastRtp, setLastRtp] = useState<number | null>(null);
+
+    // RTP UI animation
+    const rtpAnimRef = useRef<{ val: number }>({ val: 0 });
+    const rtpPrevRef = useRef<number>(0);
+    const rtpAnimInstRef = useRef<ReturnType<typeof animate> | null>(null);
+    const scanPulseAnimInstRef = useRef<ReturnType<typeof animate> | null>(null);
+    const [rtpDisplay, setRtpDisplay] = useState<number>(0);
 
     // auth UI
     const [authOpen, setAuthOpen] = useState<null | "register" | "login">(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userName, setUserName] = useState("");
     const [toast, setToast] = useState<{ msg: string; type: ToastType } | null>(null);
 
     // Star notification
@@ -115,6 +127,139 @@ export default function HomeClient() {
         return deviceId || localStorage.getItem(storageKey) || "";
     }, [deviceId]);
 
+    const isValidMegaId = /^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim());
+
+    // Entrance animation
+    useLayoutEffect(() => {
+        const prefersReducedMotion =
+            typeof window !== "undefined" &&
+            typeof window.matchMedia === "function" &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        let safetyTimeout: number | null = null;
+
+        const queryEls = () => {
+            const heroEls = Array.from(document.querySelectorAll<HTMLElement>(".tm-hero"));
+            const scanEls = Array.from(document.querySelectorAll<HTMLElement>(".tm-scan"));
+            return { heroEls, scanEls };
+        };
+
+        const forceFinalState = () => {
+            const { heroEls, scanEls } = queryEls();
+            heroEls.forEach((el) => {
+                el.style.opacity = "1";
+                el.style.transform = "none";
+                el.style.willChange = "";
+            });
+            scanEls.forEach((el) => {
+                el.style.opacity = "1";
+                el.style.transform = "none";
+                el.style.willChange = "";
+            });
+        };
+
+        const applyInitialHiddenState = () => {
+            const { heroEls, scanEls } = queryEls();
+            for (const el of heroEls) {
+                el.style.opacity = "0";
+                el.style.transform = "translateY(18px)";
+                el.style.willChange = "opacity, transform";
+            }
+            for (const el of scanEls) {
+                el.style.opacity = "0";
+                el.style.transform = "translateY(10px)";
+                el.style.willChange = "opacity, transform";
+            }
+        };
+
+        const animateIn = () => {
+            if (prefersReducedMotion) {
+                forceFinalState();
+                return;
+            }
+
+            applyInitialHiddenState();
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    try {
+                        const { heroEls, scanEls } = queryEls();
+                        animate(heroEls, {
+                            opacity: [0, 1],
+                            translateY: [18, 0],
+                            delay: utils.stagger(110),
+                            duration: 750,
+                            easing: "easeOutCubic",
+                            complete: forceFinalState,
+                        });
+
+                        animate(scanEls, {
+                            opacity: [0, 1],
+                            translateY: [10, 0],
+                            duration: 650,
+                            easing: "easeOutCubic",
+                            delay: 250,
+                            complete: forceFinalState,
+                        });
+                    } catch {
+                        forceFinalState();
+                    }
+                });
+            });
+
+            if (safetyTimeout) window.clearTimeout(safetyTimeout);
+            safetyTimeout = window.setTimeout(forceFinalState, 2000);
+        };
+
+        const handlePageShow = (event: PageTransitionEvent) => {
+            if (event.persisted) animateIn();
+        };
+
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === "visible") {
+                const { heroEls } = queryEls();
+                const isHidden = heroEls.some((el) => el.style.opacity === "0");
+                if (isHidden) animateIn();
+            }
+        };
+
+        animateIn();
+
+        window.addEventListener("pageshow", handlePageShow);
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+
+        return () => {
+            window.removeEventListener("pageshow", handlePageShow);
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+            if (safetyTimeout) window.clearTimeout(safetyTimeout);
+            forceFinalState();
+        };
+    }, []);
+
+    // Animate RTP number when result changes
+    useEffect(() => {
+        if (lastRtp === null || Number.isNaN(lastRtp)) return;
+
+        const from = rtpPrevRef.current || 0;
+        rtpPrevRef.current = lastRtp;
+
+        if (rtpAnimInstRef.current) {
+            rtpAnimInstRef.current.pause();
+            rtpAnimInstRef.current = null;
+        }
+        rtpAnimRef.current.val = from;
+
+        rtpAnimInstRef.current = animate(rtpAnimRef.current, {
+            val: lastRtp,
+            duration: 900,
+            easing: "easeOutExpo",
+            update: () => {
+                const v = Math.round((rtpAnimRef.current.val + Number.EPSILON) * 10) / 10;
+                setRtpDisplay(v);
+            },
+        });
+    }, [lastRtp]);
+
     // Fetch games from API
     useEffect(() => {
         const fetchGames = async () => {
@@ -126,16 +271,13 @@ export default function HomeClient() {
                 }
             } catch (err) {
                 console.error("Failed to fetch games:", err);
-                // Fallback to empty array if API fails
                 setGames([]);
-            } finally {
-                // Games loaded
             }
         };
         fetchGames();
     }, []);
 
-    // Check cooldown on mount - calculate initial value
+    // Check cooldown on mount
     useEffect(() => {
         if (typeof window === "undefined") return;
 
@@ -169,6 +311,8 @@ export default function HomeClient() {
     useEffect(() => {
         if (typeof window === "undefined") return;
 
+        const savedUsername = localStorage.getItem("tipsmega_username");
+        if (savedUsername) setUserName(savedUsername);
         if (localStorage.getItem(tokenKey)) {
             setTimeout(() => setIsLoggedIn(true), 0);
         }
@@ -180,7 +324,6 @@ export default function HomeClient() {
         }
         setTimeout(() => setDeviceId(did), 0);
 
-        // ✅ Capture referral code from URL
         const params = new URLSearchParams(window.location.search);
         const ref = params.get("ref");
         if (ref) {
@@ -188,26 +331,22 @@ export default function HomeClient() {
             console.log("Ref detected:", ref);
         }
 
-        // ⚡ IP Change Detection
         const checkIpChange = async () => {
             try {
                 const response = await fetch('https://api.ipify.org?format=json');
                 const data = await response.json();
                 const currentIp = data.ip;
-
                 const storedIp = localStorage.getItem('user_last_ip');
 
                 if (storedIp && storedIp !== currentIp) {
-                    // IP changed! Show warning
                     showToast(
-                        `⚠️ IP berubah! Lama: ${storedIp.substring(0, 8)}... → Baru: ${currentIp.substring(0, 8)}... Cooldown masih aktif per device.`,
+                        `⚠️ IP berubah! Cooldown masih aktif per device.`,
                         "error"
                     );
                     playSound("error");
                     triggerHaptic(300);
                 }
 
-                // Update stored IP
                 localStorage.setItem('user_last_ip', currentIp);
             } catch (error) {
                 console.error('IP check failed:', error);
@@ -219,34 +358,29 @@ export default function HomeClient() {
         apiInit(did)
             .then((d) => setStars(d?.stars ?? 0))
             .catch(() => setStars(0));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // ✨ AUTO STAR SYNC - Polls server every 5 seconds for new bonus stars
+    // AUTO STAR SYNC
     useStarSync({
         token: typeof window !== "undefined" ? localStorage.getItem(tokenKey) : null,
         deviceId: resolvedDeviceId,
         enabled: isLoggedIn,
         onStarsUpdated: (newStars, claimedAmount) => {
             setStars(newStars);
-            // Show success notification when stars are claimed
             if (claimedAmount > 0) {
-                const message = `✅ Claimed ${claimedAmount} stars! New total: ${newStars}`;
+                const message = `✅ Claimed ${claimedAmount} stars! Total: ${newStars}`;
                 setStarNotification(message);
                 showToast(message, "success");
                 playSound("success");
                 triggerHaptic(100);
-                // Auto-hide notification after 5 seconds
                 setTimeout(() => setStarNotification(null), 5000);
             }
         },
         onPendingDetected: (pending) => {
-            // Notify user about pending stars
             const message = `✨ You have ${pending} pending stars!`;
             setStarNotification(message);
             playSound("click");
             triggerHaptic(50);
-            // Auto-hide notification after 5 seconds
             setTimeout(() => setStarNotification(null), 5000);
         },
     });
@@ -254,11 +388,10 @@ export default function HomeClient() {
     async function runScan() {
         if (busy) return;
 
-        // Check cooldown
         if (cooldownRemaining > 0) {
             const minutes = Math.floor(cooldownRemaining / 60);
             const seconds = cooldownRemaining % 60;
-            showToast(`⏱️ Cooldown active: ${minutes}:${seconds.toString().padStart(2, '0')} remaining`, "error");
+            showToast(`⏱️ Cooldown: ${minutes}:${seconds.toString().padStart(2, '0')}`, "error");
             playSound("error");
             return;
         }
@@ -266,7 +399,7 @@ export default function HomeClient() {
         const id = megaId.trim();
         if (!/^(?:[12]\d{11}|09\d{10})$/.test(id)) {
             setInputError(true);
-            showToast("ID Invalid! Must start with 1, 2 or 09 (Total 12 digits)", "error");
+            showToast("ID Invalid! Must start with 1, 2 or 09 (12 digits)", "error");
             setTimeout(() => setInputError(false), 500);
             return;
         }
@@ -275,8 +408,7 @@ export default function HomeClient() {
             return;
         }
         if (stars <= 0) {
-            // Just show toast, don't force login modal
-            showToast("Stars tidak mencukupi. Sila login untuk claim bonus harian.", "error");
+            showToast("Stars tidak cukup. Login untuk bonus harian.", "error");
             playSound("error");
             triggerHaptic(200);
             return;
@@ -288,23 +420,20 @@ export default function HomeClient() {
         playSound("click");
         triggerHaptic(40);
 
-        // ⚡ Vibrate phone when scan starts
         if (navigator.vibrate) {
-            navigator.vibrate([200, 100, 200]); // Pattern: vibrate 200ms, pause 100ms, vibrate 200ms
+            navigator.vibrate([200, 100, 200]);
         }
 
-        // ⚡ Show connection warning
-        showToast("⚡ High-speed connection recommended for best results", "info");
+        showToast("⚡ High-speed connection recommended", "info");
 
         try {
-            await sleep(3200); // Extended to let hacker animation play
+            await sleep(3200);
 
             const out = await apiScan(resolvedDeviceId, id);
 
             if (out?.error) {
                 if (out.error.includes("no stars")) {
-                    // Just show toast
-                    showToast("Stars habis! Login sekarang untuk refresh limit.", "error");
+                    showToast("Stars habis! Login untuk refresh.", "error");
                 } else {
                     showToast(trimText(out.error || out.detail || "Scan failed", 140), "error");
                 }
@@ -322,32 +451,25 @@ export default function HomeClient() {
                 setLastRtp(sig);
                 setIdMasked(maskMegaId(id));
 
-                // ✅ trigger TerminalScan rerun
                 setShowHackerOverlay(false);
                 setRunKey(`${Date.now()}_${id}`);
+                        setShowResult(true);
 
-                // 🔒 Block navigation while showing results
                 setScanActive(true);
 
-                // ⏱️ Start 2-minute cooldown
                 localStorage.setItem("last_scan_time", Date.now().toString());
                 setCooldownRemaining(COOLDOWN_DURATION);
 
-                // Success effects - Delayed slightly to match terminal start if needed, 
-                // but here it indicates "Data Received".
-                // The TerminalScan will handle the visual duration.
-                // We can play a "computer processing" sound here or just wait.
                 playSound("success");
                 triggerHaptic([50, 50, 50]);
 
-                // 🎉 Confetti on high RTP (>80%)
                 if (sig > 80) {
                     setTimeout(() => {
                         confetti({
                             particleCount: 100,
                             spread: 70,
                             origin: { y: 0.6 },
-                            colors: ['#00d9ff', '#a855f7', '#ff00ff', '#fbbf24'],
+                            colors: ['#ff3333', '#ff0066', '#ff4444', '#ff4d4d'],
                         });
                     }, 800);
                 }
@@ -360,361 +482,686 @@ export default function HomeClient() {
         }
     }
 
-    // Legacy auth functions removed (moved to AuthModal)
+    // Scan pulse while busy
+    useEffect(() => {
+        if (!busy) {
+            if (scanPulseAnimInstRef.current) {
+                scanPulseAnimInstRef.current.pause();
+                scanPulseAnimInstRef.current = null;
+            }
+            return;
+        }
+
+        scanPulseAnimInstRef.current = animate(".tm-scan-pulse", {
+            boxShadow: [
+                "0 0 0 rgba(0,217,255,0)",
+                "0 0 26px rgba(0,217,255,0.25)",
+            ],
+            scale: [1, 1.01],
+            direction: "alternate",
+            loop: true,
+            duration: 850,
+            easing: "easeInOutSine",
+        });
+    }, [busy]);
 
     return (
         <>
-            {/* ✅ HACKER SCAN OVERLAY */}
+            {/* Matrix Background */}
+            <MatrixBackground opacity={0.08} speed={1} density={1} />
+
+            {/* HACKER SCAN OVERLAY */}
             {showHackerOverlay && (
                 <HackerScanOverlay megaId={megaId} />
             )}
 
-            {/* FAQ Schema for Rich Snippets */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "FAQPage",
-                        "mainEntity": [
-                            {
-                                "@type": "Question",
-                                "name": "Apa itu Mega888 AI RTP Scanner?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "Mega888 AI RTP Scanner adalah tool percuma yang menggunakan artificial intelligence untuk menganalisis Return to Player (RTP) percentage ID Mega888 anda. Sistem AI kami scan secara real-time dan bagi prediction accuracy hingga 98% untuk kemenangan anda."
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Adakah scanner ini percuma?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "Ya, 100% percuma selamanya! Tiada bayaran tersembunyi, tiada subscription. Setiap user dapat free stars harian untuk scan ID Mega888. Login setiap hari untuk claim bonus stars dan scan tanpa had."
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Berapa accuracy AI scanner ini?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "AI scanner kami mempunyai prediction accuracy rate 98% berdasarkan 1,280+ verified scans. Sistem analyze pattern kemenangan, game history, dan real-time RTP data untuk bagi result yang sangat tepat."
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Bagaimana cara guna scanner?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "Mudah sahaja! 1) Masukkan 12-digit Mega888 ID anda (start dengan 1, 2, atau 09). 2) Klik SCAN NETWORK button. 3) Tunggu 3-5 saat untuk AI analysis. 4) Result akan keluar dengan RTP percentage dan recommendation game terbaik untuk dimainkan."
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Apa maksud RTP percentage?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "RTP (Return to Player) adalah percentage yang tunjuk berapa banyak game akan return kepada players dalam jangka masa panjang. Contoh: RTP 96% bermakna dari setiap RM100 yang dimainkan, average return adalah RM96. Higher RTP = better chances untuk menang!"
-                                }
-                            },
-                            {
-                                "@type": "Question",
-                                "name": "Berapa kali boleh scan dalam sehari?",
-                                "acceptedAnswer": {
-                                    "@type": "Answer",
-                                    "text": "Free users dapat bonus stars setiap hari selepas login. Setiap scan guna 1 star. Login daily untuk claim free stars dan scan multiple times. VVIP members enjoy unlimited scans tanpa limit!"
-                                }
-                            }
-                        ]
-                    })
+            {/* Premium Navigation — glassmorphism */}
+            <nav
+                className="flex items-center justify-between px-4 py-3 sticky top-0 z-50"
+                style={{
+                    background: "rgba(7,9,15,0.85)",
+                    backdropFilter: "blur(16px)",
+                    WebkitBackdropFilter: "blur(16px)",
+                    borderBottom: "1px solid rgba(255,255,255,0.07)",
+                    boxShadow: "0 1px 24px rgba(0,0,0,0.5)",
                 }}
-            />
-
-            <header className="card relative overflow-hidden flex flex-col min-h-[300px] justify-between p-0 group border-amber-500/20">
-
-                {/* VIDEO BACKGROUND (Full Fill) - Hover-to-Play Pattern */}
-                <div className="absolute inset-0 z-0">
-                    <video
-                        src="/mega-loop.mp4"
-                        loop
-                        muted
-                        playsInline
-                        preload="none"
-                        onMouseEnter={(e) => e.currentTarget.play()}
-                        onMouseLeave={(e) => e.currentTarget.pause()}
-                        className="w-full h-full object-cover opacity-60 mix-blend-screen group-hover:scale-105 transition-transform duration-1000"
-                    />
-                    {/* Gradient Overlay for Readability */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/20 to-black/90" />
-                </div>
-
-                {/* TOP CONTENT */}
-                <div className="relative z-10 p-5 pb-0">
-                    <div className="text-[10px] text-white/60 font-mono tracking-widest uppercase mb-1">TipsMega888 AI System</div>
-                    <h1 className="text-4xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50 drop-shadow-lg">
-                        MEGA888 AI RTP SCANNER
-                    </h1>
-                </div>
-
-                {/* BOTTOM CONTENT (Badge + Buttons) */}
-                <div className="relative z-10 p-5 mt-auto bg-gradient-to-t from-black to-transparent pt-10">
-                    <div className="badge border border-white/10 bg-white/5 backdrop-blur-md mb-4 shadow-lg">
-                        <span style={{ fontSize: 18 }} className="animate-pulse text-yellow-400">★</span>
-                        <div>
-                            <div className="text-sm" style={{ fontWeight: 900 }}>
-                                [ACCESS] Stars: {Math.max(0, stars)}
-                            </div>
-                            <p className="text-xs text-white/55">Use carefully ! Do Not Spam Our Server</p>
-                        </div>
-                    </div>
-
-                    {!isLoggedIn ? (
-                        <div className="flex gap-3">
-                            <button
-                                className="btn-ghost btn-red-spin backdrop-blur-sm flex-1 h-[52px] bg-red-500/10 border-red-500/30 ripple-effect"
-                                onClick={() => setAuthOpen("register")}
+            >
+                <Link href="/" className="flex items-center gap-2.5 group">
+                    {/* Premium Crown Icon - only show when logged in */}
+                    {isLoggedIn && userName && (
+                        <div 
+                            className="w-8 h-8 rounded-lg flex items-center justify-center"
+                            style={{
+                                background: "linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF6B35 100%)",
+                                boxShadow: "0 2px 8px rgba(255, 215, 0, 0.4)",
+                            }}
+                        >
+                            <svg 
+                                width="18" 
+                                height="18" 
+                                viewBox="0 0 24 24" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                strokeWidth="2" 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round"
+                                className="text-white"
                             >
-                                <span className="btn-red-spin-content font-black tracking-widest">REGISTER</span>
-                            </button>
-                            <button
-                                className="btn-ghost btn-red-spin backdrop-blur-sm flex-1 h-[52px] bg-blue-500/10 border-blue-500/30 ripple-effect"
-                                onClick={() => setAuthOpen("login")}
-                            >
-                                <span className="btn-red-spin-content font-black tracking-widest">LOGIN</span>
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="flex gap-3 items-center">
-                            <button
-                                className="btn-ghost backdrop-blur-md hover:bg-white/10 h-[52px] px-4 border-white/20"
-                                onClick={() => {
-                                    if (confirm("Log out?")) {
-                                        localStorage.removeItem(tokenKey);
-                                        setIsLoggedIn(false);
-                                        window.location.reload();
-                                    }
-                                }}
-                            >
-                                LOGOUT
-                            </button>
+                                <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/>
+                            </svg>
                         </div>
                     )}
-                </div>
-            </header>
-
-            <InstallPrompt />
-
-            <section className="card p-5">
-
-                <input
-                    className={`input input-premium ${inputError ? 'shake-error' : ''}`}
-                    value={megaId}
-                    onChange={(e) => setMegaId(e.target.value)}
-                    inputMode="numeric"
-                    placeholder="PLEASE INSERT MEGA888 ID"
-                />
-
-                <TypewriterText text="[AI SCANNER] INTERCEPTING LIVE RTP SIGNALS FROM SERVER..." speed={30} />
-
-                <button
-                    className={cooldownRemaining > 0 ? "btn-cooldown" : "btn-green-spin ripple-effect"}
-                    style={{ marginTop: 24, marginBottom: 12, opacity: (!/^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim()) || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
-                    onClick={runScan}
-                    disabled={busy || cooldownRemaining > 0 || !/^(?:[12]\d{11}|09\d{10})$/.test(megaId.trim())}
-                >
-                    <span className={cooldownRemaining > 0 ? "" : "btn-green-spin-content"}>
-                        {busy ? "SEARCHING TARGET..." :
-                            cooldownRemaining > 0 ? `⏱️ COOLDOWN: ${Math.floor(cooldownRemaining / 60)}:${(cooldownRemaining % 60).toString().padStart(2, '0')}` :
-                                "SCAN NETWORK"}
-                    </span>
-                </button>
-
-                {/* Add cooldown button style */}
-                <style jsx>{`
-          .btn-cooldown {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            border: 2px solid rgba(255, 107, 53, 0.3);
-            border-radius: 8px;
-            color: white;
-            font-weight: bold;
-            font-size: 15px;
-            cursor: not-allowed;
-            transition: all 0.3s ease;
-            opacity: 0.7;
-            animation: pulse-cooldown 2s ease-in-out infinite;
-          }
-          
-          @keyframes pulse-cooldown {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(0.98); }
-          }
-        `}</style>
-
-                {/* Progress Bar */}
-                {busy && (
-                    <div className="progress-bar">
-                        <div className="progress-bar-fill" />
+                    <div className="flex flex-col leading-none">
+                        <span className="font-black text-white text-[13px] tracking-wide">
+                            {isLoggedIn && userName ? userName : "MEGA888"}
+                        </span>
+                        {isLoggedIn && userName && (
+                            <span className="text-[9px] font-bold tracking-wider uppercase mt-0.5"
+                                style={{
+                                    background: "linear-gradient(90deg, #FFD700, #FFA500)",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+                                    backgroundClip: "text",
+                                }}
+                            >
+                                PREMIUM
+                            </span>
+                        )}
                     </div>
-                )}
-            </section>
+                </Link>
 
-            {/* ✅ TERMINAL STREAM (pakai TerminalScan, bukan lines/setLines) */}
-            {runKey ? (
-                <div className="relative">
-                    <TerminalScan
-                        key={runKey}
-                        games={games.map(g => g.name)}
-                        overallRtp={lastRtp ?? 0}
-                        idMasked={idMasked || "---"}
-                        onComplete={() => {
-                            setBusy(false);
-                            setScanActive(false);
-                        }}
-                    />
-                </div>
-            ) : null}
-
-            {/* SEO Content Expansion - Educational Information */}
-            {!runKey && (
-                <section className="mt-6 space-y-6">
-                    {/* What is RTP Scanner */}
-                    <article className="card p-6 border-cyan-500/20 bg-cyan-500/5 stagger-fade-1 card-lift">
-                        <h2 className="text-xl font-black text-cyan-400 mb-4 flex items-center gap-2">
-                            <span>🤖</span>
-                            <span>Apa Itu AI RTP Scanner?</span>
-                        </h2>
-                        <div className="text-sm text-white/70 space-y-3 leading-relaxed">
-                            <p>
-                                <strong className="text-white">Powered by Advanced AI:</strong> Mega888 AI RTP Scanner menggunakan artificial intelligence technology terkini untuk analyze real-time data dari ID Mega888 anda. Sistem kami process berjuta-juta data points dalam beberapa saat sahaja.
-                            </p>
-                            <p>
-                                <strong className="text-white">98% Prediction Accuracy:</strong> Berdasarkan 1,280+ verified scans, AI kami telah membuktikan accuracy rate sehingga 98%. Ini bermakna 98 dari 100 predictions adalah betul untuk game recommendations dan RTP analysis.
-                            </p>
-                            <p>
-                                <strong className="text-white">100% Free Forever:</strong> Tiada bayaran tersembunyi, tiada subscription fees. Kami percaya semua players deserve access kepada teknologi AI tanpa kena bayar. Login daily untuk free stars!
-                            </p>
-                        </div>
-                    </article>
-
-                    {/* How AI Scanner Works */}
-                    <article className="card p-6 border-purple-500/20 bg-purple-500/5 stagger-fade-2 card-lift">
-                        <h2 className="text-xl font-black text-purple-400 mb-4 flex items-center gap-2">
-                            <span>⚙️</span>
-                            <span>Bagaimana AI Scanner Berfungsi?</span>
-                        </h2>
-                        <div className="grid md:grid-cols-2 gap-4 text-sm text-white/70">
-                            <div>
-                                <h3 className="text-white font-bold mb-2 flex items-center gap-2">
-                                    <span className="text-cyan-400">1️⃣</span> Data Collection
-                                </h3>
-                                <p className="leading-relaxed">AI collect dan analyze game history, win patterns, dan betting behavior dari ID anda untuk build comprehensive profile.</p>
-                            </div>
-                            <div>
-                                <h3 className="text-white font-bold mb-2 flex items-center gap-2">
-                                    <span className="text-cyan-400">2️⃣</span> Pattern Recognition
-                                </h3>
-                                <p className="leading-relaxed">Machine learning algorithms detect hidden patterns yang manusia tak nampak. Identify best times dan games untuk maximum winnings.</p>
-                            </div>
-                            <div>
-                                <h3 className="text-white font-bold mb-2 flex items-center gap-2">
-                                    <span className="text-cyan-400">3️⃣</span> RTP Calculation
-                                </h3>
-                                <p className="leading-relaxed">Calculate real-time Return to Player percentage dengan precision tinggi. Compare dengan historical data untuk accuracy maksimum.</p>
-                            </div>
-                            <div>
-                                <h3 className="text-white font-bold mb-2 flex items-center gap-2">
-                                    <span className="text-cyan-400">4️⃣</span> Smart Recommendations
-                                </h3>
-                                <p className="leading-relaxed">AI suggest game mana yang paling hot untuk ID anda based on current RTP status. Play smart, win more!</p>
-                            </div>
-                        </div>
-                    </article>
-
-                    {/* Why Use AI Scanner */}
-                    <article className="card p-6 border-green-500/20 bg-green-500/5 stagger-fade-3 card-lift">
-                        <h2 className="text-xl font-black text-green-400 mb-4 flex items-center gap-2">
-                            <span>✅</span>
-                            <span>Kenapa Guna AI Scanner?</span>
-                        </h2>
-                        <ol className="text-sm text-white/70 space-y-2 leading-relaxed list-decimal list-inside">
-                            <li><strong className="text-white">Save Time & Money:</strong> Tak payah trial-and-error main game random. AI tunjuk exactly game mana yang hot untuk ID anda sekarang.</li>
-                            <li><strong className="text-white">Data-Driven Decisions:</strong> Buat keputusan berdasarkan data sebenar, bukan hanya feeling atau luck. Scientific approach untuk gambling!</li>
-                            <li><strong className="text-white">Higher Win Rate:</strong> Players yang guna AI scanner report average 40-60% increase dalam win rate berbanding main random.</li>
-                            <li><strong className="text-white">Real-Time Updates:</strong> RTP percentage berubah real-time. Scan berkali-kali dalam sehari untuk catch best moments!</li>
-                            <li><strong className="text-white">Trusted by 1,280+ Users:</strong> Join community players yang dah proven increase winnings dengan AI technology.</li>
-                        </ol>
-                    </article>
-                </section>
-            )}
-
-            {/* Internal Linking - Trusted Companies CTA */}
-            {!runKey && (
-                <section className="card mt-6 p-6 border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-purple-500/5 text-center stagger-fade-4 card-lift">
-                    <div className="text-xs text-amber-400/80 font-black tracking-widest uppercase mb-2">🔒 Safe Gaming</div>
-                    <h2 className="text-xl font-black text-white mb-3">
-                        Browse <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500">Trusted Companies</span>
-                    </h2>
-                    <p className="text-sm text-white/60 mb-4 max-w-md mx-auto">
-                        Senarai verified agents yang dijamin scam-free, fast withdrawal, dan RTP fair. Semua platform monitored 24/7!
-                    </p>
-                    {/* 🔥 FIRE BUTTON - VIEW TRUSTED LIST */}
+                {/* Right nav cluster */}
+                <div className="flex items-center gap-1.5">
                     <Link
                         href="/trusted"
-                        className="group relative block overflow-hidden rounded-2xl shadow-2xl transition-all hover:scale-105 active:scale-95"
-                        onClick={() => {
-                            playSound("click");
-                            triggerHaptic(50);
-                        }}
-                        style={{
-                            background: 'linear-gradient(135deg, #ff4500 0%, #ff8c00 25%, #ffa500 50%, #ff8c00 75%, #ff4500 100%)',
-                            backgroundSize: '200% 200%',
-                            animation: 'fireGradient 3s ease infinite',
-                        }}
+                        className="px-3 py-1.5 text-[11px] font-bold text-white/50 hover:text-white transition-colors hidden sm:inline-flex"
                     >
-                        {/* Animated glow effect */}
-                        <div className="absolute inset-0 opacity-50" style={{
-                            background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, transparent 70%)',
-                            animation: 'fireGlow 2s ease-in-out infinite',
-                        }} />
+                        Trusted
+                    </Link>
+                    <Link
+                        href="/help"
+                        className="px-3 py-1.5 text-[11px] font-bold text-white/50 hover:text-white transition-colors hidden sm:inline-flex"
+                    >
+                        Help
+                    </Link>
 
-                        {/* Shimmer effect */}
-                        <div className="absolute inset-0 opacity-30" style={{
-                            background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%)',
-                            backgroundSize: '200% 100%',
-                            animation: 'shimmer 3s linear infinite',
-                        }} />
+                    {!isLoggedIn ? (
+                        <>
+                            <button
+                                onClick={() => setAuthOpen("register")}
+                                className="px-3 py-1.5 rounded-full text-[11px] font-bold text-white/70 border border-white/15 hover:border-white/30 hover:text-white transition-all"
+                                style={{ background: "rgba(255,255,255,0.04)" }}
+                            >
+                                Daftar
+                            </button>
+                            <button
+                                onClick={() => setAuthOpen("login")}
+                                className="px-4 py-1.5 rounded-full text-[11px] font-bold text-white transition-all hover:scale-105 hover:shadow-md"
+                                style={{
+                                    background: "linear-gradient(135deg, #4f8EFF, #7B5CFF)",
+                                    boxShadow: "0 4px 14px rgba(79,142,255,0.35)",
+                                }}
+                            >
+                                Login
+                            </button>
+                        </>
+                    ) : (
+                        <button
+                            onClick={() => {
+                                if (confirm("Logout?")) {
+                                    localStorage.removeItem(tokenKey);
+                                    setIsLoggedIn(false);
+                                    window.location.reload();
+                                }
+                            }}
+                            className="px-3 py-1.5 text-[11px] font-bold text-white/70 hover:text-white transition-colors"
+                        >
+                            Logout
+                        </button>
+                    )}
+                </div>
+            </nav>
 
-                        <div className="relative flex items-center justify-center gap-2 py-5 px-6">
-                            <span className="text-xl animate-pulse">🔥</span>
-                            <span className="text-white font-black tracking-wider drop-shadow-lg" style={{
-                                fontSize: 16,
-                                textShadow: '0 0 10px rgba(0,0,0,0.5), 0 0 20px rgba(255,100,0,0.8)'
-                            }}>
-                                VIEW TRUSTED LIST →
-                            </span>
-                            <span className="text-xl animate-pulse" style={{ animationDelay: '0.5s' }}>🔥</span>
+            {/* Scanner Section - CENTERED & CLEAN */}
+            <main className="flex flex-col items-center justify-start min-h-screen py-4 px-4 pb-24">
+                <div className="w-full max-w-lg space-y-3">
+                    
+                    {/* Hero Text — terminal style with holographic scan */}
+                    <div className="text-center tm-hero">
+                        <div className="terminal-border-red rounded-xl p-3 mb-2 bg-[#0a0f1a]/80 inline-block relative overflow-hidden">
+                            <div className="text-[10px] font-mono text-red-400/70 tracking-widest uppercase mb-2">
+                                System // v2.0.26
+                            </div>
+                            
+                            {/* Cinematic Hollywood Style MEGA888 Logo */}
+                            <div className="mega888-cinematic-container" style={{ position: "relative", display: "inline-block", marginBottom: "2px" }}>
+                                {/* Letterbox bars - top */}
+                                <div className="mega888-letterbox mega888-letterbox-top" />
+                                
+                                {/* Film grain overlay */}
+                                <div className="mega888-film-grain" />
+                                
+                                {/* Cinematic spotlight sweep */}
+                                <div className="mega888-spotlight" />
+                                
+                                {/* Anamorphic lens flare */}
+                                <div className="mega888-lens-flare" />
+                                
+                                {/* 3D perspective tilt container */}
+                                <div className="mega888-perspective-container">
+                                    {/* 3D depth shadow layers */}
+                                    <div className="mega888-3d-layer mega888-shadow-1">MEGA888</div>
+                                    <div className="mega888-3d-layer mega888-shadow-2">MEGA888</div>
+                                    <div className="mega888-3d-layer mega888-shadow-3">MEGA888</div>
+                                    
+                                    {/* RGB Glitch layers */}
+                                    <div className="mega888-glitch mega888-glitch-red" aria-hidden="true">MEGA888</div>
+                                    <div className="mega888-glitch mega888-glitch-cyan" aria-hidden="true">MEGA888</div>
+                                    <div className="mega888-glitch mega888-glitch-white" aria-hidden="true">MEGA888</div>
+                                    
+                                    {/* Main text with letter-by-letter reveal */}
+                                    <div className="mega888-main-text mega888-letter-reveal">
+                                        <span className="mega888-letter">M</span>
+                                        <span className="mega888-letter">E</span>
+                                        <span className="mega888-letter">G</span>
+                                        <span className="mega888-letter">A</span>
+                                        <span className="mega888-letter mega888-letter-888">8</span>
+                                        <span className="mega888-letter mega888-letter-888">8</span>
+                                        <span className="mega888-letter mega888-letter-888">8</span>
+                                    </div>
+                                    
+                                    {/* Golden shimmer overlay */}
+                                    <div className="mega888-golden-shimmer" aria-hidden="true">
+                                        <span>M</span><span>E</span><span>G</span><span>A</span><span className="mega888-letter-888">8</span><span className="mega888-letter-888">8</span><span className="mega888-letter-888">8</span>
+                                    </div>
+                                    
+                                    {/* Neon pulse overlay */}
+                                    <div className="mega888-neon-pulse" aria-hidden="true">MEGA888</div>
+                                    
+                                    {/* Electric spark particles */}
+                                    <div className="mega888-spark mega888-spark-1"></div>
+                                    <div className="mega888-spark mega888-spark-2"></div>
+                                    <div className="mega888-spark mega888-spark-3"></div>
+                                    <div className="mega888-spark mega888-spark-4"></div>
+                                </div>
+                                
+                                {/* Letterbox bars - bottom */}
+                                <div className="mega888-letterbox mega888-letterbox-bottom" />
+                            </div>
+                            
+                            {/* AI RTP SCANNER subtitle */}
+                            <div className="mega888-subtitle">
+                                <span className="mega888-subtitle-text">AI RTP SCANNER</span>
+                                <span className="mega888-subtitle-cursor">▋</span>
+                            </div>
+                            
+                            {/* Red holographic scanning line */}
+                            <div className="holographic-scan-line" />
                         </div>
 
-                        <style jsx>{`
-            @keyframes fireGradient {
-              0%, 100% { background-position: 0% 50%; }
-              50% { background-position: 100% 50%; }
-            }
+                        {/* Status bar */}
+                        <TerminalStatus
+                            messages={[
+                                "SIGNAL LOCKED // AWAITING INPUT",
+                                "LIVE SYNC: OK // NEURAL NET ONLINE",
+                                "RTP ANALYSIS ENGINE: READY",
+                            ]}
+                            showLive={true}
+                            showCursor={true}
+                            variant="red"
+                        />
 
-            @keyframes fireGlow {
-              0%, 100% { transform: scale(1); opacity: 0.5; }
-              50% { transform: scale(1.2); opacity: 0.8; }
-            }
+                        <p className="mt-2 text-sm text-white/50 font-mono text-[11px]">
+                            &gt;_ Masukkan ID untuk scan &bull; {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
+                        </p>
+                    </div>
 
-            @keyframes shimmer {
-              0% { background-position: -200% 0; }
-              100% { background-position: 200% 0; }
-            }
-          `}</style>
-                    </Link>
+                    {/* Scanner Card - Terminal Style */}
+                    <section className="card relative overflow-hidden p-4 tm-scan tm-scan-pulse terminal-border-red bg-[#0d1321]/90 rounded-2xl">
+                        {/* Terminal header bar */}
+                        <div className="flex items-center gap-2 mb-3 pb-2 border-b border-red-500/20">
+                            <div className="flex gap-1.5">
+                                <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                                <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                            </div>
+                            <span className="text-[10px] font-mono text-red-400/60 tracking-widest ml-2">
+                                SCANNER_TERMINAL_v2.exe
+                            </span>
+                            <div className="ml-auto flex items-center gap-2">
+                                <span className="live-dot" />
+                                <span className="text-[10px] font-mono text-green-400 tracking-widest">LIVE_SYNC: OK</span>
+                            </div>
+                        </div>
+                        
+                        {/* Badges */}
+                        <div className="flex flex-wrap items-center gap-2 mb-3">
+                            <span className="inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-red-300">
+                                <span className="h-1.5 w-1.5 rounded-full bg-red-300 animate-pulse" />
+                                Live AI
+                            </span>
+                            <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] ${isValidMegaId ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300" : "border-white/10 bg-white/5 text-white/40"}`}>
+                                {busy ? "Scanning..." : isValidMegaId ? "Ready" : "Awaiting ID"}
+                            </span>
+                            {/* RTP Badge */}
+                            <span className="rtp-badge rtp-badge-medium">
+                                <span>◆</span> RTP SCORE
+                            </span>
+                        </div>
+
+                        {/* Input - Terminal Style */}
+                        <div className="rounded-xl border border-red-600/30 bg-[#0a0f1a]/70 p-3 mb-3">
+                            <input
+                                className={`tm-scan-item terminal-input ${inputError ? 'shake-error' : ''}`}
+                                value={megaId}
+                                onChange={(e) => setMegaId(e.target.value)}
+                                inputMode="numeric"
+                                placeholder="ENTER_ID_HERE"
+                                maxLength={12}
+                                style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                            />
+                            <div className="mt-2 flex justify-between text-xs font-mono text-red-400/50">
+                                <span className="flex items-center gap-1">
+                                    <span className="text-[10px]">&gt;_</span> {megaId.trim().length}/12 digit
+                                </span>
+                                <span>Format: 1xxxxxxxxxxx | 09xxxxxxxx</span>
+                            </div>
+                        </div>
+
+                        {/* Terminal Animation */}
+                        <div className="scanner-terminal-shell mb-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
+                            <div className="scanner-terminal-line" />
+                            <TypewriterText text="[AI] SIGNAL READY • ENTER ID TO BEGIN SCAN..." speed={24} />
+                        </div>
+
+                        {/* Scan Button */}
+                        <button
+                            className={cooldownRemaining > 0 ? "tm-scan-item tm-scan-cta btn-cooldown" : "tm-scan-item tm-scan-cta btn-green-spin ripple-effect"}
+                            style={{ width: '100%', opacity: (!isValidMegaId || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
+                            onClick={runScan}
+                            disabled={busy || cooldownRemaining > 0 || !isValidMegaId}
+                        >
+                            <span className={cooldownRemaining > 0 ? "" : "btn-green-spin-content"}>
+                                {busy ? "SCANNING..." :
+                                    cooldownRemaining > 0 ? `⏱️ ${Math.floor(cooldownRemaining / 60)}:${(cooldownRemaining % 60).toString().padStart(2, '0')}` :
+                                        "START SCAN"}
+                            </span>
+                        </button>
+
+                        <div className="mt-3 text-center text-xs text-white/40">
+                            {busy ? "AI analysis in progress..." : isValidMegaId ? "Ready to scan" : "Enter your Mega888 ID above"}
+                        </div>
+                    </section>
+
+                    {/* Quick Links */}
+                    <h2 className="sr-only">Pautan Pantas</h2>
+                    <div className="grid grid-cols-2 gap-2">
+                        <Link href="/trusted" className="card p-3 text-center border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition group">
+                            <div className="mb-1 flex justify-center">
+                                <Flame className="w-6 h-6 premium-icon-glow-red group-hover:scale-110 transition-transform" />
+                            </div>
+                            <div className="text-sm font-bold text-white">Trusted List</div>
+                            <div className="text-xs text-white/50">Verified agents</div>
+                        </Link>
+                        <Link href="/help" className="card p-3 text-center border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/10 transition group">
+                            <div className="mb-1 flex justify-center">
+                                <HelpCircle className="w-6 h-6 premium-icon-glow-purple group-hover:scale-110 transition-transform" />
+                            </div>
+                            <div className="text-sm font-bold text-white">Help</div>
+                            <div className="text-xs text-white/50">Panduan & FAQ</div>
+                        </Link>
+                    </div>
+
+                    {/* Stars Info */}
+                    <h2 className="sr-only">Maklumat Stars</h2>
+                    <div className="card p-3 border-white/10 bg-white/5">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <div className="flex items-center gap-2">
+                                    <Star className="w-4 h-4 text-amber-400 premium-icon-glow-gold" />
+                                    {stars > 0 ? (
+                                        <span className="text-sm font-bold text-white">{stars} Stars</span>
+                                    ) : (
+                                        <span className="text-sm font-bold text-white/60">No Stars</span>
+                                    )}
+                                </div>
+                                <div className="text-xs text-white/40 ml-6">{stars > 0 ? "1 scan = 1 star" : "Login untuk bonus harian"}</div>
+                            </div>
+                            <Link href="/mega888" className="px-3 py-1.5 bg-white/10 rounded-full text-xs font-bold text-white/70 hover:text-white transition">
+                                Mega888 Hub →
+                            </Link>
+                        </div>
+                    </div>
+
+                    {/* ── Community Wins Marquee ── */}
+                    <section
+                        aria-label="Community wins"
+                        className="card p-4 border-amber-500/30 bg-gradient-to-br from-amber-950/40 via-slate-950/80 to-slate-950/90 overflow-hidden"
+                        style={{ borderRadius: 16 }}
+                    >
+                        {/* Header */}
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/20 to-yellow-500/20 border border-amber-500/30 flex items-center justify-center">
+                                    <Trophy className="w-5 h-5 text-amber-400" />
+                                </div>
+                                <div>
+                                    <h1 className="text-sm font-black text-white tracking-wide">
+                                        🏆 KEMENANGAN AHLI
+                                    </h1>
+                                    <h2 className="text-[10px] text-amber-400/70 font-medium tracking-wider uppercase">
+                                        Community Wins
+                                    </h2>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                <span className="text-[10px] font-bold text-emerald-400 tracking-wider">LIVE</span>
+                            </div>
+                        </div>
+
+                        {/* Marquee Container */}
+                        <div className="relative overflow-hidden group">
+                            {/* Fade edges */}
+                            <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#0a0f1a] to-transparent z-10 pointer-events-none" />
+                            <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0a0f1a] to-transparent z-10 pointer-events-none" />
+
+                            {/* Marquee Track */}
+                            <div 
+                                className="flex gap-3 wins-marquee-track"
+                                style={{ width: 'max-content' }}
+                            >
+                                {/* First set of wins */}
+                                {[
+                                    { img: '/wins/win-1.jpg', amount: '4,500', game: 'Ultra Mega Big Win', player: 'Player 1', alt: 'Mega888 big win screenshot - Group WhatsApp Mega888 member RM 4,500 win' },
+                                    { img: '/wins/win-2.jpg', amount: '750', game: 'Big Win', player: 'Player 2', alt: 'Group WhatsApp spin member win - Mega888 RM 750 win screenshot' },
+                                    { img: '/wins/win-3.jpg', amount: '2,500', game: 'Gates of Olympus', player: 'Player 3', alt: 'Mega888 community member win - Gates of Olympus RM 2,500 jackpot' },
+                                    { img: '/wins/win-4.jpg', amount: '15,000,000', game: 'CM8 Jackpot', player: 'Player 4', alt: 'Mega888 big jackpot community win - RM 15 Million CM8 Jackpot screenshot' },
+                                    { img: '/wins/win-5.jpg', amount: '6,567', game: 'Rush Xmas', player: 'Player 5', alt: 'Group WhatsApp Mega888 spin win - Rush Xmas RM 6,567 big win' },
+                                ].map((win, i) => (
+                                    <div 
+                                        key={`win-a-${i}`}
+                                        className="relative group/win flex-shrink-0 w-[200px] rounded-xl overflow-hidden bg-slate-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300"
+                                    >
+                                        {/* Win Image */}
+                                        <div className="relative aspect-[4/3] overflow-hidden">
+                                            <img 
+                                                src={win.img} 
+                                                alt={win.alt}
+                                                className="w-full h-full object-cover transition-transform duration-500 group-hover/win:scale-110"
+                                            />
+                                            {/* Gradient Overlay */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                                            
+                                            {/* Amount Badge */}
+                                            <div className="absolute top-2 right-2 px-2 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 shadow-lg shadow-amber-500/30">
+                                                <span className="text-[10px] font-black text-slate-950">
+                                                    RM {win.amount}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {/* Win Info */}
+                                        <div className="p-2.5">
+                                            <p className="text-[11px] font-bold text-white truncate">
+                                                {win.game}
+                                            </p>
+                                            <div className="flex items-center justify-between mt-1">
+                                                <span className="text-[9px] text-white/50">{win.player}</span>
+                                                <span className="text-[9px] text-emerald-400 flex items-center gap-0.5">
+                                                    <span className="w-1 h-1 rounded-full bg-emerald-400" />
+                                                    Verified
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+
+                                {/* Duplicate set for seamless loop */}
+                                {[
+                                    { img: '/wins/win-1.jpg', amount: '4,500', game: 'Ultra Mega Big Win', player: 'Player 1', alt: 'Mega888 big win screenshot - Group WhatsApp Mega888 member RM 4,500 win' },
+                                    { img: '/wins/win-2.jpg', amount: '750', game: 'Big Win', player: 'Player 2', alt: 'Group WhatsApp spin member win - Mega888 RM 750 win screenshot' },
+                                    { img: '/wins/win-3.jpg', amount: '2,500', game: 'Gates of Olympus', player: 'Player 3', alt: 'Mega888 community member win - Gates of Olympus RM 2,500 jackpot' },
+                                    { img: '/wins/win-4.jpg', amount: '15,000,000', game: 'CM8 Jackpot', player: 'Player 4', alt: 'Mega888 big jackpot community win - RM 15 Million CM8 Jackpot screenshot' },
+                                    { img: '/wins/win-5.jpg', amount: '6,567', game: 'Rush Xmas', player: 'Player 5', alt: 'Group WhatsApp Mega888 spin win - Rush Xmas RM 6,567 big win' },
+                                ].map((win, i) => (
+                                    <div 
+                                        key={`win-b-${i}`}
+                                        className="relative group/win flex-shrink-0 w-[200px] rounded-xl overflow-hidden bg-slate-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300"
+                                    >
+                                        <div className="relative aspect-[4/3] overflow-hidden">
+                                            <img 
+                                                src={win.img} 
+                                                alt={win.alt}
+                                                className="w-full h-full object-cover transition-transform duration-500 group-hover/win:scale-110"
+                                            />
+                                            
+                                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+                                            <div className="absolute top-2 right-2 px-2 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 shadow-lg shadow-amber-500/30">
+                                                <span className="text-[10px] font-black text-slate-950">
+                                                    RM {win.amount}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="p-2.5">
+                                            <p className="text-[11px] font-bold text-white truncate">
+                                                {win.game}
+                                            </p>
+                                            <div className="flex items-center justify-between mt-1">
+                                                <span className="text-[9px] text-white/50">{win.player}</span>
+                                                <span className="text-[9px] text-emerald-400 flex items-center gap-0.5">
+                                                    <span className="w-1 h-1 rounded-full bg-emerald-400" />
+                                                    Verified
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Stats Bar */}
+                        <div className="mt-4 grid grid-cols-3 gap-2">
+                            {[
+                                { val: 'RM 15M+', lbl: 'Total Won' },
+                                { val: '1,200+', lbl: 'Winners' },
+                                { val: 'Today', lbl: 'Just Now' },
+                            ].map((s, i) => (
+                                <div 
+                                    key={i} 
+                                    className="text-center py-2 rounded-xl bg-amber-500/5 border border-amber-500/10"
+                                >
+                                    <div className="text-sm font-black text-amber-400">{s.val}</div>
+                                    <div className="text-[9px] text-white/40 font-medium uppercase tracking-wider">{s.lbl}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* ── Social Proof ── */}
+                    <section
+                        aria-label="Social proof"
+                        className="card p-3 border-red-500/20 bg-gradient-to-br from-red-950/60 to-slate-950/80 overflow-hidden"
+                        style={{ borderRadius: 16 }}
+                    >
+                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                            <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#ff3333", letterSpacing: "0.18em", textTransform: "uppercase" }}>
+                                ⭐ Apa Kata Pengguna
+                            </span>
+                            <div style={{ flex: 1, height: 1, background: "rgba(34,211,238,0.15)", borderRadius: 1 }} />
+                        </div>
+
+                        {/* Marquee container */}
+                        <div className="relative overflow-hidden">
+                            {/* Fade edges */}
+                            <div style={{
+                                position: "absolute", left: 0, top: 0, bottom: 0, width: 40,
+                                background: "linear-gradient(to right, rgba(8,15,25,0.95), transparent)",
+                                zIndex: 10, pointerEvents: "none",
+                            }} />
+                            <div style={{
+                                position: "absolute", right: 0, top: 0, bottom: 0, width: 40,
+                                background: "linear-gradient(to left, rgba(8,15,25,0.95), transparent)",
+                                zIndex: 10, pointerEvents: "none",
+                            }} />
+
+                            {/* Marquee track - duplicated for infinite scroll */}
+                            <div className="marquee-track" style={{ display: "flex", gap: "0.75rem", width: "max-content" }}>
+                                {/* First set of testimonials */}
+                                {[
+                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner这名堂真系Work! 头先scan紧个game先知系 high RTP", stars: 5, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu menang konsisten. Odds memang improves ✔️", stars: 5, photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Chuan L.", loc: "Penang", text: "Best part — totally free. Daily untuk check RTP sebelum main!", stars: 5, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni confirm bagitahu RTP yang accurate. Dah biasa everyday use", stars: 5, photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih consistent", stars: 5, photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Raj K.", loc: "Sarawak", text: "Best tool untuk Mega888! Free dan semua orang harus try", stars: 5, photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Lisa T.", loc: "Melaka", text: "AI Scanner这名堂勆都用得着！scan完就知道边只game payout高", stars: 5, photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face" },
+                                ].map((t, i) => (
+                                    <div key={`a-${i}`} style={{
+                                        minWidth: 280, maxWidth: 280,
+                                        padding: "0.85rem 1rem",
+                                        borderRadius: 12,
+                                        background: "rgba(255,255,255,0.04)",
+                                        border: "1px solid rgba(255,255,255,0.07)",
+                                        flexShrink: 0,
+                                    }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
+                                            {/* Avatar photo */}
+                                            <img
+                                                src={t.photo}
+                                                alt={t.name}
+                                                width={32}
+                                                height={32}
+                                                style={{
+                                                    width: 32, height: 32, borderRadius: "50%",
+                                                    border: "2px solid rgba(255,255,255,0.15)",
+                                                    objectFit: "cover",
+                                                    flexShrink: 0,
+                                                }}
+                                            />
+                                            <div>
+                                                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e2e8f0" }}>{t.name}</span>
+                                                <span style={{ fontSize: "0.72rem", color: "#475569", marginLeft: 6 }}>{t.loc}</span>
+                                            </div>
+                                            <div style={{ marginLeft: "auto", color: "#ef4444", fontSize: "0.7rem", letterSpacing: "0.05em" }}>
+                                                {"★".repeat(t.stars)}
+                                            </div>
+                                        </div>
+                                        <p style={{ fontSize: "0.83rem", color: "#64748b", lineHeight: 1.55, margin: 0 }}>{t.text}</p>
+                                    </div>
+                                ))}
+                                {/* Duplicate set for seamless loop */}
+                                {[
+                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner这名堂真系Work! 头先scan紧个game先知系 high RTP", stars: 5, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu menang konsisten. Odds memang improves ✔️", stars: 5, photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Chuan L.", loc: "Penang", text: "Best part — totally free. Daily untuk check RTP sebelum main!", stars: 5, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni confirm bagitahu RTP yang accurate. Dah biasa everyday use", stars: 5, photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih consistent", stars: 5, photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Raj K.", loc: "Sarawak", text: "Best tool untuk Mega888! Free dan semua orang harus try", stars: 5, photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Lisa T.", loc: "Melaka", text: "AI Scanner这名堂勆都用得着！scan完就知道边只game payout高", stars: 5, photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face" },
+                                ].map((t, i) => (
+                                    <div key={`b-${i}`} style={{
+                                        minWidth: 280, maxWidth: 280,
+                                        padding: "0.85rem 1rem",
+                                        borderRadius: 12,
+                                        background: "rgba(255,255,255,0.04)",
+                                        border: "1px solid rgba(255,255,255,0.07)",
+                                        flexShrink: 0,
+                                    }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
+                                            <img
+                                                src={t.photo}
+                                                alt={t.name}
+                                                width={32}
+                                                height={32}
+                                                style={{
+                                                    width: 32, height: 32, borderRadius: "50%",
+                                                    border: "2px solid rgba(255,255,255,0.15)",
+                                                    objectFit: "cover",
+                                                    flexShrink: 0,
+                                                }}
+                                            />
+                                            <div>
+                                                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e2e8f0" }}>{t.name}</span>
+                                                <span style={{ fontSize: "0.72rem", color: "#475569", marginLeft: 6 }}>{t.loc}</span>
+                                            </div>
+                                            <div style={{ marginLeft: "auto", color: "#ef4444", fontSize: "0.7rem", letterSpacing: "0.05em" }}>
+                                                {"★".repeat(t.stars)}
+                                            </div>
+                                        </div>
+                                        <p style={{ fontSize: "0.83rem", color: "#64748b", lineHeight: 1.55, margin: 0 }}>{t.text}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Trust stats bar */}
+                        <div style={{
+                            marginTop: 8, padding: "0.5rem 0.75rem",
+                            borderRadius: 10,
+                            background: "rgba(34,211,238,0.06)",
+                            border: "1px solid rgba(34,211,238,0.15)",
+                            display: "flex", justifyContent: "space-around",
+                        }}>
+                            {[
+                                { val: "4.9/5", lbl: "Rating Purata" },
+                                { val: "50K+", lbl: "Pengguna Aktif" },
+                                { val: "2024–2026", lbl: "Online" },
+                            ].map((s) => (
+                                <div key={s.lbl} style={{ textAlign: "center" }}>
+                                    <div style={{ fontSize: "0.9rem", fontWeight: 900, color: "#ff3333" }}>{s.val}</div>
+                                    <div style={{ fontSize: "0.68rem", color: "#334155", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>{s.lbl}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+
+            {/* RTP RESULT */}
+            <h2 className="sr-only">Keputusan RTP</h2>
+            {lastRtp !== null && !busy ? (
+                <section className="card p-5 m-4 border-red-500/20 bg-red-500/5 rounded-3xl">
+                    <div className="text-[10px] text-white/60 font-mono tracking-widest uppercase mb-2">
+                        [RESULT] Overall RTP
+                    </div>
+                    <div className="flex items-end gap-2">
+                        <div className="text-5xl font-black italic text-transparent bg-clip-text bg-gradient-to-b from-red-200 to-red-500">
+                            {rtpDisplay.toFixed(1)}%
+                        </div>
+                        <div className="text-xs text-white/60 pb-2">estimated</div>
+                    </div>
                 </section>
+            ) : null}
+
+            {/* SCAN RESULT MODAL */}
+            {showResult && runKey && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setShowResult(false)} />
+                    <div className="relative w-full max-w-md bg-gradient-to-b from-slate-900 to-slate-950 border border-red-600/30 rounded-3xl overflow-hidden">
+                        <div className="flex items-center justify-between p-4 border-b border-white/10">
+                            <h3 className="font-bold text-red-300">✅ SCAN COMPLETE</h3>
+                            <button onClick={() => setShowResult(false)} className="text-white/60 hover:text-white text-2xl">&times;</button>
+                        </div>
+                        <div className="p-4">
+                            <TerminalScan
+                                key={runKey}
+                                games={games.map(g => g.name)}
+                                overallRtp={lastRtp ?? 0}
+                                idMasked={idMasked || "---"}
+                                onComplete={() => {
+                                    setBusy(false);
+                                    setScanActive(false);
+                                }}
+                            />
+                        </div>
+                        <div className="flex gap-3 p-4 border-t border-white/10">
+                            <button onClick={() => { const text = `🎰 MEGA888 RTP: ${lastRtp}% | ID: ${idMasked} | TipsMega888.com`; navigator.share ? navigator.share({title:'RTP Result',text}) : (navigator.clipboard.writeText(text),alert('Copied!')); }} className="flex-1 py-3 bg-red-500/20 border border-red-600/30 rounded-xl text-red-300 font-bold text-sm">📤 SHARE</button>
+                            <button onClick={() => setShowResult(false)} className="flex-1 py-3 bg-white/10 border border-white/20 rounded-xl text-white font-bold text-sm">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
             )}
 
             {/* AUTH MODAL */}
@@ -723,12 +1170,15 @@ export default function HomeClient() {
                     initialMode={authOpen}
                     deviceId={resolvedDeviceId}
                     onClose={() => setAuthOpen(null)}
-                    onLoginSuccess={(token, newStars) => {
+                    onLoginSuccess={(token, newStars, user) => {
                         localStorage.setItem(tokenKey, token);
+                        const name = user || "User";
+                        localStorage.setItem("tipsmega_username", name);
+                        setUserName(name);
                         setStars(newStars);
                         setIsLoggedIn(true);
                         setAuthOpen(null);
-                        showToast("SUCCESS: You are logged in & stars updated!", "success");
+                        showToast("SUCCESS: Logged in!", "success");
                     }}
                 />
             )}
@@ -741,43 +1191,945 @@ export default function HomeClient() {
                 />
             )}
 
-            {/* Star Notification - Premium Design */}
+            {/* Star Notification */}
             {starNotification && (
                 <div
                     className="fixed top-20 left-1/2 -translate-x-1/2 z-[9999] animate-in slide-in-from-top-4 fade-in duration-500"
                     style={{ minWidth: 300, maxWidth: '90%' }}
                 >
-                    {/* Premium Card with Glassmorphism */}
-                    <div className="relative overflow-hidden rounded-2xl border border-yellow-500/30 bg-gradient-to-br from-yellow-500/20 via-amber-500/20 to-orange-500/20 backdrop-blur-xl shadow-[0_0_40px_rgba(234,179,8,0.4)]">
-
-                        {/* Background noise texture */}
-                        <div className="absolute inset-0 bg-[url('/img/noise.png')] opacity-5 pointer-events-none" />
-
-                        {/* Animated gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
-
-                        {/* Content */}
-                        <div className="relative flex items-center gap-4 px-5 py-4">
-                            {/* Star icon with background */}
-                            <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-yellow-500/20 border border-yellow-500/30 flex items-center justify-center backdrop-blur-sm animate-pulse">
-                                <span className="text-2xl">⭐</span>
+                    <div className="relative overflow-hidden rounded-2xl border border-red-600/30 bg-gradient-to-br from-red-500/20 via-red-500/20 to-red-500/20 backdrop-blur-xl shadow-[0_0_40px_rgba(255,77,77,0.4)] p-4">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl bg-red-500/20 border border-red-600/30 flex items-center justify-center">
+                                <Star className="w-5 h-5 text-amber-400 premium-icon-glow-gold" />
                             </div>
-
-                            {/* Message */}
-                            <div className="flex-1 min-w-0">
-                                <p className="font-black text-white text-sm tracking-wide leading-relaxed">
-                                    {starNotification}
-                                </p>
-                            </div>
+                            <p className="font-bold text-white text-sm">{starNotification}</p>
                         </div>
-
-                        {/* Bottom shine effect */}
-                        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/40 to-transparent" />
                     </div>
                 </div>
             )}
 
+            <BottomNav isBusy={busy} />
+            <InstallPrompt />
 
+            <style jsx>{`
+                .btn-cooldown {
+                    width: 100%;
+                    padding: 16px;
+                    background: linear-gradient(135deg, #ff6b35, #f7931e);
+                    border: 2px solid rgba(255, 107, 53, 0.3);
+                    border-radius: 16px;
+                    color: white;
+                    font-weight: bold;
+                    font-size: 15px;
+                    cursor: not-allowed;
+                    animation: pulse-cooldown 2s ease-in-out infinite;
+                }
+
+                .tm-scan-cta {
+                    min-height: 56px;
+                }
+
+                @keyframes pulse-cooldown {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(0.985); }
+                }
+
+                .holographic-title {
+                    position: relative;
+                }
+
+                .holographic-scan-line {
+                    position: absolute;
+                    left: -100%;
+                    top: 50%;
+                    width: 50%;
+                    height: 2px;
+                    background: linear-gradient(90deg, 
+                        transparent 0%, 
+                        rgba(255, 0, 0, 0.3) 20%, 
+                        rgba(255, 50, 50, 0.9) 50%, 
+                        rgba(255, 0, 0, 0.3) 80%, 
+                        transparent 100%
+                    );
+                    box-shadow: 
+                        0 0 8px rgba(255, 0, 0, 0.8),
+                        0 0 16px rgba(255, 50, 50, 0.6),
+                        0 0 32px rgba(255, 0, 0, 0.4),
+                        0 0 64px rgba(255, 0, 0, 0.2);
+                    animation: holographicScan 3s ease-in-out infinite;
+                    pointer-events: none;
+                    z-index: 10;
+                }
+
+                @keyframes holographicScan {
+                    0% {
+                        left: -100%;
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 1;
+                    }
+                    90% {
+                        opacity: 1;
+                    }
+                    100% {
+                        left: 150%;
+                        opacity: 0;
+                    }
+                }
+
+                .scanner-terminal-shell {
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .scanner-terminal-line {
+                    position: absolute;
+                    inset: 0 auto 0 -30%;
+                    width: 30%;
+                    background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.18), transparent);
+                    filter: blur(1px);
+                    animation: scannerSweep 3.8s linear infinite;
+                    pointer-events: none;
+                }
+
+                @keyframes scannerSweep {
+                    0% { transform: translateX(0); opacity: 0; }
+                    15% { opacity: 1; }
+                    85% { opacity: 1; }
+                    100% { transform: translateX(430%); opacity: 0; }
+                }
+
+                /* Marquee animation for testimonials */
+                .marquee-track {
+                    animation: marquee 40s linear infinite;
+                }
+
+                @keyframes marquee {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+
+                /* Wins marquee animation with pause on hover */
+                .wins-marquee-track {
+                    animation: winsMarquee 30s linear infinite;
+                }
+                
+                .group:hover .wins-marquee-track {
+                    animation-play-state: paused;
+                }
+                
+                @keyframes winsMarquee {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+
+                /* ===== MEGA888 PREMIUM ANIMATED LOGO ===== */
+                
+                /* Main logo container */
+                .mega888-logo-container {
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 2rem;
+                    font-weight: 900;
+                    letter-spacing: 0.08em;
+                    position: relative;
+                }
+
+                /* 3D Depth Layers */
+                .mega888-3d-layer {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 2rem;
+                    font-weight: 900;
+                    letter-spacing: 0.08em;
+                }
+
+                .mega888-shadow-1 {
+                    color: rgba(255, 0, 0, 0.4);
+                    transform: translate(3px, 3px);
+                    animation: shadowFloat 3s ease-in-out infinite;
+                }
+
+                .mega888-shadow-2 {
+                    color: rgba(0, 255, 255, 0.25);
+                    transform: translate(6px, 6px);
+                    animation: shadowFloat 3s ease-in-out infinite 0.2s;
+                }
+
+                .mega888-shadow-3 {
+                    color: rgba(0, 0, 255, 0.15);
+                    transform: translate(9px, 9px);
+                    animation: shadowFloat 3s ease-in-out infinite 0.4s;
+                }
+
+                @keyframes shadowFloat {
+                    0%, 100% { transform: translate(3px, 3px); }
+                    50% { transform: translate(5px, 5px); }
+                }
+
+                /* RGB Glitch Effect */
+                .mega888-glitch {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 2rem;
+                    font-weight: 900;
+                    letter-spacing: 0.08em;
+                    opacity: 0.8;
+                }
+
+                .mega888-glitch-red {
+                    color: #ff0040;
+                    animation: glitchRed 2.5s infinite linear alternate-reverse;
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                }
+
+                .mega888-glitch-cyan {
+                    color: #ff3333;
+                    animation: glitchCyan 3s infinite linear alternate-reverse;
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                }
+
+                .mega888-glitch-white {
+                    color: #ffffff;
+                    animation: glitchWhite 1.8s infinite linear alternate-reverse;
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                }
+
+                @keyframes glitchRed {
+                    0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 0); opacity: 0; }
+                    10% { clip-path: inset(60% 0 10% 0); transform: translate(-3px, 0); opacity: 0.7; }
+                    20% { clip-path: inset(30% 0 50% 0); transform: translate(2px, 0); opacity: 0; }
+                    30% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 0); opacity: 0.6; }
+                    40% { clip-path: inset(10% 0 70% 0); transform: translate(3px, 0); opacity: 0; }
+                    50% { clip-path: inset(50% 0 30% 0); transform: translate(-2px, 0); opacity: 0.5; }
+                    60% { clip-path: inset(5% 0 85% 0); transform: translate(2px, 0); opacity: 0; }
+                    70% { clip-path: inset(70% 0 20% 0); transform: translate(-3px, 0); opacity: 0.7; }
+                    80% { clip-path: inset(40% 0 40% 0); transform: translate(2px, 0); opacity: 0; }
+                    90% { clip-path: inset(15% 0 75% 0); transform: translate(-2px, 0); opacity: 0.5; }
+                    100% { clip-path: inset(25% 0 65% 0); transform: translate(3px, 0); opacity: 0; }
+                }
+
+                @keyframes glitchCyan {
+                    0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, 0); opacity: 0; }
+                    15% { clip-path: inset(80% 0 5% 0); transform: translate(3px, 0); opacity: 0.6; }
+                    25% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 0); opacity: 0; }
+                    35% { clip-path: inset(15% 0 80% 0); transform: translate(2px, 0); opacity: 0.5; }
+                    45% { clip-path: inset(55% 0 10% 0); transform: translate(-3px, 0); opacity: 0; }
+                    55% { clip-path: inset(40% 0 30% 0); transform: translate(2px, 0); opacity: 0.7; }
+                    65% { clip-path: inset(5% 0 90% 0); transform: translate(-2px, 0); opacity: 0; }
+                    75% { clip-path: inset(65% 0 15% 0); transform: translate(3px, 0); opacity: 0.5; }
+                    85% { clip-path: inset(20% 0 55% 0); transform: translate(-2px, 0); opacity: 0; }
+                    95% { clip-path: inset(45% 0 35% 0); transform: translate(2px, 0); opacity: 0.6; }
+                    100% { clip-path: inset(35% 0 45% 0); transform: translate(-3px, 0); opacity: 0; }
+                }
+
+                @keyframes glitchWhite {
+                    0% { clip-path: inset(25% 0 65% 0); transform: translate(1px, 0); opacity: 0; }
+                    20% { clip-path: inset(5% 0 85% 0); transform: translate(-1px, 0); opacity: 0.8; }
+                    40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, 0); opacity: 0; }
+                    60% { clip-path: inset(35% 0 45% 0); transform: translate(-2px, 0); opacity: 0.6; }
+                    80% { clip-path: inset(50% 0 25% 0); transform: translate(1px, 0); opacity: 0; }
+                    100% { clip-path: inset(15% 0 70% 0); transform: translate(-1px, 0); opacity: 0.7; }
+                }
+
+                /* Main Text with Neon Glow */
+                .mega888-main-text {
+                    position: relative;
+                    background: linear-gradient(135deg, #ff0040 0%, #ff4d88 25%, #ffffff 50%, #00d4ff 75%, #00ffff 100%);
+                    background-size: 200% 200%;
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    animation: gradientShift 3s ease-in-out infinite, subtleFloat 2s ease-in-out infinite;
+                    filter: drop-shadow(0 0 10px rgba(255, 0, 64, 0.5)) drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
+                }
+
+                @keyframes gradientShift {
+                    0%, 100% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                }
+
+                @keyframes subtleFloat {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-2px); }
+                }
+
+                /* Neon Pulse Overlay */
+                .mega888-neon-pulse {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 2rem;
+                    font-weight: 900;
+                    letter-spacing: 0.08em;
+                    color: transparent;
+                    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
+                    animation: neonPulse 1.5s ease-in-out infinite;
+                    pointer-events: none;
+                }
+
+                @keyframes neonPulse {
+                    0%, 100% { 
+                        opacity: 0.3;
+                        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
+                        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+                    }
+                    50% { 
+                        opacity: 0.8;
+                        -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.9);
+                        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 15px rgba(0, 255, 255, 0.6));
+                    }
+                }
+
+                /* Electric Spark Particles */
+                .mega888-spark {
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background: #fff;
+                    border-radius: 50%;
+                    box-shadow: 0 0 6px #fff, 0 0 12px #00ffff, 0 0 18px #ff0040;
+                    animation: sparkFloat 1.5s ease-in-out infinite;
+                }
+
+                .mega888-spark-1 {
+                    top: 10%;
+                    left: 5%;
+                    animation-delay: 0s;
+                    animation-duration: 1.2s;
+                }
+
+                .mega888-spark-2 {
+                    top: 20%;
+                    right: 8%;
+                    animation-delay: 0.3s;
+                    animation-duration: 1.5s;
+                }
+
+                .mega888-spark-3 {
+                    bottom: 25%;
+                    left: 15%;
+                    animation-delay: 0.6s;
+                    animation-duration: 1.3s;
+                }
+
+                .mega888-spark-4 {
+                    bottom: 15%;
+                    right: 12%;
+                    animation-delay: 0.9s;
+                    animation-duration: 1.4s;
+                }
+
+                @keyframes sparkFloat {
+                    0%, 100% { 
+                        opacity: 0; 
+                        transform: scale(0) translateY(0); 
+                    }
+                    25% { 
+                        opacity: 1; 
+                        transform: scale(1.2) translateY(-5px); 
+                    }
+                    50% { 
+                        opacity: 1; 
+                        transform: scale(0.8) translateY(-12px); 
+                        box-shadow: 0 0 8px #fff, 0 0 16px #00ffff, 0 0 24px #ff0040;
+                    }
+                    75% { 
+                        opacity: 0.5; 
+                        transform: scale(0.4) translateY(-18px); 
+                    }
+                    100% { 
+                        opacity: 0; 
+                        transform: scale(0) translateY(-25px); 
+                    }
+                }
+
+                /* AI RTP SCANNER Subtitle */
+                .mega888-subtitle {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 2px;
+                    margin-top: 4px;
+                    font-family: 'JetBrains Mono', monospace;
+                    font-size: 0.9rem;
+                    font-weight: 700;
+                    letter-spacing: 0.25em;
+                    color: rgba(255, 255, 255, 0.9);
+                    text-shadow: 0 0 10px rgba(255, 0, 64, 0.6), 0 0 20px rgba(0, 255, 255, 0.4);
+                }
+
+                .mega888-subtitle-text {
+                    animation: subtitleGlow 2s ease-in-out infinite;
+                }
+
+                @keyframes subtitleGlow {
+                    0%, 100% { 
+                        color: rgba(255, 255, 255, 0.85);
+                        text-shadow: 0 0 8px rgba(255, 0, 64, 0.5);
+                    }
+                    50% { 
+                        color: #ffffff;
+                        text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(255, 0, 64, 0.5);
+                    }
+                }
+
+                .mega888-subtitle-cursor {
+                    display: inline-block;
+                    color: #00ffff;
+                    animation: cursorBlink 0.8s steps(1) infinite;
+                    text-shadow: 0 0 8px rgba(0, 255, 255, 0.9);
+                }
+
+                @keyframes cursorBlink {
+                    0%, 50% { opacity: 1; }
+                    51%, 100% { opacity: 0; }
+                }
+
+                /* Tech VIP Section Animations */
+                .tech-vip-section {
+                  position: relative;
+                }
+
+                .tech-grid-bg {
+                  position: absolute;
+                  inset: 0;
+                  background-image:
+                    linear-gradient(rgba(37,211,102,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(37,211,102,0.03) 1px, transparent 1px);
+                  background-size: 20px 20px;
+                  pointer-events: none;
+                  z-index: 0;
+                }
+
+                .circuit-corner {
+                  position: absolute;
+                  width: 20px;
+                  height: 20px;
+                  pointer-events: none;
+                  z-index: 1;
+                }
+                .circuit-tl {
+                  top: 6px;
+                  left: 6px;
+                  border-top: 2px solid rgba(37,211,102,0.5);
+                  border-left: 2px solid rgba(37,211,102,0.5);
+                  animation: circuitPulse 2s ease-in-out infinite;
+                }
+                .circuit-br {
+                  bottom: 6px;
+                  right: 6px;
+                  border-bottom: 2px solid rgba(37,211,102,0.5);
+                  border-right: 2px solid rgba(37,211,102,0.5);
+                  animation: circuitPulse 2s ease-in-out infinite 1s;
+                }
+
+                @keyframes circuitPulse {
+                  0%, 100% { opacity: 0.4; }
+                  50% { opacity: 1; box-shadow: 0 0 8px rgba(37,211,102,0.5); }
+                }
+
+                .electric-border-glow {
+                  position: absolute;
+                  inset: 0;
+                  border-radius: inherit;
+                  pointer-events: none;
+                  z-index: 0;
+                  animation: electricPulse 3s ease-in-out infinite;
+                }
+
+                @keyframes electricPulse {
+                  0%, 100% {
+                    box-shadow: inset 0 0 10px rgba(37,211,102,0.1), 0 0 5px rgba(37,211,102,0.1);
+                  }
+                  50% {
+                    box-shadow: inset 0 0 20px rgba(37,211,102,0.25), 0 0 15px rgba(37,211,102,0.3);
+                  }
+                }
+
+                .tech-scan-line {
+                  position: absolute;
+                  left: -100%;
+                  top: 0;
+                  width: 60%;
+                  height: 100%;
+                  background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(37,211,102,0.08) 30%,
+                    rgba(37,211,102,0.2) 50%,
+                    rgba(37,211,102,0.08) 70%,
+                    transparent 100%
+                  );
+                  pointer-events: none;
+                  z-index: 2;
+                  animation: techScan 4s ease-in-out infinite;
+                }
+
+                @keyframes techScan {
+                  0% { left: -100%; opacity: 0; }
+                  10% { opacity: 1; }
+                  90% { opacity: 1; }
+                  100% { left: 200%; opacity: 0; }
+                }
+
+                .spark {
+                  position: absolute;
+                  width: 3px;
+                  height: 3px;
+                  border-radius: 50%;
+                  background: #25D366;
+                  pointer-events: none;
+                  z-index: 3;
+                  animation: sparkFloat 3s ease-in-out infinite;
+                }
+                .spark-1 {
+                  top: 20%;
+                  left: 15%;
+                  animation-delay: 0s;
+                  box-shadow: 0 0 6px rgba(37,211,102,0.8), 0 0 12px rgba(37,211,102,0.4);
+                }
+                .spark-2 {
+                  top: 60%;
+                  right: 20%;
+                  animation-delay: 1s;
+                  box-shadow: 0 0 6px rgba(37,211,102,0.8), 0 0 12px rgba(37,211,102,0.4);
+                }
+                .spark-3 {
+                  bottom: 25%;
+                  left: 40%;
+                  animation-delay: 2s;
+                  box-shadow: 0 0 6px rgba(37,211,102,0.8), 0 0 12px rgba(37,211,102,0.4);
+                }
+
+                @keyframes sparkFloat {
+                  0%, 100% { transform: translateY(0) scale(1); opacity: 0; }
+                  10% { opacity: 1; }
+                  50% { transform: translateY(-8px) scale(1.5); opacity: 1; }
+                  90% { opacity: 1; }
+                }
+
+                .vip-badge-pulse {
+                  position: absolute;
+                  top: 10px;
+                  right: 12px;
+                  z-index: 10;
+                  animation: badgePulse 2s ease-in-out infinite;
+                }
+
+                @keyframes badgePulse {
+                  0%, 100% { transform: scale(1); }
+                  50% { transform: scale(1.08); }
+                }
+
+                .tech-text-glow {
+                  text-shadow: 0 0 10px rgba(37,211,102,0.5), 0 0 20px rgba(37,211,102,0.3);
+                  animation: textGlow 3s ease-in-out infinite;
+                }
+
+                @keyframes textGlow {
+                  0%, 100% { text-shadow: 0 0 10px rgba(37,211,102,0.4), 0 0 20px rgba(37,211,102,0.2); }
+                  50% { text-shadow: 0 0 15px rgba(37,211,102,0.7), 0 0 30px rgba(37,211,102,0.4); }
+                }
+
+                .tech-btn-glow {
+                  box-shadow: 0 0 10px rgba(37,211,102,0.3);
+                  animation: btnGlow 2s ease-in-out infinite;
+                }
+
+                @keyframes btnGlow {
+                  0%, 100% { box-shadow: 0 0 8px rgba(37,211,102,0.3); }
+                  50% { box-shadow: 0 0 18px rgba(37,211,102,0.6), 0 0 30px rgba(37,211,102,0.3); }
+                }
+
+                .electric-icon-glow {
+                  animation: iconGlow 2.5s ease-in-out infinite;
+                }
+
+                @keyframes iconGlow {
+                  0%, 100% { box-shadow: 0 0 5px rgba(37,211,102,0.2); }
+                  50% { box-shadow: 0 0 15px rgba(37,211,102,0.5), 0 0 25px rgba(37,211,102,0.3); }
+                }
+
+                /* Premium Icon Glow Effects */
+                .premium-icon-glow {
+                    filter: drop-shadow(0 0 6px currentColor);
+                    animation: icon-pulse-glow 2s ease-in-out infinite;
+                }
+
+                .premium-icon-glow-red {
+                    color: #ff4d4d;
+                    filter: drop-shadow(0 0 8px rgba(255, 77, 77, 0.8)) drop-shadow(0 0 16px rgba(255, 77, 77, 0.4));
+                    animation: icon-pulse-red 2s ease-in-out infinite;
+                }
+
+                .premium-icon-glow-gold {
+                    color: #fbbf24;
+                    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8)) drop-shadow(0 0 16px rgba(251, 191, 36, 0.4));
+                    animation: icon-pulse-gold 2s ease-in-out infinite;
+                }
+
+                .premium-icon-glow-purple {
+                    color: #a855f7;
+                    filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.8)) drop-shadow(0 0 16px rgba(168, 85, 247, 0.4));
+                    animation: icon-pulse-purple 2s ease-in-out infinite;
+                }
+
+                .premium-icon-glow-blue {
+                    color: #3b82f6;
+                    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 16px rgba(59, 130, 246, 0.4));
+                    animation: icon-pulse-blue 2s ease-in-out infinite;
+                }
+
+                .premium-icon-glow-green {
+                    color: #22c55e;
+                    filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.8)) drop-shadow(0 0 16px rgba(34, 197, 94, 0.4));
+                    animation: icon-pulse-green 2s ease-in-out infinite;
+                }
+
+                .premium-icon-glow-cyan {
+                    color: #ff3333;
+                    filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.8)) drop-shadow(0 0 16px rgba(34, 211, 238, 0.4));
+                    animation: icon-pulse-cyan 2s ease-in-out infinite;
+                }
+
+                @keyframes icon-pulse-glow {
+                    0%, 100% { filter: drop-shadow(0 0 4px currentColor); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 10px currentColor) drop-shadow(0 0 20px currentColor); transform: scale(1.05); }
+                }
+
+                @keyframes icon-pulse-red {
+                    0%, 100% { filter: drop-shadow(0 0 6px rgba(255, 77, 77, 0.6)); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 12px rgba(255, 77, 77, 0.9)) drop-shadow(0 0 24px rgba(255, 77, 77, 0.5)); transform: scale(1.08); }
+                }
+
+                @keyframes icon-pulse-gold {
+                    0%, 100% { filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.6)); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.9)) drop-shadow(0 0 24px rgba(251, 191, 36, 0.5)); transform: scale(1.08); }
+                }
+
+                @keyframes icon-pulse-purple {
+                    0%, 100% { filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.6)); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.9)) drop-shadow(0 0 24px rgba(168, 85, 247, 0.5)); transform: scale(1.08); }
+                }
+
+                @keyframes icon-pulse-blue {
+                    0%, 100% { filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.6)); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.9)) drop-shadow(0 0 24px rgba(59, 130, 246, 0.5)); transform: scale(1.08); }
+                }
+
+                @keyframes icon-pulse-green {
+                    0%, 100% { filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.6)); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.9)) drop-shadow(0 0 24px rgba(34, 197, 94, 0.5)); transform: scale(1.08); }
+                }
+
+                @keyframes icon-pulse-cyan {
+                    0%, 100% { filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.6)); transform: scale(1); }
+                    50% { filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.9)) drop-shadow(0 0 24px rgba(34, 211, 238, 0.5)); transform: scale(1.08); }
+                }
+
+                /* Legacy Emoji Glow Animation (deprecated, kept for compatibility) */
+                .emoji-glow {
+                    filter: drop-shadow(0 0 8px currentColor);
+                    text-shadow: 0 0 10px currentColor;
+                    animation: pulse-glow 2s ease-in-out infinite;
+                }
+
+                @keyframes pulse-glow {
+                    0%, 100% { filter: drop-shadow(0 0 5px currentColor); }
+                    50% { filter: drop-shadow(0 0 15px currentColor); }
+                }
+
+                /* ================================================
+                   CINEMATIC HOLLYWOOD MEGA888 ANIMATIONS
+                   ================================================ */
+
+                /* Letter-by-letter reveal animation */
+                @keyframes letterReveal {
+                    0% {
+                        opacity: 0;
+                        transform: translateY(30px) scale(0.8);
+                        filter: blur(10px);
+                    }
+                    50% {
+                        opacity: 0.7;
+                        filter: blur(2px);
+                    }
+                    100% {
+                        opacity: 1;
+                        transform: translateY(0) scale(1);
+                        filter: blur(0);
+                    }
+                }
+
+                /* Golden shimmer/metallic reflection */
+                @keyframes goldenShimmer {
+                    0% {
+                        background-position: -200% center;
+                    }
+                    100% {
+                        background-position: 200% center;
+                    }
+                }
+
+                /* Cinematic spotlight sweep */
+                @keyframes spotlightSweep {
+                    0% {
+                        transform: translateX(-100%) skewX(-15deg);
+                        opacity: 0;
+                    }
+                    15% {
+                        opacity: 0.4;
+                    }
+                    50% {
+                        opacity: 0.25;
+                    }
+                    85% {
+                        opacity: 0.4;
+                    }
+                    100% {
+                        transform: translateX(200%) skewX(-15deg);
+                        opacity: 0;
+                    }
+                }
+
+                /* Film grain overlay animation */
+                @keyframes filmGrain {
+                    0%, 100% { transform: translate(0, 0); }
+                    10% { transform: translate(-2%, -2%); }
+                    20% { transform: translate(2%, 2%); }
+                    30% { transform: translate(-1%, 1%); }
+                    40% { transform: translate(1%, -1%); }
+                    50% { transform: translate(-2%, 2%); }
+                    60% { transform: translate(2%, -2%); }
+                    70% { transform: translate(-1%, -1%); }
+                    80% { transform: translate(1%, 1%); }
+                    90% { transform: translate(-2%, -2%); }
+                }
+
+                /* Anamorphic lens flare */
+                @keyframes lensFlare {
+                    0%, 100% {
+                        opacity: 0;
+                        transform: scale(0.5) translateX(-50%);
+                    }
+                    10% {
+                        opacity: 0.8;
+                        transform: scale(1) translateX(-50%);
+                    }
+                    30% {
+                        opacity: 0.4;
+                        transform: scale(0.8) translateX(-50%);
+                    }
+                    50% {
+                        opacity: 0.9;
+                        transform: scale(1.2) translateX(-50%);
+                    }
+                    70% {
+                        opacity: 0.3;
+                        transform: scale(0.7) translateX(-50%);
+                    }
+                    90% {
+                        opacity: 0.7;
+                        transform: scale(0.9) translateX(-50%);
+                    }
+                }
+
+                /* Letterbox bar animation */
+                @keyframes letterboxReveal {
+                    0% {
+                        transform: scaleY(0);
+                    }
+                    60% {
+                        transform: scaleY(0);
+                    }
+                    100% {
+                        transform: scaleY(1);
+                    }
+                }
+
+                /* 3D perspective container */
+                .mega888-perspective-container {
+                    transform: perspective(1000px) rotateX(5deg) rotateY(-2deg) rotateZ(0.5deg);
+                    transform-style: preserve-3d;
+                    animation: perspectiveFloat 6s ease-in-out infinite;
+                }
+
+                @keyframes perspectiveFloat {
+                    0%, 100% {
+                        transform: perspective(1000px) rotateX(5deg) rotateY(-2deg) rotateZ(0.5deg) translateZ(0);
+                    }
+                    50% {
+                        transform: perspective(1000px) rotateX(3deg) rotateY(2deg) rotateZ(-0.5deg) translateZ(10px);
+                    }
+                }
+
+                /* Cinematic container */
+                .mega888-cinematic-container {
+                    position: relative;
+                    display: inline-block;
+                    padding: 30px 20px;
+                    overflow: hidden;
+                }
+
+                /* Letterbox bars */
+                .mega888-letterbox {
+                    position: absolute;
+                    left: -10%;
+                    right: -10%;
+                    height: 12%;
+                    background: linear-gradient(to bottom, #000 50%, transparent 50%),
+                                linear-gradient(to top, #000 50%, transparent 50%);
+                    background-size: 100% 100%;
+                    transform-origin: center;
+                    animation: letterboxReveal 2s ease-out forwards;
+                    z-index: 10;
+                }
+
+                .mega888-letterbox-top {
+                    top: 0;
+                    background: linear-gradient(to bottom, rgba(0,0,0,0.95) 45%, transparent 55%);
+                }
+
+                .mega888-letterbox-bottom {
+                    bottom: 0;
+                    background: linear-gradient(to top, rgba(0,0,0,0.95) 45%, transparent 55%);
+                }
+
+                /* Film grain overlay using SVG noise */
+                .mega888-film-grain {
+                    position: absolute;
+                    top: -50%;
+                    left: -50%;
+                    width: 200%;
+                    height: 200%;
+                    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+                    opacity: 0.04;
+                    pointer-events: none;
+                    animation: filmGrain 0.5s steps(10) infinite;
+                    z-index: 5;
+                    mix-blend-mode: overlay;
+                }
+
+                /* Cinematic spotlight */
+                .mega888-spotlight {
+                    position: absolute;
+                    top: -20%;
+                    left: -50%;
+                    width: 200%;
+                    height: 150%;
+                    background: linear-gradient(
+                        90deg,
+                        transparent 0%,
+                        rgba(255, 215, 100, 0.08) 20%,
+                        rgba(255, 215, 100, 0.15) 40%,
+                        rgba(255, 255, 255, 0.12) 50%,
+                        rgba(255, 215, 100, 0.15) 60%,
+                        rgba(255, 215, 100, 0.08) 80%,
+                        transparent 100%
+                    );
+                    animation: spotlightSweep 4s ease-in-out infinite;
+                    z-index: 4;
+                    pointer-events: none;
+                }
+
+                /* Anamorphic lens flare - horizontal light streak */
+                .mega888-lens-flare {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 300%;
+                    height: 3px;
+                    background: linear-gradient(
+                        90deg,
+                        transparent 0%,
+                        transparent 20%,
+                        rgba(100, 180, 255, 0.4) 35%,
+                        rgba(255, 255, 255, 0.7) 45%,
+                        rgba(255, 255, 255, 0.9) 50%,
+                        rgba(255, 255, 255, 0.7) 55%,
+                        rgba(100, 180, 255, 0.4) 65%,
+                        transparent 80%,
+                        transparent 100%
+                    );
+                    transform: translateX(-50%) scaleY(8);
+                    animation: lensFlare 3s ease-in-out infinite;
+                    z-index: 3;
+                    pointer-events: none;
+                    filter: blur(1px);
+                }
+
+                /* Golden shimmer text */
+                .mega888-golden-shimmer {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: linear-gradient(
+                        110deg,
+                        transparent 20%,
+                        rgba(255, 215, 0, 0.4) 35%,
+                        rgba(255, 255, 200, 0.8) 45%,
+                        rgba(255, 215, 0, 0.6) 50%,
+                        rgba(255, 200, 100, 0.5) 60%,
+                        transparent 80%
+                    );
+                    background-size: 200% 100%;
+                    animation: goldenShimmer 3s ease-in-out infinite;
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                    font-family: inherit;
+                    font-weight: inherit;
+                    letter-spacing: inherit;
+                    font-size: inherit;
+                    line-height: inherit;
+                    z-index: 6;
+                    pointer-events: none;
+                    display: flex;
+                }
+
+                .mega888-golden-shimmer span {
+                    display: inline-block;
+                }
+
+                /* Letter reveal animation for each letter */
+                .mega888-letter-reveal .mega888-letter {
+                    display: inline-block;
+                    opacity: 0;
+                    animation: letterReveal 0.6s ease-out forwards;
+                }
+
+                .mega888-letter-reveal .mega888-letter:nth-child(1) { animation-delay: 0.1s; }
+                .mega888-letter-reveal .mega888-letter:nth-child(2) { animation-delay: 0.2s; }
+                .mega888-letter-reveal .mega888-letter:nth-child(3) { animation-delay: 0.3s; }
+                .mega888-letter-reveal .mega888-letter:nth-child(4) { animation-delay: 0.4s; }
+                .mega888-letter-reveal .mega888-letter:nth-child(5) { animation-delay: 0.55s; }
+                .mega888-letter-reveal .mega888-letter:nth-child(6) { animation-delay: 0.7s; }
+                .mega888-letter-reveal .mega888-letter:nth-child(7) { animation-delay: 0.85s; }
+
+                /* Special styling for 888 numbers */
+                .mega888-letter-888 {
+                    background: linear-gradient(
+                        180deg,
+                        #FFD700 0%,
+                        #FFA500 30%,
+                        #FF8C00 50%,
+                        #FF6347 70%,
+                        #FFD700 100%
+                    );
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent !important;
+                    text-shadow: none !important;
+                    filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6)) drop-shadow(0 0 16px rgba(255, 215, 0, 0.4));
+                }
+            `}</style>
         </>
     );
 }

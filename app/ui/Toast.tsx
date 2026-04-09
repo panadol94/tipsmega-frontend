@@ -40,18 +40,18 @@ export default function Toast({ message, type, onClose }: ToastProps) {
             }
             : type === "success"
                 ? {
-                    gradient: "from-emerald-500/20 via-green-500/20 to-teal-500/20",
-                    border: "border-emerald-500/30",
+                    gradient: "from-red-500/20 via-green-500/20 to-teal-500/20",
+                    border: "border-red-500/30",
                     glow: "shadow-[0_0_30px_rgba(16,185,129,0.3)]",
                     icon: "✅",
-                    iconBg: "bg-emerald-500/20"
+                    iconBg: "bg-red-500/20"
                 }
                 : {
-                    gradient: "from-cyan-500/20 via-blue-500/20 to-purple-500/20",
-                    border: "border-cyan-500/30",
+                    gradient: "from-red-500/20 via-blue-500/20 to-purple-500/20",
+                    border: "border-red-500/30",
                     glow: "shadow-[0_0_30px_rgba(6,182,212,0.3)]",
                     icon: "ℹ️",
-                    iconBg: "bg-cyan-500/20"
+                    iconBg: "bg-red-500/20"
                 };
 
     return (

@@ -91,7 +91,7 @@ export default function FAQSection() {
                                     {item.question}
                                 </span>
                                 <span
-                                    className="faq-icon text-2xl text-amber-400 font-black transition-transform duration-300 flex-shrink-0"
+                                    className="faq-icon text-2xl text-red-400 font-black transition-transform duration-300 flex-shrink-0"
                                     style={{
                                         transform: openIndex === index ? 'rotate(180deg)' : 'rotate(0deg)'
                                     }}

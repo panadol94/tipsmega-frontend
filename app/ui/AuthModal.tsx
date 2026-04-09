@@ -10,7 +10,7 @@ interface AuthModalProps {
     initialMode?: AuthMode;
     deviceId: string;
     onClose: () => void;
-    onLoginSuccess: (token: string, stars: number) => void;
+    onLoginSuccess: (token: string, stars: number, username?: string) => void;
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
@@ -213,7 +213,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                     localStorage.setItem("tipsmega_my_ref_code", json.referralCode);
                 }
 
-                onLoginSuccess(token, stars);
+                onLoginSuccess(token, stars, json.username || username || "User");
             } else {
                 showErr("❌ Token missing in response");
             }
@@ -282,20 +282,53 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                 onClick={onClose}
             />
 
-            {/* Main Card */}
-            <div className="relative w-full max-w-md bg-[#0f162a] border border-white/10 rounded-2xl shadow-2xl p-6 max-h-[90vh] overflow-y-auto animate-pop scrollbar-hide">
+            {/* Main Card — premium glass */}
+            <div
+                className="relative w-full max-w-md rounded-2xl shadow-2xl p-6 max-h-[90vh] overflow-y-auto animate-pop scrollbar-hide"
+                style={{
+                    background: "linear-gradient(180deg, rgba(15,22,42,0.97) 0%, rgba(8,10,18,0.99) 100%)",
+                    border: "1px solid rgba(255,255,255,0.09)",
+                    boxShadow: "0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04) inset, 0 0 80px rgba(79,142,255,0.06) inset",
+                }}
+            >
 
-                {/* Glow Effects */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-yellow-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+                {/* Ambient glow orbs — subtle */}
+                <div
+                    className="absolute top-0 right-0 w-40 h-40 rounded-full blur-3xl pointer-events-none"
+                    style={{
+                        background: "radial-gradient(circle, rgba(79,142,255,0.15) 0%, transparent 70%)",
+                        transform: "translate(30%, -30%)",
+                    }}
+                />
+                <div
+                    className="absolute bottom-0 left-0 w-40 h-40 rounded-full blur-3xl pointer-events-none"
+                    style={{
+                        background: "radial-gradient(circle, rgba(168,85,247,0.10) 0%, transparent 70%)",
+                        transform: "translate(-30%, 30%)",
+                    }}
+                />
 
                 {/* Header */}
                 <div className="text-center mb-6 relative z-10">
-                    <h2 className="text-2xl font-black text-white tracking-wide uppercase drop-shadow-lg">
-                        {mode === "login" ? "Welcome Back" : mode === "recovery" ? "RECOVERY MODE" : "INITIATE PROTOCOL"}
+                    {/* Premium gradient heading */}
+                    <h2
+                        className="text-2xl font-black tracking-wide uppercase mb-1"
+                        style={{
+                            background: "linear-gradient(135deg, #fca5a5 0%, #ff4d4d 50%, #ff6bd6 100%)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                            filter: "drop-shadow(0 2px 12px rgba(255,77,77,0.3))",
+                        }}
+                    >
+                        {mode === "login" ? "Welcome Back" : mode === "recovery" ? "Account Recovery" : "Create Account"}
                     </h2>
-                    <p className="text-sm text-white/50 font-medium">
-                        {mode === "login" ? "Access the Commander Terminal" : mode === "recovery" ? "Reset Password via OTP" : "Register to start your operation"}
+                    <p className="text-sm text-white/45 font-medium">
+                        {mode === "login"
+                            ? "Sign in to access your commander terminal"
+                            : mode === "recovery"
+                                ? "Reset your password via Telegram OTP"
+                            : "Join 10,000+ Malaysian Mega888 players"}
                     </p>
                 </div>
 
@@ -358,7 +391,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                             <h3 className="text-xs font-black text-white/50 uppercase tracking-widest pl-1">Langkah 3: Dapatkan OTP</h3>
                             <div className="flex gap-2">
                                 <input
-                                    className={`flex-1 h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-yellow-500/50 transition-all font-mono ${otpSent ? "opacity-50 cursor-not-allowed" : ""}`}
+                                    className={`flex-1 h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-red-500/50 transition-all font-mono ${otpSent ? "opacity-50 cursor-not-allowed" : ""}`}
                                     placeholder="No. Tel (e.g. 0123456789)"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
@@ -384,7 +417,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                                             setOtp("");
                                             setBusy(false);
                                         }}
-                                        className="text-[10px] text-yellow-400 underline hover:text-yellow-300"
+                                        className="text-[10px] text-red-400 underline hover:text-red-300"
                                     >
                                         Tukar Nombor?
                                     </button>
@@ -424,13 +457,16 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                                 />
                             </div>
 
-                            {/* MAIN BUTTON */}
+                            {/* MAIN BUTTON — premium CTA */}
                             <button
                                 disabled={busy}
                                 onClick={handleRegister}
-                                className={`w-full h-12 rounded-xl font-black tracking-widest text-xs uppercase transition-all shadow-lg relative z-10 ${busy ? "bg-gray-600 text-gray-400 cursor-not-allowed" :
-                                    "bg-gradient-to-r from-emerald-500 to-emerald-700 border border-emerald-400 text-white shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:-translate-y-0.5"
+                                className={`w-full h-12 rounded-2xl font-black tracking-widest text-xs uppercase transition-all shadow-lg relative z-10 ${busy ? "bg-gray-600 text-gray-400 cursor-not-allowed" :
+                                    "bg-gradient-to-br from-red-400 via-red-500 to-rose-600 border border-white/10 text-white hover:-translate-y-0.5 active:translate-y-0"
                                     }`}
+                                style={!busy ? {
+                                    boxShadow: "0 8px 32px rgba(255,77,77,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
+                                } : {}}
                             >
                                 {busy ? "SEDANG PROSES..." : "DAFTAR SEKARANG"}
                             </button>
@@ -461,7 +497,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                         <div className="space-y-3">
                             <div className="flex gap-2">
                                 <input
-                                    className="flex-1 h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-yellow-500/50 transition-all font-mono"
+                                    className="flex-1 h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-red-500/50 transition-all font-mono"
                                     placeholder="No. Tel (e.g. 0123456789)"
                                     value={phone}
                                     onChange={(e) => setPhone(e.target.value)}
@@ -537,13 +573,16 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                             />
                         </div>
 
-                        {/* LOGIN BUTTON */}
+                        {/* LOGIN BUTTON — premium CTA */}
                         <button
                             disabled={busy}
                             onClick={handleLogin}
-                            className={`w-full h-14 mt-2 rounded-xl font-black tracking-widest text-sm uppercase transition-all shadow-lg ${busy ? "bg-gray-600 text-gray-400 cursor-not-allowed" :
-                                "bg-gradient-to-b from-blue-400 to-blue-600 border border-blue-300 shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5"
+                            className={`w-full h-14 mt-2 rounded-2xl font-black tracking-widest text-sm uppercase transition-all shadow-lg ${busy ? "bg-gray-600 text-gray-400 cursor-not-allowed" :
+                                "bg-gradient-to-br from-red-400 via-red-500 to-rose-600 border border-white/10 shadow-red-500/30 hover:shadow-red-500/60 hover:-translate-y-0.5 active:translate-y-0"
                                 }`}
+                            style={!busy ? {
+                                boxShadow: "0 8px 32px rgba(255,77,77,0.35), inset 0 1px 0 rgba(255,255,255,0.2)",
+                            } : {}}
                         >
                             {busy ? "ACCESSING..." : "ACCESS TERMINAL"}
                         </button>
@@ -559,21 +598,21 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                     </div>
                 )}
 
-                {/* Footer Toggle */}
-                <div className="mt-6 text-center">
+                {/* Footer Toggle — refined */}
+                <div className="mt-6 text-center pt-4 border-t border-white/5">
                     <button
                         onClick={() => setMode(mode === "login" ? "register" : "login")}
-                        className="text-white/40 text-xs font-bold hover:text-white transition-colors"
+                        className="text-white/40 text-[11px] font-bold hover:text-white transition-colors tracking-wide uppercase"
                     >
-                        {mode === "login" ? "NO ACCOUNT? CREATE ONE" : "ALREADY HAVE AN ACCOUNT? LOGIN"}
+                        {mode === "login" ? "No Account? Register Now" : "Already a Member? Login"}
                     </button>
-                    <div className="mt-2 text-[8px] text-white/10 font-mono">System v1.2</div>
                 </div>
 
-                {/* Close Button */}
+                {/* Close Button — elegant glass */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 z-50 cursor-pointer w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white/50 hover:bg-white/10 hover:text-white transition-all"
+                    className="absolute top-4 right-4 z-50 cursor-pointer w-8 h-8 flex items-center justify-center rounded-full text-white/40 hover:text-white hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all"
+                    style={{ background: "rgba(255,255,255,0.04)" }}
                 >
                     ✕
                 </button>

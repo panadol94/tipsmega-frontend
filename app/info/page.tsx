@@ -1,14 +1,15 @@
 
+
 import InfoClient from "./InfoClient";
 
 export const metadata = {
-  title: "Mega888 AI Tips - Complete Guide & FAQ | 2026",
-  description: "Panduan lengkap Mega888 AI Scanner. Learn how to use AI technology untuk analyze RTP, cara scan ID, security info, dan FAQ lengkap.",
+  title: "Panduan Guna AI Scanner Mega888 | TipsMega888",
+  description: "Panduan ringkas tentang cara guna AI Scanner di TipsMega888, cara baca keputusan RTP, dan perkara penting yang perlu difahami sebelum menggunakan scanner.",
   openGraph: {
-    title: "Mega888 AI Tips - Complete Guide & FAQ | 2026",
-    description: "Panduan lengkap Mega888 AI Scanner. Ketahui cara guna AI Scanner untuk analisis RTP live.",
+    title: "Panduan Guna AI Scanner Mega888 | TipsMega888",
+    description: "Fahami cara guna scanner, cara baca keputusan, dan limitasi ringkas sebelum membuat semakan RTP.",
     url: "https://tipsmega888.com/info",
-    siteName: "TipsMega AI Scanner",
+    siteName: "TipsMega888",
     locale: "ms_MY",
     type: "article",
     images: [
@@ -16,14 +17,14 @@ export const metadata = {
         url: "/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "Mega888 AI Tips Guide",
+        alt: "Panduan AI Scanner TipsMega888",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mega888 AI Tips - Complete Guide & FAQ | 2026",
-    description: "Panduan lengkap Mega888 AI Scanner. Ketahui cara guna AI Scanner untuk analisis RTP live.",
+    title: "Panduan Guna AI Scanner Mega888 | TipsMega888",
+    description: "Cara guna scanner, baca keputusan RTP, dan fahami limitasi asas di TipsMega888.",
     images: ["/og-image.webp"],
   },
   alternates: {
@@ -51,13 +52,13 @@ export default function Page() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "Mega888 AI Tips - Complete Guide & FAQ",
-            "description": "Panduan lengkap Mega888 AI Scanner. Learn how to use AI technology untuk analyze RTP, cara scan ID, security info, dan FAQ lengkap.",
+            "name": "Panduan Guna AI Scanner TipsMega888",
+            "description": "Panduan ringkas tentang cara guna scanner, cara baca keputusan RTP, dan perkara penting yang perlu difahami sebelum menggunakan AI Scanner di TipsMega888.",
             "url": "https://tipsmega888.com/info",
             "inLanguage": "ms-MY",
             "publisher": {
               "@type": "Organization",
-              "name": "TipsMega AI",
+              "name": "TipsMega888",
               "url": "https://tipsmega888.com"
             }
           })

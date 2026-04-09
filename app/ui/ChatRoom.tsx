@@ -15,8 +15,8 @@ const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.co
 
 // --- Avatar Helpers ---
 const AVATAR_COLORS = [
-    "bg-red-500", "bg-orange-500", "bg-amber-500", "bg-yellow-500", "bg-lime-500",
-    "bg-green-500", "bg-emerald-500", "bg-teal-500", "bg-cyan-500", "bg-sky-500",
+    "bg-red-500", "bg-orange-500", "bg-red-500", "bg-red-500", "bg-lime-500",
+    "bg-green-500", "bg-red-500", "bg-red-500", "bg-red-500", "bg-sky-500",
     "bg-blue-500", "bg-indigo-500", "bg-violet-500", "bg-purple-500", "bg-fuchsia-500", "bg-pink-500", "bg-rose-500"
 ];
 
@@ -98,7 +98,7 @@ type Message = {
 
 const VerifiedBadge = () => (
     <span className="inline-flex items-center justify-center ml-1 align-middle" title="Verified VVIP">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.6)] animate-pulse-slow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-red-400 drop-shadow-[0_0_8px_rgba(255,77,77,0.6)] animate-pulse-slow">
             <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
             <circle cx="12" cy="12" r="8" fill="currentColor" className="opacity-20" />
         </svg>
@@ -208,7 +208,7 @@ const MessageItem = ({ m, isMe, isAdmin, currentStyle, user, onReply, onDelete, 
 
                 {showName && (
                     <div className="flex items-center gap-1.5 mb-1 px-1">
-                        <span className={`text-[10px] font-bold tracking-wide ${isAdmin ? "text-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" : "text-white/40"}`}>
+                        <span className={`text-[10px] font-bold tracking-wide ${isAdmin ? "text-red-400 drop-shadow-[0_0_5px_rgba(255,77,77,0.5)]" : "text-white/40"}`}>
                             {isAdmin && "👑 "}{m.sender}
                         </span>
                         {(isAdmin || m.sender === "panadol94" || m.sender === "System") && <VerifiedBadge />}
@@ -312,9 +312,9 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
     const currentStyle: Theme = {
         bg: "bg-[#111827]", // Gray-900 (Lighter than black)
         header: "bg-[#1f2937]/90 backdrop-blur-md border-b border-white/5 shadow-sm sticky top-0 z-30",
-        me: "bg-emerald-600 text-white shadow-md font-medium border-emerald-500", // WhatsApp-like Green
+        me: "bg-emerald-600 text-white shadow-md font-medium border-red-500", // WhatsApp-like Green
         other: "bg-[#1f2937] border border-white/5 text-gray-200 shadow-md", // Standard dark bubble
-        admin: "bg-amber-500/10 border border-amber-500/20 text-amber-200",
+        admin: "bg-red-500/10 border border-red-500/20 text-amber-200",
         accent: "emerald",
         bubble: "px-3 py-2 shadow-sm border-0",
     };
@@ -600,7 +600,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
     };
 
     return (
-        <div className={`flex flex-col w-full h-full font-sans border-opacity-50 relative ${currentStyle.bg}`}>
+        <div className={`flex flex-col w-full h-full font-sans border-opacity-50 relative ${currentStyle.bg} overflow-x-hidden`}>
             {/* Header */}
             <div className={`flex items-center justify-between p-4 border-b shadow-lg ${currentStyle.header}`}>
                 <div className="flex items-center gap-3">
@@ -614,14 +614,14 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                     )}
                     <div className="relative">
                         {/* Status Indicator: Green=Connected, Red=Disconnected/Pulse */}
-                        <div className={`w-2.5 h-2.5 rounded-full ${isConnected ? "bg-emerald-500 shadow-[0_0_10px_#10b981]" : "bg-red-500 animate-pulse shadow-[0_0_10px_#ef4444]"}`} />
-                        {isConnected && <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping opacity-50" />}
+                        <div className={`w-2.5 h-2.5 rounded-full ${isConnected ? "bg-red-500 shadow-[0_0_10px_#10b981]" : "bg-red-500 animate-pulse shadow-[0_0_10px_#ef4444]"}`} />
+                        {isConnected && <div className="absolute inset-0 w-2.5 h-2.5 rounded-full bg-red-400 animate-ping opacity-50" />}
                     </div>
                     <div className="flex flex-col">
                         <h3 className="chat-header-gradient font-bold text-white text-sm tracking-wide uppercase drop-shadow-[0_2px_10px_rgba(245,158,11,0.2)]">
                             {roomId === "global" ? "SEMBANG SANTAI (GLOBAL)" : roomId.toUpperCase()}
                         </h3>
-                        <div className="text-[10px] text-amber-500/60 font-mono tracking-widest">
+                        <div className="text-[10px] text-red-500/60 font-mono tracking-widest">
                             {roomId === "global" ? "PUBLIC CHAT" : "PREMIUM NETWORK"}
                         </div>
                     </div>
@@ -635,7 +635,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
 
             {/* Messages */}
             <div
-                className="chat-messages-container flex-1 overflow-y-auto p-4 space-y-4 relative pb-28"
+                className="chat-messages-container flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-4 relative pb-28"
                 onClick={() => setShowEmoji(false)}
             >
                 {/* Background Glow */}
@@ -698,10 +698,10 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="bg-[#1f2c34] border-l-4 border-emerald-500 flex justify-between items-center px-4 py-2 border-t border-white/5 relative z-10"
+                        className="bg-[#1f2c34] border-l-4 border-red-500 flex justify-between items-center px-4 py-2 border-t border-white/5 relative z-10"
                     >
                         <div className="flex flex-col overflow-hidden">
-                            <span className="text-[10px] font-bold text-emerald-400">Replying to {replyTo.sender}</span>
+                            <span className="text-[10px] font-bold text-red-400">Replying to {replyTo.sender}</span>
                             <span className="text-xs text-white/60 truncate max-w-[250px]">{replyTo.content || "Media"}</span>
                         </div>
                         <button onClick={() => setReplyTo(null)} className="text-white/40 hover:text-white">✕</button>
@@ -736,7 +736,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
                 <div className="flex items-center gap-2">
                     <button
                         onClick={() => setShowEmoji(!showEmoji)}
-                        className="chat-button-press p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-yellow-400 transition-colors"
+                        className="chat-button-press p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-red-400 transition-colors"
                     >
                         😊
                     </button>
@@ -804,7 +804,7 @@ export default function ChatRoom({ roomId = "global", onBack }: { roomId?: strin
 
                 {user?.username === "Guest" && (
                     <div className="text-center mt-2 animate-pulse">
-                        <span className="text-[10px] text-yellow-400/90 font-semibold bg-yellow-400/10 px-3 py-1 rounded-full border border-yellow-400/20">
+                        <span className="text-[10px] text-red-400/90 font-semibold bg-red-400/10 px-3 py-1 rounded-full border border-red-400/20">
                             🔒 Login required to join the conversation
                         </span>
                     </div>

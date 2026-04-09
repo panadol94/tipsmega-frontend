@@ -6,7 +6,6 @@ import Link from "next/link";
 import MegaLogo from "./MegaLogo";
 import MatrixRain from "./MatrixRain";
 import BottomNav from "./BottomNav";
-import VisitorTracker from "./VisitorTracker";
 
 /* ---------- Withdrawal Notification Ticker ---------- */
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "https://api.tipsmega888.com";
@@ -89,7 +88,7 @@ function WinningTicker() {
   }, [companies]);
 
   return (
-    <div className="relative overflow-hidden bg-gradient-to-r from-emerald-500/5 via-emerald-500/10 to-emerald-500/5 px-4 py-2.5 border-b border-emerald-500/10">
+    <div className="relative overflow-hidden bg-gradient-to-r from-red-500/5 via-red-500/10 to-red-500/5 px-4 py-2.5 border-b border-red-500/10">
       {/* Subtle shimmer */}
       <div
         className="absolute inset-0 pointer-events-none opacity-10"
@@ -103,19 +102,19 @@ function WinningTicker() {
         {/* LIVE dot */}
         <div className="flex items-center gap-1.5 shrink-0">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
           </span>
         </div>
         {/* Withdrawal text */}
         <div
           className={`flex-1 text-xs font-medium text-white/80 transition-all duration-500 ${anim ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}
         >
-          <span className="text-yellow-400 font-bold">{current.name}</span>
+          <span className="text-red-400 font-bold">{current.name}</span>
           {" "}berjaya cuci{" "}
-          <span className="text-emerald-400 font-bold">{fmtRM(current.amount)}</span>
+          <span className="text-red-400 font-bold">{fmtRM(current.amount)}</span>
           {" "}dari{" "}
-          <span className="text-cyan-400 font-bold">{current.company}</span>
+          <span className="text-red-300 font-bold">{current.company}</span>
           <span className="text-white/30 ml-1.5 text-[10px]">• {current.timeAgo}</span>
         </div>
       </div>
@@ -133,6 +132,7 @@ function WinningTicker() {
 export default function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
+  const isChat = pathname === "/chat" || pathname?.startsWith("/chat/");
 
   // Admin pages use their own layout - skip user-facing shell
   if (isAdmin) {
@@ -169,35 +169,41 @@ export default function Shell({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* SEO Footer Links — helps Google discover all pages */}
-      <footer style={{ padding: "1.5rem 1rem 5rem", borderTop: "1px solid rgba(255,255,255,0.06)", background: "rgba(0,0,0,0.2)" }}>
-        <div style={{ maxWidth: 600, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", fontSize: "0.8rem" }}>
-            <div>
-              <div style={{ fontWeight: 700, color: "#f59e0b", marginBottom: 6, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: 1 }}>Mega888</div>
-              <Link href="/" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🏠 AI Scanner</Link>
-              <Link href="/trusted" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>✅ Company Trusted</Link>
-              <Link href="/share" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>⭐ Share & Stars</Link>
-              <Link href="/info" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>ℹ️ Info & FAQ</Link>
+      {!isChat && (
+        <footer style={{ padding: "1.5rem 1rem 5rem", borderTop: "1px solid rgba(255,255,255,0.06)", background: "rgba(0,0,0,0.2)" }}>
+          <div style={{ maxWidth: 600, margin: "0 auto" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", fontSize: "0.8rem" }}>
+              <div>
+                <div style={{ fontWeight: 700, color: "#ef4444", marginBottom: 6, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: 1 }}>Mega888</div>
+                <Link href="/" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🏠 AI Scanner</Link>
+                <Link href="/mega888" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🧭 Mega888 Hub</Link>
+                <Link href="/trusted" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>✅ Company Trusted</Link>
+                <Link href="/share" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>⭐ Share & Stars</Link>
+                <Link href="/info" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>ℹ️ Info & FAQ</Link>
+              </div>
+              <div>
+                <div style={{ fontWeight: 700, color: "#8b5cf6", marginBottom: 6, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: 1 }}>Tips & Game</div>
+                <Link href="/blog" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>📝 Blog Tips</Link>
+                <Link href="/games" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🎮 Semua Game</Link>
+                <Link href="/blog/tips-mega888-pro" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>💡 Tips Pro</Link>
+                <Link href="/blog/hack-rtp-mega888" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🎯 Pola RTP AI</Link>
+              </div>
             </div>
-            <div>
-              <div style={{ fontWeight: 700, color: "#8b5cf6", marginBottom: 6, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: 1 }}>Tips & Game</div>
-              <Link href="/blog" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>📝 Blog Tips</Link>
-              <Link href="/games" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🎮 Semua Game</Link>
-              <Link href="/blog/tips-mega888-pro" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>💡 Tips Pro</Link>
-              <Link href="/blog/hack-rtp-mega888" style={{ display: "block", color: "#94a3b8", textDecoration: "none", padding: "2px 0" }}>🎯 Hack RTP</Link>
+            <div style={{ textAlign: "center", marginTop: "1rem", fontSize: "0.72rem", color: "#64748b", lineHeight: 1.8 }}>
+              <div style={{ marginBottom: 6 }}>
+                <Link href="/about" style={{ color: "#94a3b8", textDecoration: "none", margin: "0 8px" }}>About</Link>
+                <Link href="/privacy-policy" style={{ color: "#94a3b8", textDecoration: "none", margin: "0 8px" }}>Privacy Policy</Link>
+                <Link href="/terms" style={{ color: "#94a3b8", textDecoration: "none", margin: "0 8px" }}>Terms</Link>
+                <Link href="/disclaimer" style={{ color: "#94a3b8", textDecoration: "none", margin: "0 8px" }}>Disclaimer</Link>
+              </div>
+              © 2026 TipsMega888 AI Scanner — Mega888 Tips, RTP & Strategi Terkini
             </div>
           </div>
-          <div style={{ textAlign: "center", marginTop: "1rem", fontSize: "0.7rem", color: "#475569" }}>
-            © 2026 TipsMega888 AI Scanner — Mega888 Tips, RTP & Strategi Terkini
-          </div>
-        </div>
-      </footer>
+        </footer>
+      )}
 
       {/* GLOBAL CHATROOM & NAV */}
       <BottomNav />
-
-      {/* Visitor notification - sends alert to admin Telegram group */}
-      <VisitorTracker />
     </div>
   );
 }
