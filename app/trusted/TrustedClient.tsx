@@ -336,12 +336,13 @@ export default function TrustedClient() {
                         <video
                           src={mediaUrl}
                           title={`${c.name} - Mega888 Platform`}
-                          preload="metadata"
+                          preload="auto"
                           className="premium-media"
                           muted
                           playsInline
                           autoPlay
                           loop
+                          poster="/mega888.webp"
                         />
                       ) : (
                         // eslint-disable-next-line @next/next/no-img-element
