@@ -1,5 +1,6 @@
 
 import Link from "next/link";
+import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
   title: "About TipsMega888 | Platform AI Scanner Mega888 Malaysia",
@@ -30,7 +31,8 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div style={{ maxWidth: 860, margin: "0 auto", padding: "2rem 1rem 5rem" }}>
+    <SharedPageNav>
+      <div style={{ maxWidth: 860, margin: "0 auto", padding: "2rem 1rem 5rem" }}>
       <nav style={{ fontSize: "0.85rem", color: "#64748b", marginBottom: "1rem" }}>
         <Link href="/" style={{ color: "#64748b" }}>Home</Link>
         {" › "}
@@ -65,6 +67,7 @@ export default function AboutPage() {
           </section>
         ))}
       </div>
-    </div>
+      </div>
+    </SharedPageNav>
   );
 }

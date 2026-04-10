@@ -1,6 +1,7 @@
 
 
 import ProfileClient from "./ProfileClient";
+import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
   title: "Commander Profile | Mega888 AI Tips",
@@ -37,5 +38,9 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <ProfileClient />;
+  return (
+    <SharedPageNav>
+      <ProfileClient />
+    </SharedPageNav>
+  );
 }

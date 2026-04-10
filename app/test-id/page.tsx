@@ -1,4 +1,5 @@
 import TestIdClient from "./TestIdClient";
+import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
   title: "Test ID Mega888 2026 (Password Terkini) - Akaun Demo Percuma",
@@ -34,7 +35,7 @@ export const metadata = {
 
 export default function TestIdPage() {
   return (
-    <>
+    <SharedPageNav>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -97,6 +98,6 @@ export default function TestIdPage() {
       />
 
       <TestIdClient />
-    </>
+    </SharedPageNav>
   );
 }

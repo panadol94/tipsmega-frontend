@@ -1,6 +1,7 @@
 
 
 import InfoClient from "./InfoClient";
+import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
   title: "Panduan Guna AI Scanner Mega888 | TipsMega888",
@@ -44,7 +45,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <>
+    <SharedPageNav>
       {/* SEO Meta Tags via JSON-LD */}
       <script
         type="application/ld+json"
@@ -65,6 +66,6 @@ export default function Page() {
         }}
       />
       <InfoClient />
-    </>
+    </SharedPageNav>
   );
 }

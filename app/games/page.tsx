@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { GAME_PAGES } from "../data/gamePages";
+import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
   title: "Senarai Game Mega888 Malaysia 2026 | RTP, Tips & 197+ Slot",
@@ -39,7 +40,7 @@ export default function GamesPage() {
   const categories = Object.keys(grouped);
 
   return (
-    <>
+    <SharedPageNav>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -175,6 +176,6 @@ export default function GamesPage() {
           </Link>
         </div>
       </div>
-    </>
+    </SharedPageNav>
   );
 }

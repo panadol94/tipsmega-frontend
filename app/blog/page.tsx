@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BLOG_ARTICLES } from "../data/blogArticles";
 import { BLOG_REDIRECT_SOURCE_SLUGS } from "../data/blogRedirects";
+import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
   title: "Blog Tips Mega888 Malaysia | Strategi, Panduan RTP & Artikel 2026",
@@ -60,7 +61,7 @@ export default function BlogPage() {
   const [featured, ...rest] = visibleArticles;
 
   return (
-    <>
+    <SharedPageNav>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -402,6 +403,6 @@ export default function BlogPage() {
         </div>
       </div>
 
-    </>
+    </SharedPageNav>
   );
 }

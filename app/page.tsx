@@ -1,6 +1,7 @@
 
 import HomeClient from "./HomeClient";
 import SlotMachineButton from "./components/SlotMachineButton";
+import SharedPageNav from "./ui/SharedPageNav";
 
 export const metadata = {
   title: "Mega888 Community Wins | Group WhatsApp Mega888 & AI RTP Scanner Malaysia 2026 | TipsMega888",
@@ -49,7 +50,7 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <>
+    <SharedPageNav>
       {/* WebSite schema — enables sitelinks search box in Google */}
       <script
         type="application/ld+json"
@@ -395,6 +396,6 @@ export default function Page() {
           </p>
         </article>
       </div>
-    </>
+    </SharedPageNav>
   );
 }

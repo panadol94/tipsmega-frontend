@@ -3,6 +3,7 @@ import { BLOG_ARTICLES, getArticleBySlug, type BlogArticle } from "../../data/bl
 import { BLOG_REDIRECTS, BLOG_REDIRECT_SOURCE_SLUGS } from "../../data/blogRedirects";
 import { notFound } from "next/navigation";
 import BlogEngagement from "./BlogEngagement";
+import SharedPageNav from "../../ui/SharedPageNav";
 
 type InternalLinkRule = {
   phrase: string;
@@ -175,6 +176,20 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
   const redirectTarget = BLOG_REDIRECTS[slug];
 
   const heroImage = resolveHeroImage(article);
+  
+  return (
+    <SharedPageNav>
+      <BlogArticleContent slug={slug} article={article} redirectTarget={redirectTarget} heroImage={heroImage} />
+    </SharedPageNav>
+  );
+}
+
+async function BlogArticleContent({ slug, article, redirectTarget, heroImage }: { 
+  slug: string; 
+  article: BlogArticle; 
+  redirectTarget: string | undefined;
+  heroImage: string;
+}) {
   const internalLinkRules = buildInternalLinkRules(article.slug, article.relatedArticles);
   const linkedContent = autoLinkArticleContent(article.content, internalLinkRules);
   const wordCount = stripHtml(article.content).split(" ").filter(Boolean).length;

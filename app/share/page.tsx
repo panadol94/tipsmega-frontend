@@ -1,6 +1,7 @@
 
 
 import ShareClient from "./ShareClient";
+import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
   title: "Share & Earn Free Stars | Referral Mega888 AI Scanner 2026",
@@ -114,7 +115,7 @@ export default function Page() {
   ];
 
   return (
-    <>
+    <SharedPageNav>
       {/* SEO Schema: WebPage + Referral Product */}
       <script
         type="application/ld+json"
@@ -264,6 +265,6 @@ export default function Page() {
       </div>
 
       <ShareClient />
-    </>
+    </SharedPageNav>
   );
 }

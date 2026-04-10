@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
   title: "Terms of Use | TipsMega888",
@@ -14,7 +15,8 @@ export const metadata = {
 
 export default function TermsPage() {
   return (
-    <div style={{ maxWidth: 860, margin: "0 auto", padding: "2rem 1rem 5rem" }}>
+    <SharedPageNav>
+      <div style={{ maxWidth: 860, margin: "0 auto", padding: "2rem 1rem 5rem" }}>
       <nav style={{ fontSize: "0.85rem", color: "#64748b", marginBottom: "1rem" }}>
         <Link href="/" style={{ color: "#64748b" }}>Home</Link>
         {" › "}
@@ -50,6 +52,7 @@ export default function TermsPage() {
           </section>
         ))}
       </div>
-    </div>
+      </div>
+    </SharedPageNav>
   );
 }
