@@ -95,22 +95,21 @@ function PlayNowButton({ hasLink, url, waHref, onClick, caption }: {
   caption?: string;
 }) {
   const targetUrl = hasLink ? url : waHref;
-  const badgeText = caption?.trim() || "Jackpot access";
+  const helperText = caption?.trim() || "Tap to open";
 
   return (
-    <button
-      type="button"
-      onClick={() => onClick(targetUrl)}
-      className="premium-play-btn"
-      aria-label="Play now"
-    >
-      <span className="premium-play-btn-badge">🔥 {badgeText}</span>
-      <span className="premium-play-btn-main">
-        <span className="premium-play-btn-icon">▶</span>
+    <div className="premium-play-cta-wrap">
+      <button
+        type="button"
+        onClick={() => onClick(targetUrl)}
+        className="premium-play-btn"
+        aria-label="Play now"
+      >
         <span>Play Now</span>
-      </span>
-      <span className="premium-play-btn-sub">Fast secure access</span>
-    </button>
+        <span className="premium-play-btn-arrow">→</span>
+      </button>
+      <span className="premium-play-btn-helper">{helperText}</span>
+    </div>
   );
 }
 // ================================
@@ -302,82 +301,50 @@ export default function TrustedClient() {
       <PremiumTrustHeader totalCompanies={list.length} />
 
       <style jsx>{`
+        .premium-play-cta-wrap {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          width: 100%;
+        }
+
         .premium-play-btn {
           width: 100%;
           display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 8px;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
           padding: 14px 16px;
-          border-radius: 18px;
-          border: 1px solid rgba(255, 95, 95, 0.28);
-          background:
-            radial-gradient(circle at top right, rgba(255, 120, 120, 0.18), transparent 42%),
-            linear-gradient(180deg, rgba(42, 10, 10, 0.96), rgba(18, 7, 7, 0.98));
-          box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.06),
-            0 10px 24px rgba(0,0,0,0.28);
+          border-radius: 14px;
+          border: 0;
+          background: linear-gradient(180deg, #ff5f5f, #dc2626);
+          box-shadow: 0 10px 22px rgba(220, 38, 38, 0.28);
           color: #fff;
-          transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+          font-size: 16px;
+          font-weight: 900;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
         }
 
         .premium-play-btn:hover,
         .premium-play-btn:active {
           transform: translateY(-1px);
-          border-color: rgba(255, 120, 120, 0.45);
-          box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.08),
-            0 14px 28px rgba(0,0,0,0.34);
+          box-shadow: 0 14px 26px rgba(220, 38, 38, 0.34);
+          filter: brightness(1.04);
         }
 
-        .premium-play-btn-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 5px 9px;
-          border-radius: 999px;
-          background: rgba(255, 77, 77, 0.14);
-          border: 1px solid rgba(255, 120, 120, 0.2);
-          color: #ffb3b3;
-          font-size: 10px;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
-          max-width: 100%;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .premium-play-btn-main {
-          display: flex;
-          align-items: center;
-          gap: 10px;
+        .premium-play-btn-arrow {
           font-size: 18px;
-          font-weight: 900;
-          letter-spacing: 0.04em;
-          text-transform: uppercase;
+          line-height: 1;
         }
 
-        .premium-play-btn-icon {
-          width: 32px;
-          height: 32px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 999px;
-          background: linear-gradient(180deg, #ff6b6b, #dc2626);
-          color: white;
-          box-shadow: 0 6px 16px rgba(220, 38, 38, 0.35);
-          font-size: 13px;
-        }
-
-        .premium-play-btn-sub {
+        .premium-play-btn-helper {
+          display: block;
+          text-align: center;
           font-size: 11px;
           font-weight: 700;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          color: rgba(255,255,255,0.52);
+          color: rgba(255,255,255,0.55);
         }
       `}</style>
 
