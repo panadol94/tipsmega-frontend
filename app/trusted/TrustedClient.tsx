@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState, useRef } from "react";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
-import SlotMachineButton from "../components/SlotMachineButton";
 
 type Company = {
   id?: string;
@@ -86,27 +85,34 @@ function TrustMeterBar({ label, value, delay = 0 }: { label: string; value: numb
 }
 
 // ================================
-// SLOT MACHINE PLAY NOW BUTTON WRAPPER
+// COMPACT PLAY NOW BUTTON
 // ================================
-function PlayNowButton({ hasLink, url, waHref, onClick }: {
+function PlayNowButton({ hasLink, url, waHref, onClick, caption }: {
   hasLink: boolean;
   url: string;
   waHref: string;
   onClick: (url: string) => void;
+  caption?: string;
 }) {
   const targetUrl = hasLink ? url : waHref;
+  const badgeText = caption?.trim() || "Jackpot access";
+
   return (
-    <div onClick={() => onClick(targetUrl)}>
-      <SlotMachineButton
-        href={targetUrl}
-        label="PLAY NOW"
-        sublabel="Tap for jackpot access"
-        pattern={["7", "MEGA", "7"]}
-      />
-    </div>
+    <button
+      type="button"
+      onClick={() => onClick(targetUrl)}
+      className="premium-play-btn"
+      aria-label="Play now"
+    >
+      <span className="premium-play-btn-badge">🔥 {badgeText}</span>
+      <span className="premium-play-btn-main">
+        <span className="premium-play-btn-icon">▶</span>
+        <span>Play Now</span>
+      </span>
+      <span className="premium-play-btn-sub">Fast secure access</span>
+    </button>
   );
 }
-
 // ================================
 // SOCIAL PROOF NOTIFICATION
 // ================================
@@ -295,6 +301,86 @@ export default function TrustedClient() {
 
       <PremiumTrustHeader totalCompanies={list.length} />
 
+      <style jsx>{`
+        .premium-play-btn {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+          padding: 14px 16px;
+          border-radius: 18px;
+          border: 1px solid rgba(255, 95, 95, 0.28);
+          background:
+            radial-gradient(circle at top right, rgba(255, 120, 120, 0.18), transparent 42%),
+            linear-gradient(180deg, rgba(42, 10, 10, 0.96), rgba(18, 7, 7, 0.98));
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.06),
+            0 10px 24px rgba(0,0,0,0.28);
+          color: #fff;
+          transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .premium-play-btn:hover,
+        .premium-play-btn:active {
+          transform: translateY(-1px);
+          border-color: rgba(255, 120, 120, 0.45);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.08),
+            0 14px 28px rgba(0,0,0,0.34);
+        }
+
+        .premium-play-btn-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 5px 9px;
+          border-radius: 999px;
+          background: rgba(255, 77, 77, 0.14);
+          border: 1px solid rgba(255, 120, 120, 0.2);
+          color: #ffb3b3;
+          font-size: 10px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          max-width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .premium-play-btn-main {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 18px;
+          font-weight: 900;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+        }
+
+        .premium-play-btn-icon {
+          width: 32px;
+          height: 32px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 999px;
+          background: linear-gradient(180deg, #ff6b6b, #dc2626);
+          color: white;
+          box-shadow: 0 6px 16px rgba(220, 38, 38, 0.35);
+          font-size: 13px;
+        }
+
+        .premium-play-btn-sub {
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.52);
+        }
+      `}</style>
+
       <div className="premium-company-grid">
         {loading ? (
           Array.from({ length: 6 }).map((_, i) => (
@@ -388,7 +474,7 @@ export default function TrustedClient() {
 
                   <div className="premium-btn-container">
                     {url ? (
-                      <PlayNowButton hasLink={true} url={url} waHref={waHref} onClick={handleAction} />
+                      <PlayNowButton hasLink={true} url={url} waHref={waHref} onClick={handleAction} caption={c.caption} />
                     ) : (
                       <button onClick={() => handleAction(waHref)} className="premium-get-link-btn">
                         <span>📱</span> GET LINK
