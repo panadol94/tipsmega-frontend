@@ -5,7 +5,6 @@ import { animate, utils } from "animejs";
 import Link from "next/link";
 import { Flame, HelpCircle, Star, Gamepad2, Send, Trophy } from "lucide-react";
 import Toast, { ToastType } from "./ui/Toast";
-import TypewriterText from "./ui/TypewriterText";
 import TypewriterHero from "./components/TypewriterHero";
 import MatrixBackground from "./components/MatrixBackground";
 import TerminalStatus from "./components/TerminalStatus";
@@ -648,17 +647,8 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                                 </div>
                             </div>
 
-                            {/* Rotating Tagline */}
-                            <div className="mt-4 min-h-[28px] flex items-center justify-center">
-                                <p className="text-sm sm:text-[15px] text-white/90 font-medium animate-fadeIn">
-                                    {[
-                                        "Semak game yang tengah panas sebelum mula main",
-                                        "Cari slot yang lebih aktif dengan bantuan AI",
-                                        "Lihat signal RTP semasa tanpa agak-agak",
-                                        "Main dengan lebih bijak, bukan sekadar nasib",
-                                    ][Math.floor(Date.now() / 3200) % 4]}
-                                </p>
-                            </div>
+                            {/* Typewriter Tagline */}
+                            <TypewriterHero />
 
                             {/* Live Signal Pill */}
                             <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5">
@@ -695,82 +685,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                         </p>
                     </div>
 
-                    {/* Scanner Card - Terminal Style */}
-                    <section className="card relative overflow-hidden p-4 tm-scan tm-scan-pulse terminal-border-red bg-[#0d1321]/90 rounded-2xl">
-                        {/* Terminal header bar */}
-                        <div className="flex items-center gap-2 mb-3 pb-2 border-b border-red-500/20">
-                            <div className="flex gap-1.5">
-                                <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                                <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
-                            </div>
-                            <span className="text-[10px] font-mono text-red-400/60 tracking-widest ml-2">
-                                SCANNER_TERMINAL_v2.exe
-                            </span>
-                            <div className="ml-auto flex items-center gap-2">
-                                <span className="live-dot" />
-                                <span className="text-[10px] font-mono text-green-400 tracking-widest">LIVE_SYNC: OK</span>
-                            </div>
-                        </div>
-                        
-                        {/* Badges */}
-                        <div className="flex flex-wrap items-center gap-2 mb-3">
-                            <span className="inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-red-300">
-                                <span className="h-1.5 w-1.5 rounded-full bg-red-300 animate-pulse" />
-                                Live AI
-                            </span>
-                            <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] ${isValidMegaId ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300" : "border-white/10 bg-white/5 text-white/40"}`}>
-                                {busy ? "Scanning..." : isValidMegaId ? "Ready" : "Awaiting ID"}
-                            </span>
-                            {/* RTP Badge */}
-                            <span className="rtp-badge rtp-badge-medium">
-                                <span>◆</span> RTP SCORE
-                            </span>
-                        </div>
-
-                        {/* Input - Terminal Style */}
-                        <div className="rounded-xl border border-red-600/30 bg-[#0a0f1a]/70 p-3 mb-3">
-                            <input
-                                className={`tm-scan-item terminal-input ${inputError ? 'shake-error' : ''}`}
-                                value={megaId}
-                                onChange={(e) => setMegaId(e.target.value)}
-                                inputMode="numeric"
-                                placeholder="ENTER_ID_HERE"
-                                maxLength={12}
-                                style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                            />
-                            <div className="mt-2 flex justify-between text-xs font-mono text-red-400/50">
-                                <span className="flex items-center gap-1">
-                                    <span className="text-[10px]">&gt;_</span> {megaId.trim().length}/12 digit
-                                </span>
-                                <span>Format: 1xxxxxxxxxxx | 09xxxxxxxx</span>
-                            </div>
-                        </div>
-
-                        {/* Terminal Animation */}
-                        <div className="scanner-terminal-shell mb-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
-                            <div className="scanner-terminal-line" />
-                            <TypewriterText text="[AI] SIGNAL READY • ENTER ID TO BEGIN SCAN..." speed={24} />
-                        </div>
-
-                        {/* Scan Button */}
-                        <button
-                            className={cooldownRemaining > 0 ? "tm-scan-item tm-scan-cta btn-cooldown" : "tm-scan-item tm-scan-cta btn-green-spin ripple-effect"}
-                            style={{ width: '100%', opacity: (!isValidMegaId || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
-                            onClick={runScan}
-                            disabled={busy || cooldownRemaining > 0 || !isValidMegaId}
-                        >
-                            <span className={cooldownRemaining > 0 ? "" : "btn-green-spin-content"}>
-                                {busy ? "SCANNING..." :
-                                    cooldownRemaining > 0 ? `⏱️ ${Math.floor(cooldownRemaining / 60)}:${(cooldownRemaining % 60).toString().padStart(2, '0')}` :
-                                        "START SCAN"}
-                            </span>
-                        </button>
-
-                        <div className="mt-3 text-center text-xs text-white/40">
-                            {busy ? "AI analysis in progress..." : isValidMegaId ? "Ready to scan" : "Enter your Mega888 ID above"}
-                        </div>
-                    </section>
+                    {/* Scanner removed - using dedicated /scanner page instead */}
 
                     {/* Quick Links */}
                     <h2 className="sr-only">Pautan Pantas</h2>
