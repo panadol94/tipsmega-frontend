@@ -87,15 +87,13 @@ function TrustMeterBar({ label, value, delay = 0 }: { label: string; value: numb
 // ================================
 // COMPACT PLAY NOW BUTTON
 // ================================
-function PlayNowButton({ hasLink, url, waHref, onClick, caption }: {
+function PlayNowButton({ hasLink, url, waHref, onClick }: {
   hasLink: boolean;
   url: string;
   waHref: string;
   onClick: (url: string) => void;
-  caption?: string;
 }) {
   const targetUrl = hasLink ? url : waHref;
-  const helperText = caption?.trim() || "Tap here to register";
 
   return (
     <div className="premium-play-cta-wrap">
@@ -105,12 +103,12 @@ function PlayNowButton({ hasLink, url, waHref, onClick, caption }: {
         className="premium-play-btn"
         aria-label="Play now"
       >
+        <span className="premium-play-btn-edge" />
         <span className="premium-play-btn-glow" />
         <span className="premium-play-btn-shine" />
-        <span className="premium-play-btn-label">PLAY NOW</span>
-        <span className="premium-play-btn-arrow">➜</span>
+        <span className="premium-play-btn-label">Play Now</span>
       </button>
-      <span className="premium-play-btn-helper">{helperText}</span>
+      <span className="premium-play-btn-helper">Tap here to register</span>
     </div>
   );
 }
@@ -306,42 +304,49 @@ export default function TrustedClient() {
         .premium-play-cta-wrap {
           display: flex;
           flex-direction: column;
-          gap: 7px;
+          gap: 8px;
           width: 100%;
+          margin-top: 4px;
         }
 
         .premium-play-btn {
           position: relative;
           width: 100%;
+          min-height: 52px;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 12px;
-          padding: 16px 18px;
+          padding: 17px 20px;
           border-radius: 16px;
-          border: 1px solid rgba(255, 180, 180, 0.28);
-          background: linear-gradient(180deg, #ff6b6b 0%, #ef4444 45%, #c81e1e 100%);
+          border: 2px solid #f4c96b;
+          background: linear-gradient(180deg, #ff6a6a 0%, #ef4444 42%, #c91d1d 100%);
           box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.22),
-            0 12px 28px rgba(200, 30, 30, 0.34),
-            0 0 0 1px rgba(255,255,255,0.04);
+            inset 0 1px 0 rgba(255,255,255,0.26),
+            0 4px 0 #8f1111,
+            0 12px 24px rgba(160, 18, 18, 0.36),
+            0 0 18px rgba(244, 201, 107, 0.18);
           color: #fff;
           overflow: hidden;
           isolation: isolate;
-          transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-          animation: premiumPlayPulse 2.2s ease-in-out infinite;
+          transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+          animation: premiumPlayPulse 2.6s ease-in-out infinite;
         }
 
-        .premium-play-btn:hover,
+        .premium-play-btn:hover {
+          transform: translateY(-1px);
+          filter: brightness(1.02);
+        }
+
         .premium-play-btn:active {
-          transform: translateY(-1px) scale(1.01);
+          transform: translateY(2px) scale(0.99);
           box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.24),
-            0 16px 34px rgba(200, 30, 30, 0.4),
-            0 0 0 1px rgba(255,255,255,0.06);
-          filter: brightness(1.03);
+            inset 0 1px 0 rgba(255,255,255,0.2),
+            0 2px 0 #8f1111,
+            0 6px 14px rgba(160, 18, 18, 0.28),
+            0 0 12px rgba(244, 201, 107, 0.16);
         }
 
+        .premium-play-btn-edge,
         .premium-play-btn-glow,
         .premium-play-btn-shine {
           position: absolute;
@@ -350,68 +355,75 @@ export default function TrustedClient() {
           border-radius: inherit;
         }
 
+        .premium-play-btn-edge {
+          inset: 1px;
+          border-radius: 14px;
+          border-top: 1px solid rgba(255,255,255,0.22);
+          background: linear-gradient(180deg, rgba(255,255,255,0.12), transparent 30%);
+          opacity: 0.9;
+        }
+
         .premium-play-btn-glow {
-          background: radial-gradient(circle at center, rgba(255,255,255,0.18), transparent 62%);
-          opacity: 0.7;
+          background: radial-gradient(circle at center, rgba(255,255,255,0.14), transparent 60%);
+          opacity: 0.75;
         }
 
         .premium-play-btn-shine {
-          background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.34) 45%, transparent 70%);
-          transform: translateX(-140%);
-          animation: premiumPlayShine 2.8s linear infinite;
-        }
-
-        .premium-play-btn-label,
-        .premium-play-btn-arrow {
-          position: relative;
-          z-index: 1;
+          background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.3) 46%, transparent 70%);
+          transform: translateX(-150%);
+          animation: premiumPlayShine 3s linear infinite;
         }
 
         .premium-play-btn-label {
-          font-size: 16px;
+          position: relative;
+          z-index: 1;
+          font-size: 17px;
           font-weight: 950;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.06em;
           text-transform: uppercase;
-          text-shadow: 0 1px 0 rgba(0,0,0,0.15);
-        }
-
-        .premium-play-btn-arrow {
-          font-size: 18px;
-          line-height: 1;
-          animation: premiumPlayArrow 1.2s ease-in-out infinite;
+          text-shadow: 0 1px 0 rgba(0,0,0,0.18);
         }
 
         .premium-play-btn-helper {
           display: block;
           text-align: center;
-          font-size: 11px;
-          font-weight: 700;
-          color: rgba(255,255,255,0.62);
+          font-size: 10px;
+          font-weight: 600;
+          color: rgba(255,255,255,0.46);
           letter-spacing: 0.02em;
         }
 
-        @keyframes premiumPlayShine {
-          0% { transform: translateX(-140%); }
-          100% { transform: translateX(140%); }
+        @media (max-width: 480px) {
+          .premium-play-btn {
+            min-height: 54px;
+            padding: 18px 20px;
+          }
+
+          .premium-play-btn-label {
+            font-size: 16px;
+            letter-spacing: 0.08em;
+          }
         }
 
-        @keyframes premiumPlayArrow {
-          0%, 100% { transform: translateX(0); }
-          50% { transform: translateX(3px); }
+        @keyframes premiumPlayShine {
+          0% { transform: translateX(-150%); }
+          100% { transform: translateX(150%); }
         }
 
         @keyframes premiumPlayPulse {
           0%, 100% {
             box-shadow:
-              inset 0 1px 0 rgba(255,255,255,0.22),
-              0 12px 28px rgba(200, 30, 30, 0.34),
-              0 0 0 1px rgba(255,255,255,0.04);
+              inset 0 1px 0 rgba(255,255,255,0.26),
+              0 4px 0 #8f1111,
+              0 12px 24px rgba(160, 18, 18, 0.36),
+              0 0 18px rgba(244, 201, 107, 0.18);
           }
           50% {
             box-shadow:
-              inset 0 1px 0 rgba(255,255,255,0.22),
-              0 16px 34px rgba(220, 38, 38, 0.42),
-              0 0 18px rgba(255, 90, 90, 0.24);
+              inset 0 1px 0 rgba(255,255,255,0.28),
+              0 4px 0 #8f1111,
+              0 14px 28px rgba(180, 24, 24, 0.42),
+              0 0 22px rgba(244, 201, 107, 0.24);
           }
         }
       `}</style>
@@ -509,7 +521,7 @@ export default function TrustedClient() {
 
                   <div className="premium-btn-container">
                     {url ? (
-                      <PlayNowButton hasLink={true} url={url} waHref={waHref} onClick={handleAction} caption={c.caption} />
+                      <PlayNowButton hasLink={true} url={url} waHref={waHref} onClick={handleAction} />
                     ) : (
                       <button onClick={() => handleAction(waHref)} className="premium-get-link-btn">
                         <span>📱</span> GET LINK
