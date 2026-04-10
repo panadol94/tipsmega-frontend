@@ -117,21 +117,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       images: [imageUrl],
     },
     robots: {
-      // Thin/redirected articles — do not index to conserve crawl budget & avoid thin-content flags
-      index: !(
-        BLOG_REDIRECT_SOURCE_SLUGS.has(slug) || [
-          "mega888-test-id","mega888-vs-pussy888","mega888-918kiss-beza","mega888-original-vs-fake",
-          "mega888-gacor-hari-ini","mega888-auto-cuci","mega888-whatsapp-group","mega888-agent-jadi",
-        ].includes(slug)
-      ),
+      // Keep redirect-source slugs non-indexable, but allow real article pages to index.
+      index: !BLOG_REDIRECT_SOURCE_SLUGS.has(slug),
       follow: true,
       googleBot: {
-        index: !(
-          BLOG_REDIRECT_SOURCE_SLUGS.has(slug) || [
-            "mega888-test-id","mega888-vs-pussy888","mega888-918kiss-beza","mega888-original-vs-fake",
-            "mega888-gacor-hari-ini","mega888-auto-cuci","mega888-whatsapp-group","mega888-agent-jadi",
-          ].includes(slug)
-        ),
+        index: !BLOG_REDIRECT_SOURCE_SLUGS.has(slug),
         follow: true,
         "max-image-preview": "large",
         "max-snippet": -1,
