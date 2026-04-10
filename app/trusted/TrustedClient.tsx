@@ -95,7 +95,7 @@ function PlayNowButton({ hasLink, url, waHref, onClick, caption }: {
   caption?: string;
 }) {
   const targetUrl = hasLink ? url : waHref;
-  const helperText = caption?.trim() || "Tap to open";
+  const helperText = caption?.trim() || "Tap here to register";
 
   return (
     <div className="premium-play-cta-wrap">
@@ -105,8 +105,10 @@ function PlayNowButton({ hasLink, url, waHref, onClick, caption }: {
         className="premium-play-btn"
         aria-label="Play now"
       >
-        <span>Play Now</span>
-        <span className="premium-play-btn-arrow">→</span>
+        <span className="premium-play-btn-glow" />
+        <span className="premium-play-btn-shine" />
+        <span className="premium-play-btn-label">PLAY NOW</span>
+        <span className="premium-play-btn-arrow">➜</span>
       </button>
       <span className="premium-play-btn-helper">{helperText}</span>
     </div>
@@ -304,39 +306,79 @@ export default function TrustedClient() {
         .premium-play-cta-wrap {
           display: flex;
           flex-direction: column;
-          gap: 6px;
+          gap: 7px;
           width: 100%;
         }
 
         .premium-play-btn {
+          position: relative;
           width: 100%;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 10px;
-          padding: 14px 16px;
-          border-radius: 14px;
-          border: 0;
-          background: linear-gradient(180deg, #ff5f5f, #dc2626);
-          box-shadow: 0 10px 22px rgba(220, 38, 38, 0.28);
+          gap: 12px;
+          padding: 16px 18px;
+          border-radius: 16px;
+          border: 1px solid rgba(255, 180, 180, 0.28);
+          background: linear-gradient(180deg, #ff6b6b 0%, #ef4444 45%, #c81e1e 100%);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.22),
+            0 12px 28px rgba(200, 30, 30, 0.34),
+            0 0 0 1px rgba(255,255,255,0.04);
           color: #fff;
-          font-size: 16px;
-          font-weight: 900;
-          letter-spacing: 0.04em;
-          text-transform: uppercase;
-          transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+          overflow: hidden;
+          isolation: isolate;
+          transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+          animation: premiumPlayPulse 2.2s ease-in-out infinite;
         }
 
         .premium-play-btn:hover,
         .premium-play-btn:active {
-          transform: translateY(-1px);
-          box-shadow: 0 14px 26px rgba(220, 38, 38, 0.34);
-          filter: brightness(1.04);
+          transform: translateY(-1px) scale(1.01);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.24),
+            0 16px 34px rgba(200, 30, 30, 0.4),
+            0 0 0 1px rgba(255,255,255,0.06);
+          filter: brightness(1.03);
+        }
+
+        .premium-play-btn-glow,
+        .premium-play-btn-shine {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          border-radius: inherit;
+        }
+
+        .premium-play-btn-glow {
+          background: radial-gradient(circle at center, rgba(255,255,255,0.18), transparent 62%);
+          opacity: 0.7;
+        }
+
+        .premium-play-btn-shine {
+          background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.34) 45%, transparent 70%);
+          transform: translateX(-140%);
+          animation: premiumPlayShine 2.8s linear infinite;
+        }
+
+        .premium-play-btn-label,
+        .premium-play-btn-arrow {
+          position: relative;
+          z-index: 1;
+        }
+
+        .premium-play-btn-label {
+          font-size: 16px;
+          font-weight: 950;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          text-shadow: 0 1px 0 rgba(0,0,0,0.15);
         }
 
         .premium-play-btn-arrow {
           font-size: 18px;
           line-height: 1;
+          animation: premiumPlayArrow 1.2s ease-in-out infinite;
         }
 
         .premium-play-btn-helper {
@@ -344,7 +386,33 @@ export default function TrustedClient() {
           text-align: center;
           font-size: 11px;
           font-weight: 700;
-          color: rgba(255,255,255,0.55);
+          color: rgba(255,255,255,0.62);
+          letter-spacing: 0.02em;
+        }
+
+        @keyframes premiumPlayShine {
+          0% { transform: translateX(-140%); }
+          100% { transform: translateX(140%); }
+        }
+
+        @keyframes premiumPlayArrow {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(3px); }
+        }
+
+        @keyframes premiumPlayPulse {
+          0%, 100% {
+            box-shadow:
+              inset 0 1px 0 rgba(255,255,255,0.22),
+              0 12px 28px rgba(200, 30, 30, 0.34),
+              0 0 0 1px rgba(255,255,255,0.04);
+          }
+          50% {
+            box-shadow:
+              inset 0 1px 0 rgba(255,255,255,0.22),
+              0 16px 34px rgba(220, 38, 38, 0.42),
+              0 0 18px rgba(255, 90, 90, 0.24);
+          }
         }
       `}</style>
 
