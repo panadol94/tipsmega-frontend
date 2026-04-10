@@ -630,97 +630,68 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
             <main className="flex flex-col items-center justify-start min-h-screen py-4 px-4 pb-24">
                 <div className="w-full max-w-lg space-y-3">
                     
-                    {/* Hero Text — terminal style with holographic scan */}
+                    {/* Premium Hero Section */}
                     <div className="text-center tm-hero">
-                        <div className="terminal-border-red rounded-xl p-3 mb-2 bg-[#0a0f1a]/80 inline-block relative overflow-hidden">
-                            <div className="text-[10px] font-mono text-red-400/70 tracking-widest uppercase mb-2">
-                                System // v2.0.26
-                            </div>
+                        <div className="rounded-2xl p-6 mb-3 bg-gradient-to-b from-slate-900/90 to-slate-950/95 border border-amber-500/20 relative overflow-hidden">
+                            {/* Subtle glow effect */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-transparent to-amber-500/5 pointer-events-none" />
                             
-                            {/* Cinematic Hollywood Style MEGA888 Logo */}
-                            <div className="mega888-cinematic-container" style={{ position: "relative", display: "inline-block", marginBottom: "2px" }}>
-                                {/* Letterbox bars - top */}
-                                <div className="mega888-letterbox mega888-letterbox-top" />
-                                
-                                {/* Film grain overlay */}
-                                <div className="mega888-film-grain" />
-                                
-                                {/* Cinematic spotlight sweep */}
-                                <div className="mega888-spotlight" />
-                                
-                                {/* Anamorphic lens flare */}
-                                <div className="mega888-lens-flare" />
-                                
-                                {/* 3D perspective tilt container */}
-                                <div className="mega888-perspective-container">
-                                    {/* 3D depth shadow layers */}
-                                    <div className="mega888-3d-layer mega888-shadow-1">MEGA888</div>
-                                    <div className="mega888-3d-layer mega888-shadow-2">MEGA888</div>
-                                    <div className="mega888-3d-layer mega888-shadow-3">MEGA888</div>
-                                    
-                                    {/* RGB Glitch layers */}
-                                    <div className="mega888-glitch mega888-glitch-red" aria-hidden="true">MEGA888</div>
-                                    <div className="mega888-glitch mega888-glitch-cyan" aria-hidden="true">MEGA888</div>
-                                    <div className="mega888-glitch mega888-glitch-white" aria-hidden="true">MEGA888</div>
-                                    
-                                    {/* Main text with letter-by-letter reveal */}
-                                    <div className="mega888-main-text mega888-letter-reveal">
-                                        <span className="mega888-letter">M</span>
-                                        <span className="mega888-letter">E</span>
-                                        <span className="mega888-letter">G</span>
-                                        <span className="mega888-letter">A</span>
-                                        <span className="mega888-letter mega888-letter-888">8</span>
-                                        <span className="mega888-letter mega888-letter-888">8</span>
-                                        <span className="mega888-letter mega888-letter-888">8</span>
-                                    </div>
-                                    
-                                    {/* Golden shimmer overlay */}
-                                    <div className="mega888-golden-shimmer" aria-hidden="true">
-                                        <span>M</span><span>E</span><span>G</span><span>A</span><span className="mega888-letter-888">8</span><span className="mega888-letter-888">8</span><span className="mega888-letter-888">8</span>
-                                    </div>
-                                    
-                                    {/* Neon pulse overlay */}
-                                    <div className="mega888-neon-pulse" aria-hidden="true">MEGA888</div>
-                                    
-                                    {/* Electric spark particles */}
-                                    <div className="mega888-spark mega888-spark-1"></div>
-                                    <div className="mega888-spark mega888-spark-2"></div>
-                                    <div className="mega888-spark mega888-spark-3"></div>
-                                    <div className="mega888-spark mega888-spark-4"></div>
+                            {/* Premium MEGA888 Heading */}
+                            <div className="relative">
+                                <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-1">
+                                    <span className="bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-400 bg-clip-text text-transparent">
+                                        MEGA888
+                                    </span>
+                                </h1>
+                                <div className="text-lg sm:text-xl font-light tracking-[0.3em] text-amber-400/80 uppercase">
+                                    AI RTP Scanner
                                 </div>
-                                
-                                {/* Letterbox bars - bottom */}
-                                <div className="mega888-letterbox mega888-letterbox-bottom" />
                             </div>
-                            
-                            {/* AI RTP SCANNER subtitle */}
-                            <div className="mega888-subtitle">
-                                <span className="mega888-subtitle-text">AI RTP SCANNER</span>
-                                <span className="mega888-subtitle-cursor">▋</span>
+
+                            {/* Rotating Tagline */}
+                            <div className="mt-4 min-h-[28px] flex items-center justify-center">
+                                <p className="text-sm sm:text-[15px] text-white/90 font-medium animate-fadeIn">
+                                    {[
+                                        "Semak game yang tengah panas sebelum mula main",
+                                        "Cari slot yang lebih aktif dengan bantuan AI",
+                                        "Lihat signal RTP semasa tanpa agak-agak",
+                                        "Main dengan lebih bijak, bukan sekadar nasib",
+                                    ][Math.floor(Date.now() / 3200) % 4]}
+                                </p>
                             </div>
-                            
-                            {/* Red holographic scanning line */}
-                            <div className="holographic-scan-line" />
+
+                            {/* Live Signal Pill */}
+                            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5">
+                                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                                <span className="text-[12px] font-medium text-emerald-200">
+                                    {[
+                                        "Live signal: Great Blue tunjuk trend menaik",
+                                        "AI detect: Ocean Princess nampak lebih aktif",
+                                        "Hot window: 9PM hingga 11PM",
+                                        "Data dikemas kini ikut trend semasa",
+                                    ][Math.floor(Date.now() / 2600) % 4]}
+                                </span>
+                            </div>
                         </div>
 
-                        {/* Status bar */}
-                        <TerminalStatus
-                            messages={[
-                                "SIGNAL LOCKED // AWAITING INPUT",
-                                "LIVE SYNC: OK // NEURAL NET ONLINE",
-                                "RTP ANALYSIS ENGINE: READY",
-                            ]}
-                            showLive={true}
-                            showCursor={true}
-                            variant="red"
-                        />
+                        {/* Status bar - Premium Style */}
+                        <div className="flex items-center justify-center gap-2 text-[11px] text-slate-400">
+                            <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-slate-800/50 border border-slate-700/50">
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                                System Online
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-slate-800/50 border border-slate-700/50">
+                                <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+                                RTP Engine Ready
+                            </span>
+                        </div>
 
-                        <p className="mt-3 text-[12px] text-white/65">
+                        <p className="mt-3 text-[12px] text-slate-400">
                             Semak trend, pilih game, lalu main dengan lebih yakin.
                         </p>
 
-                        <p className="mt-2 text-sm text-white/50 font-mono text-[11px]">
-                            &gt;_ Masukkan ID untuk scan &bull; {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
+                        <p className="mt-2 text-[11px] text-slate-500">
+                            Masukkan ID untuk scan &bull; {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
                         </p>
                     </div>
 
