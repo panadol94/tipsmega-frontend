@@ -113,26 +113,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
     // Hacker scan overlay
     const [showHackerOverlay, setShowHackerOverlay] = useState(false);
 
-    const heroRotatingLines = useMemo(
-        () => [
-            "Semak game yang tengah panas sebelum anda mula main",
-            "Cari slot yang lebih aktif dengan bantuan AI",
-            "Lihat signal RTP semasa tanpa agak-agak",
-            "Main dengan lebih bijak, bukan sekadar nasib",
-        ],
-        []
-    );
-    const heroLiveSignals = useMemo(
-        () => [
-            "Live signal: Great Blue tunjuk trend menaik",
-            "AI detect: Ocean Princess nampak lebih aktif sekarang",
-            "Hot window: 9PM hingga 11PM untuk semakan pantas",
-            "Data dikemas kini ikut trend semasa pemain",
-        ],
-        []
-    );
-    const [heroLineIndex, setHeroLineIndex] = useState(0);
-    const [heroSignalIndex, setHeroSignalIndex] = useState(0);
+
 
     const { playSound, triggerHaptic, setScanActive } = useGlobalSettings();
 
@@ -257,20 +238,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
         };
     }, []);
 
-    useEffect(() => {
-        const lineTimer = window.setInterval(() => {
-            setHeroLineIndex((prev) => (prev + 1) % heroRotatingLines.length);
-        }, 3200);
 
-        const signalTimer = window.setInterval(() => {
-            setHeroSignalIndex((prev) => (prev + 1) % heroLiveSignals.length);
-        }, 2600);
-
-        return () => {
-            window.clearInterval(lineTimer);
-            window.clearInterval(signalTimer);
-        };
-    }, [heroLiveSignals.length, heroRotatingLines.length]);
 
     // Animate RTP number when result changes
     useEffect(() => {
@@ -747,20 +715,9 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                             variant="red"
                         />
 
-                        <div className="mt-3 space-y-2">
-                            <div className="min-h-[44px] rounded-2xl border border-red-500/20 bg-red-500/5 px-4 py-3 text-center">
-                                <p key={heroLineIndex} className="text-sm sm:text-[15px] font-bold text-white animate-fadeIn">
-                                    {heroRotatingLines[heroLineIndex]}
-                                </p>
-                            </div>
-                            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-400/10 px-3 py-1.5 text-[11px] font-semibold text-emerald-200">
-                                <span className="h-2 w-2 rounded-full bg-emerald-300 animate-pulse" />
-                                <span key={heroSignalIndex} className="animate-fadeIn">{heroLiveSignals[heroSignalIndex]}</span>
-                            </div>
-                            <p className="text-[12px] text-white/65">
-                                Semak trend, pilih game, lalu main dengan lebih yakin.
-                            </p>
-                        </div>
+                        <p className="mt-3 text-[12px] text-white/65">
+                            Semak trend, pilih game, lalu main dengan lebih yakin.
+                        </p>
 
                         <p className="mt-2 text-sm text-white/50 font-mono text-[11px]">
                             &gt;_ Masukkan ID untuk scan &bull; {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
