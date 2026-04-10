@@ -149,6 +149,18 @@ const CORE_CLUSTER_LINKS = [
   { label: "Trusted Agent",     href: "/trusted" },
 ];
 
+/** Fallback to popular articles if relatedArticles is empty */
+function getRelatedArticles(article: BlogArticle, fallbackCount = 4): string[] {
+  // Return explicit relatedArticles if available
+  if (article.relatedArticles.length > 0) return article.relatedArticles;
+  // Fallback: pick articles from same category, otherwise any popular ones, excluding self
+  const sameCategory = BLOG_ARTICLES.filter(a => a.slug !== article.slug && a.category === article.category).slice(0, fallbackCount);
+  if (sameCategory.length >= fallbackCount) return sameCategory.map(a => a.slug);
+  // If not enough same-category, add some popular others
+  const popularFallback = BLOG_ARTICLES.filter(a => a.slug !== article.slug && a.category !== article.category).slice(0, fallbackCount - sameCategory.length);
+  return [...sameCategory, ...popularFallback].map(a => a.slug);
+}
+
 const TRUST_LINKS = [
   { label: "About",          href: "/about" },
   { label: "Privacy Policy", href: "/privacy-policy" },
@@ -510,42 +522,45 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
         </section>
 
         {/* ── RELATED ARTICLES ── */}
-        {article.relatedArticles.length > 0 && (
-          <section style={{ marginTop: "2.5rem" }}>
-            <h2 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: "0.9rem", color: "#f1f5f9" }}>📖 Artikel Berkaitan</h2>
-            <div style={{ display: "grid", gap: "0.65rem" }}>
-              {article.relatedArticles.map((relatedSlug) => {
-                const rel = BLOG_ARTICLES.find((a) => a.slug === relatedSlug);
-                if (!rel) return null;
-                const relCat = categoryMeta[rel.category] || categoryMeta.tips;
-                return (
-                  <Link
-                    key={relatedSlug}
-                    href={`/blog/${relatedSlug}`}
-                    data-track="related_article_click"
-                    style={{
-                      display: "flex", alignItems: "center", gap: 12,
-                      padding: "0.85rem 1rem",
-                      borderRadius: 12,
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      background: "rgba(255,255,255,0.03)",
-                      textDecoration: "none", color: "inherit",
-                      transition: "background 0.2s, border-color 0.2s",
-                    }}
-                    className="related-article-link"
-                  >
-                    <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>{relCat.icon}</span>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: "0.72rem", color: relCat.text, fontWeight: 700, marginBottom: 2 }}>{relCat.label}</div>
-                      <div style={{ fontSize: "0.87rem", fontWeight: 700, color: "#e2e8f0", lineHeight: 1.3 }}>{rel.title}</div>
-                    </div>
-                    <span style={{ color: "#334155", fontSize: "0.8rem", flexShrink: 0 }}>→</span>
-                  </Link>
-                );
-              })}
-            </div>
-          </section>
-        )}
+        {(() => {
+          const related = getRelatedArticles(article, 4);
+          return related.length > 0 ? (
+            <section style={{ marginTop: "2.5rem" }}>
+              <h2 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: "0.9rem", color: "#f1f5f9" }}>📖 Artikel Berkaitan</h2>
+              <div style={{ display: "grid", gap: "0.65rem" }}>
+                {related.map((relatedSlug) => {
+                  const rel = BLOG_ARTICLES.find((a) => a.slug === relatedSlug);
+                  if (!rel) return null;
+                  const relCat = categoryMeta[rel.category] || categoryMeta.tips;
+                  return (
+                    <Link
+                      key={relatedSlug}
+                      href={`/blog/${relatedSlug}`}
+                      data-track="related_article_click"
+                      style={{
+                        display: "flex", alignItems: "center", gap: 12,
+                        padding: "0.85rem 1rem",
+                        borderRadius: 12,
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        background: "rgba(255,255,255,0.03)",
+                        textDecoration: "none", color: "inherit",
+                        transition: "background 0.2s, border-color 0.2s",
+                      }}
+                      className="related-article-link"
+                    >
+                      <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>{relCat.icon}</span>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: "0.72rem", color: relCat.text, fontWeight: 700, marginBottom: 2 }}>{relCat.label}</div>
+                        <div style={{ fontSize: "0.87rem", fontWeight: 700, color: "#e2e8f0", lineHeight: 1.3 }}>{rel.title}</div>
+                      </div>
+                      <span style={{ color: "#334155", fontSize: "0.8rem", flexShrink: 0 }}>→</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          ) : null;
+        })()}
 
         {/* ── RELATED GAMES ── */}
         {article.relatedGames.length > 0 && (
