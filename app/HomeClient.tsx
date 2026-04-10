@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Flame, HelpCircle, Star, Gamepad2, Send, Trophy } from "lucide-react";
 import Toast, { ToastType } from "./ui/Toast";
 import TypewriterText from "./ui/TypewriterText";
+import TypewriterHero from "./components/TypewriterHero";
 import MatrixBackground from "./components/MatrixBackground";
 import TerminalStatus from "./components/TerminalStatus";
 
@@ -634,14 +635,13 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                     <div className="text-center tm-hero">
                         <div className="rounded-2xl p-6 mb-3 bg-gradient-to-b from-slate-900/90 to-slate-950/95 border border-amber-500/20 relative overflow-hidden">
                             {/* Subtle glow effect */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-transparent to-amber-500/5 pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-transparent to-red-500/5 pointer-events-none" />
                             
-                            {/* Premium MEGA888 Heading */}
+                            {/* MEGA888 Heading - Brand Colors: MEGA gold, 888 red */}
                             <div className="relative">
                                 <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-1">
-                                    <span className="bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-400 bg-clip-text text-transparent">
-                                        MEGA888
-                                    </span>
+                                    <span className="text-amber-400">MEGA</span>
+                                    <span className="text-red-500">888</span>
                                 </h1>
                                 <div className="text-lg sm:text-xl font-light tracking-[0.3em] text-amber-400/80 uppercase">
                                     AI RTP Scanner
