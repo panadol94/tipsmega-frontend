@@ -1060,13 +1060,13 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                             <div className="marquee-track" style={{ display: "flex", gap: "0.75rem", width: "max-content" }}>
                                 {/* First set of testimonials */}
                                 {[
-                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner这名堂真系Work! 头先scan紧个game先知系 high RTP", stars: 5, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu menang konsisten. Odds memang improves ✔️", stars: 5, photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Chuan L.", loc: "Penang", text: "Best part — totally free. Daily untuk check RTP sebelum main!", stars: 5, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni confirm bagitahu RTP yang accurate. Dah biasa everyday use", stars: 5, photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih consistent", stars: 5, photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Raj K.", loc: "Sarawak", text: "Best tool untuk Mega888! Free dan semua orang harus try", stars: 5, photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Lisa T.", loc: "Melaka", text: "AI Scanner这名堂勆都用得着！scan完就知道边只game payout高", stars: 5, photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner ni memang membantu. Saya boleh tahu game mana yang tengah hot sebelum mula main", stars: 5, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu peluang menang lebih konsisten. Odds memang lebih baik ✔️", stars: 5, photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Chuan L.", loc: "Penang", text: "Best — totally free! Saya check RTP setiap hari sebelum main Mega888", stars: 5, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni bagi tahu RTP yang accurate. Dah jadi rutin harian saya", stars: 5, photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih konsisten dari biasa", stars: 5, photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Raj K.", loc: "Sarawak", text: "Tool terbaik untuk Mega888! Free dan semua orang kena try", stars: 5, photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Lisa T.", loc: "Melaka", text: "Scanner ni sangat berguna! Scan habis terus tahu game mana yang payout lebih tinggi", stars: 5, photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face" },
                                 ].map((t, i) => (
                                     <div key={`a-${i}`} style={{
                                         minWidth: 280, maxWidth: 280,
@@ -1103,13 +1103,13 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                                 ))}
                                 {/* Duplicate set for seamless loop */}
                                 {[
-                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner这名堂真系Work! 头先scan紧个game先知系 high RTP", stars: 5, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu menang konsisten. Odds memang improves ✔️", stars: 5, photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Chuan L.", loc: "Penang", text: "Best part — totally free. Daily untuk check RTP sebelum main!", stars: 5, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni confirm bagitahu RTP yang accurate. Dah biasa everyday use", stars: 5, photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih consistent", stars: 5, photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Raj K.", loc: "Sarawak", text: "Best tool untuk Mega888! Free dan semua orang harus try", stars: 5, photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Lisa T.", loc: "Melaka", text: "AI Scanner这名堂勆都用得着！scan完就知道边只game payout高", stars: 5, photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner ni memang membantu. Saya boleh tahu game mana yang tengah hot sebelum mula main", stars: 5, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu peluang menang lebih konsisten. Odds memang lebih baik ✔️", stars: 5, photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Chuan L.", loc: "Penang", text: "Best — totally free! Saya check RTP setiap hari sebelum main Mega888", stars: 5, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni bagi tahu RTP yang accurate. Dah jadi rutin harian saya", stars: 5, photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih konsisten dari biasa", stars: 5, photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Raj K.", loc: "Sarawak", text: "Tool terbaik untuk Mega888! Free dan semua orang kena try", stars: 5, photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face" },
+                                    { name: "Lisa T.", loc: "Melaka", text: "Scanner ni sangat berguna! Scan habis terus tahu game mana yang payout lebih tinggi", stars: 5, photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face" },
                                 ].map((t, i) => (
                                     <div key={`b-${i}`} style={{
                                         minWidth: 280, maxWidth: 280,
