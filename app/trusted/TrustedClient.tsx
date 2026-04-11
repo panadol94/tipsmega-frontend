@@ -308,7 +308,7 @@ function forcePlay(video: HTMLVideoElement | null) {
   if (p && typeof p.catch === "function") p.catch(() => {});
 }
 
-const COMPANIES_PER_PAGE = 16;
+const COMPANIES_PER_PAGE = 100; // Show all companies at once
 
 export default function TrustedClient() {
   const { playSound, triggerHaptic } = useGlobalSettings();
