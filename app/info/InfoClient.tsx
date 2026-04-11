@@ -1,6 +1,6 @@
 "use client";
 
-import BottomNav from "../ui/BottomNav";
+
 import FAQSection from "../ui/FAQSection";
 
 export default function InfoClient() {
@@ -85,7 +85,7 @@ export default function InfoClient() {
           </div>
         </div>
       </div>
-      <BottomNav />
+
     </>
   );
 }

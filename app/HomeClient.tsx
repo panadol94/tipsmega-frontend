@@ -13,7 +13,7 @@ import TerminalScan from "./ui/TerminalScan";
 import HackerScanOverlay from "./ui/HackerScanOverlay";
 import AuthModal from "./ui/AuthModal";
 import InstallPrompt from "./ui/InstallPrompt";
-import BottomNav from "./ui/BottomNav";
+
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
 import { useStarSync } from "./lib/useStarSync";
 import confetti from "canvas-confetti";
@@ -1102,7 +1102,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                 </div>
             )}
 
-            <BottomNav isBusy={busy} />
+
             <InstallPrompt />
 
             <style jsx>{`
