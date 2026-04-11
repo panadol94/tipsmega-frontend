@@ -3034,17 +3034,70 @@ a {
   }
 }
 
-/* Mobile: 1 column */
+/* Mobile: 4 columns for company grid */
 @media (max-width: 640px) {
   .premium-company-grid {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.35rem;
+  }
+
+  .premium-company-card {
+    border-radius: 10px;
+  }
+
+  .premium-card-body {
+    padding: 0.4rem 0.3rem 0.5rem;
+    gap: 3px;
+  }
+
+  .premium-company-name {
+    font-size: 0.5rem;
+    line-height: 1.1;
+  }
+
+  .premium-rating-row {
+    gap: 2px;
+  }
+
+  .premium-star {
+    font-size: 0.45rem;
+  }
+
+  .premium-rating-value {
+    font-size: 0.45rem;
+  }
+
+  .premium-badge-row {
+    top: 4px;
+    left: 4px;
+    gap: 2px;
+  }
+
+  .premium-badge {
+    padding: 2px 5px;
+    font-size: 0.4rem;
+  }
+
+  .premium-btn-container {
+    margin-top: 2px;
+  }
+
+  .premium-get-link-btn {
+    padding: 4px 8px !important;
+    font-size: 0.45rem !important;
   }
 }
 
 .premium-skeleton-card {
-  height: 360px;
+  height: 200px;
   border-radius: 20px;
+}
+
+@media (max-width: 640px) {
+  .premium-skeleton-card {
+    height: 100px;
+    border-radius: 10px;
+  }
 }
 
 .premium-empty-state {
