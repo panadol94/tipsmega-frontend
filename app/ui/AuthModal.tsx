@@ -252,6 +252,7 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
             }
 
             const username = json?.username || "Commander";
+            setUsername(username); // <-- BUG FIX: Set username untuk login
             showSuccess(`✅ Password telah ditukar! Username anda: ${username}`);
 
             // Auto switch to login after delay
