@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { animate, utils } from "animejs";
 import Link from "next/link";
 import { Flame, HelpCircle, Star, Gamepad2, Send, Trophy } from "lucide-react";
@@ -74,6 +75,7 @@ async function apiScan(deviceId: string, megaId: string) {
 }
 
 export default function HomeClient({ children }: { children?: React.ReactNode }) {
+    const pathname = usePathname();
     const [deviceId, setDeviceId] = useState<string>("");
     const [stars, setStars] = useState<number>(0);
 
@@ -312,6 +314,17 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
         return () => clearInterval(interval);
     }, [cooldownRemaining]);
 
+    // React to URL auth param changes (handles client-side navigation & browser back/forward)
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const authParam = params.get("auth");
+        if (authParam === "login" || authParam === "register") {
+            setAuthOpen(authParam);
+        } else {
+            setAuthOpen(null);
+        }
+    }, [pathname]);
+
     useEffect(() => {
         if (typeof window === "undefined") return;
 
@@ -330,13 +343,9 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
 
         const params = new URLSearchParams(window.location.search);
         const ref = params.get("ref");
-        const authParam = params.get("auth");
         if (ref) {
             localStorage.setItem("tipsmega_joined_from_ref", ref);
             console.log("Ref detected:", ref);
-        }
-        if (authParam === "login" || authParam === "register") {
-            setAuthOpen(authParam);
         }
 
         const checkIpChange = async () => {
