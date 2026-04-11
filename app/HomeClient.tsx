@@ -662,7 +662,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                                 </div>
                                 <div>
                                     <h1 className="text-sm font-black text-white tracking-wide">
-                                        🏆 KEMENANGAN AHLI
+                                        🎯 TIPSMEGA888 | RTP MEGA888 LIVE
                                     </h1>
                                     <h2 className="text-[10px] text-amber-400/70 font-medium tracking-wider uppercase">
                                         Community Wins
