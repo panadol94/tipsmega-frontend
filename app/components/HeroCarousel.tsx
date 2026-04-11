@@ -112,8 +112,8 @@ const slides: SlideConfig[] = [
   },
 ];
 
-// Mobile uses a curated animated subset to avoid problematic slides
-const getMobileSlides = () => slides.filter((s) => s.mobileFeatured && s.mobileFallback !== "skip");
+// Option 1: mobile keeps all slides animated and uses crop for sharper visuals
+const getMobileSlides = () => slides;
 
 // JSON-LD Schema for ImageGallery
 const imageGallerySchema = {
@@ -313,10 +313,10 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
         aria-roledescription="carousel"
         aria-label={`TipsMega888 Hero Carousel - ${activeSlides.length} slides showcasing Mega888 Malaysia community features`}
       >
-        {/* Mobile indicator showing skipped slides notice */}
+        {/* Mobile indicator */}
         {isMobile && (
           <div className="sr-only" role="note">
-            Menunjukkan {activeSlides.length} daripada {slides.length} slaid yang dioptimumkan untuk peranti mudah alih
+            Menunjukkan {activeSlides.length} slaid carousel untuk peranti mudah alih
           </div>
         )}
 
