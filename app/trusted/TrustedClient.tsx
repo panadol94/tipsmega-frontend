@@ -315,16 +315,22 @@ function forcePlay(video: HTMLVideoElement | null) {
   if (p && typeof p.catch === "function") p.catch(() => {});
 }
 
+const COMPANIES_PER_PAGE = 16;
+
 export default function TrustedClient() {
   const { playSound, triggerHaptic } = useGlobalSettings();
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
+  const [visibleCount, setVisibleCount] = useState(COMPANIES_PER_PAGE);
 
   const list = useMemo(
     () => (companies || []).filter((c) => (c.status || "").toUpperCase() !== "HIDDEN"),
     [companies]
   );
+
+  const visibleList = useMemo(() => list.slice(0, visibleCount), [list, visibleCount]);
+  const hasMore = visibleCount < list.length;
 
   const fetchCompanies = async () => {
     try {
@@ -353,6 +359,12 @@ export default function TrustedClient() {
     openNewTab(url);
   };
 
+  const handleLoadMore = () => {
+    playSound("click");
+    triggerHaptic(50);
+    setVisibleCount((prev) => Math.min(prev + COMPANIES_PER_PAGE, list.length));
+  };
+
   return (
     <section className="premium-trust-section">
       <SocialProofToast />
@@ -371,7 +383,7 @@ export default function TrustedClient() {
 
       <div className="premium-company-grid">
         {loading ? (
-          Array.from({ length: 6 }).map((_, i) => (
+          Array.from({ length: 8 }).map((_, i) => (
             <div key={i} className="skeleton-premium premium-skeleton-card" />
           ))
         ) : list.length === 0 && !err ? (
@@ -380,7 +392,7 @@ export default function TrustedClient() {
             <p className="premium-empty-text">No Partners Listed</p>
           </div>
         ) : (
-          list.map((c, idx) => {
+          visibleList.map((c, idx) => {
             const url = normalizeUrl(c.link);
             const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`${WHATSAPP_TEXT}${c.name}`)}`;
             const badges: Array<{ icon: string; text: string; className: string }> = [];
@@ -463,6 +475,37 @@ export default function TrustedClient() {
           })
         )}
       </div>
+
+      {/* Load More Button */}
+      {!loading && hasMore && (
+        <div className="premium-load-more-container">
+          <button
+            type="button"
+            onClick={handleLoadMore}
+            className="premium-load-more-btn"
+            aria-label="Load more companies"
+          >
+            <span className="premium-load-more-glow" />
+            <span className="premium-load-more-shine" />
+            <span className="premium-load-more-label">
+              Load More
+              <span className="premium-load-more-count">
+                ({Math.min(visibleCount + COMPANIES_PER_PAGE, list.length)} / {list.length})
+              </span>
+            </span>
+            <svg className="premium-load-more-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+            </svg>
+          </button>
+        </div>
+      )}
+
+      {/* Showing count indicator */}
+      {!loading && list.length > 0 && (
+        <div className="premium-showing-count">
+          Showing {visibleList.length} of {list.length} trusted platforms
+        </div>
+      )}
     </section>
   );
 }
