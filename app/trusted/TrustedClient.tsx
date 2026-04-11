@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, useRef } from "react";
+import Link from "next/link";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 
 type Company = {
@@ -435,7 +436,9 @@ export default function TrustedClient() {
                 </div>
 
                 <div className="premium-card-body">
-                  <h2 className="premium-company-name">{c.name}</h2>
+                  <Link href={`/trusted/${encodeURIComponent(c.name)}`} className="premium-company-name-link">
+                    <h2 className="premium-company-name">{c.name}</h2>
+                  </Link>
 
                   <div className="premium-rating-row">
                     <div className="premium-stars">
