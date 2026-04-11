@@ -144,7 +144,6 @@ export default function TrustedPage() {
       <SharedPageNav>
         <div className="min-h-screen bg-[#07090f] text-white app-bg relative overflow-x-hidden">
           <div className="fixed inset-0 bg-[url('/img/noise.png')] opacity-5 pointer-events-none" />
-          <div className="fixed -top-40 -right-40 w-96 h-96 bg-purple-900/20 rounded-full blur-[100px] pointer-events-none" />
           <div className="fixed bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black via-transparent to-transparent pointer-events-none" />
 
           <div className="app-shell mx-auto px-4 py-8 pb-32 relative z-10">

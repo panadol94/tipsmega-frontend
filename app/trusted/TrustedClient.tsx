@@ -351,7 +351,7 @@ export default function TrustedClient() {
                         <video
                           src={mediaUrl}
                           title={`${c.name} - Mega888 Platform`}
-                          preload="auto"
+                          preload="metadata"
                           className="premium-media"
                           muted
                           playsInline
