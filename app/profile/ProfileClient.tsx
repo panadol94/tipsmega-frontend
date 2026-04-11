@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
-import SharedPageNav from "../ui/SharedPageNav";
 
 const API_BASE = "https://api.tipsmega888.com";
 
@@ -114,7 +113,6 @@ export default function ProfileClient() {
     if (!mounted) return null;
 
     return (
-        <SharedPageNav>
         <div className="app-wrap">
             <div className="app-shell pb-20">
 
@@ -324,6 +322,5 @@ export default function ProfileClient() {
             </div>
 
         </div>
-        </SharedPageNav>
     );
 }

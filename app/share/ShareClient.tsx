@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
-import SharedPageNav from "../ui/SharedPageNav";
 import { Gift, Zap, Trophy, Star, Target, Gamepad2, HelpCircle, Send, Link2, BarChart3, Lightbulb } from "lucide-react";
 
 export default function ShareClient() {
@@ -60,7 +59,6 @@ export default function ShareClient() {
     }
 
     return (
-        <SharedPageNav>
             <div className="app-wrap min-h-screen bg-[#07090f]">
                 <div className="app-shell pb-24">
 
@@ -463,6 +461,5 @@ export default function ShareClient() {
                 </div>
 
             </div>
-        </SharedPageNav>
     );
 }
