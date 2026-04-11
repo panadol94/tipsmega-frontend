@@ -55,7 +55,7 @@ function LazyVideo({
         <video
           src={mediaUrl}
           title={title}
-          preload="none"
+          preload="metadata"
           className="premium-media"
           muted
           playsInline
