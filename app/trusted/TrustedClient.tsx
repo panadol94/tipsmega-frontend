@@ -19,6 +19,75 @@ const WHATSAPP_NUMBER = "60108691034";
 const WHATSAPP_TEXT = "Hi admin, saya nak minta link register untuk platform ini: ";
 
 // ================================
+// LAZY VIDEO COMPONENT (intersection observer)
+// ================================
+function LazyVideo({
+  mediaUrl,
+  title,
+  poster,
+}: {
+  mediaUrl: string;
+  title: string;
+  poster: string;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px", threshold: 0.1 }
+    );
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} className="premium-media">
+      {isVisible ? (
+        <video
+          src={mediaUrl}
+          title={title}
+          preload="metadata"
+          className="premium-media"
+          muted
+          playsInline
+          autoPlay
+          loop
+          poster={poster}
+          onLoadedData={(e) => {
+            const v = e.currentTarget;
+            v.muted = true;
+            v.defaultMuted = true;
+            v.autoplay = true;
+            v.playsInline = true;
+            v.play();
+          }}
+          onCanPlay={(e) => {
+            const v = e.currentTarget;
+            v.muted = true;
+            v.defaultMuted = true;
+            v.autoplay = true;
+            v.playsInline = true;
+            v.play();
+          }}
+        />
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={poster} alt={title} loading="lazy" className="premium-media" />
+      )}
+    </div>
+  );
+}
+
+// ================================
 // PREMIUM ANIMATED COUNTER
 // ================================
 function AnimatedCounter({ target, duration = 2000 }: { target: number; duration?: number }) {
@@ -348,19 +417,7 @@ export default function TrustedClient() {
                         : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.startsWith("/") ? c.storageUrl.slice(1) : c.storageUrl}`;
 
                       return isVideo ? (
-                        <video
-                          src={mediaUrl}
-                          title={`${c.name} - Mega888 Platform`}
-                          preload="metadata"
-                          className="premium-media"
-                          muted
-                          playsInline
-                          autoPlay
-                          loop
-                          poster="/mega888.webp"
-                          onLoadedData={(e) => forcePlay(e.currentTarget)}
-                          onCanPlay={(e) => forcePlay(e.currentTarget)}
-                        />
+                        <LazyVideo mediaUrl={mediaUrl} title={`${c.name} - Mega888 Platform`} poster="/mega888.webp" />
                       ) : (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={mediaUrl} alt={c.name} loading="lazy" className="premium-media" />
