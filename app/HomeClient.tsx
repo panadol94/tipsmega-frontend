@@ -316,13 +316,21 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
 
     // React to URL auth param changes (handles client-side navigation & browser back/forward)
     useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const authParam = params.get("auth");
-        if (authParam === "login" || authParam === "register") {
-            setAuthOpen(authParam);
-        } else {
-            setAuthOpen(null);
-        }
+        const handleAuthParam = () => {
+            const params = new URLSearchParams(window.location.search);
+            const authParam = params.get("auth");
+            if (authParam === "login" || authParam === "register") {
+                setAuthOpen(authParam);
+            } else {
+                setAuthOpen(null);
+            }
+        };
+
+
+        // Handle browser back/forward and Link clicks
+        handleAuthParam();
+        window.addEventListener("popstate", handleAuthParam);
+        return () => window.removeEventListener("popstate", handleAuthParam);
     }, [pathname]);
 
     useEffect(() => {
