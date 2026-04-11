@@ -130,7 +130,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
   const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const autoSwipeRef = useRef<NodeJS.Timeout | null>(null);
-  const AUTO_SWIPE_INTERVAL = 4000; // 4 seconds
+  const AUTO_SWIPE_INTERVAL = 5000; // 5 seconds
 
   // Detect mobile on client side
   useEffect(() => {
@@ -169,7 +169,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
 
   // Auto-swipe timer
   useEffect(() => {
-    if (isPaused || isDragging || activeSlides.length <= 1) {
+    if (isPaused || isDragging || activeSlides.length <= 1 || isMobile) {
       if (autoSwipeRef.current) {
         clearInterval(autoSwipeRef.current);
         autoSwipeRef.current = null;
@@ -186,7 +186,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
         clearInterval(autoSwipeRef.current);
       }
     };
-  }, [isPaused, isDragging, nextSlide, activeSlides.length]);
+  }, [isPaused, isDragging, nextSlide, activeSlides.length, isMobile]);
 
   // Touch/Drag handlers
   const handleDragStart = (clientX: number) => {
@@ -256,11 +256,11 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
   const getSlideImageClasses = (slide: SlideConfig) => {
     // Desktop: object-cover for full coverage
     // Mobile: object-contain with per-slide positioning
-    const baseClasses = "transition-all duration-500";
+    const baseClasses = "select-none";
     const desktopClasses = "sm:object-cover sm:object-center";
     
-    // Mobile uses object-contain to show full image
-    const mobileClasses = "object-contain object-center";
+    // Mobile uses cover for a sharper visual result with per-slide positioning
+    const mobileClasses = "object-cover";
     
     return `${baseClasses} ${desktopClasses} ${mobileClasses}`;
   };
