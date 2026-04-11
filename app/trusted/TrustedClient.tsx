@@ -410,10 +410,16 @@ export default function TrustedClient() {
                 <div className="premium-media-container">
                   {c.storageUrl ? (
                     (() => {
+                      const isVideo =
+                        c.mediaType?.toLowerCase() === "video" ||
+                        c.storageUrl.match(/\.(mp4|webm|mov|avi|mkv|m4v|flv)$/i);
                       const mediaUrl = c.storageUrl.startsWith("http")
                         ? c.storageUrl
                         : `${API_BASE.replace(/\/$/, "")}/${c.storageUrl.startsWith("/") ? c.storageUrl.slice(1) : c.storageUrl}`;
 
+                      if (isVideo) {
+                        return <LazyVideo mediaUrl={mediaUrl} title={`${c.name} - Mega888 Platform`} poster="/mega888.webp" />;
+                      }
                       // eslint-disable-next-line @next/next/no-img-element
                       return <img src={mediaUrl} alt={c.name} loading="lazy" className="premium-media" />;
                     })()
