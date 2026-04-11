@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { animate, utils } from "animejs";
 import Link from "next/link";
 import { Flame, HelpCircle, Star, Gamepad2, Send, Trophy } from "lucide-react";
@@ -326,12 +326,18 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
             }
         };
 
-
-        // Handle browser back/forward and Link clicks
         handleAuthParam();
+
+        // Listen for router events (handles Next.js Link navigation)
+        const router = useRouter();
+        router.events.on("routeChangeComplete", handleAuthParam);
         window.addEventListener("popstate", handleAuthParam);
-        return () => window.removeEventListener("popstate", handleAuthParam);
-    }, [pathname]);
+
+        return () => {
+            router.events.off("routeChangeComplete", handleAuthParam);
+            window.removeEventListener("popstate", handleAuthParam);
+        };
+    }, []);
 
     useEffect(() => {
         if (typeof window === "undefined") return;
