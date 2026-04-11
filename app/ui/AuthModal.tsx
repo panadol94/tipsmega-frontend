@@ -69,11 +69,19 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
     const [msg, setMsg] = useState("");
     const [msgType, setMsgType] = useState<"neutral" | "success" | "error">("neutral");
 
+    // 2-Phase Password Reset States
+    const [resetStep, setResetStep] = useState<1 | 2>(1);
+    const [verifiedUsername, setVerifiedUsername] = useState("");
+
     // Clear fields on mode switch
     useEffect(() => {
         setMsg("");
         setMsgType("neutral");
-        // We don't clear inputs to allow easy switching if user made mistake
+        // Reset password reset flow when entering/leaving recovery mode
+        if (mode === "recovery") {
+            setResetStep(1);
+            setVerifiedUsername("");
+        }
     }, [mode]);
 
     // Helpers
@@ -229,11 +237,50 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
         }
     }
 
+    // Phase 1: Verify OTP and get username
+    async function handleVerifyOtp() {
+        const p = normalizePhone(phone);
+        if (!p) return showErr("❌ Nombor telefon tidak sah. Guna format: +60123456789");
+        if (!/^\d{6}$/.test(otp)) return showErr("❌ OTP mesti 6 digit");
+
+        setBusy(true);
+        showInfo("Verifying OTP...");
+
+        try {
+            const r = await fetch(`${API_BASE}/api/auth/verify-otp`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ phone: p, otp }),
+            });
+            const { json, text } = await readJsonOrText(r);
+
+            if (!r.ok) {
+                showErr(`❌ ${json?.error || json?.detail || text || "Verification failed"}`);
+                return;
+            }
+
+            const verifiedUsername = json?.username || "";
+            setVerifiedUsername(verifiedUsername);
+            setUsername(verifiedUsername);
+            setResetStep(2);
+            showSuccess(`✅ Identity verified! Your username is: ${verifiedUsername}`);
+        } catch (e: any) {
+            console.error("Verify OTP Error:", e);
+            if (e.message?.includes("Failed to fetch")) {
+                showErr("⚠️ Network Error: Gagal connect server. Sila check internet/firewall.");
+            } else {
+                showErr(`❌ Error: ${e.message}`);
+            }
+        } finally {
+            setBusy(false);
+        }
+    }
+
+    // Phase 2: Reset Password
     async function handleResetPassword() {
         const p = normalizePhone(phone);
         if (!p) return showErr("❌ Nombor telefon tidak sah");
         if (password.length < 6) return showErr("❌ Password baru min 6 huruf");
-        if (!/^\d{6}$/.test(otp)) return showErr("❌ OTP mesti 6 digit");
 
         setBusy(true);
         showInfo("Resetting password...");
@@ -251,17 +298,19 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                 return;
             }
 
-            const username = json?.username || "Commander";
-            setUsername(username); // <-- BUG FIX: Set username untuk login
-            showSuccess(`✅ Password telah ditukar! Username anda: ${username}`);
+            const username = json?.username || verifiedUsername || "Commander";
+            setUsername(username);
+            showSuccess(`✅ Password reset successful!`);
 
-            // Auto switch to login after delay
+            // Auto switch to login after delay with username pre-filled
             setTimeout(() => {
                 setMode("login");
                 setOtp("");
                 setOtpSent(false);
                 setPassword("");
-            }, 3000);
+                setResetStep(1);
+                setVerifiedUsername("");
+            }, 2000);
 
         } catch (e: any) {
             console.error("Reset Error:", e);
@@ -476,76 +525,151 @@ export default function AuthModal({ initialMode = "login", deviceId, onClose, on
                 )}
 
 
-                {/* RECOVERY MODE */}
+                {/* RECOVERY MODE - 2 Phase Password Reset */}
                 {mode === "recovery" && (
                     <div className="space-y-5">
-                        <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20">
-                            <h3 className="text-xs font-black text-purple-400 uppercase tracking-widest mb-2">Start Bot & Share Contact</h3>
-                            <p className="text-[10px] text-purple-200/60 leading-tight mb-3">
-                                Start bot dan tekan "Share Contact" untuk dapatkan OTP reset.
-                            </p>
-                            <a
-                                href="https://t.me/TIPSMEGA888OTPBOT"
-                                target="_blank"
-                                rel="noreferrer"
-                                className="flex items-center justify-between px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-all shadow-lg shadow-purple-900/20"
-                            >
-                                <span>OPEN BOT</span>
-                                <span>🤖</span>
-                            </a>
-                        </div>
-
-                        <div className="space-y-3">
-                            <div className="flex gap-2">
-                                <input
-                                    className="flex-1 h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-red-500/50 transition-all font-mono"
-                                    placeholder="No. Tel (e.g. 0123456789)"
-                                    value={phone}
-                                    onChange={(e) => setPhone(e.target.value)}
-                                />
-                                <button
-                                    onClick={requestOtp}
-                                    disabled={busy || otpSent}
-                                    className={`px-4 h-11 rounded-xl text-[10px] font-black uppercase tracking-wider border ${otpSent
-                                        ? "bg-green-500/20 border-green-500/50 text-green-400"
-                                        : "bg-white/10 border-white/10 text-white hover:bg-white/20"
-                                        } transition-all whitespace-nowrap`}
-                                >
-                                    {busy ? "..." : otpSent ? "OTP SENT ✓" : "MINTA OTP"}
-                                </button>
+                        {/* Progress indicator */}
+                        <div className="flex items-center justify-center gap-2 mb-4">
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${resetStep >= 1 ? "bg-blue-500 text-white" : "bg-white/10 text-white/40"}`}>
+                                1
+                            </div>
+                            <div className={`w-12 h-0.5 ${resetStep >= 2 ? "bg-blue-500" : "bg-white/20"}`} />
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${resetStep >= 2 ? "bg-blue-500 text-white" : "bg-white/10 text-white/40"}`}>
+                                2
                             </div>
                         </div>
-
-                        {/* RESET FORM */}
-                        <div className={`space-y-3 transition-all duration-500 ${otpSent ? "opacity-100" : "opacity-50 pointer-events-none grayscale"}`}>
-                            <input
-                                type="password"
-                                className="w-full h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-red-500/50 transition-all font-mono tracking-widest"
-                                placeholder="New Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-
-                            <input
-                                type="text"
-                                inputMode="numeric"
-                                maxLength={6}
-                                className="w-full h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white placeholder-white/20 text-center text-lg tracking-[0.5em] focus:outline-none focus:border-green-500/50 transition-all font-mono"
-                                placeholder="OTP CODE"
-                                value={otp}
-                                onChange={(e) => setOtp(e.target.value)}
-                            />
-
-                            <button
-                                disabled={busy}
-                                onClick={handleResetPassword}
-                                className={`w-full h-12 rounded-xl font-black tracking-widest text-xs uppercase transition-all shadow-lg ${busy ? "bg-gray-600 text-gray-400 cursor-not-allowed" :
-                                    "bg-gradient-to-r from-blue-500 to-blue-700 border border-blue-400 text-white shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5"
-                                    }`}
-                            >
-                                {busy ? "PROCESSING..." : "RESET PASSWORD"}
-                            </button>
+                        <div className="text-center">
+                            <p className="text-xs text-white/50">
+                                {resetStep === 1 ? "Phase 1: Verify Identity" : "Phase 2: Reset Password"}
+                            </p>
                         </div>
+
+                        {/* BOT SETUP - Only show in Step 1 */}
+                        {resetStep === 1 && (
+                            <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20">
+                                <h3 className="text-xs font-black text-purple-400 uppercase tracking-widest mb-2">Start Bot & Share Contact</h3>
+                                <p className="text-[10px] text-purple-200/60 leading-tight mb-3">
+                                    Start bot dan tekan "Share Contact" untuk dapatkan OTP reset.
+                                </p>
+                                <a
+                                    href="https://t.me/TIPSMEGA888OTPBOT"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="flex items-center justify-between px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-all shadow-lg shadow-purple-900/20"
+                                >
+                                    <span>OPEN BOT</span>
+                                    <span>🤖</span>
+                                </a>
+                            </div>
+                        )}
+
+                        {/* PHASE 1: Phone + OTP */}
+                        {resetStep === 1 && (
+                            <div className="space-y-3">
+                                <div className="flex gap-2">
+                                    <input
+                                        className="flex-1 h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-red-500/50 transition-all font-mono"
+                                        placeholder="No. Tel (e.g. 0123456789)"
+                                        value={phone}
+                                        onChange={(e) => setPhone(e.target.value)}
+                                        disabled={otpSent || busy}
+                                    />
+                                    <button
+                                        onClick={requestOtp}
+                                        disabled={busy || otpSent}
+                                        className={`px-4 h-11 rounded-xl text-[10px] font-black uppercase tracking-wider border ${otpSent
+                                            ? "bg-green-500/20 border-green-500/50 text-green-400"
+                                            : "bg-white/10 border-white/10 text-white hover:bg-white/20"
+                                            } transition-all whitespace-nowrap`}
+                                    >
+                                        {busy ? "..." : otpSent ? "OTP SENT ✓" : "MINTA OTP"}
+                                    </button>
+                                </div>
+                                {otpSent && (
+                                    <div className="flex items-center justify-between pl-1">
+                                        <p className="text-[10px] text-green-400">✅ OTP telah dihantar!</p>
+                                        <button
+                                            onClick={() => {
+                                                setOtpSent(false);
+                                                setOtp("");
+                                            }}
+                                            className="text-[10px] text-red-400 underline hover:text-red-300"
+                                        >
+                                            Tukar Nombor?
+                                        </button>
+                                    </div>
+                                )}
+
+                                {/* OTP Input + Verify Button */}
+                                <div className={`space-y-3 transition-all duration-500 ${otpSent ? "opacity-100" : "opacity-50 pointer-events-none grayscale"}`}>
+                                    <input
+                                        type="text"
+                                        inputMode="numeric"
+                                        maxLength={6}
+                                        className="w-full h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white placeholder-white/20 text-center text-lg tracking-[0.5em] focus:outline-none focus:border-green-500/50 transition-all font-mono"
+                                        placeholder="OTP CODE"
+                                        value={otp}
+                                        onChange={(e) => setOtp(e.target.value)}
+                                        disabled={!otpSent}
+                                    />
+
+                                    <button
+                                        disabled={busy || !otpSent}
+                                        onClick={handleVerifyOtp}
+                                        className={`w-full h-12 rounded-xl font-black tracking-widest text-xs uppercase transition-all shadow-lg ${busy ? "bg-gray-600 text-gray-400 cursor-not-allowed" :
+                                            "bg-gradient-to-r from-purple-500 to-purple-700 border border-purple-400 text-white shadow-purple-500/30 hover:shadow-purple-500/50 hover:-translate-y-0.5"
+                                            }`}
+                                    >
+                                        {busy ? "VERIFYING..." : "VERIFY IDENTITY"}
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* PHASE 2: Username Display + New Password */}
+                        {resetStep === 2 && (
+                            <div className="space-y-4">
+                                {/* Username Display (Read-only) */}
+                                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-center">
+                                    <p className="text-[10px] text-green-400 uppercase tracking-wider mb-1">Verified Username</p>
+                                    <p className="text-lg font-bold text-white">{verifiedUsername}</p>
+                                </div>
+
+                                <div className="space-y-3">
+                                    <label className="block text-xs font-bold text-white/40 uppercase tracking-wider">New Password</label>
+                                    <input
+                                        type="password"
+                                        className="w-full h-11 bg-black/40 border border-white/10 rounded-xl px-4 text-white text-sm placeholder-white/20 focus:outline-none focus:border-red-500/50 transition-all font-mono tracking-widest"
+                                        placeholder="Enter new password (min 6 chars)"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+
+                                    <button
+                                        disabled={busy || password.length < 6}
+                                        onClick={handleResetPassword}
+                                        className={`w-full h-12 rounded-xl font-black tracking-widest text-xs uppercase transition-all shadow-lg ${busy ? "bg-gray-600 text-gray-400 cursor-not-allowed" :
+                                            "bg-gradient-to-r from-blue-500 to-blue-700 border border-blue-400 text-white shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5"
+                                            }`}
+                                    >
+                                        {busy ? "PROCESSING..." : "RESET PASSWORD"}
+                                    </button>
+                                </div>
+
+                                <button
+                                    onClick={() => {
+                                        setResetStep(1);
+                                        setOtpSent(false);
+                                        setOtp("");
+                                        setPassword("");
+                                        setVerifiedUsername("");
+                                    }}
+                                    className="w-full text-center text-[10px] text-white/40 hover:text-white/60 transition-colors"
+                                >
+                                    ← Back to verification
+                                </button>
+                            </div>
+                        )}
                     </div>
                 )}
 
