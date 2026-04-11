@@ -5,10 +5,7 @@ import { animate, utils } from "animejs";
 import Link from "next/link";
 import { Flame, HelpCircle, Star, Gamepad2, Send, Trophy } from "lucide-react";
 import Toast, { ToastType } from "./ui/Toast";
-import TypewriterText from "./ui/TypewriterText";
-import TypewriterHero from "./components/TypewriterHero";
 import MatrixBackground from "./components/MatrixBackground";
-import TerminalStatus from "./components/TerminalStatus";
 
 import TerminalScan from "./ui/TerminalScan";
 import HackerScanOverlay from "./ui/HackerScanOverlay";
@@ -526,62 +523,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
             <main className="flex flex-col items-center justify-start min-h-screen py-4 px-4 pb-24">
                 <div className="w-full max-w-lg space-y-3">
                     
-                    {/* Premium Hero Section */}
-                    <div className="text-center tm-hero">
-                        <div className="rounded-2xl p-6 mb-3 bg-gradient-to-b from-slate-900/90 to-slate-950/95 border border-amber-500/20 relative overflow-hidden">
-                            {/* Subtle glow effect */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-transparent to-red-500/5 pointer-events-none" />
-                            
-                            {/* MEGA888 Heading - Brand Colors: MEGA gold, 888 red */}
-                            <div className="relative">
-                                <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-1">
-                                    <span className="text-amber-400">MEGA</span>
-                                    <span className="text-red-500">888</span>
-                                </h1>
-                                <div className="text-lg sm:text-xl font-light tracking-[0.3em] text-amber-400/80 uppercase">
-                                    AI RTP Scanner
-                                </div>
-                            </div>
-
-                            {/* Typewriter Tagline */}
-                            <TypewriterHero />
-
-                            {/* Live Signal Pill */}
-                            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5">
-                                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                                <span className="text-[12px] font-medium text-emerald-200">
-                                    {[
-                                        "Live signal: Great Blue tunjuk trend menaik",
-                                        "AI detect: Ocean Princess nampak lebih aktif",
-                                        "Hot window: 9PM hingga 11PM",
-                                        "Data dikemas kini ikut trend semasa",
-                                    ][Math.floor(Date.now() / 2600) % 4]}
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* Status bar - Premium Style */}
-                        <div className="flex items-center justify-center gap-2 text-[11px] text-slate-400">
-                            <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-slate-800/50 border border-slate-700/50">
-                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                                System Online
-                            </span>
-                            <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-slate-800/50 border border-slate-700/50">
-                                <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-                                RTP Engine Ready
-                            </span>
-                        </div>
-
-                        <p className="mt-3 text-[12px] text-slate-400">
-                            Semak trend, pilih game, lalu main dengan lebih yakin.
-                        </p>
-
-                        <p className="mt-2 text-[11px] text-slate-500">
-                            Masukkan ID untuk scan &bull; {stars > 0 ? `${stars} stars available` : "Login untuk bonus stars"}
-                        </p>
-                    </div>
-
-                    {/* Hero Carousel - Replaces Scanner Card */}
+                    {/* Hero Carousel - Main Hero Element */}
                     <section className="tm-hero" aria-label="Hero Carousel">
                         <HeroCarousel onScanClick={() => {
                             // Scroll to scanner section
@@ -644,7 +586,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                         {/* Terminal Animation */}
                         <div className="scanner-terminal-shell mb-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
                             <div className="scanner-terminal-line" />
-                            <TypewriterText text="[AI] SIGNAL READY • ENTER ID TO BEGIN SCAN..." speed={24} />
+                            <span className="text-red-400/80 font-mono text-xs">[AI] SIGNAL READY • ENTER ID TO BEGIN SCAN...</span>
                         </div>
 
                         {/* Scan Button */}
