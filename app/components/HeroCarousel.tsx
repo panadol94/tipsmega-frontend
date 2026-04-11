@@ -273,7 +273,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
 
         {/* Dot Indicators */}
         <div 
-          className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/55 backdrop-blur-sm border border-white/10"
+          className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-2 py-1 rounded-full bg-slate-950/55 backdrop-blur-sm border border-white/10 sm:bottom-3 sm:gap-2 sm:px-3 sm:py-1.5"
           role="tablist"
           aria-label="Carousel navigation dots"
         >
@@ -283,8 +283,8 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
               onClick={() => goToSlide(index)}
               className={`rounded-full transition-all duration-300 ${
                 index === currentIndex
-                  ? "h-2.5 w-6 bg-amber-400 shadow-[0_0_14px_rgba(251,191,36,0.45)]"
-                  : "h-2.5 w-2.5 bg-white/45 hover:bg-white/65"
+                  ? "h-2 w-4 bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.35)] sm:h-2.5 sm:w-6 sm:shadow-[0_0_14px_rgba(251,191,36,0.45)]"
+                  : "h-1.5 w-1.5 bg-white/45 hover:bg-white/65 sm:h-2.5 sm:w-2.5"
               }`}
               aria-label={`Go to slide ${index + 1} of ${slides.length}`}
               aria-selected={index === currentIndex}
