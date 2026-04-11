@@ -316,20 +316,29 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
 
     // React to URL auth param changes (handles client-side navigation & browser back/forward)
     useEffect(() => {
+        let lastAuthParam: string | null = null;
+        let userManuallyClosed = false;
+
         const handleAuthParam = () => {
             const params = new URLSearchParams(window.location.search);
             const authParam = params.get("auth");
-            if (authParam === "login" || authParam === "register") {
-                setAuthOpen(authParam);
-            } else {
-                setAuthOpen(null);
+            
+            // Only reopen if auth param CHANGED (not just polling same URL)
+            if (authParam !== lastAuthParam) {
+                lastAuthParam = authParam;
+                userManuallyClosed = false; // Reset on navigation
+                if (authParam === "login" || authParam === "register") {
+                    setAuthOpen(authParam);
+                } else {
+                    setAuthOpen(null);
+                }
             }
         };
 
         handleAuthParam();
 
-        // Poll URL changes (reliable for static export + SPA navigation)
-        const interval = setInterval(handleAuthParam, 200);
+        // Poll URL changes
+        const interval = setInterval(handleAuthParam, 300);
         window.addEventListener("popstate", handleAuthParam);
 
         return () => {
@@ -875,7 +884,13 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                 <AuthModal
                     initialMode={authOpen}
                     deviceId={resolvedDeviceId}
-                    onClose={() => setAuthOpen(null)}
+                    onClose={() => {
+                        setAuthOpen(null);
+                        // Clear auth param from URL so interval doesn't reopen
+                        const url = new URL(window.location.href);
+                        url.searchParams.delete("auth");
+                        window.history.replaceState({}, "", url.toString());
+                    }}
                     onLoginSuccess={(token, newStars, user) => {
                         localStorage.setItem(tokenKey, token);
                         const name = user || "User";
