@@ -608,6 +608,8 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                                 inputMode="numeric"
                                 placeholder="ENTER_ID_HERE"
                                 maxLength={12}
+                                name="megaId"
+                                autoComplete="off"
                                 style={{ fontFamily: "'JetBrains Mono', monospace" }}
                             />
                             <div className="mt-2 flex justify-between text-xs font-mono text-red-400/50">
