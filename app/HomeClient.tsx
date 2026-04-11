@@ -14,6 +14,7 @@ import TerminalScan from "./ui/TerminalScan";
 import HackerScanOverlay from "./ui/HackerScanOverlay";
 import AuthModal from "./ui/AuthModal";
 import InstallPrompt from "./ui/InstallPrompt";
+import TestimonialCarousel from "./components/TestimonialCarousel";
 
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
 import { useStarSync } from "./lib/useStarSync";
@@ -841,143 +842,8 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                         </div>
                     </section>
 
-                    {/* ── Social Proof ── */}
-                    <section
-                        aria-label="Social proof"
-                        className="card p-3 border-red-500/20 bg-gradient-to-br from-red-950/60 to-slate-950/80 overflow-hidden"
-                        style={{ borderRadius: 16 }}
-                    >
-                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                            <span style={{ fontSize: "0.7rem", fontWeight: 800, color: "#ff3333", letterSpacing: "0.18em", textTransform: "uppercase" }}>
-                                ⭐ Apa Kata Pengguna
-                            </span>
-                            <div style={{ flex: 1, height: 1, background: "rgba(34,211,238,0.15)", borderRadius: 1 }} />
-                        </div>
-
-                        {/* Marquee container */}
-                        <div className="relative overflow-hidden">
-                            {/* Fade edges */}
-                            <div style={{
-                                position: "absolute", left: 0, top: 0, bottom: 0, width: 40,
-                                background: "linear-gradient(to right, rgba(8,15,25,0.95), transparent)",
-                                zIndex: 10, pointerEvents: "none",
-                            }} />
-                            <div style={{
-                                position: "absolute", right: 0, top: 0, bottom: 0, width: 40,
-                                background: "linear-gradient(to left, rgba(8,15,25,0.95), transparent)",
-                                zIndex: 10, pointerEvents: "none",
-                            }} />
-
-                            {/* Marquee track - duplicated for infinite scroll */}
-                            <div className="marquee-track" style={{ display: "flex", gap: "0.75rem", width: "max-content" }}>
-                                {/* First set of testimonials */}
-                                {[
-                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner ni memang membantu. Saya boleh tahu game mana yang tengah hot sebelum mula main", stars: 5, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu peluang menang lebih konsisten. Odds memang lebih baik ✔️", stars: 5, photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Chuan L.", loc: "Penang", text: "Best — totally free! Saya check RTP setiap hari sebelum main Mega888", stars: 5, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni bagi tahu RTP yang accurate. Dah jadi rutin harian saya", stars: 5, photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih konsisten dari biasa", stars: 5, photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Raj K.", loc: "Sarawak", text: "Tool terbaik untuk Mega888! Free dan semua orang kena try", stars: 5, photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Lisa T.", loc: "Melaka", text: "Scanner ni sangat berguna! Scan habis terus tahu game mana yang payout lebih tinggi", stars: 5, photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face" },
-                                ].map((t, i) => (
-                                    <div key={`a-${i}`} style={{
-                                        minWidth: 280, maxWidth: 280,
-                                        padding: "0.85rem 1rem",
-                                        borderRadius: 12,
-                                        background: "rgba(255,255,255,0.04)",
-                                        border: "1px solid rgba(255,255,255,0.07)",
-                                        flexShrink: 0,
-                                    }}>
-                                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
-                                            {/* Avatar photo */}
-                                            <img
-                                                src={t.photo}
-                                                alt={t.name}
-                                                width={32}
-                                                height={32}
-                                                style={{
-                                                    width: 32, height: 32, borderRadius: "50%",
-                                                    border: "2px solid rgba(255,255,255,0.15)",
-                                                    objectFit: "cover",
-                                                    flexShrink: 0,
-                                                }}
-                                            />
-                                            <div>
-                                                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e2e8f0" }}>{t.name}</span>
-                                                <span style={{ fontSize: "0.72rem", color: "#475569", marginLeft: 6 }}>{t.loc}</span>
-                                            </div>
-                                            <div style={{ marginLeft: "auto", color: "#ef4444", fontSize: "0.7rem", letterSpacing: "0.05em" }}>
-                                                {"★".repeat(t.stars)}
-                                            </div>
-                                        </div>
-                                        <p style={{ fontSize: "0.83rem", color: "#64748b", lineHeight: 1.55, margin: 0 }}>{t.text}</p>
-                                    </div>
-                                ))}
-                                {/* Duplicate set for seamless loop */}
-                                {[
-                                    { name: "Ahmad R.", loc: "Kuala Lumpur", text: "AI Scanner ni memang membantu. Saya boleh tahu game mana yang tengah hot sebelum mula main", stars: 5, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Siti M.", loc: "Johor Bahru", text: "Guna AI Scanner ni lepas tu peluang menang lebih konsisten. Odds memang lebih baik ✔️", stars: 5, photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Chuan L.", loc: "Penang", text: "Best — totally free! Saya check RTP setiap hari sebelum main Mega888", stars: 5, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Wei J.", loc: "Sabah", text: "Scanner ni bagi tahu RTP yang accurate. Dah jadi rutin harian saya", stars: 5, photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Nadia S.", loc: "Selangor", text: "Alhamdulillah lepas 2 minggu guna scanner ni, result lebih konsisten dari biasa", stars: 5, photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Raj K.", loc: "Sarawak", text: "Tool terbaik untuk Mega888! Free dan semua orang kena try", stars: 5, photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face" },
-                                    { name: "Lisa T.", loc: "Melaka", text: "Scanner ni sangat berguna! Scan habis terus tahu game mana yang payout lebih tinggi", stars: 5, photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face" },
-                                ].map((t, i) => (
-                                    <div key={`b-${i}`} style={{
-                                        minWidth: 280, maxWidth: 280,
-                                        padding: "0.85rem 1rem",
-                                        borderRadius: 12,
-                                        background: "rgba(255,255,255,0.04)",
-                                        border: "1px solid rgba(255,255,255,0.07)",
-                                        flexShrink: 0,
-                                    }}>
-                                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
-                                            <img
-                                                src={t.photo}
-                                                alt={t.name}
-                                                width={32}
-                                                height={32}
-                                                style={{
-                                                    width: 32, height: 32, borderRadius: "50%",
-                                                    border: "2px solid rgba(255,255,255,0.15)",
-                                                    objectFit: "cover",
-                                                    flexShrink: 0,
-                                                }}
-                                            />
-                                            <div>
-                                                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#e2e8f0" }}>{t.name}</span>
-                                                <span style={{ fontSize: "0.72rem", color: "#475569", marginLeft: 6 }}>{t.loc}</span>
-                                            </div>
-                                            <div style={{ marginLeft: "auto", color: "#ef4444", fontSize: "0.7rem", letterSpacing: "0.05em" }}>
-                                                {"★".repeat(t.stars)}
-                                            </div>
-                                        </div>
-                                        <p style={{ fontSize: "0.83rem", color: "#64748b", lineHeight: 1.55, margin: 0 }}>{t.text}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Trust stats bar */}
-                        <div style={{
-                            marginTop: 8, padding: "0.5rem 0.75rem",
-                            borderRadius: 10,
-                            background: "rgba(34,211,238,0.06)",
-                            border: "1px solid rgba(34,211,238,0.15)",
-                            display: "flex", justifyContent: "space-around",
-                        }}>
-                            {[
-                                { val: "4.9/5", lbl: "Rating Purata" },
-                                { val: "50K+", lbl: "Pengguna Aktif" },
-                                { val: "2024–2026", lbl: "Online" },
-                            ].map((s) => (
-                                <div key={s.lbl} style={{ textAlign: "center" }}>
-                                    <div style={{ fontSize: "0.9rem", fontWeight: 900, color: "#ff3333" }}>{s.val}</div>
-                                    <div style={{ fontSize: "0.68rem", color: "#334155", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>{s.lbl}</div>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
+                    {/* ── Social Proof Carousel ── */}
+                    <TestimonialCarousel />
 
                 </div>
             </main>
@@ -1991,6 +1857,37 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                     color: transparent !important;
                     text-shadow: none !important;
                     filter: drop-shadow(0 0 8px rgba(255, 165, 0, 0.6)) drop-shadow(0 0 16px rgba(255, 215, 0, 0.4));
+                }
+
+                /* Testimonial Carousel Animations */
+                @keyframes slideInRight {
+                    from {
+                        opacity: 0;
+                        transform: translateX(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+
+                @keyframes slideInLeft {
+                    from {
+                        opacity: 0;
+                        transform: translateX(-30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+
+                .animate-slide-in-right {
+                    animation: slideInRight 0.5s ease-out forwards;
+                }
+
+                .animate-slide-in-left {
+                    animation: slideInLeft 0.5s ease-out forwards;
                 }
             `}</style>
         </>
