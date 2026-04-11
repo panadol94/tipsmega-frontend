@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 
 export default function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const hasInteractedRef = useRef(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -22,6 +23,31 @@ export default function BackgroundMusic() {
     };
 
     playAttempt();
+
+    // Listen for first user interaction to unmute
+    const handleInteraction = () => {
+      if (hasInteractedRef.current) return;
+      hasInteractedRef.current = true;
+      
+      if (audio) {
+        audio.muted = false;
+        audio.play().catch(() => {
+          console.log('Play failed after interaction');
+        });
+      }
+    };
+
+    // Add listeners for common interaction events
+    const events = ['click', 'touchstart', 'keydown'];
+    events.forEach(event => {
+      document.addEventListener(event, handleInteraction, { once: true });
+    });
+
+    return () => {
+      events.forEach(event => {
+        document.removeEventListener(event, handleInteraction);
+      });
+    };
   }, []);
 
   return (
