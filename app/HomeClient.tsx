@@ -330,9 +330,13 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
 
         const params = new URLSearchParams(window.location.search);
         const ref = params.get("ref");
+        const authParam = params.get("auth");
         if (ref) {
             localStorage.setItem("tipsmega_joined_from_ref", ref);
             console.log("Ref detected:", ref);
+        }
+        if (authParam === "login" || authParam === "register") {
+            setAuthOpen(authParam);
         }
 
         const checkIpChange = async () => {
