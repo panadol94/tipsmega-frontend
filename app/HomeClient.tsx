@@ -5,6 +5,7 @@ import { animate, utils } from "animejs";
 import Link from "next/link";
 import { Flame, HelpCircle, Star, Gamepad2, Send, Trophy } from "lucide-react";
 import Toast, { ToastType } from "./ui/Toast";
+import TypewriterText from "./ui/TypewriterText";
 import TypewriterHero from "./components/TypewriterHero";
 import MatrixBackground from "./components/MatrixBackground";
 import TerminalStatus from "./components/TerminalStatus";
