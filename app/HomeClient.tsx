@@ -15,6 +15,7 @@ import HackerScanOverlay from "./ui/HackerScanOverlay";
 import AuthModal from "./ui/AuthModal";
 import InstallPrompt from "./ui/InstallPrompt";
 import TestimonialCarousel from "./components/TestimonialCarousel";
+import HeroCarousel from "./components/HeroCarousel";
 
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
 import { useStarSync } from "./lib/useStarSync";
@@ -580,8 +581,16 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
                         </p>
                     </div>
 
-                    {/* Scanner Card */}
-                    <section className="card relative overflow-hidden p-4 tm-scan tm-scan-pulse terminal-border-red bg-[#0d1321]/90 rounded-2xl">
+                    {/* Hero Carousel - Replaces Scanner Card */}
+                    <section className="tm-hero" aria-label="Hero Carousel">
+                        <HeroCarousel onScanClick={() => {
+                            // Scroll to scanner section
+                            document.getElementById('scanner-section')?.scrollIntoView({ behavior: 'smooth' });
+                        }} />
+                    </section>
+
+                    {/* Scanner Section - Below Carousel */}
+                    <section id="scanner-section" className="card relative overflow-hidden p-4 tm-scan tm-scan-pulse terminal-border-red bg-[#0d1321]/90 rounded-2xl">
                         {/* Terminal header bar */}
                         <div className="flex items-center gap-2 mb-3 pb-2 border-b border-red-500/20">
                             <div className="flex gap-1.5">

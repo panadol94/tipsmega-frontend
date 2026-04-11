@@ -46,6 +46,11 @@ export const metadata = {
   alternates: {
     canonical: "https://tipsmega888.com",
   },
+  other: {
+    preload: [
+      { rel: 'preload', href: '/carousel/image-1-1.png', as: 'image', type: 'image/png' }
+    ],
+  },
 };
 
 export default function Page() {
