@@ -14,6 +14,7 @@ interface SlideConfig {
   // Mobile optimization settings
   mobileObjectPosition?: string; // CSS object-position for mobile
   mobileSafe?: boolean; // Whether slide works well on mobile
+  mobileFeatured?: boolean; // Whether slide is safe enough for mobile rotation
   mobileFallback?: "show" | "skip" | "placeholder"; // Behavior on mobile
   focalPoint?: { x: string; y: string }; // Focal point for mobile cropping
 }
@@ -25,6 +26,7 @@ const slides: SlideConfig[] = [
     description: "TipsMega888 Komuniti Mega888 Malaysia 2026 - AI RTP Scanner",
     mobileObjectPosition: "center 30%",
     mobileSafe: true,
+    mobileFeatured: true,
     mobileFallback: "show",
     focalPoint: { x: "center", y: "30%" }
   },
@@ -34,6 +36,7 @@ const slides: SlideConfig[] = [
     description: "Komuniti WhatsApp Mega888 Malaysia - Tips dan Strategi",
     mobileObjectPosition: "center 40%",
     mobileSafe: true,
+    mobileFeatured: true,
     mobileFallback: "show",
     focalPoint: { x: "center", y: "40%" }
   },
@@ -43,6 +46,7 @@ const slides: SlideConfig[] = [
     description: "AI Scanner Mega888 - Analisis RTP Live Real-time",
     mobileObjectPosition: "center 35%",
     mobileSafe: true,
+    mobileFeatured: false,
     mobileFallback: "show",
     focalPoint: { x: "center", y: "35%" }
   },
@@ -52,6 +56,7 @@ const slides: SlideConfig[] = [
     description: "Tips Menang Mega888 - Panduan Pro Player",
     mobileObjectPosition: "center 30%",
     mobileSafe: true,
+    mobileFeatured: false,
     mobileFallback: "show",
     focalPoint: { x: "center", y: "30%" }
   },
@@ -61,6 +66,7 @@ const slides: SlideConfig[] = [
     description: "Download Mega888 APK - Official Malaysia 2026",
     mobileObjectPosition: "center 25%",
     mobileSafe: true,
+    mobileFeatured: false,
     mobileFallback: "show",
     focalPoint: { x: "center", y: "25%" }
   },
@@ -70,6 +76,7 @@ const slides: SlideConfig[] = [
     description: "Register Akaun Mega888 - Tutorial Lengkap",
     mobileObjectPosition: "center 20%",
     mobileSafe: false,
+    mobileFeatured: false,
     mobileFallback: "skip", // Skip on mobile - too dense with 4 grid sections
     focalPoint: { x: "center", y: "20%" }
   },
@@ -79,6 +86,7 @@ const slides: SlideConfig[] = [
     description: "Free Credit Mega888 - Bonus dan Promosi",
     mobileObjectPosition: "center 30%",
     mobileSafe: true,
+    mobileFeatured: false,
     mobileFallback: "show",
     focalPoint: { x: "center", y: "30%" }
   },
@@ -88,6 +96,7 @@ const slides: SlideConfig[] = [
     description: "Trusted Agent Mega888 - Platform Sahih Malaysia",
     mobileObjectPosition: "left center",
     mobileSafe: true,
+    mobileFeatured: true,
     mobileFallback: "show",
     focalPoint: { x: "20%", y: "center" }
   },
@@ -97,13 +106,14 @@ const slides: SlideConfig[] = [
     description: "Scan Sekarang Mega888 - Join Komuniti VIP",
     mobileObjectPosition: "center 25%",
     mobileSafe: false,
+    mobileFeatured: false,
     mobileFallback: "skip", // Skip on mobile - too dense with 4 feature boxes
     focalPoint: { x: "center", y: "25%" }
   },
 ];
 
-// Filter slides for mobile - removes slides marked as skip on mobile
-const getMobileSlides = () => slides.filter(s => s.mobileFallback !== "skip");
+// Mobile uses a curated animated subset to avoid problematic slides
+const getMobileSlides = () => slides.filter((s) => s.mobileFeatured && s.mobileFallback !== "skip");
 
 // JSON-LD Schema for ImageGallery
 const imageGallerySchema = {
@@ -130,7 +140,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
   const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const autoSwipeRef = useRef<NodeJS.Timeout | null>(null);
-  const AUTO_SWIPE_INTERVAL = 5000; // 5 seconds
+  const AUTO_SWIPE_INTERVAL = 6500; // 6.5 seconds
 
   // Detect mobile on client side
   useEffect(() => {
@@ -169,7 +179,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
 
   // Auto-swipe timer
   useEffect(() => {
-    if (isPaused || isDragging || activeSlides.length <= 1 || isMobile) {
+    if (isPaused || isDragging || activeSlides.length <= 1) {
       if (autoSwipeRef.current) {
         clearInterval(autoSwipeRef.current);
         autoSwipeRef.current = null;
@@ -186,7 +196,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
         clearInterval(autoSwipeRef.current);
       }
     };
-  }, [isPaused, isDragging, nextSlide, activeSlides.length, isMobile]);
+  }, [isPaused, isDragging, nextSlide, activeSlides.length]);
 
   // Touch/Drag handlers
   const handleDragStart = (clientX: number) => {
