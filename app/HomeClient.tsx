@@ -76,7 +76,6 @@ async function apiScan(deviceId: string, megaId: string) {
 
 export default function HomeClient({ children }: { children?: React.ReactNode }) {
     const pathname = usePathname();
-    const router = useRouter();
     const [deviceId, setDeviceId] = useState<string>("");
     const [stars, setStars] = useState<number>(0);
 
@@ -329,15 +328,15 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
 
         handleAuthParam();
 
-        // Listen for router events (handles Next.js Link navigation)
-        router.events.on("routeChangeComplete", handleAuthParam);
+        // Poll URL changes (reliable for static export + SPA navigation)
+        const interval = setInterval(handleAuthParam, 200);
         window.addEventListener("popstate", handleAuthParam);
 
         return () => {
-            router.events.off("routeChangeComplete", handleAuthParam);
+            clearInterval(interval);
             window.removeEventListener("popstate", handleAuthParam);
         };
-    }, [router]);
+    }, []);
 
     useEffect(() => {
         if (typeof window === "undefined") return;
