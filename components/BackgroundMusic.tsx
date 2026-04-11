@@ -1,37 +1,47 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const hasInteractedRef = useRef(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+    
     const audio = audioRef.current;
     if (!audio) return;
 
     audio.volume = 0.3;
     audio.loop = true;
     
-    // Try autoplay muted first (browser policy)
-    const playAttempt = async () => {
-      try {
-        await audio.play();
-      } catch (err) {
-        console.log('Autoplay blocked');
-      }
-    };
+    // Delay to ensure hydration is complete
+    const timer = setTimeout(() => {
+      const playAttempt = async () => {
+        try {
+          await audio.play();
+        } catch (err) {
+          console.log('Autoplay blocked, waiting for interaction');
+        }
+      };
+      playAttempt();
+    }, 100);
 
-    playAttempt();
+    return () => clearTimeout(timer);
 
     // Listen for first user interaction to unmute
     const handleInteraction = () => {
       if (hasInteractedRef.current) return;
       hasInteractedRef.current = true;
       
-      if (audio) {
-        audio.muted = false;
-        audio.play().catch(() => {
+      if (audioRef.current) {
+        audioRef.current.muted = false;
+        audioRef.current.play().catch(() => {
           console.log('Play failed after interaction');
         });
       }
@@ -48,7 +58,10 @@ export default function BackgroundMusic() {
         document.removeEventListener(event, handleInteraction);
       });
     };
-  }, []);
+  }, [isMounted]);
+
+  // Don't render on server
+  if (!isMounted) return null;
 
   return (
     <audio
