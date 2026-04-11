@@ -248,8 +248,8 @@ export default function Page() {
           </div>
           <div className="relative z-10 mb-3 flex flex-wrap items-center justify-between gap-2 px-1">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.35em] text-yellow-300/80">Mega Jackpot Access</p>
-              <h2 className="text-sm font-extrabold text-white">Spin terus masuk ke lobby komuniti VIP</h2>
+              <p className="text-[10px] font-black uppercase tracking-[0.35em] text-yellow-300/80">Join Komuniti Mega888</p>
+              <h2 className="text-sm font-extrabold text-white">Join komuniti VIP untuk spin, update, dan lobby access</h2>
             </div>
             <span className="rounded-full border border-yellow-300/30 bg-yellow-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-yellow-200">
               3 Reel Bonus
@@ -258,8 +258,8 @@ export default function Page() {
 
           <SlotMachineButton
             href="https://masuk10.com/Prospinner"
-            label="PLAY NOW"
-            sublabel="3 reels, fast spin, instant jackpot vibe"
+            label="JOIN KOMUNITI VIP"
+            sublabel="masuk group, spin lobby, dan akses komuniti terus"
             pattern={["💎", "7", "💎"]}
           />
         </div>
