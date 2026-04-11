@@ -41,7 +41,7 @@ function LazyVideo({
           observer.disconnect();
         }
       },
-      { rootMargin: "200px", threshold: 0.1 }
+      { rootMargin: "50px", threshold: 0.01 }
     );
     if (containerRef.current) {
       observer.observe(containerRef.current);
@@ -55,29 +55,18 @@ function LazyVideo({
         <video
           src={mediaUrl}
           title={title}
-          preload="metadata"
+          preload="none"
           className="premium-media"
           muted
           playsInline
-          autoPlay
-          loop
           poster={poster}
-          onLoadedData={(e) => {
-            const v = e.currentTarget;
-            v.muted = true;
-            v.defaultMuted = true;
-            v.autoplay = true;
-            v.playsInline = true;
-            v.play();
-          }}
           onCanPlay={(e) => {
             const v = e.currentTarget;
             v.muted = true;
             v.defaultMuted = true;
-            v.autoplay = true;
             v.playsInline = true;
-            v.play();
           }}
+          onClick={() => { try { e.currentTarget.play(); } catch {} }}
         />
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
