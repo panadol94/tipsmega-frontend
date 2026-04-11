@@ -3034,57 +3034,57 @@ a {
   }
 }
 
-/* Mobile: 4 columns for company grid */
+/* Mobile: 3 columns for company grid */
 @media (max-width: 640px) {
   .premium-company-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.35rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
   }
 
   .premium-company-card {
-    border-radius: 10px;
+    border-radius: 12px;
   }
 
   .premium-card-body {
-    padding: 0.4rem 0.3rem 0.5rem;
-    gap: 3px;
+    padding: 0.5rem 0.4rem 0.6rem;
+    gap: 4px;
   }
 
   .premium-company-name {
-    font-size: 0.5rem;
+    font-size: 0.6rem;
     line-height: 1.1;
   }
 
   .premium-rating-row {
-    gap: 2px;
+    gap: 3px;
   }
 
   .premium-star {
-    font-size: 0.45rem;
+    font-size: 0.55rem;
   }
 
   .premium-rating-value {
-    font-size: 0.45rem;
+    font-size: 0.55rem;
   }
 
   .premium-badge-row {
-    top: 4px;
-    left: 4px;
-    gap: 2px;
+    top: 6px;
+    left: 6px;
+    gap: 3px;
   }
 
   .premium-badge {
-    padding: 2px 5px;
-    font-size: 0.4rem;
+    padding: 2px 6px;
+    font-size: 0.45rem;
   }
 
   .premium-btn-container {
-    margin-top: 2px;
+    margin-top: 4px;
   }
 
   .premium-get-link-btn {
-    padding: 4px 8px !important;
-    font-size: 0.45rem !important;
+    padding: 5px 10px !important;
+    font-size: 0.5rem !important;
   }
 }
 
