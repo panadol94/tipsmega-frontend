@@ -212,7 +212,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
       >
         {/* Carousel Container */}
         <div
-          className="relative aspect-[4/3] sm:aspect-[16/9] w-full cursor-grab active:cursor-grabbing select-none"
+          className="relative aspect-[16/10] sm:aspect-[16/9] w-full bg-slate-950 cursor-grab active:cursor-grabbing select-none"
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -241,7 +241,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
                   src={slide.src}
                   alt={slide.alt}
                   fill
-                  className="object-cover object-center"
+                  className="object-contain object-center sm:object-cover"
                   priority={index === 0}
                   loading={index === 0 ? "eager" : "lazy"}
                   quality={100}
