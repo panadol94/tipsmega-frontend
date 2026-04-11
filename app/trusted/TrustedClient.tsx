@@ -58,6 +58,8 @@ function LazyVideo({
           preload="metadata"
           className="premium-media"
           muted
+          autoPlay
+          loop
           playsInline
           poster={poster}
           onCanPlay={(e) => {
@@ -65,8 +67,10 @@ function LazyVideo({
             v.muted = true;
             v.defaultMuted = true;
             v.playsInline = true;
+            const p = v.play();
+            if (p && typeof p.catch === "function") p.catch(() => {});
           }}
-          onClick={() => { try { e.currentTarget.play(); } catch {} }}
+          onClick={(e) => { try { e.currentTarget.play(); } catch {} }}
         />
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
