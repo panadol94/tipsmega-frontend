@@ -76,6 +76,7 @@ async function apiScan(deviceId: string, megaId: string) {
 
 export default function HomeClient({ children }: { children?: React.ReactNode }) {
     const pathname = usePathname();
+    const router = useRouter();
     const [deviceId, setDeviceId] = useState<string>("");
     const [stars, setStars] = useState<number>(0);
 
@@ -329,7 +330,6 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
         handleAuthParam();
 
         // Listen for router events (handles Next.js Link navigation)
-        const router = useRouter();
         router.events.on("routeChangeComplete", handleAuthParam);
         window.addEventListener("popstate", handleAuthParam);
 
@@ -337,7 +337,7 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
             router.events.off("routeChangeComplete", handleAuthParam);
             window.removeEventListener("popstate", handleAuthParam);
         };
-    }, []);
+    }, [router]);
 
     useEffect(() => {
         if (typeof window === "undefined") return;
