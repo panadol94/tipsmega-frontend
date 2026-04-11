@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import ClientLayout from "./ClientLayout";
+import BackgroundMusic from "@/components/BackgroundMusic";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tipsmega888.com"),
@@ -245,6 +246,7 @@ export default function RootLayout({
       </head>
       <body>
         <ClientLayout>{children}</ClientLayout>
+        <BackgroundMusic />
       </body>
     </html>
   );
