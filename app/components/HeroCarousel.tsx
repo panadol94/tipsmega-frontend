@@ -202,7 +202,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
       </div>
 
       <div
-        className="relative w-full overflow-hidden rounded-2xl"
+        className="relative w-full overflow-hidden rounded-[1.35rem] border border-white/10 bg-slate-950/70 shadow-[0_20px_60px_rgba(0,0,0,0.38)]"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={handleMouseLeave}
         ref={containerRef}
@@ -212,7 +212,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
       >
         {/* Carousel Container */}
         <div
-          className="relative aspect-[16/9] w-full cursor-grab active:cursor-grabbing"
+          className="relative aspect-[4/3] sm:aspect-[16/9] w-full cursor-grab active:cursor-grabbing select-none"
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -241,17 +241,19 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
                   src={slide.src}
                   alt={slide.alt}
                   fill
-                  className="object-cover"
+                  className="object-cover object-center"
                   priority={index === 0}
                   loading={index === 0 ? "eager" : "lazy"}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                  quality={100}
+                  draggable={false}
+                  sizes="100vw"
                 />
                 {/* Gradient overlay for text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 via-slate-950/10 to-transparent" />
                 
                 {/* Scan CTA Button - positioned at bottom */}
                 {index === 0 && onScanClick && (
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10">
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 sm:bottom-4">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -271,7 +273,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
 
         {/* Dot Indicators */}
         <div 
-          className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-950/60 backdrop-blur-sm border border-white/10"
+          className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-950/55 backdrop-blur-sm border border-white/10"
           role="tablist"
           aria-label="Carousel navigation dots"
         >
@@ -279,10 +281,10 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
+              className={`rounded-full transition-all duration-300 ${
                 index === currentIndex
-                  ? "w-5 bg-amber-400"
-                  : "w-2 bg-white/40 hover:bg-white/60"
+                  ? "h-2.5 w-6 bg-amber-400 shadow-[0_0_14px_rgba(251,191,36,0.45)]"
+                  : "h-2.5 w-2.5 bg-white/45 hover:bg-white/65"
               }`}
               aria-label={`Go to slide ${index + 1} of ${slides.length}`}
               aria-selected={index === currentIndex}
@@ -295,7 +297,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
         {/* Navigation Arrows (visible on hover) */}
         <button
           onClick={prevSlide}
-          className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/60 backdrop-blur-sm border border-white/10 text-white/80 hover:text-white hover:bg-slate-900/80 transition-all duration-300 opacity-0 hover:opacity-100 focus:opacity-100 flex items-center justify-center"
+          className="absolute left-2 top-1/2 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-slate-950/60 text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-slate-900/80 hover:text-white focus:opacity-100 sm:flex"
           aria-label="Previous slide"
         >
           <svg
@@ -315,7 +317,7 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/60 backdrop-blur-sm border border-white/10 text-white/80 hover:text-white hover:bg-slate-900/80 transition-all duration-300 opacity-0 hover:opacity-100 focus:opacity-100 flex items-center justify-center"
+          className="absolute right-2 top-1/2 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-slate-950/60 text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-slate-900/80 hover:text-white focus:opacity-100 sm:flex"
           aria-label="Next slide"
         >
           <svg
@@ -334,11 +336,6 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
           </svg>
         </button>
 
-        {/* Slide counter */}
-        <div className="absolute top-2 right-2 px-2 py-1 rounded-full bg-slate-950/60 backdrop-blur-sm border border-white/10 text-xs font-medium text-white/70" aria-live="polite" aria-atomic="true">
-          <span className="sr-only">Current slide</span>
-          {currentIndex + 1} / {slides.length}
-        </div>
       </div>
     </>
   );
