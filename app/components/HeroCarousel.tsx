@@ -361,30 +361,14 @@ export default function HeroCarousel({ onScanClick }: HeroCarouselProps) {
                 />
                 {/* Gradient overlay for text readability */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 via-slate-950/10 to-transparent" />
-                
-                {/* Scan CTA Button - positioned at bottom (only on first visible slide) */}
-                {index === 0 && onScanClick && (
-                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 sm:bottom-4">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onScanClick();
-                      }}
-                      className="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold text-sm rounded-full shadow-lg shadow-red-500/30 hover:shadow-red-500/50 hover:scale-105 transition-all duration-300 border border-red-400/50"
-                      aria-label="Start scanning your Mega888 ID now"
-                    >
-                      🔍 Scan Now
-                    </button>
-                  </div>
-                )}
               </div>
             ))}
           </div>
         </div>
 
-        {/* Dot Indicators */}
+        {/* Dot Indicators - desktop only, hidden on mobile */}
         <div 
-          className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-2 py-1 rounded-full bg-slate-950/55 backdrop-blur-sm border border-white/10 sm:bottom-3 sm:gap-2 sm:px-3 sm:py-1.5"
+          className="absolute bottom-2 left-1/2 -translate-x-1/2 hidden items-center gap-1.5 px-2 py-1 rounded-full bg-slate-950/55 backdrop-blur-sm border border-white/10 sm:bottom-3 sm:gap-2 sm:px-3 sm:py-1.5 sm:flex"
           role="tablist"
           aria-label="Carousel navigation dots"
         >
