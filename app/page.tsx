@@ -4,28 +4,34 @@ import SlotMachineButton from "./components/SlotMachineButton";
 import SharedPageNav from "./ui/SharedPageNav";
 
 export const metadata = {
-  title: "TipsMega888 | AI RTP Scanner Mega888 2026 & Komuniti Slot Malaysia",
+  title: "Tips Mega888 Malaysia 2026 | AI RTP Scanner & Komuniti Slot #1",
   description:
-    "TipsMega888 platform komuniti Mega888 Malaysia #1 dengan AI RTP Scanner percuma. Join group WhatsApp Mega888, tips slot gacor 2026, trusted company list. Data RTP live, jackpot community wins.",
+    "Tips Mega888 Malaysia 2026 — Platform komuniti Mega888 #1 dengan AI RTP Scanner percuma. Join group WhatsApp, tips slot gacor hari ini, download APK original. Data RTP live & community wins.",
   keywords: [
+    "tips mega888",
     "tipsmega888",
     "mega888",
     "mega888 hack",
     "scanner mega888",
     "rtp mega888",
-    "tips mega888",
     "group whatsapp mega888",
     "mega888 community",
     "mega888 scanner ai",
     "download apk mega888",
     "mega888 trusted company",
+    "tips slot mega888",
+    "mega888 malaysia",
+    "apk mega888 original",
+    "tips mega888 hari ini",
+    "cara menang mega888",
+    "slot gacor mega888",
   ],
   openGraph: {
-    title: "TipsMega888 | AI RTP Scanner Mega888 2026 & Komuniti Slot Malaysia",
+    title: "Tips Mega888 Malaysia 2026 | AI RTP Scanner & Komuniti Slot #1",
     description:
-      "Platform #1 komuniti Mega888 Malaysia dengan AI RTP Scanner percuma. Join group WhatsApp, tips slot gacor, trusted company.",
+      "Tips Mega888 Malaysia 2026 — Platform komuniti Mega888 #1 dengan AI RTP Scanner percuma. Join group WhatsApp, tips slot gacor hari ini, download APK original.",
     url: "https://tipsmega888.com",
-    siteName: "TipsMega888",
+    siteName: "Tips Mega888",
     locale: "ms_MY",
     type: "website",
     images: [
@@ -33,15 +39,15 @@ export const metadata = {
         url: "https://tipsmega888.com/wins/win-4.jpg",
         width: 1200,
         height: 630,
-        alt: "TipsMega888 - AI RTP Scanner Mega888 Malaysia",
+        alt: "Tips Mega888 Malaysia - AI RTP Scanner & Komuniti Slot",
       },
     ],
   },
   twitter: {
     card: "summary_large_image" as const,
-    title: "TipsMega888 | AI RTP Scanner Mega888 2026 & Komuniti Slot Malaysia",
+    title: "Tips Mega888 Malaysia 2026 | AI RTP Scanner & Komuniti Slot #1",
     description:
-      "AI RTP Scanner percuma Mega888 Malaysia. Join group WhatsApp, tips slot gacor.",
+      "Tips Mega888 Malaysia 2026 — Platform komuniti Mega888 #1 dengan AI RTP Scanner percuma. Join group WhatsApp, tips slot gacor.",
     images: ["https://tipsmega888.com/wins/win-4.jpg"],
   },
   alternates: {
@@ -64,9 +70,9 @@ export default function Page() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            name: "TipsMega888",
+            name: "Tips Mega888",
             url: "https://tipsmega888.com",
-            description: "Platform rujukan Mega888 Malaysia dengan scanner, panduan penggunaan, dan halaman utama untuk topik berkaitan RTP, download, serta trusted agent.",
+            description: "Platform Tips Mega888 Malaysia dengan AI RTP Scanner, panduan penggunaan, dan halaman utama untuk topik berkaitan tips mega888, download, serta trusted agent.",
             inLanguage: "ms-MY",
             potentialAction: {
               "@type": "SearchAction",
@@ -98,10 +104,10 @@ export default function Page() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            name: "TipsMega888",
+            name: "Tips Mega888",
             url: "https://tipsmega888.com",
             logo: "https://tipsmega888.com/og-image.webp",
-            description: "Platform rujukan Mega888 Malaysia dengan scanner, panduan, dan komuniti pemain aktif.",
+            description: "Platform Tips Mega888 Malaysia dengan AI RTP Scanner, panduan, dan komuniti pemain aktif.",
             sameAs: [
               "https://tipsmega888.com/mega888",
               "https://tipsmega888.com/blog",
@@ -171,11 +177,11 @@ export default function Page() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Product",
-            name: "Mega888 AI RTP Scanner & Community",
-            description: "AI-powered RTP scanner untuk Mega888 dengan komuniti aktif Malaysia",
+            name: "Tips Mega888 AI RTP Scanner & Community",
+            description: "AI-powered RTP scanner untuk tips mega888 dengan komuniti aktif Malaysia",
             brand: {
               "@type": "Brand",
-              name: "TipsMega888"
+              name: "Tips Mega888"
             },
             aggregateRating: {
               "@type": "AggregateRating",
@@ -201,12 +207,12 @@ export default function Page() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            name: "TipsMega888 AI RTP Scanner",
+            name: "Tips Mega888 AI RTP Scanner",
             url: "https://tipsmega888.com",
             applicationCategory: "UtilitiesApplication",
             operatingSystem: "Web",
             offers: { "@type": "Offer", price: "0", priceCurrency: "MYR" },
-            description: "Alat rujukan berasaskan web untuk semakan RTP live dan panduan penggunaan di TipsMega888.",
+            description: "Tips Mega888 Malaysia - AI RTP Scanner percuma untuk analisis slot Mega888. Tingkatkan peluang menang dengan data real-time.",
           }),
         }}
       />
@@ -309,22 +315,24 @@ export default function Page() {
       {/* ── SEO LONG-FORM CONTENT ── */}
       <div className="px-4 py-8 mb-6 mt-4 max-w-4xl mx-auto border-t border-white/10">
         <article className="prose prose-sm prose-invert max-w-none">
-          <h1 className="text-xl font-bold text-white mb-4 text-center">TipsMega888: Platform #1 Komuniti Mega888 Malaysia 2026</h1>
+          <h1 className="text-xl font-bold text-white mb-4 text-center">Tips Mega888 Malaysia 2026 | Platform #1 Komuniti & AI RTP Scanner</h1>
           
           <section className="space-y-4 text-[12px] text-white/70 leading-relaxed">
-            <h2 className="text-lg font-semibold text-white/90 mt-6">Apa Itu TipsMega888?</h2>
+            <h2 className="text-lg font-semibold text-white/90 mt-6">Apa Itu Tips Mega888?</h2>
             <p>
-              <strong className="text-white">TipsMega888</strong> ialah platform <strong>komuniti Mega888 Malaysia</strong> yang menyediakan <strong>AI RTP Scanner percuma</strong> untuk analisis slot secara real-time. 
+              <strong className="text-white">Tips Mega888</strong> ialah platform <strong>komuniti Mega888 Malaysia</strong> yang menyediakan <strong>AI RTP Scanner percuma</strong> untuk analisis slot secara real-time. 
               Dengan lebih 50,000 ahli aktif dalam <strong>group WhatsApp Mega888</strong>, kami menjadi pilihan utama pemain 
               yang mencari <strong>tips mega888</strong>, <strong>scanner mega888</strong>, dan maklumat <strong>rtp mega888</strong> terkini.
+              Tips Mega888 Malaysia 2026 menyediakan segala yang anda perlukan untuk meningkatkan peluang menang dengan selamat.
             </p>
 
-            <h2 className="text-lg font-semibold text-white/90 mt-6">Cara Guna AI RTP Scanner TipsMega888</h2>
+            <h2 className="text-lg font-semibold text-white/90 mt-6">Cara Guna AI RTP Scanner Tips Mega888</h2>
             <p>
               Sistem <strong>AI Scanner Mega888</strong> kami menganalisis ribuan data setiap hari untuk memberi ramalan 
               <strong>slot gacor</strong> dengan kebarangkalian menang tertinggi. Berbeza dengan 
               <strong>mega888 hack</strong> atau <strong>software hack mega888</strong> yang berbahaya dan haram, 
               AI Scanner kami menggunakan analisis data sahih untuk meningkatkan peluang anda secara legal.
+              Tips mega888 hari ini sentiasa dikemas kini supaya anda tidak terlepas peluang menang besar.
             </p>
 
             <h2 className="text-lg font-semibold text-white/90 mt-6">Download APK Mega888 Original Malaysia</h2>
@@ -333,6 +341,7 @@ export default function Page() {
               <strong>Trusted Company</strong> yang disahkan. Elakkan 
               <strong>APK hack mega888</strong> atau <strong>mega888 mod</strong> yang boleh merosakkan telefon dan curi data peribadi. 
               Dapatkan <strong>APK Mega888 original</strong> sahaja daripada ejen berlesen dalam senarai trusted kami.
+              Tips mega888 percuma ini memastikan anda bermain dengan selamat tanpa risiko akaun kena hack.
             </p>
 
             <h2 className="text-lg font-semibold text-white/90 mt-6">Komuniti Mega888 Malaysia & Group WhatsApp</h2>
@@ -341,6 +350,7 @@ export default function Page() {
               <strong>mega888 community wins</strong>, <strong>big jackpot</strong>, dan 
               <strong>tips slot mega888</strong> secara live. Ahli komuniti aktif berkongsi 
               screenshot menang, strategi terkini, dan maklumat slot yang sedang <strong>gacor</strong>.
+              Tips Mega888 komuniti ini membantu ratusan pemain setiap hari untuk menang lebih konsisten.
             </p>
 
             <h2 className="text-lg font-semibold text-white/90 mt-6">Tips Slot Mega888 2026: Cara Menang Consisten</h2>
@@ -348,7 +358,7 @@ export default function Page() {
               Berdasarkan data <strong>rtp mega888</strong> daripada AI Scanner, slot yang paling senang menang termasuk 
               Fortune Dragon, Ocean Princess, Sweet Bonanza, dan Gates of Olympus. 
               Gunakan <strong>tips mega hari ini</strong> yang dikemas kini setiap hari untuk pilih slot dengan 
-              <strong>RTP tertinggi</strong>.
+              <strong>RTP tertinggi</strong>. Tips mega888 malaysia 2026 membantu anda memilih game dengan kebarangkalian menang paling tinggi.
             </p>
 
             <h2 className="text-lg font-semibold text-white/90 mt-6">Mega888 Trusted Company List</h2>
@@ -357,15 +367,16 @@ export default function Page() {
               29 ejen berlesen dengan rating, review, dan statistik withdraw. 
               Pilih platform dengan <strong>withdrawal speed</strong> terpantas dan 
               <strong>customer support</strong> 24/7 untuk pengalaman terbaik.
+              Tips mega888 untuk pemula: sentiasa pilih ejen daripada senarai trusted untuk elak penipuan.
             </p>
 
-            <h2 className="text-lg font-semibold text-white/90 mt-6">Kesimpulan: TipsMega888 vs Hack Mega888</h2>
+            <h2 className="text-lg font-semibold text-white/90 mt-6">Kesimpulan: Tips Mega888 vs Hack Mega888</h2>
             <p>
-              <strong className="text-white">TipsMega888</strong> menawarkan cara <strong>selamat dan legal</strong> untuk 
+              <strong className="text-white">Tips Mega888</strong> menawarkan cara <strong>selamat dan legal</strong> untuk 
               meningkatkan peluang menang dengan <strong>analisis data</strong>. 
               Jangan guna <strong>mega888 hack</strong>, <strong>apk hack mega888</strong>, atau 
               <strong>software godam slot</strong> yang boleh menyebabkan akaun kena ban, 
-              virus, atau penipuan. Daftar percuma di TipsMega888 sekarang!
+              virus, atau penipuan. Daftar percuma di Tips Mega888 Malaysia sekarang untuk akses AI RTP Scanner dan komuniti VIP!
             </p>
           </section>
         </article>

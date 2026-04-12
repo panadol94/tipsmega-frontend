@@ -6,11 +6,11 @@ import BackgroundMusic from "@/components/BackgroundMusic";
 export const metadata: Metadata = {
   metadataBase: new URL("https://tipsmega888.com"),
   title: {
-    default: "TipsMega888 | AI RTP Scanner Mega888 2026 & Komuniti Slot Malaysia",
-    template: "%s | TipsMega888 Malaysia"
+    default: "Tips Mega888 Malaysia 2026 | AI RTP Scanner & Komuniti Slot #1",
+    template: "%s | Tips Mega888 Malaysia"
   },
   description:
-    "TipsMega888 platform komuniti Mega888 Malaysia #1 dengan AI RTP Scanner percuma. Join group WhatsApp Mega888, tips slot gacor 2026, trusted company list. Data RTP live, jackpot community wins. Tipsmega888, mega888 hack scanner, download APK original.",
+    "Tips Mega888 Malaysia 2026 — Platform komuniti Mega888 #1 dengan AI RTP Scanner percuma. Join group WhatsApp, tips slot gacor hari ini, download APK original. Data RTP live & community wins.",
   keywords: [
     "tipsmega888",
     "mega888",
@@ -36,11 +36,11 @@ export const metadata: Metadata = {
     "mega888 2026",
   ],
   openGraph: {
-    title: "TipsMega888 | AI RTP Scanner Mega888 2026 & Komuniti Slot Malaysia",
+    title: "Tips Mega888 Malaysia 2026 | AI RTP Scanner & Komuniti Slot #1",
     description:
-      "Platform #1 komuniti Mega888 Malaysia dengan AI RTP Scanner percuma. Join group WhatsApp, tips slot gacor, trusted company. Data RTP live & jackpot wins.",
+      "Tips Mega888 Malaysia 2026 — Platform komuniti Mega888 #1 dengan AI RTP Scanner percuma. Join group WhatsApp, tips slot gacor hari ini, download APK original. Data RTP live & community wins.",
     url: "https://tipsmega888.com",
-    siteName: "TipsMega888",
+    siteName: "Tips Mega888",
     locale: "ms_MY",
     type: "website",
     images: [
@@ -48,15 +48,15 @@ export const metadata: Metadata = {
         url: "https://tipsmega888.com/wins/win-4.jpg",
         width: 1200,
         height: 630,
-        alt: "TipsMega888 - AI RTP Scanner Mega888 Malaysia & Komuniti",
+        alt: "Tips Mega888 Malaysia - AI RTP Scanner & Komuniti Slot #1",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TipsMega888 | AI RTP Scanner Mega888 2026 & Komuniti Slot Malaysia",
+    title: "Tips Mega888 Malaysia 2026 | AI RTP Scanner & Komuniti Slot #1",
     description:
-      "AI RTP Scanner percuma Mega888 Malaysia. Join group WhatsApp, tips slot gacor, trusted company list.",
+      "Tips Mega888 Malaysia 2026 — Platform komuniti Mega888 #1 dengan AI RTP Scanner percuma. Join group WhatsApp, tips slot gacor hari ini.",
     images: ["https://tipsmega888.com/wins/win-4.jpg"],
   },
   alternates: {
@@ -216,7 +216,7 @@ export default function RootLayout({
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      name: "TipsMega888 AI RTP Scanner",
+      name: "Tips Mega888 AI RTP Scanner",
       applicationCategory: "UtilitiesApplication",
       operatingSystem: "Android, iOS, Web",
       offers: {
