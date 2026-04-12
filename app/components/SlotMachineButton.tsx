@@ -1,384 +1,484 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { animate } from "animejs";
-import confetti from "canvas-confetti";
 
-const SYMBOLS = ["7", "BAR", "🍒", "💎", "MEGA", "WIN", "PLAY"];
-const DEFAULT_PATTERN = ["7", "MEGA", "7"];
-const HOVER_PATTERN = ["PLAY", "NOW", "WIN"];
-
-type SlotMachineButtonProps = {
-  href: string;
-  className?: string;
-  label?: string;
-  sublabel?: string;
-  pattern?: string[];
-};
-
-function randomSymbol() {
-  return SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+interface JoinActivity {
+  name: string;
+  time: string;
 }
 
-export default function SlotMachineButton({
-  href,
+const RECENT_JOINS: JoinActivity[] = [
+  { name: "Ahmad R.", time: "2 minit lepas" },
+  { name: "Sarah M.", time: "5 minit lepas" },
+  { name: "Rizal K.", time: "8 minit lepas" },
+  { name: "Faiz A.", time: "12 minit lepas" },
+  { name: "Nurul L.", time: "15 minit lepas" },
+];
+
+const WHATSAPP_LINK = "https://chat.whatsapp.com/YourGroupLink";
+
+export default function WhatsAppGroupCTA({
   className = "",
-  label = "PLAY NOW",
-  sublabel = "Tap for jackpot access",
-  pattern = DEFAULT_PATTERN,
-}: SlotMachineButtonProps) {
-  const [reels, setReels] = useState<string[]>([...pattern]);
-  const [spinning, setSpinning] = useState(false);
-  const [hovering, setHovering] = useState(false);
-  const [jackpot, setJackpot] = useState(false);
-  const wrapRef = useRef<HTMLAnchorElement | null>(null);
-  const glowRef = useRef<HTMLDivElement | null>(null);
-  const reelIntervals = useRef<number[]>([]);
-  const mountedRef = useRef(false);
+}: {
+  className?: string;
+}) {
+  const [memberCount, setMemberCount] = useState(2847);
+  const [todayJoins, setTodayJoins] = useState(12);
+  const [currentJoinIndex, setCurrentJoinIndex] = useState(0);
+  const [timeLeft, setTimeLeft] = useState({ hours: 4, minutes: 23, seconds: 15 });
+  const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLAnchorElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
 
-  const finalPattern = useMemo(() => {
-    if (pattern.length === 3) return pattern;
-    return DEFAULT_PATTERN;
-  }, [pattern]);
-
-  const clearReels = () => {
-    reelIntervals.current.forEach((id) => window.clearInterval(id));
-    reelIntervals.current = [];
-  };
-
-  const burstCoins = () => {
-    confetti({
-      particleCount: 40,
-      spread: 60,
-      angle: 60,
-      startVelocity: 45,
-      origin: { x: 0.2, y: 0.55 },
-      colors: ["#ffd700", "#ffb700", "#fff2a8", "#ff5f1f"],
-      shapes: ["circle"],
-      scalar: 1.1,
-    });
-
-    confetti({
-      particleCount: 50,
-      spread: 65,
-      angle: 120,
-      startVelocity: 45,
-      origin: { x: 0.8, y: 0.55 },
-      colors: ["#ffd700", "#ffb700", "#fff2a8", "#ff5f1f"],
-      shapes: ["circle"],
-      scalar: 1.1,
-    });
-  };
-
-  const flashJackpot = () => {
-    setJackpot(true);
-    if (glowRef.current) {
-      animate(glowRef.current, {
-        opacity: [0.35, 1, 0.45],
-        scale: [1, 1.04, 1],
-        duration: 650,
-        easing: "easeOutExpo",
-      });
-    }
-
-    if (wrapRef.current) {
-      animate(wrapRef.current, {
-        scale: [1, 1.015, 1],
-        duration: 450,
-        easing: "easeOutBack",
-      });
-    }
-
-    window.setTimeout(() => setJackpot(false), 1100);
-  };
-
-  const spinTo = (target: string[], speed = 95, finalDelay = 1050) => {
-    clearReels();
-    setSpinning(true);
-
-    [0, 1, 2].forEach((index) => {
-      const interval = window.setInterval(() => {
-        setReels((prev) => {
-          const next = [...prev];
-          next[index] = randomSymbol();
-          return next;
-        });
-      }, speed + index * 20);
-      reelIntervals.current.push(interval);
-    });
-
-    target.forEach((symbol, index) => {
-      window.setTimeout(() => {
-        const interval = reelIntervals.current[index];
-        if (interval) window.clearInterval(interval);
-        setReels((prev) => {
-          const next = [...prev];
-          next[index] = symbol;
-          return next;
-        });
-      }, finalDelay + index * 220);
-    });
-
-    window.setTimeout(() => {
-      clearReels();
-      setSpinning(false);
-      flashJackpot();
-    }, finalDelay + target.length * 220 + 60);
-  };
-
+  // Countdown timer
   useEffect(() => {
-    mountedRef.current = true;
-    const timer = window.setTimeout(() => spinTo(finalPattern, 85, 850), 250);
-    return () => {
-      mountedRef.current = false;
-      window.clearTimeout(timer);
-      clearReels();
-    };
-  }, [finalPattern]);
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        let { hours, minutes, seconds } = prev;
+        seconds--;
+        if (seconds < 0) {
+          seconds = 59;
+          minutes--;
+        }
+        if (minutes < 0) {
+          minutes = 59;
+          hours--;
+        }
+        if (hours < 0) {
+          // Reset daily
+          return { hours: 23, minutes: 59, seconds: 59 };
+        }
+        return { hours, minutes, seconds };
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
+  // Rotate recent joins
   useEffect(() => {
-    if (!mountedRef.current || spinning) return;
-    if (hovering) {
-      spinTo(HOVER_PATTERN, 60, 520);
-    }
-  }, [hovering, spinning]);
+    const interval = setInterval(() => {
+      setCurrentJoinIndex((prev) => (prev + 1) % RECENT_JOINS.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
 
-  const handleClick = () => {
-    burstCoins();
-    spinTo(finalPattern, 55, 900);
-  };
+  // Simulate live member count increase
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (Math.random() > 0.7) {
+        setMemberCount((prev) => prev + 1);
+        setTodayJoins((prev) => prev + 1);
+      }
+    }, 15000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Hover animation
+  useEffect(() => {
+    if (cardRef.current && glowRef.current) {
+      if (isHovered) {
+        animate(cardRef.current, {
+          scale: [1, 1.02],
+          duration: 300,
+          easing: "easeOutCubic",
+        });
+        animate(glowRef.current, {
+          opacity: [0.3, 0.6],
+          duration: 300,
+          easing: "easeOutCubic",
+        });
+      } else {
+        animate(cardRef.current, {
+          scale: [1.02, 1],
+          duration: 300,
+          easing: "easeOutCubic",
+        });
+        animate(glowRef.current, {
+          opacity: [0.6, 0.3],
+          duration: 300,
+          easing: "easeOutCubic",
+        });
+      }
+    }
+  }, [isHovered]);
+
+  const formatTime = (num: number) => num.toString().padStart(2, "0");
 
   return (
     <a
-      ref={wrapRef}
-      href={href}
+      ref={cardRef}
+      href={WHATSAPP_LINK}
       target="_blank"
       rel="noopener noreferrer"
-      className={`slot-machine-button ${className}`}
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-      onClick={handleClick}
-      aria-label={label}
+      className={`whatsapp-cta-card ${className}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      aria-label="Join WhatsApp Group"
     >
-      <div ref={glowRef} className={`slot-machine-glow ${jackpot ? "is-jackpot" : ""}`} />
-      <div className="slot-machine-flash" />
-      <div className="slot-machine-topbar">
-        <span className="slot-machine-lamps" />
-        <span className={`slot-machine-jackpot ${jackpot ? "active" : ""}`}>JACKPOT</span>
-        <span className="slot-machine-lamps" />
-      </div>
+      <div ref={glowRef} className="whatsapp-cta-glow" />
+      <div className="whatsapp-cta-border" />
 
-      <div className="slot-machine-reels" aria-hidden="true">
-        {reels.map((symbol, index) => (
-          <div key={`${index}-${symbol}`} className={`slot-reel ${spinning ? "spinning" : ""}`}>
-            <div className="slot-reel-window">
-              <span className="slot-reel-symbol">{symbol}</span>
-            </div>
+      {/* Header Stats */}
+      <div className="whatsapp-cta-header">
+        <div className="stat-badge members">
+          <span className="stat-icon">👥</span>
+          <div className="stat-content">
+            <span className="stat-number">{memberCount.toLocaleString()}</span>
+            <span className="stat-label">orang dalam group</span>
           </div>
-        ))}
+        </div>
+        <div className="stat-badge joins">
+          <span className="stat-icon">🔴</span>
+          <div className="stat-content">
+            <span className="stat-number today">+{todayJoins}</span>
+            <span className="stat-label">hari ini</span>
+          </div>
+        </div>
       </div>
 
-      <div className="slot-machine-copy">
-        <span className="slot-machine-title">{label}</span>
-        <span className="slot-machine-subtitle">{sublabel}</span>
+      {/* Live Activity Feed */}
+      <div className="whatsapp-cta-activity">
+        <div className="activity-indicator">
+          <span className="pulse-dot" />
+          <span className="activity-label">LIVE</span>
+        </div>
+        <div className="activity-feed">
+          <span className="activity-text">
+            <strong>{RECENT_JOINS[currentJoinIndex].name}</strong> baru join
+          </span>
+          <span className="activity-time">
+            {RECENT_JOINS[currentJoinIndex].time}
+          </span>
+        </div>
+      </div>
+
+      {/* Urgency Section */}
+      <div className="whatsapp-cta-urgency">
+        <div className="urgency-item">
+          <span className="urgency-icon">⚡</span>
+          <span className="urgency-text">Limited: <strong>50 slot sahaja</strong></span>
+        </div>
+        <div className="urgency-item countdown">
+          <span className="urgency-icon">⏰</span>
+          <span className="urgency-text">
+            Reset dalam{" "}
+            <span className="countdown-timer">
+              {formatTime(timeLeft.hours)}:{formatTime(timeLeft.minutes)}:
+              {formatTime(timeLeft.seconds)}
+            </span>
+          </span>
+        </div>
+      </div>
+
+      {/* CTA Button */}
+      <div className="whatsapp-cta-button">
+        <span className="cta-icon">💬</span>
+        <span className="cta-text">JOIN GROUP SEKARANG</span>
+        <span className="cta-arrow">→</span>
+      </div>
+
+      {/* Value Props */}
+      <div className="whatsapp-cta-benefits">
+        <span className="benefit-item">✓ Tips gacor setiap hari</span>
+        <span className="benefit-item">✓ RTP scanner free</span>
+        <span className="benefit-item">✓ Jackpot alerts</span>
       </div>
 
       <style jsx>{`
-        .slot-machine-button {
+        .whatsapp-cta-card {
           position: relative;
           display: flex;
           flex-direction: column;
-          align-items: center;
-          gap: 12px;
+          gap: 14px;
           width: 100%;
-          padding: 18px 18px 16px;
+          padding: 20px;
           border-radius: 24px;
           overflow: hidden;
           text-decoration: none;
-          background:
-            radial-gradient(circle at top, rgba(255, 235, 160, 0.22), transparent 42%),
-            linear-gradient(180deg, #8e1111 0%, #4d0505 40%, #1f0303 100%);
-          border: 1px solid rgba(255, 221, 125, 0.45);
+          background: linear-gradient(
+            135deg,
+            rgba(15, 23, 42, 0.95) 0%,
+            rgba(8, 10, 18, 0.98) 100%
+          );
+          border: 1px solid rgba(34, 197, 94, 0.2);
           box-shadow:
-            inset 0 1px 0 rgba(255, 247, 200, 0.5),
-            inset 0 -10px 24px rgba(0, 0, 0, 0.45),
-            0 16px 36px rgba(0, 0, 0, 0.45),
-            0 0 30px rgba(255, 65, 65, 0.22);
+            inset 0 1px 0 rgba(255, 255, 255, 0.08),
+            0 16px 40px rgba(0, 0, 0, 0.5),
+            0 0 0 1px rgba(34, 197, 94, 0.1);
           transition: transform 0.24s ease, box-shadow 0.24s ease;
           isolation: isolate;
         }
 
-        .slot-machine-button:hover {
-          transform: translateY(-3px) scale(1.01);
+        .whatsapp-cta-card:hover {
           box-shadow:
-            inset 0 1px 0 rgba(255, 247, 200, 0.6),
-            inset 0 -10px 24px rgba(0, 0, 0, 0.45),
-            0 22px 45px rgba(0, 0, 0, 0.55),
-            0 0 40px rgba(255, 72, 72, 0.3);
+            inset 0 1px 0 rgba(255, 255, 255, 0.1),
+            0 20px 50px rgba(0, 0, 0, 0.6),
+            0 0 0 1px rgba(34, 197, 94, 0.25),
+            0 0 40px rgba(34, 197, 94, 0.15);
         }
 
-        .slot-machine-glow,
-        .slot-machine-flash {
+        .whatsapp-cta-glow {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: radial-gradient(
+            circle at top center,
+            rgba(34, 197, 94, 0.15),
+            transparent 60%
+          );
+          opacity: 0.3;
+        }
+
+        .whatsapp-cta-border {
           position: absolute;
           inset: 0;
           pointer-events: none;
           border-radius: inherit;
+          padding: 1px;
+          background: linear-gradient(
+            135deg,
+            rgba(34, 197, 94, 0.4) 0%,
+            transparent 50%,
+            rgba(34, 197, 94, 0.2) 100%
+          );
+          -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
         }
 
-        .slot-machine-glow {
-          background: radial-gradient(circle at center, rgba(255, 215, 0, 0.18), transparent 58%);
-          box-shadow: inset 0 0 0 2px rgba(255, 214, 102, 0.18);
-          opacity: 0.45;
+        .whatsapp-cta-header {
+          display: flex;
+          gap: 12px;
+          justify-content: space-between;
         }
 
-        .slot-machine-glow.is-jackpot {
-          background: radial-gradient(circle at center, rgba(255, 240, 120, 0.34), transparent 55%);
-        }
-
-        .slot-machine-flash {
-          background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.22) 40%, transparent 65%);
-          transform: translateX(-130%);
-          animation: shine 4.5s linear infinite;
-          opacity: 0.7;
-        }
-
-        .slot-machine-topbar {
-          position: relative;
-          z-index: 1;
+        .stat-badge {
           display: flex;
           align-items: center;
           gap: 10px;
-          width: 100%;
-          justify-content: center;
-        }
-
-        .slot-machine-lamps {
-          flex: 1;
-          height: 8px;
-          border-radius: 999px;
-          background: repeating-linear-gradient(90deg, #ffd95c 0 10px, #ff7b00 10px 20px);
-          box-shadow: 0 0 12px rgba(255, 196, 0, 0.45);
-          opacity: 0.9;
-        }
-
-        .slot-machine-jackpot {
-          font-size: 0.72rem;
-          font-weight: 900;
-          letter-spacing: 0.35em;
-          color: #ffe792;
-          text-shadow: 0 0 10px rgba(255, 217, 92, 0.65);
-        }
-
-        .slot-machine-jackpot.active {
-          color: #fff8c7;
-          text-shadow: 0 0 12px rgba(255, 232, 133, 0.95), 0 0 24px rgba(255, 102, 0, 0.65);
-          animation: blink 0.18s linear 5;
-        }
-
-        .slot-machine-reels {
-          position: relative;
-          z-index: 1;
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 10px;
-          width: 100%;
-        }
-
-        .slot-reel {
-          position: relative;
-          padding: 4px;
-          border-radius: 18px;
-          background: linear-gradient(180deg, #fddc7a 0%, #a05a00 48%, #fef0b2 100%);
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 8px 14px rgba(0,0,0,0.3);
-        }
-
-        .slot-reel.spinning {
-          animation: reelShake 0.16s linear infinite;
-        }
-
-        .slot-reel-window {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          min-height: 64px;
+          padding: 10px 14px;
           border-radius: 14px;
-          background: linear-gradient(180deg, #fffdf4 0%, #f4e7c3 100%);
-          box-shadow: inset 0 8px 12px rgba(255,255,255,0.65), inset 0 -8px 14px rgba(120, 79, 0, 0.18);
-          overflow: hidden;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .slot-reel-symbol {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          min-width: 100%;
-          padding: 0 4px;
-          font-size: clamp(1rem, 4vw, 1.25rem);
-          font-weight: 900;
-          color: #7c110f;
-          letter-spacing: 0.06em;
-          text-shadow: 0 2px 0 rgba(255,255,255,0.45);
-          transform: translateZ(0);
+        .stat-badge.members {
+          flex: 1;
         }
 
-        .slot-machine-copy {
-          position: relative;
-          z-index: 1;
+        .stat-icon {
+          font-size: 1.3rem;
+          line-height: 1;
+        }
+
+        .stat-content {
           display: flex;
           flex-direction: column;
-          align-items: center;
-          gap: 4px;
+          gap: 2px;
         }
 
-        .slot-machine-title {
+        .stat-number {
           font-size: 1.1rem;
           font-weight: 900;
-          letter-spacing: 0.18em;
-          color: #fff8dc;
-          text-shadow: 0 0 18px rgba(255, 183, 0, 0.35), 0 2px 0 rgba(0,0,0,0.3);
+          color: #fff;
+          letter-spacing: -0.02em;
         }
 
-        .slot-machine-subtitle {
-          font-size: 0.72rem;
+        .stat-number.today {
+          color: #4ade80;
+        }
+
+        .stat-label {
+          font-size: 0.65rem;
+          color: rgba(255, 255, 255, 0.5);
           text-transform: uppercase;
-          letter-spacing: 0.18em;
-          color: rgba(255, 236, 189, 0.8);
+          letter-spacing: 0.08em;
         }
 
-        @keyframes shine {
-          0% { transform: translateX(-130%) skewX(-16deg); }
-          100% { transform: translateX(180%) skewX(-16deg); }
+        .whatsapp-cta-activity {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px 14px;
+          border-radius: 14px;
+          background: rgba(34, 197, 94, 0.08);
+          border: 1px solid rgba(34, 197, 94, 0.15);
         }
 
-        @keyframes reelShake {
-          0% { transform: translateY(0); }
-          25% { transform: translateY(-1px); }
-          50% { transform: translateY(1px); }
-          100% { transform: translateY(0); }
+        .activity-indicator {
+          display: flex;
+          align-items: center;
+          gap: 6px;
         }
 
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.45; }
+        .pulse-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #4ade80;
+          box-shadow: 0 0 0 rgba(74, 222, 128, 0.4);
+          animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+          0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4);
+          }
+          70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+          }
+          100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+          }
+        }
+
+        .activity-label {
+          font-size: 0.65rem;
+          font-weight: 900;
+          color: #4ade80;
+          letter-spacing: 0.12em;
+        }
+
+        .activity-feed {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          flex: 1;
+        }
+
+        .activity-text {
+          font-size: 0.85rem;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .activity-text strong {
+          color: #fff;
+          font-weight: 700;
+        }
+
+        .activity-time {
+          font-size: 0.7rem;
+          color: rgba(255, 255, 255, 0.4);
+        }
+
+        .whatsapp-cta-urgency {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .urgency-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 0.8rem;
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .urgency-item.countdown {
+          padding: 8px 12px;
+          border-radius: 10px;
+          background: rgba(251, 191, 36, 0.08);
+          border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        .urgency-icon {
+          font-size: 1rem;
+        }
+
+        .urgency-text strong {
+          color: #fbbf24;
+          font-weight: 700;
+        }
+
+        .countdown-timer {
+          font-family: "JetBrains Mono", monospace;
+          font-weight: 700;
+          color: #fbbf24;
+          letter-spacing: 0.05em;
+        }
+
+        .whatsapp-cta-button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 16px 24px;
+          border-radius: 16px;
+          background: linear-gradient(
+            135deg,
+            #22c55e 0%,
+            #16a34a 100%
+          );
+          box-shadow:
+            0 8px 24px rgba(34, 197, 94, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .whatsapp-cta-card:hover .whatsapp-cta-button {
+          transform: translateY(-2px);
+          box-shadow:
+            0 12px 32px rgba(34, 197, 94, 0.45),
+            inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        .cta-icon {
+          font-size: 1.3rem;
+        }
+
+        .cta-text {
+          font-size: 0.95rem;
+          font-weight: 900;
+          color: #fff;
+          letter-spacing: 0.05em;
+        }
+
+        .cta-arrow {
+          font-size: 1.2rem;
+          color: #fff;
+          transition: transform 0.2s ease;
+        }
+
+        .whatsapp-cta-card:hover .cta-arrow {
+          transform: translateX(4px);
+        }
+
+        .whatsapp-cta-benefits {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          justify-content: center;
+        }
+
+        .benefit-item {
+          font-size: 0.7rem;
+          color: rgba(255, 255, 255, 0.5);
+          letter-spacing: 0.02em;
         }
 
         @media (max-width: 420px) {
-          .slot-machine-button {
-            padding: 16px 14px 15px;
-            gap: 10px;
+          .whatsapp-cta-card {
+            padding: 16px;
+            gap: 12px;
           }
 
-          .slot-reel-window {
-            min-height: 58px;
+          .stat-badge {
+            padding: 8px 10px;
           }
 
-          .slot-machine-title {
-            font-size: 0.98rem;
+          .stat-number {
+            font-size: 0.95rem;
           }
 
-          .slot-machine-subtitle,
-          .slot-machine-jackpot {
-            letter-spacing: 0.14em;
+          .cta-text {
+            font-size: 0.85rem;
           }
         }
       `}</style>
