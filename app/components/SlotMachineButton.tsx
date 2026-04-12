@@ -16,7 +16,7 @@ const RECENT_JOINS: JoinActivity[] = [
   { name: "Nurul L.", time: "15 minit lepas" },
 ];
 
-const WHATSAPP_LINK = "https://chat.whatsapp.com/YourGroupLink";
+const WHATSAPP_LINK = "https://masuk10.com/Prospinner";
 
 export default function WhatsAppGroupCTA({
   className = "",
