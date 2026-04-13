@@ -12,7 +12,8 @@ export const BLOG_REDIRECTS: Record<string, string> = {
   "mega888-android-install": "mega888-download-android-apk-terbaru-2026",
   "tips-mega888-pro": "cara-menang-mega888",
   "game-senang-jackpot": "top-slot-mega888",
-  "hack-rtp-mega888": "mega888-rtp-scanner-panduan-lengkap-2026"
+  "hack-rtp-mega888": "mega888-rtp-scanner-panduan-lengkap-2026",
+  "slot-gacor-hari-ini": "mega888-rtp-live-malaysia-2026"
 };
 
 export const BLOG_REDIRECT_SOURCE_SLUGS = new Set(Object.keys(BLOG_REDIRECTS));
