@@ -11,8 +11,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const game = getGameBySlug(slug);
   if (!game) return {};
-  const title = `${game.name} Mega888: RTP ${game.rtpMin}%-${game.rtpMax}%, Tips & Strategi 2026`;
-  const description = `${game.name} Mega888 — RTP ${game.rtpMin}% hingga ${game.rtpMax}%. Tips menang, analisis volatiliti ${game.volatility}, dan strategi untuk game ${game.name}. Guna AI Scanner untuk check RTP live.`;
+  const title = `${game.name} Mega888 2026 | RTP, Cara Main & Tips`;
+  const description = `${game.name} Mega888 dengan anggaran RTP ${game.rtpMin}% hingga ${game.rtpMax}%, penerangan volatiliti ${game.volatility}, dan panduan ringkas untuk rujukan sebelum bermain.`;
   return {
     title,
     description,
@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       `${game.name.toLowerCase()} rtp`,
       `tips ${game.name.toLowerCase()}`,
       `${game.name.toLowerCase()} slot`,
+      `cara main ${game.name.toLowerCase()}`,
       "mega888", "rtp mega888", "tips mega888",
     ],
     alternates: { canonical: `https://tipsmega888.com/games/${game.slug}` },

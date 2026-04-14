@@ -3,9 +3,9 @@ import Link from "next/link";
 import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
-  title: "Mega888 Malaysia 2026 | Login, Download, RTP Live & Trusted Agent",
+  title: "Mega888 Malaysia 2026 | Login, Download, RTP & Trusted Company",
   description:
-    "Halaman rujukan Mega888 Malaysia untuk login, daftar akaun, download APK Android atau iPhone, semak RTP live, dan baca panduan trusted agent dengan lebih tersusun.",
+    "Halaman rujukan Mega888 Malaysia untuk login, daftar akaun, download APK Android atau iPhone, semak RTP, dan baca panduan trusted company dengan lebih tersusun.",
   keywords: [
     "mega888 malaysia 2026",
     "mega888 login",
@@ -21,7 +21,7 @@ export const metadata = {
   alternates: { canonical: "https://tipsmega888.com/mega888" },
   openGraph: {
     title: "Mega888 Malaysia 2026 | Hub Panduan Lengkap",
-    description: "Halaman hub Mega888 Malaysia untuk login, download, RTP live, trusted agent, dan panduan asas lain dalam satu tempat.",
+    description: "Halaman hub Mega888 Malaysia untuk login, download, RTP, trusted company, dan panduan asas lain dalam satu tempat.",
     url: "https://tipsmega888.com/mega888",
     siteName: "TipsMega888",
     locale: "ms_MY",
@@ -38,7 +38,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mega888 Malaysia 2026 | Hub Panduan Lengkap",
-    description: "Halaman hub Mega888 Malaysia untuk login, download, RTP live, trusted agent, dan panduan asas lain dalam satu tempat.",
+    description: "Halaman hub Mega888 Malaysia untuk login, download, RTP, trusted company, dan panduan asas lain dalam satu tempat.",
     images: ["https://tipsmega888.com/og-image.webp"],
   },
   robots: {
