@@ -4,9 +4,9 @@ import SlotMachineButton from "./components/SlotMachineButton";
 import SharedPageNav from "./ui/SharedPageNav";
 
 export const metadata = {
-  title: "Tips Mega888 Malaysia 2026 | Panduan, RTP Scanner & Trusted Agent",
+  title: "Tips Mega888 Malaysia 2026 | Tips, RTP Scanner & Trusted Company",
   description:
-    "Tips Mega888 Malaysia ialah laman rujukan untuk panduan Mega888, semakan RTP live, trusted agent, dan maklumat asas seperti login serta download APK.",
+    "Tips Mega888 Malaysia dengan panduan ringkas, semakan RTP Scanner, trusted company, dan rujukan download APK untuk pengguna baru dan lama.",
   keywords: [
     "tips mega888",
     "tipsmega888",
@@ -26,9 +26,9 @@ export const metadata = {
     "panduan mega888",
   ],
   openGraph: {
-    title: "Tips Mega888 Malaysia 2026 | Panduan, RTP Scanner & Trusted Agent",
+    title: "Tips Mega888 Malaysia 2026 | Tips, RTP Scanner & Trusted Company",
     description:
-      "Laman rujukan Mega888 Malaysia untuk panduan, semakan RTP live, trusted agent, dan maklumat asas pengguna.",
+      "Panduan Mega888 Malaysia dengan semakan RTP Scanner, trusted company, dan rujukan asas untuk pengguna baru dan lama.",
     url: "https://tipsmega888.com",
     siteName: "Tips Mega888",
     locale: "ms_MY",
@@ -44,9 +44,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image" as const,
-    title: "Tips Mega888 Malaysia 2026 | Panduan, RTP Scanner & Trusted Agent",
+    title: "Tips Mega888 Malaysia 2026 | Tips, RTP Scanner & Trusted Company",
     description:
-      "Laman rujukan Mega888 Malaysia untuk panduan, semakan RTP live, trusted agent, dan maklumat asas pengguna.",
+      "Panduan Mega888 Malaysia dengan semakan RTP Scanner, trusted company, dan rujukan asas untuk pengguna baru dan lama.",
     images: ["https://tipsmega888.com/wins/win-4.jpg"],
   },
   alternates: {

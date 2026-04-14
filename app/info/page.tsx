@@ -4,10 +4,10 @@ import InfoClient from "./InfoClient";
 import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
-  title: "Panduan Guna AI Scanner Mega888 | TipsMega888",
-  description: "Panduan ringkas tentang cara guna AI Scanner di TipsMega888, cara baca keputusan RTP, dan perkara penting yang perlu difahami sebelum menggunakan scanner.",
+  title: "Panduan Guna RTP Scanner Mega888 | Cara Baca Keputusan",
+  description: "Panduan guna RTP Scanner Mega888 di TipsMega888, termasuk cara baca keputusan, limitasi semakan, dan perkara penting sebelum membuat rujukan.",
   openGraph: {
-    title: "Panduan Guna AI Scanner Mega888 | TipsMega888",
+    title: "Panduan Guna RTP Scanner Mega888 | Cara Baca Keputusan",
     description: "Fahami cara guna scanner, cara baca keputusan, dan limitasi ringkas sebelum membuat semakan RTP.",
     url: "https://tipsmega888.com/info",
     siteName: "TipsMega888",
@@ -24,7 +24,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Panduan Guna AI Scanner Mega888 | TipsMega888",
+    title: "Panduan Guna RTP Scanner Mega888 | Cara Baca Keputusan",
     description: "Cara guna scanner, baca keputusan RTP, dan fahami limitasi asas di TipsMega888.",
     images: ["/og-image.webp"],
   },
@@ -53,8 +53,8 @@ export default function Page() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "Panduan Guna AI Scanner TipsMega888",
-            "description": "Panduan ringkas tentang cara guna scanner, cara baca keputusan RTP, dan perkara penting yang perlu difahami sebelum menggunakan AI Scanner di TipsMega888.",
+            "name": "Panduan Guna RTP Scanner TipsMega888",
+            "description": "Panduan ringkas tentang cara guna scanner, cara baca keputusan RTP, dan perkara penting yang perlu difahami sebelum menggunakan RTP Scanner di TipsMega888.",
             "url": "https://tipsmega888.com/info",
             "inLanguage": "ms-MY",
             "publisher": {

@@ -4,9 +4,9 @@ import Link from "next/link";
 import { Trophy, Shield, CheckCircle, Zap, Target, MessageCircle, Lock, Rocket, Link2, Search } from "lucide-react";
 
 export const metadata = {
-  title: "Trusted Company Mega888 Malaysia 2026 | TipsMega888",
+  title: "Mega888 Trusted Company Malaysia 2026 | Senarai & Panduan",
   description:
-    "Rujuk senarai trusted company Mega888 di TipsMega888, bersama penerangan ringkas tentang cara semakan dibuat dan perkara yang patut diperhatikan sebelum memilih platform.",
+    "Rujuk senarai Mega888 trusted company di TipsMega888, bersama panduan ringkas untuk semak platform, support, deposit, dan perkara penting sebelum memilih.",
   keywords: [
     "trusted company mega888",
     "agent mega888 malaysia",
@@ -19,9 +19,9 @@ export const metadata = {
     canonical: "https://tipsmega888.com/trusted",
   },
   openGraph: {
-    title: "Trusted Company Mega888 Malaysia 2026 | TipsMega888",
+    title: "Mega888 Trusted Company Malaysia 2026 | Senarai & Panduan",
     description:
-      "Senarai trusted company Mega888 di TipsMega888 dengan penerangan ringkas tentang kriteria semakan dan panduan memilih platform.",
+      "Senarai Mega888 trusted company di TipsMega888 dengan panduan ringkas untuk semak platform dan memilih dengan lebih yakin.",
     url: "https://tipsmega888.com/trusted",
     siteName: "TipsMega AI Scanner",
     locale: "ms_MY",
@@ -37,7 +37,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Trusted Company Mega888 Malaysia 2026 | TipsMega888",
+    title: "Mega888 Trusted Company Malaysia 2026 | Senarai & Panduan",
     description: "Rujuk trusted company Mega888 bersama panduan ringkas sebelum memilih platform.",
     images: ["https://tipsmega888.com/og-trusted.png"],
   },
@@ -62,9 +62,9 @@ export default function TrustedPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: "Trusted Company Mega888",
+            name: "Mega888 Trusted Company",
             description:
-              "Senarai trusted company Mega888 dengan panduan ringkas tentang perkara yang patut diperhatikan sebelum memilih platform.",
+              "Senarai Mega888 trusted company dengan panduan ringkas tentang perkara yang patut diperhatikan sebelum memilih platform.",
             url: "https://tipsmega888.com/trusted",
             inLanguage: "ms-MY",
             publisher: {

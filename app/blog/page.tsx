@@ -4,17 +4,17 @@ import { BLOG_REDIRECT_SOURCE_SLUGS } from "../data/blogRedirects";
 import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
-  title: "Blog Tips Mega888 Malaysia | Strategi, Panduan RTP & Artikel 2026",
+  title: "Blog Tips Mega888 Malaysia | Panduan, Download & Trusted Info",
   description:
-    "Blog tips Mega888 Malaysia 2026 dengan strategi, panduan RTP, download APK, trusted agent, withdraw, dan artikel game-specific untuk pengguna baru dan lama.",
+    "Blog Tips Mega888 Malaysia 2026 dengan panduan ringkas, artikel download APK, trusted company, RTP scanner, dan topik game-specific untuk pengguna baru dan lama.",
   keywords: [
     "blog mega888", "tips mega888", "strategi mega888", "panduan mega888",
-    "mega888 hack", "download mega888", "jackpot mega888", "mega888 2026",
+    "download mega888", "mega888 trusted", "rtp scanner mega888", "mega888 2026",
   ],
   alternates: { canonical: "https://tipsmega888.com/blog" },
   openGraph: {
-    title: "Blog Tips Mega888 | Strategi & Panduan Menang 2026",
-    description: "Koleksi tips, strategi, dan panduan Mega888 terkini dari pakar AI Scanner.",
+    title: "Blog Tips Mega888 Malaysia | Panduan, Download & Trusted Info",
+    description: "Koleksi tips, panduan, artikel download, trusted info, dan rujukan Mega888 terkini.",
     url: "https://tipsmega888.com/blog",
     siteName: "TipsMega AI Scanner",
     locale: "ms_MY",
@@ -30,8 +30,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog Tips Mega888 | Strategi & Panduan Menang 2026",
-    description: "Koleksi tips, strategi, dan panduan Mega888 terkini dari pakar AI Scanner.",
+    title: "Blog Tips Mega888 Malaysia | Panduan, Download & Trusted Info",
+    description: "Koleksi tips, panduan, artikel download, trusted info, dan rujukan Mega888 terkini.",
     images: ["https://tipsmega888.com/og-image.webp"],
   },
   robots: {
@@ -68,8 +68,8 @@ export default function BlogPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Blog",
-            name: "Blog Tips Mega888",
-            description: "Koleksi tips, strategi, dan panduan Mega888 terkini.",
+            name: "Blog Tips Mega888 Malaysia",
+            description: "Koleksi tips, panduan, dan rujukan Mega888 terkini termasuk trusted info dan download.",
             url: "https://tipsmega888.com/blog",
             publisher: {
               "@type": "Organization",
