@@ -3,7 +3,7 @@ import { GAME_PAGES } from "./data/gamePages";
 import { BLOG_ARTICLES } from "./data/blogArticles";
 import { BLOG_REDIRECT_SOURCE_SLUGS } from "./data/blogRedirects";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = "https://tipsmega888.com";
