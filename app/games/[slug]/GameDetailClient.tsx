@@ -179,6 +179,27 @@ export default function GameDetailClient({ game }: { game: Game }) {
             </div>
           </section>
 
+          {/* SEO Detailed Strategy Guide */}
+          <section className="card p-5 sm:p-6 mb-5 border-teal-500/20">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="h-1 w-5 bg-teal-400 rounded-full shadow-[0_0_8px_rgba(45,212,191,0.5)]" />
+              <h2 className="text-sm font-black tracking-wider text-teal-300 uppercase">
+                Panduan & Semakan Penuh {game.name}
+              </h2>
+            </div>
+            <div className="space-y-4 text-xs text-white/75 leading-relaxed font-medium">
+              <p>
+                Permainan slot <strong>{game.name}</strong> kini menjadi tumpuan ramai pemain di Malaysia yang mencari pengalaman kasino dalam talian yang menguntungkan. Dibangunkan khusus dengan kualiti grafik tinggi bertemakan <strong>{game.category}</strong>, slot ini memberikan kelainan dari segi mekanik dan cara ia membayar kemenangan. Disebabkan {game.name} direkodkan mempunyai tahap volatiliti (risiko) yang <strong>{game.volatility.toLowerCase()}</strong>, corak pembayarannya amat bersesuaian untuk strategi putaran yang memfokuskan kepada pengurusan modal (bankroll management) yang optimum sambil bersabar menanti pusingan bonus utama.
+              </p>
+              <p>
+                Dari sudut potensi pulangan kepada pemain (RTP), <strong>{game.name}</strong> merekodkan bacaan yang sangat memberangsangkan, iaitu dari paras purata harian terendah <strong>{game.rtpMin}%</strong> sehingga memuncak ke paras tertinggi yang boleh melepasi <strong>{game.rtpMax}%</strong> pada waktu-waktu panas (hot hours). Statistik RTP Mega888 ini bukanlah satu angka statik, sebaliknya ia berfluktuasi mengikut lambakan pemain di server. Oleh itu, kami amat mengesyorkan agar anda sentiasa merujuk kepada TipsMega AI Scanner untuk mengkaji waktu dan graf RTP {game.name} yang sedang hijau sebelum membuat sebarang pusingan bet (taruhan).
+              </p>
+              <p>
+                Tarikah utama dalam rancangan perisian {game.name} pastinya tertumpu kepada algoritma simbol dan features uniknya. Melalui tawaran ciri-ciri bonus gah seperti <strong>{game.features.join(", ")}</strong>, pemain dibukakan ruang untuk mencetuskan reaksi kombo yang melipatgandakan jumlah kemenangan. Bagi memaksimumkan peluang anda di {game.name}, petua emas yang perlu dipatuhi adalah mula bertaruh pada nilai rendah untuk membaca kestabilan papan (board) terlebih dahulu, dan gandakan taruhan hanya selepas {game.volatility.toLowerCase() === 'tinggi' ? 'anda yakin kitaran nasib mesin mula melepaskan simbol liar (wilds) bagi jackpot besar' : 'anda nampak kemenangan-kemenangan kecil yang konsisten (steady returns) menghujani pusingan anda'}.
+              </p>
+            </div>
+          </section>
+
           {/* Tips */}
           <section className="card p-5 sm:p-6 mb-5 border-purple-500/20">
             <div className="flex items-center gap-2 mb-4">
