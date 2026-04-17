@@ -187,6 +187,22 @@ export default function Page() {
         }}
       />
 
+      {/* Homepage FAQPage schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {"@type": "Question", "name": "Apa itu Tips Mega888?", "acceptedAnswer": {"@type": "Answer", "text": "Tips Mega888 adalah platform rujukan AI untuk semakan RTP Mega888 Malaysia. Kami menyediakan scanner RTP masa nyata, senarai trusted agent, panduan permainan slot, dan tips strategi untuk membantu pengguna membuat keputusan lebih bijak."}},
+            {"@type": "Question", "name": "Bagaimana cara guna RTP Scanner Mega888?", "acceptedAnswer": {"@type": "Answer", "text": "Pergi ke bahagian Scanner di tipsmega888.com, pilih permainan slot yang anda ingin semak, dan scanner AI kami akan paparkan bacaan RTP semasa, volatiliti, dan cadangan masa terbaik untuk bermain."}},
+            {"@type": "Question", "name": "Adakah Tips Mega888 selamat digunakan?", "acceptedAnswer": {"@type": "Answer", "text": "Ya, tipsmega888.com adalah laman rujukan maklumat sahaja. Kami tidak memerlukan maklumat peribadi atau data akaun anda. Platform ini hanya menyediakan data RTP dan panduan permainan untuk tatapan umum."}},
+            {"@type": "Question", "name": "Apa itu trusted agent Mega888?", "acceptedAnswer": {"@type": "Answer", "text": "Trusted agent Mega888 adalah ejen yang telah disahkan mempunyai rekod pembayaran yang baik, respon pantas, dan reputasi positif dalam komuniti. Senarai trusted agent kami dikemaskini secara berkala berdasarkan maklum balas komuniti."}},
+            {"@type": "Question", "name": "Boleh saya percayai bacaan RTP dari scanner ini?", "acceptedAnswer": {"@type": "Answer", "text": "Bacaan RTP yang kami paparkan adalah untuk rujukan dan panduan sahaja. RTP sebenar dalam permainan boleh berbeza mengikut sesi. Gunakan data ini sebagai panduan am, bukan jaminan keputusan permainan."}}
+          ]
+        })}}
+      />
+
       <>
         <HomeClient />
       </>
