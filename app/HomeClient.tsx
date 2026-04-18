@@ -667,42 +667,44 @@ export default function HomeClient() {
                         </div>
                     </section>
 
-                    <section className="tm-hero">
-                        <div className="mb-2 flex items-center justify-between px-1">
+                    <section className="tm-hero space-y-3">
+                        <div className="mb-1 flex items-center justify-between px-1">
                             <div>
-                                <h2 className="text-sm font-black uppercase tracking-[0.18em] text-white/80">Trusted & bantuan</h2>
-                                <p className="mt-1 text-xs text-white/45">Pilih arah seterusnya tanpa ganggu fokus scan di atas.</p>
+                                <h2 className="text-sm font-black uppercase tracking-[0.18em] text-white/80">Shortcut pantas</h2>
+                                <p className="mt-1 text-xs text-white/45">Lagi padat, terus ke flow yang paling orang guna.</p>
                             </div>
                         </div>
 
-                        <div className="space-y-2">
-                            <Link href="/trusted" className="card group flex items-center gap-3 rounded-3xl border border-red-500/20 bg-gradient-to-r from-red-500/10 to-orange-500/5 p-4 transition hover:border-red-400/40 hover:bg-red-500/10">
-                                <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-red-400/20 bg-red-500/15">
-                                    <Flame className="h-6 w-6 text-red-300 premium-icon-glow-red transition group-hover:scale-110" />
+                        <div className="grid grid-cols-3 gap-2">
+                            <Link href="/trusted" className="card group rounded-2xl border border-red-500/20 bg-gradient-to-br from-red-500/12 to-orange-500/6 p-3 text-center transition hover:border-red-400/40 hover:bg-red-500/10">
+                                <div className="mb-2 flex justify-center">
+                                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-red-400/20 bg-red-500/15">
+                                        <Flame className="h-5 w-5 text-red-300 premium-icon-glow-red transition group-hover:scale-110" />
+                                    </div>
                                 </div>
-                                <div className="min-w-0 flex-1">
-                                    <div className="text-sm font-black text-white">Trusted Company</div>
-                                    <div className="mt-1 text-xs text-white/60">Semak company verified, payout speed, dan rujukan paling selamat.</div>
-                                </div>
-                                <div className="text-xs font-bold uppercase tracking-[0.18em] text-red-200">Open</div>
+                                <div className="text-[11px] font-black uppercase tracking-[0.12em] text-white">Trusted</div>
+                                <div className="mt-1 text-[10px] text-white/50">Verified payout</div>
                             </Link>
 
-                            <div className="grid grid-cols-2 gap-2">
-                                <Link href="/help" className="card group rounded-2xl border border-purple-500/20 bg-purple-500/5 p-3 text-center transition hover:bg-purple-500/10">
-                                    <div className="mb-1 flex justify-center">
-                                        <HelpCircle className="h-6 w-6 text-purple-300 premium-icon-glow-purple transition group-hover:scale-110" />
+                            <Link href="/help" className="card group rounded-2xl border border-purple-500/20 bg-purple-500/5 p-3 text-center transition hover:bg-purple-500/10">
+                                <div className="mb-2 flex justify-center">
+                                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-purple-400/20 bg-purple-500/12">
+                                        <HelpCircle className="h-5 w-5 text-purple-300 premium-icon-glow-purple transition group-hover:scale-110" />
                                     </div>
-                                    <div className="text-sm font-bold text-white">Help</div>
-                                    <div className="text-xs text-white/50">Panduan & FAQ</div>
-                                </Link>
-                                <a href="https://t.me/tipsmega888chat" target="_blank" rel="noreferrer" className="card group rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-3 text-center transition hover:bg-emerald-500/10">
-                                    <div className="mb-1 flex justify-center">
-                                        <Send className="h-6 w-6 text-emerald-300 transition group-hover:scale-110" />
+                                </div>
+                                <div className="text-[11px] font-black uppercase tracking-[0.12em] text-white">Help</div>
+                                <div className="mt-1 text-[10px] text-white/50">Panduan ringkas</div>
+                            </Link>
+
+                            <a href="https://t.me/tipsmega888chat" target="_blank" rel="noreferrer" className="card group rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-3 text-center transition hover:bg-emerald-500/10">
+                                <div className="mb-2 flex justify-center">
+                                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-emerald-400/20 bg-emerald-500/12">
+                                        <Send className="h-5 w-5 text-emerald-300 transition group-hover:scale-110" />
                                     </div>
-                                    <div className="text-sm font-bold text-white">Community</div>
-                                    <div className="text-xs text-white/50">Telegram rasmi</div>
-                                </a>
-                            </div>
+                                </div>
+                                <div className="text-[11px] font-black uppercase tracking-[0.12em] text-white">Komuniti</div>
+                                <div className="mt-1 text-[10px] text-white/50">Telegram rasmi</div>
+                            </a>
                         </div>
                     </section>
 

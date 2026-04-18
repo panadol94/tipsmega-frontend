@@ -209,15 +209,15 @@ export default function Page() {
 
       {/* ── INTERNAL LINK CARDS: compact above-the-fold design ── */}
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 0.75rem 0.75rem" }}>
-        <p style={{ textAlign: "center", fontSize: "0.7rem", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", color: "#475569", marginBottom: "0.5rem" }}>
+        <p style={{ textAlign: "center", fontSize: "0.68rem", fontWeight: 800, letterSpacing: "0.16em", textTransform: "uppercase", color: "#64748b", marginBottom: "0.45rem" }}>
           Explore Mega888 Malaysia
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "0.5rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(145px, 1fr))", gap: "0.45rem" }}>
           {[
             ["🔥 Trusted Company", "/trusted", "Verified agents & payout speed"],
             ["🎮 Semua Game", "/games", "197+ slot dengan RTP & volatiliti"],
-            ["📝 Blog Tips & Strategi", "/blog", "Panduan, download, withdraw & more"],
-            ["🧭 Mega888 Hub", "/mega888", "Login, APK, RTP live, trusted agent"],
+            ["📝 Blog Tips", "/blog", "Panduan download, withdraw & strategi"],
+            ["🧭 Mega888 Hub", "/mega888", "Login, APK, RTP live & agent"],
           ].map(([label, href, note]) => (
             <a
               key={href}
@@ -226,14 +226,14 @@ export default function Page() {
                 display: "block",
                 textDecoration: "none",
                 color: "inherit",
-                borderRadius: 10,
+                borderRadius: 12,
                 border: "1px solid rgba(255,255,255,0.08)",
-                background: "rgba(255,255,255,0.03)",
-                padding: "0.6rem 0.75rem",
+                background: "linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.025))",
+                padding: "0.58rem 0.7rem",
               }}
             >
-              <div style={{ fontWeight: 700, color: "#e2e8f0", marginBottom: 2, fontSize: "0.82rem" }}>{label}</div>
-              <div style={{ fontSize: "0.72rem", color: "#64748b", lineHeight: 1.4 }}>{note}</div>
+              <div style={{ fontWeight: 800, color: "#e2e8f0", marginBottom: 2, fontSize: "0.79rem", lineHeight: 1.2 }}>{label}</div>
+              <div style={{ fontSize: "0.68rem", color: "#64748b", lineHeight: 1.3 }}>{note}</div>
             </a>
           ))}
         </div>
