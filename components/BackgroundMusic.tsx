@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 
 export default function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const hasInteractedRef = useRef(false);
+  const hasStartedRef = useRef(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -12,36 +12,34 @@ export default function BackgroundMusic() {
 
     audio.volume = 0.3;
     audio.loop = true;
+    audio.preload = 'auto';
+    audio.setAttribute('playsinline', 'true');
 
-    const playAttempt = async (unmute = false) => {
-      if (unmute) {
-        audio.muted = false;
-      }
+    const startPlayback = async () => {
+      if (hasStartedRef.current) return;
+      hasStartedRef.current = true;
+
       try {
+        audio.pause();
+        audio.currentTime = 0;
+        audio.muted = false;
         await audio.play();
       } catch {
-        console.log(unmute ? 'Play failed after interaction' : 'Autoplay blocked, waiting for interaction');
+        hasStartedRef.current = false;
+        console.log('Background music play failed after user interaction');
       }
     };
 
-    // Delay to ensure hydration is complete
-    const timer = setTimeout(() => {
-      playAttempt(false);
-    }, 100);
-
     const handleInteraction = () => {
-      if (hasInteractedRef.current) return;
-      hasInteractedRef.current = true;
-      playAttempt(true);
+      startPlayback();
     };
 
-    const events = ['click', 'touchstart', 'keydown'];
+    const events = ['pointerdown', 'touchstart', 'click', 'keydown'];
     events.forEach((event) => {
-      document.addEventListener(event, handleInteraction, { once: true });
+      document.addEventListener(event, handleInteraction, { passive: true });
     });
 
     return () => {
-      clearTimeout(timer);
       events.forEach((event) => {
         document.removeEventListener(event, handleInteraction);
       });
@@ -53,8 +51,8 @@ export default function BackgroundMusic() {
       ref={audioRef}
       src="/audio/background-music.m4a"
       loop
-      muted
       preload="auto"
+      playsInline
       style={{ display: 'none' }}
     />
   );

@@ -135,7 +135,7 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
         localStorage.setItem("tipsmega_chat_theme", t);
     };
 
-    const playSound = (type: "click" | "success" | "error" = "click") => {
+    const playSound = async (type: "click" | "success" | "error" = "click") => {
         if (!soundEnabled) return;
 
         const ctx = audioCtx || getOrCreateAudioContext();
@@ -143,7 +143,11 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
 
         // Resume context if suspended (browser policy)
         if (ctx.state === "suspended") {
-            ctx.resume().catch(() => { });
+            try {
+                await ctx.resume();
+            } catch {
+                return;
+            }
         }
 
         const osc = ctx.createOscillator();
