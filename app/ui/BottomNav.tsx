@@ -4,6 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useGlobalSettings } from "../context/GlobalSettingsContext";
 
+
+// --- Inline Icons (Lucide Style) ---
 const HomeIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
@@ -55,98 +57,124 @@ export default function BottomNav({ isBusy }: { isBusy?: boolean }) {
   const pathname = usePathname();
   const { scanActive } = useGlobalSettings();
 
-  const items: {
-    key: NavKey;
-    label: string;
-    href: string;
-    icon: React.FC<{ className?: string }>;
-    external?: boolean;
-    accent: string;
-  }[] = [
-    { key: "home", label: "Home", href: "/", icon: HomeIcon, accent: "from-slate-500/20 to-white/5" },
-    { key: "trusted", label: "Trusted", href: "/trusted", icon: TrustedIcon, accent: "from-red-500/20 to-orange-400/10" },
-    { key: "hub", label: "Hub", href: "/mega888", icon: HubIcon, accent: "from-violet-500/20 to-fuchsia-400/10" },
-    { key: "chat", label: "Komuniti", href: "https://masuk10.com/Prospinner", icon: WhatsappIcon, external: true, accent: "from-emerald-500/30 to-green-400/15" },
-    { key: "share", label: "Share", href: "/share", icon: ShareIcon, accent: "from-sky-500/20 to-cyan-400/10" },
-    { key: "profile", label: "Profile", href: "/profile", icon: ProfileIcon, accent: "from-amber-500/20 to-yellow-300/10" },
+  const items: { key: NavKey; label: string; href: string; icon: React.FC<{ className?: string }>; external?: boolean }[] = [
+    { key: "home", label: "Home", href: "/", icon: HomeIcon },
+    { key: "trusted", label: "Trusted", href: "/trusted", icon: TrustedIcon },
+    { key: "hub", label: "Hub", href: "/mega888", icon: HubIcon },
+    { key: "chat", label: "Komuniti", href: "https://masuk10.com/Prospinner", icon: WhatsappIcon, external: true },
+    { key: "share", label: "Share", href: "/share", icon: ShareIcon },
+    { key: "profile", label: "Profile", href: "/profile", icon: ProfileIcon },
   ];
 
   const isDisabled = isBusy || scanActive;
 
   return (
-    <nav className="pointer-events-none fixed bottom-0 left-0 right-0 z-[100] flex justify-center px-3 pb-[max(12px,env(safe-area-inset-bottom))]">
-      <div className="pointer-events-auto relative mx-auto grid w-full max-w-md grid-cols-6 gap-1 rounded-[24px] border border-white/10 bg-[rgba(8,12,24,0.92)] p-1.5 shadow-[0_16px_50px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-2xl">
-        <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-red-300/30 to-transparent" />
+    <nav className="fixed bottom-0 left-0 right-0 z-[100] flex justify-center pb-4 px-4 pointer-events-none">
+      {/* Premium floating glassmorphism navigation */}
+      <div
+        className="pointer-events-auto flex items-center p-1.5 mx-auto max-w-md w-full justify-between"
+        style={{
+            background: "rgba(11,16,32,0.88)",
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
+            borderRadius: "18px",
+            border: "1px solid rgba(255,255,255,0.10)",
+            boxShadow: "0 12px 48px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.04) inset",
+        }}
+      >
+        {/* Ambient top-edge glow */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-400/20 to-transparent pointer-events-none" />
+
 
         {items.map((it) => {
-          const isActive = it.href === "/" ? pathname === "/" : !it.external && pathname.startsWith(it.href);
+          let isActive = false;
+          if (it.href === "/") isActive = pathname === "/";
+          else isActive = pathname.startsWith(it.href);
+
           const isKomuniti = it.key === "chat";
 
           return (
             <Link
               key={it.key}
               href={isDisabled ? "#" : it.href}
-              target={it.external ? "_blank" : undefined}
-              rel={it.external ? "noreferrer" : undefined}
-              className={`group relative flex min-h-[62px] flex-col items-center justify-center gap-1 overflow-hidden rounded-[18px] px-1 py-2 transition-all duration-200 ${
-                isDisabled ? "pointer-events-none opacity-40 grayscale" : "active:scale-[0.98]"
-              }`}
+              className={`relative z-10 flex-1 flex flex-col items-center justify-center py-2 px-1 transition-all duration-300 ${isDisabled ? "opacity-40 grayscale pointer-events-none" : ""
+                }`}
               onClick={(e) => isDisabled && e.preventDefault()}
             >
-              <div className={`absolute inset-0 bg-gradient-to-b ${it.accent} ${isActive ? "opacity-100" : isKomuniti ? "opacity-90" : "opacity-0"}`} />
-
               {isActive && (
                 <motion.div
                   layoutId="nav-blob"
-                  className="absolute inset-0 rounded-[18px] border border-white/12 bg-[linear-gradient(180deg,rgba(255,95,95,0.92),rgba(220,38,38,0.82))] shadow-[0_10px_24px_rgba(255,77,77,0.35)]"
-                  transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                  className="absolute inset-0 bg-gradient-to-tr from-red-600 to-rose-400 rounded-xl shadow-[0_0_30px_rgba(255,77,77,0.5),0_0_15px_rgba(255,77,77,0.3)]"
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  style={{ borderRadius: 12 }}
                 />
               )}
 
-              {!isActive && (
-                <div className="absolute inset-0 rounded-[18px] border border-transparent transition-all duration-200 group-hover:border-white/10 group-hover:bg-white/[0.04]" />
-              )}
-
+              {/* Subtle pulse glow for Komuniti tab - only when not active */}
               {isKomuniti && !isActive && !isDisabled && (
-                <motion.div
-                  className="absolute inset-0 rounded-[18px] bg-gradient-to-b from-emerald-500/20 to-green-400/8"
-                  animate={{ opacity: [0.5, 0.85, 0.5] }}
-                  transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-                />
+                <>
+                  {/* Breathing glow background */}
+                  <motion.div
+                    className="absolute inset-0 rounded-xl bg-gradient-to-tr from-emerald-500/20 to-green-400/10"
+                    animate={{
+                      opacity: [0.3, 0.6, 0.3],
+                      scale: [0.95, 1.02, 0.95],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    style={{ borderRadius: 12 }}
+                  />
+                  {/* Subtle shimmer effect */}
+                  <motion.div
+                    className="absolute inset-0 overflow-hidden rounded-xl"
+                    style={{ borderRadius: 12 }}
+                  >
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                      initial={{ x: "-100%" }}
+                      animate={{ x: "100%" }}
+                      transition={{
+                        duration: 2.5,
+                        repeat: Infinity,
+                        repeatDelay: 4,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  </motion.div>
+                </>
               )}
 
-              <div className="relative z-10 flex flex-col items-center gap-1">
-                <div
-                  className={`relative flex h-8 w-8 items-center justify-center rounded-full transition-all duration-200 ${
-                    isActive
-                      ? "bg-white/18 shadow-[inset_0_1px_0_rgba(255,255,255,0.28)]"
-                      : isKomuniti
-                        ? "bg-emerald-400/12"
-                        : "bg-white/[0.03] group-hover:bg-white/[0.07]"
-                  }`}
-                >
+              <div className="relative z-20 flex flex-col items-center gap-1">
+                <div className="relative">
                   <it.icon
-                    className={`h-[18px] w-[18px] transition-all duration-200 ${
-                      isActive
-                        ? "scale-110 text-white"
-                        : isKomuniti
-                          ? "text-emerald-200"
-                          : "text-white/55 group-hover:text-white/80"
-                    }`}
+                    className={`w-5 h-5 transition-all duration-300 ${isActive ? "text-white scale-110 drop-shadow-md" : isKomuniti ? "text-emerald-300 hover:text-emerald-200" : "text-white/40 hover:text-white/70"
+                      }`}
                   />
+                  {/* Small pulsing dot indicator for Komuniti */}
                   {isKomuniti && !isActive && !isDisabled && (
                     <motion.span
-                      className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-emerald-400"
-                      animate={{ scale: [1, 1.25, 1], opacity: [0.7, 1, 0.7] }}
-                      transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400"
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [0.8, 1, 0.8],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      style={{
+                        boxShadow: "0 0 6px rgba(52, 211, 153, 0.6)",
+                      }}
                     />
                   )}
                 </div>
-
                 <span
-                  className={`text-[9px] font-extrabold uppercase tracking-[0.14em] transition-colors duration-200 ${
-                    isActive ? "text-white" : isKomuniti ? "text-emerald-200/90" : "text-white/38 group-hover:text-white/65"
-                  }`}
+                  className={`text-[9px] font-bold uppercase tracking-wider transition-all duration-300 ${isActive ? "text-white/90 translate-y-0" : isKomuniti ? "text-emerald-200/80 translate-y-0.5" : "text-white/30 translate-y-0.5"
+                    }`}
                 >
                   {it.label}
                 </span>
