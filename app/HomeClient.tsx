@@ -555,6 +555,24 @@ export default function HomeClient() {
             {/* Scanner Section - CENTERED & CLEAN */}
             <main className="flex flex-col items-center justify-start min-h-screen px-4 py-4 pb-28">
                 <div className="w-full max-w-lg space-y-4">
+                    <section className="tm-hero card relative overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.98),rgba(2,6,23,0.96))] p-2 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
+                        <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-red-400/50 to-transparent" />
+                        <div className="mb-3 flex items-center justify-between px-3 pt-2">
+                            <div>
+                                <div className="text-[10px] font-black uppercase tracking-[0.32em] text-white/45">Komuniti & bukti sosial</div>
+                                <div className="mt-1 text-sm font-bold text-white/80">Visual flow AI RTP Scanner</div>
+                            </div>
+                            <span className="rounded-full border border-red-400/20 bg-red-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-red-200">
+                                Featured
+                            </span>
+                        </div>
+                        <img
+                            src="/home/scanner-social-proof-top.jpg"
+                            alt="AI RTP Scanner Teknologi Pintar Percuma"
+                            className="w-full rounded-[24px] border border-white/10 object-cover shadow-[0_20px_60px_rgba(0,0,0,0.28)]"
+                        />
+                    </section>
+
                     <section className="tm-hero card relative overflow-hidden rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(239,68,68,0.18),transparent_45%),linear-gradient(180deg,rgba(15,23,42,0.98),rgba(2,6,23,0.96))] p-5 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
                         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-400/60 to-transparent" />
                         <div className="flex flex-wrap items-center gap-2">
