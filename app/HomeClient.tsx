@@ -3,7 +3,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { animate, utils } from "animejs";
 import Link from "next/link";
-import { Flame, HelpCircle, Star, Gamepad2, Send, Trophy } from "lucide-react";
+import { Flame, HelpCircle, Star, Send, Trophy } from "lucide-react";
 import Toast, { ToastType } from "./ui/Toast";
 import MatrixBackground from "./components/MatrixBackground";
 
@@ -12,7 +12,6 @@ import HackerScanOverlay from "./ui/HackerScanOverlay";
 import AuthModal from "./ui/AuthModal";
 import InstallPrompt from "./ui/InstallPrompt";
 import TestimonialCarousel from "./components/TestimonialCarousel";
-import HeroCarousel from "./components/HeroCarousel";
 
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
 import { useStarSync } from "./lib/useStarSync";
@@ -726,19 +725,6 @@ export default function HomeClient() {
                             </Link>
                         </div>
                     </div>
-
-                    <section className="tm-hero card overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] p-2">
-                        <div className="flex items-center justify-between px-3 pb-2 pt-1">
-                            <div>
-                                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Komuniti & bukti sosial</div>
-                                <div className="mt-1 text-sm font-bold text-white">Highlight ahli dan momentum semasa</div>
-                            </div>
-                            <Gamepad2 className="h-4 w-4 text-white/35" />
-                        </div>
-                        <HeroCarousel onScanClick={() => {
-                            document.getElementById('scanner-section')?.scrollIntoView({ behavior: 'smooth' });
-                        }} />
-                    </section>
 
                     {/* ── Community Wins Marquee ── */}
                     <section
