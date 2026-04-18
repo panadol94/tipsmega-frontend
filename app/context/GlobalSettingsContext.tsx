@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 // Simple "Click" Beep (Short, futuristic)
 // Using Oscillator in AudioContext for better control
@@ -74,9 +74,43 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
         }, 0);
     }, []);
 
-    // ... (rest of audio/haptic code) ...
+    const getOrCreateAudioContext = useCallback(() => {
+        if (typeof window === "undefined") return null;
+        if (audioCtx) return audioCtx;
 
+        const AudioContextCtor = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+        if (!AudioContextCtor) return null;
 
+        try {
+            const ctx = new AudioContextCtor();
+            setAudioCtx(ctx);
+            return ctx;
+        } catch {
+            return null;
+        }
+    }, [audioCtx]);
+
+    useEffect(() => {
+        if (!mounted) return;
+
+        const unlockAudio = () => {
+            const ctx = getOrCreateAudioContext();
+            if (ctx && ctx.state === "suspended") {
+                ctx.resume().catch(() => { });
+            }
+        };
+
+        const events = ["click", "touchstart", "keydown"];
+        events.forEach((event) => {
+            document.addEventListener(event, unlockAudio, { once: true });
+        });
+
+        return () => {
+            events.forEach((event) => {
+                document.removeEventListener(event, unlockAudio);
+            });
+        };
+    }, [mounted, getOrCreateAudioContext]);
 
     const toggleSound = () => {
         const newVal = !soundEnabled;
@@ -102,20 +136,23 @@ export function GlobalSettingsProvider({ children }: { children: React.ReactNode
     };
 
     const playSound = (type: "click" | "success" | "error" = "click") => {
-        if (!soundEnabled || !audioCtx) return;
+        if (!soundEnabled) return;
+
+        const ctx = audioCtx || getOrCreateAudioContext();
+        if (!ctx) return;
 
         // Resume context if suspended (browser policy)
-        if (audioCtx.state === "suspended") {
-            audioCtx.resume().catch(() => { });
+        if (ctx.state === "suspended") {
+            ctx.resume().catch(() => { });
         }
 
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
 
         osc.connect(gain);
-        gain.connect(audioCtx.destination);
+        gain.connect(ctx.destination);
 
-        const now = audioCtx.currentTime;
+        const now = ctx.currentTime;
 
         if (type === "click") {
             // High-tech short blip
