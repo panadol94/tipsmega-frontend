@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
 import { animate, utils } from "animejs";
 import Link from "next/link";
 import { Flame, HelpCircle, Star, Gamepad2, Send, Trophy } from "lucide-react";
@@ -74,8 +73,7 @@ async function apiScan(deviceId: string, megaId: string) {
     return json as ScanRes;
 }
 
-export default function HomeClient({ children }: { children?: React.ReactNode }) {
-    const pathname = usePathname();
+export default function HomeClient() {
     const [deviceId, setDeviceId] = useState<string>("");
     const [stars, setStars] = useState<number>(0);
 
@@ -555,135 +553,236 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
             )}
 
             {/* Scanner Section - CENTERED & CLEAN */}
-            <main className="flex flex-col items-center justify-start min-h-screen py-4 px-4 pb-24">
-                <div className="w-full max-w-lg space-y-3">
-                    
-                    {/* Hero Carousel - Main Hero Element */}
-                    <section className="tm-hero" aria-label="Hero Carousel">
-                        <HeroCarousel onScanClick={() => {
-                            // Scroll to scanner section
-                            document.getElementById('scanner-section')?.scrollIntoView({ behavior: 'smooth' });
-                        }} />
+            <main className="flex flex-col items-center justify-start min-h-screen px-4 py-4 pb-28">
+                <div className="w-full max-w-lg space-y-4">
+                    <section className="tm-hero card relative overflow-hidden rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(239,68,68,0.18),transparent_45%),linear-gradient(180deg,rgba(15,23,42,0.98),rgba(2,6,23,0.96))] p-5 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
+                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-400/60 to-transparent" />
+                        <div className="flex flex-wrap items-center gap-2">
+                            <span className="inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-red-200">
+                                <span className="h-1.5 w-1.5 rounded-full bg-red-300 animate-pulse" />
+                                Scanner RTP Live
+                            </span>
+                            <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
+                                Semakan pantas, terus
+                            </span>
+                        </div>
+
+                        <div className="mt-4 space-y-3">
+                            <div className="space-y-2">
+                                <h1 className="text-3xl font-black leading-tight text-white">
+                                    Check scanner dulu, lepas itu baru pilih trusted company.
+                                </h1>
+                                <p className="max-w-md text-sm leading-6 text-white/70">
+                                    Semak signal RTP semasa untuk Mega888 ID anda, kemudian terus ke senarai trusted company yang verified jika anda mahu sambung dengan lebih yakin.
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-2 sm:grid-cols-[1.2fr_0.8fr]">
+                                <button
+                                    type="button"
+                                    onClick={() => document.getElementById('scanner-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                                    className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-500 via-red-400 to-orange-400 px-4 py-3 text-sm font-black text-slate-950 shadow-[0_12px_40px_rgba(248,113,113,0.35)] transition hover:scale-[1.01]"
+                                >
+                                    Start Scan Sekarang
+                                </button>
+                                <Link
+                                    href="/trusted"
+                                    className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold text-white/85 transition hover:border-red-400/30 hover:bg-red-400/10"
+                                >
+                                    Lihat Trusted Company
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div className="mt-4 grid grid-cols-3 gap-2">
+                            {[
+                                { label: 'Live Signal', value: 'AI Sync' },
+                                { label: 'Trusted', value: 'Verified List' },
+                                { label: 'Komuniti', value: 'Wins & Chat' },
+                            ].map((item) => (
+                                <div key={item.label} className="rounded-2xl border border-white/8 bg-white/5 px-3 py-2">
+                                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">{item.label}</div>
+                                    <div className="mt-1 text-sm font-bold text-white/90">{item.value}</div>
+                                </div>
+                            ))}
+                        </div>
                     </section>
 
-                    {/* Scanner Section - Below Carousel */}
-                    <section id="scanner-section" className="card relative overflow-hidden p-4 tm-scan tm-scan-pulse terminal-border-red bg-[#0d1321]/90 rounded-2xl">
-                        {/* Terminal header bar */}
-                        <div className="flex items-center gap-2 mb-3 pb-2 border-b border-red-500/20">
+                    <section id="scanner-section" className="card relative overflow-hidden rounded-[28px] border border-red-500/20 bg-[#0d1321]/95 p-4 tm-scan tm-scan-pulse shadow-[0_22px_80px_rgba(0,0,0,0.35)]">
+                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent" />
+                        <div className="flex items-center gap-2 border-b border-red-500/20 pb-2">
                             <div className="flex gap-1.5">
-                                <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                                <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                                <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
+                                <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
+                                <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
                             </div>
-                            <span className="text-[10px] font-mono text-red-400/60 tracking-widest ml-2">
+                            <span className="ml-2 text-[10px] font-mono tracking-widest text-red-400/60">
                                 SCANNER_TERMINAL_v2.exe
                             </span>
                             <div className="ml-auto flex items-center gap-2">
                                 <span className="live-dot" />
-                                <span className="text-[10px] font-mono text-green-400 tracking-widest">LIVE_SYNC: OK</span>
+                                <span className="text-[10px] font-mono tracking-widest text-green-400">LIVE_SYNC: OK</span>
                             </div>
                         </div>
-                        
-                        {/* Badges */}
-                        <div className="flex flex-wrap items-center gap-2 mb-3">
+
+                        <div className="mt-4 flex flex-wrap items-center gap-2">
                             <span className="inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-red-300">
                                 <span className="h-1.5 w-1.5 rounded-full bg-red-300 animate-pulse" />
                                 Live AI
                             </span>
-                            <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] ${isValidMegaId ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300" : "border-white/10 bg-white/5 text-white/40"}`}>
+                            <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] ${busy ? "border-cyan-400/30 bg-cyan-400/10 text-cyan-300" : isValidMegaId ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300" : "border-white/10 bg-white/5 text-white/40"}`}>
                                 {busy ? "Scanning..." : isValidMegaId ? "Ready" : "Awaiting ID"}
                             </span>
-                            {/* RTP Badge */}
                             <span className="rtp-badge rtp-badge-medium">
                                 <span>◆</span> RTP SCORE
                             </span>
                         </div>
 
-                        {/* Input - Terminal Style */}
-                        <div className="rounded-xl border border-red-600/30 bg-[#0a0f1a]/70 p-3 mb-3">
-                            <input
-                                className={`tm-scan-item terminal-input ${inputError ? 'shake-error' : ''}`}
-                                value={megaId}
-                                onChange={(e) => setMegaId(e.target.value)}
-                                inputMode="numeric"
-                                placeholder="ENTER_ID_HERE"
-                                maxLength={12}
-                                name="megaId"
-                                autoComplete="off"
-                                style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                            />
-                            <div className="mt-2 flex justify-between text-xs font-mono text-red-400/50">
-                                <span className="flex items-center gap-1">
-                                    <span className="text-[10px]">&gt;_</span> {megaId.trim().length}/12 digit
-                                </span>
-                                <span>Format: 1xxxxxxxxxxx | 09xxxxxxxx</span>
+                        <div className="mt-4 grid gap-4 lg:grid-cols-[1.3fr_0.7fr] lg:items-start">
+                            <div>
+                                <div className="mb-3 space-y-1">
+                                    <h2 className="text-xl font-black text-white">Scan Mega888 ID anda</h2>
+                                    <p className="text-sm text-white/60">
+                                        Masukkan ID untuk semakan RTP semasa. Cooldown, auth, dan result modal kekal seperti biasa.
+                                    </p>
+                                </div>
+
+                                <div className="mb-3 rounded-xl border border-red-600/30 bg-[#0a0f1a]/70 p-3">
+                                    <input
+                                        className={`tm-scan-item terminal-input ${inputError ? 'shake-error' : ''}`}
+                                        value={megaId}
+                                        onChange={(e) => setMegaId(e.target.value)}
+                                        inputMode="numeric"
+                                        placeholder="ENTER_ID_HERE"
+                                        maxLength={12}
+                                        name="megaId"
+                                        autoComplete="off"
+                                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                                    />
+                                    <div className="mt-2 flex justify-between text-xs font-mono text-red-400/50">
+                                        <span className="flex items-center gap-1">
+                                            <span className="text-[10px]">&gt;_</span> {megaId.trim().length}/12 digit
+                                        </span>
+                                        <span>Format: 1xxxxxxxxxxx | 09xxxxxxxx</span>
+                                    </div>
+                                </div>
+
+                                <div className="scanner-terminal-shell mb-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
+                                    <div className="scanner-terminal-line" />
+                                    <span className="font-mono text-xs text-red-400/80">[AI] SIGNAL READY • ENTER ID TO BEGIN SCAN...</span>
+                                </div>
+
+                                <button
+                                    className={cooldownRemaining > 0 ? "tm-scan-item tm-scan-cta btn-cooldown" : "tm-scan-item tm-scan-cta btn-green-spin ripple-effect"}
+                                    style={{ width: '100%', opacity: (!isValidMegaId || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
+                                    onClick={runScan}
+                                    disabled={busy || cooldownRemaining > 0 || !isValidMegaId}
+                                >
+                                    <span className={cooldownRemaining > 0 ? "" : "btn-green-spin-content"}>
+                                        {busy ? "SCANNING..." : cooldownRemaining > 0 ? `⏱️ ${Math.floor(cooldownRemaining / 60)}:${(cooldownRemaining % 60).toString().padStart(2, '0')}` : "START SCAN"}
+                                    </span>
+                                </button>
+
+                                <div className="mt-3 text-center text-xs text-white/40">
+                                    {busy ? "AI analysis in progress..." : isValidMegaId ? "Ready to scan" : "Enter your Mega888 ID above"}
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Terminal Animation */}
-                        <div className="scanner-terminal-shell mb-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
-                            <div className="scanner-terminal-line" />
-                            <span className="text-red-400/80 font-mono text-xs">[AI] SIGNAL READY • ENTER ID TO BEGIN SCAN...</span>
-                        </div>
-
-                        {/* Scan Button */}
-                        <button
-                            className={cooldownRemaining > 0 ? "tm-scan-item tm-scan-cta btn-cooldown" : "tm-scan-item tm-scan-cta btn-green-spin ripple-effect"}
-                            style={{ width: '100%', opacity: (!isValidMegaId || busy || cooldownRemaining > 0) ? 0.6 : 1 }}
-                            onClick={runScan}
-                            disabled={busy || cooldownRemaining > 0 || !isValidMegaId}
-                        >
-                            <span className={cooldownRemaining > 0 ? "" : "btn-green-spin-content"}>
-                                {busy ? "SCANNING..." :
-                                    cooldownRemaining > 0 ? `⏱️ ${Math.floor(cooldownRemaining / 60)}:${(cooldownRemaining % 60).toString().padStart(2, '0')}` :
-                                        "START SCAN"}
-                            </span>
-                        </button>
-
-                        <div className="mt-3 text-center text-xs text-white/40">
-                            {busy ? "AI analysis in progress..." : isValidMegaId ? "Ready to scan" : "Enter your Mega888 ID above"}
+                            <aside className="rounded-2xl border border-white/10 bg-white/[0.04] p-3">
+                                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Flow Pantas</div>
+                                <div className="mt-2 space-y-2">
+                                    {[
+                                        '1. Scan dulu untuk tengok signal semasa',
+                                        '2. Bandingkan trusted company yang verified',
+                                        '3. Join komuniti untuk alert dan update',
+                                    ].map((step) => (
+                                        <div key={step} className="rounded-xl border border-white/8 bg-black/20 px-3 py-2 text-xs text-white/70">
+                                            {step}
+                                        </div>
+                                    ))}
+                                </div>
+                                <Link href="/trusted" className="mt-3 flex items-center justify-between rounded-2xl border border-red-500/20 bg-red-500/10 px-3 py-3 transition hover:border-red-400/40 hover:bg-red-500/15">
+                                    <div>
+                                        <div className="text-xs font-black uppercase tracking-[0.18em] text-red-200">Trusted Company</div>
+                                        <div className="mt-1 text-sm text-white/75">Laluan kedua yang paling jelas selepas scan.</div>
+                                    </div>
+                                    <Flame className="h-5 w-5 text-red-300 premium-icon-glow-red" />
+                                </Link>
+                            </aside>
                         </div>
                     </section>
 
-                    {/* Quick Links */}
-                    <h2 className="sr-only">Pautan Pantas</h2>
-                    <div className="grid grid-cols-2 gap-2">
-                        <Link href="/trusted" className="card p-3 text-center border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition group">
-                            <div className="mb-1 flex justify-center">
-                                <Flame className="w-6 h-6 premium-icon-glow-red group-hover:scale-110 transition-transform" />
+                    <section className="tm-hero">
+                        <div className="mb-2 flex items-center justify-between px-1">
+                            <div>
+                                <h2 className="text-sm font-black uppercase tracking-[0.18em] text-white/80">Trusted & bantuan</h2>
+                                <p className="mt-1 text-xs text-white/45">Pilih arah seterusnya tanpa ganggu fokus scan di atas.</p>
                             </div>
-                            <div className="text-sm font-bold text-white">Trusted List</div>
-                            <div className="text-xs text-white/50">Verified agents</div>
-                        </Link>
-                        <Link href="/help" className="card p-3 text-center border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/10 transition group">
-                            <div className="mb-1 flex justify-center">
-                                <HelpCircle className="w-6 h-6 premium-icon-glow-purple group-hover:scale-110 transition-transform" />
-                            </div>
-                            <div className="text-sm font-bold text-white">Help</div>
-                            <div className="text-xs text-white/50">Panduan & FAQ</div>
-                        </Link>
-                    </div>
+                        </div>
 
-                    {/* Stars Info */}
+                        <div className="space-y-2">
+                            <Link href="/trusted" className="card group flex items-center gap-3 rounded-3xl border border-red-500/20 bg-gradient-to-r from-red-500/10 to-orange-500/5 p-4 transition hover:border-red-400/40 hover:bg-red-500/10">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-red-400/20 bg-red-500/15">
+                                    <Flame className="h-6 w-6 text-red-300 premium-icon-glow-red transition group-hover:scale-110" />
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                    <div className="text-sm font-black text-white">Trusted Company</div>
+                                    <div className="mt-1 text-xs text-white/60">Semak company verified, payout speed, dan rujukan paling selamat.</div>
+                                </div>
+                                <div className="text-xs font-bold uppercase tracking-[0.18em] text-red-200">Open</div>
+                            </Link>
+
+                            <div className="grid grid-cols-2 gap-2">
+                                <Link href="/help" className="card group rounded-2xl border border-purple-500/20 bg-purple-500/5 p-3 text-center transition hover:bg-purple-500/10">
+                                    <div className="mb-1 flex justify-center">
+                                        <HelpCircle className="h-6 w-6 text-purple-300 premium-icon-glow-purple transition group-hover:scale-110" />
+                                    </div>
+                                    <div className="text-sm font-bold text-white">Help</div>
+                                    <div className="text-xs text-white/50">Panduan & FAQ</div>
+                                </Link>
+                                <a href="https://t.me/tipsmega888chat" target="_blank" rel="noreferrer" className="card group rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-3 text-center transition hover:bg-emerald-500/10">
+                                    <div className="mb-1 flex justify-center">
+                                        <Send className="h-6 w-6 text-emerald-300 transition group-hover:scale-110" />
+                                    </div>
+                                    <div className="text-sm font-bold text-white">Community</div>
+                                    <div className="text-xs text-white/50">Telegram rasmi</div>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
                     <h2 className="sr-only">Maklumat Stars</h2>
-                    <div className="card p-3 border-white/10 bg-white/5">
-                        <div className="flex items-center justify-between">
+                    <div className="card rounded-3xl border border-white/10 bg-white/5 p-3">
+                        <div className="flex items-center justify-between gap-3">
                             <div>
                                 <div className="flex items-center gap-2">
-                                    <Star className="w-4 h-4 text-amber-400 premium-icon-glow-gold" />
+                                    <Star className="h-4 w-4 text-amber-400 premium-icon-glow-gold" />
                                     {stars > 0 ? (
                                         <span className="text-sm font-bold text-white">{stars} Stars</span>
                                     ) : (
                                         <span className="text-sm font-bold text-white/60">No Stars</span>
                                     )}
                                 </div>
-                                <div className="text-xs text-white/40 ml-6">{stars > 0 ? "1 scan = 1 star" : "Login untuk bonus harian"}</div>
+                                <div className="ml-6 text-xs text-white/40">{stars > 0 ? "1 scan = 1 star" : "Login untuk bonus harian"}</div>
                             </div>
-                            <Link href="/mega888" className="px-3 py-1.5 bg-white/10 rounded-full text-xs font-bold text-white/70 hover:text-white transition">
+                            <Link href="/mega888" className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white/70 transition hover:text-white">
                                 Mega888 Hub →
                             </Link>
                         </div>
                     </div>
+
+                    <section className="tm-hero card overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] p-2">
+                        <div className="flex items-center justify-between px-3 pb-2 pt-1">
+                            <div>
+                                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Komuniti & bukti sosial</div>
+                                <div className="mt-1 text-sm font-bold text-white">Highlight ahli dan momentum semasa</div>
+                            </div>
+                            <Gamepad2 className="h-4 w-4 text-white/35" />
+                        </div>
+                        <HeroCarousel onScanClick={() => {
+                            document.getElementById('scanner-section')?.scrollIntoView({ behavior: 'smooth' });
+                        }} />
+                    </section>
 
                     {/* ── Community Wins Marquee ── */}
                     <section
@@ -933,6 +1032,24 @@ export default function HomeClient({ children }: { children?: React.ReactNode })
 
 
             <InstallPrompt />
+
+            <div className="fixed inset-x-0 bottom-3 z-40 px-3 md:hidden">
+                <div className="mx-auto grid max-w-lg grid-cols-3 gap-2 rounded-2xl border border-white/10 bg-slate-950/90 p-2 shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+                    <button
+                        type="button"
+                        onClick={() => document.getElementById('scanner-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                        className="rounded-xl bg-red-500 px-3 py-2 text-xs font-black uppercase tracking-[0.16em] text-white"
+                    >
+                        Scan
+                    </button>
+                    <Link href="/trusted" className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center text-xs font-black uppercase tracking-[0.16em] text-white/85">
+                        Trusted
+                    </Link>
+                    <a href="https://t.me/tipsmega888chat" target="_blank" rel="noreferrer" className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-center text-xs font-black uppercase tracking-[0.16em] text-white/85">
+                        Community
+                    </a>
+                </div>
+            </div>
 
             <style jsx>{`
                 .btn-cooldown {
