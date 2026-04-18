@@ -240,26 +240,60 @@ export default function Page() {
       </div>
 
       <div className="px-4 py-2 mt-4 max-w-4xl mx-auto">
-        <div className="relative overflow-hidden rounded-[28px] border border-yellow-400/20 bg-[radial-gradient(circle_at_top,rgba(255,215,0,0.08),transparent_38%),linear-gradient(180deg,rgba(54,7,7,0.94),rgba(8,2,2,0.98))] p-3 shadow-[0_0_40px_rgba(255,140,0,0.14)]">
-          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[28px]">
-            <div className="absolute inset-y-0 -left-1/3 w-1/3 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent)] skew-x-[-18deg] animate-pulse" />
-          </div>
-          <div className="relative z-10 mb-3 flex flex-wrap items-center justify-between gap-2 px-1">
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.35em] text-yellow-300/80">Join Komuniti Mega888</p>
-              <h2 className="text-sm font-extrabold text-white">Join komuniti VIP untuk spin, update, dan lobby access</h2>
-            </div>
-            <span className="rounded-full border border-yellow-300/30 bg-yellow-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-yellow-200">
-              3 Reel Bonus
-            </span>
+        <div className="relative overflow-hidden rounded-[30px] border border-yellow-400/25 bg-[radial-gradient(circle_at_top,rgba(255,215,0,0.12),transparent_34%),linear-gradient(180deg,#531010_0%,#260606_52%,#0a0202_100%)] p-3 shadow-[0_0_48px_rgba(255,140,0,0.16)]">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[30px]">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(255,215,0,0.12),transparent_28%),radial-gradient(circle_at_85%_18%,rgba(255,120,0,0.12),transparent_24%)]" />
+            <div className="absolute inset-y-0 -left-1/3 w-1/3 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent)] skew-x-[-18deg] animate-pulse" />
           </div>
 
-          <SlotMachineButton
-            href="https://masuk10.com/Prospinner"
-            label="JOIN KOMUNITI VIP"
-            sublabel="masuk group, spin lobby, dan akses komuniti terus"
-            pattern={["💎", "7", "💎"]}
-          />
+          <div className="relative z-10 grid gap-3 md:grid-cols-[1.2fr_0.8fr] md:items-center">
+            <div className="rounded-[24px] border border-yellow-300/12 bg-black/12 p-3 sm:p-4">
+              <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.35em] text-yellow-300/85">Join Komuniti Mega888</p>
+                  <h2 className="mt-1 text-[15px] font-extrabold leading-tight text-white sm:text-lg">Join komuniti VIP untuk spin update, info panas, dan lobby access</h2>
+                  <p className="mt-2 max-w-lg text-[11px] leading-relaxed text-yellow-50/68 sm:text-xs">Masuk group untuk tengok update harian, promo semasa, dan akses terus ke komuniti aktif Mega888 Malaysia.</p>
+                </div>
+                <span className="rounded-full border border-yellow-300/35 bg-yellow-300/12 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-yellow-200">
+                  VIP ACCESS
+                </span>
+              </div>
+
+              <div className="mb-3 grid grid-cols-3 gap-2 text-center">
+                {[
+                  ["Live", "Update"],
+                  ["Hot", "Promo"],
+                  ["Direct", "Lobby"],
+                ].map(([top, bottom]) => (
+                  <div key={top} className="rounded-2xl border border-white/10 bg-white/5 px-2 py-2">
+                    <div className="text-[11px] font-black uppercase tracking-[0.14em] text-yellow-200">{top}</div>
+                    <div className="mt-0.5 text-[10px] uppercase tracking-[0.12em] text-white/55">{bottom}</div>
+                  </div>
+                ))}
+              </div>
+
+              <SlotMachineButton
+                href="https://masuk10.com/Prospinner"
+                label="JOIN KOMUNITI VIP"
+                sublabel="masuk group, spin lobby, dan akses komuniti terus"
+                pattern={["💎", "7", "💎"]}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+              {[
+                ["⚡", "Fast Respon"],
+                ["🎁", "Promo Update"],
+                ["📲", "Lobby Access"],
+                ["🔥", "Info Harian"],
+              ].map(([icon, label]) => (
+                <div key={label} className="rounded-[22px] border border-yellow-300/14 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] px-3 py-4 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+                  <div className="text-lg">{icon}</div>
+                  <div className="mt-2 text-[11px] font-black uppercase tracking-[0.14em] text-white/88">{label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
