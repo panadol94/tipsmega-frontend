@@ -557,72 +557,70 @@ export default function HomeClient() {
                 <div className="w-full max-w-lg space-y-4">
                     <section className="tm-hero card relative overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.98),rgba(2,6,23,0.96))] p-2 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
                         <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-red-400/50 to-transparent" />
-                        <div className="mb-3 flex items-center justify-between px-3 pt-2">
-                            <div>
-                                <div className="text-[10px] font-black uppercase tracking-[0.32em] text-white/45">Komuniti & bukti sosial</div>
-                                <div className="mt-1 text-sm font-bold text-white/80">Visual flow AI RTP Scanner</div>
-                            </div>
-                            <span className="rounded-full border border-red-400/20 bg-red-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-red-200">
-                                Featured
-                            </span>
-                        </div>
-                        <img
-                            src="/home/scanner-social-proof-top.jpg"
-                            alt="AI RTP Scanner Teknologi Pintar Percuma"
-                            className="w-full rounded-[24px] border border-white/10 object-cover shadow-[0_20px_60px_rgba(0,0,0,0.28)]"
-                        />
-                    </section>
-
-                    <section className="tm-hero card relative overflow-hidden rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(239,68,68,0.18),transparent_45%),linear-gradient(180deg,rgba(15,23,42,0.98),rgba(2,6,23,0.96))] p-5 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
-                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-400/60 to-transparent" />
-                        <div className="flex flex-wrap items-center gap-2">
-                            <span className="inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-red-200">
-                                <span className="h-1.5 w-1.5 rounded-full bg-red-300 animate-pulse" />
-                                Scanner RTP Live
-                            </span>
-                            <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
-                                Semakan pantas, terus
-                            </span>
-                        </div>
-
-                        <div className="mt-4 space-y-3">
-                            <div className="space-y-2">
-                                <h1 className="text-3xl font-black leading-tight text-white">
-                                    Check scanner dulu, lepas itu baru pilih trusted company.
-                                </h1>
-                                <p className="max-w-md text-sm leading-6 text-white/70">
-                                    Semak signal RTP semasa untuk Mega888 ID anda, kemudian terus ke senarai trusted company yang verified jika anda mahu sambung dengan lebih yakin.
-                                </p>
-                            </div>
-
-                            <div className="grid grid-cols-1 gap-2 sm:grid-cols-[1.2fr_0.8fr]">
-                                <button
-                                    type="button"
-                                    onClick={() => document.getElementById('scanner-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-                                    className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-500 via-red-400 to-orange-400 px-4 py-3 text-sm font-black text-slate-950 shadow-[0_12px_40px_rgba(248,113,113,0.35)] transition hover:scale-[1.01]"
-                                >
-                                    Start Scan Sekarang
-                                </button>
-                                <Link
-                                    href="/trusted"
-                                    className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-bold text-white/85 transition hover:border-red-400/30 hover:bg-red-400/10"
-                                >
-                                    Lihat Trusted Company
-                                </Link>
-                            </div>
-                        </div>
-
-                        <div className="mt-4 grid grid-cols-3 gap-2">
-                            {[
-                                { label: 'Live Signal', value: 'AI Sync' },
-                                { label: 'Trusted', value: 'Verified List' },
-                                { label: 'Komuniti', value: 'Wins & Chat' },
-                            ].map((item) => (
-                                <div key={item.label} className="rounded-2xl border border-white/8 bg-white/5 px-3 py-2">
-                                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">{item.label}</div>
-                                    <div className="mt-1 text-sm font-bold text-white/90">{item.value}</div>
+                        <div className="relative overflow-hidden rounded-[24px] border border-white/10">
+                            <img
+                                src="/home/scanner-social-proof-top.jpg"
+                                alt="AI RTP Scanner Teknologi Pintar Percuma"
+                                className="w-full object-cover shadow-[0_20px_60px_rgba(0,0,0,0.28)]"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#050816]/95 via-[#050816]/45 to-transparent" />
+                            <div className="absolute inset-x-0 top-0 flex items-center justify-between p-3 sm:p-4">
+                                <div>
+                                    <div className="text-[10px] font-black uppercase tracking-[0.32em] text-white/60">Komuniti & bukti sosial</div>
+                                    <div className="mt-1 text-sm font-bold text-white/90">Hero utama AI RTP Scanner</div>
                                 </div>
-                            ))}
+                                <span className="rounded-full border border-red-400/20 bg-red-400/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-red-200">
+                                    Featured
+                                </span>
+                            </div>
+                            <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                                <div className="max-w-md space-y-3">
+                                    <div className="flex flex-wrap items-center gap-2">
+                                        <span className="inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-red-200">
+                                            <span className="h-1.5 w-1.5 rounded-full bg-red-300 animate-pulse" />
+                                            Scanner RTP Live
+                                        </span>
+                                        <span className="inline-flex items-center rounded-full border border-white/10 bg-black/25 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/70">
+                                            Semakan pantas, terus
+                                        </span>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h1 className="text-2xl font-black leading-tight text-white sm:text-3xl">
+                                            Check scanner dulu, lepas itu baru pilih trusted company.
+                                        </h1>
+                                        <p className="text-sm leading-6 text-white/75">
+                                            Semak signal RTP semasa untuk Mega888 ID anda, kemudian terus ke senarai trusted company yang verified jika anda mahu sambung dengan lebih yakin.
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-[1.2fr_0.8fr]">
+                                        <button
+                                            type="button"
+                                            onClick={() => document.getElementById('scanner-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                                            className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-500 via-red-400 to-orange-400 px-4 py-3 text-sm font-black text-slate-950 shadow-[0_12px_40px_rgba(248,113,113,0.35)] transition hover:scale-[1.01]"
+                                        >
+                                            Start Scan Sekarang
+                                        </button>
+                                        <Link
+                                            href="/trusted"
+                                            className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white transition hover:border-red-400/30 hover:bg-red-400/10"
+                                        >
+                                            Lihat Trusted Company
+                                        </Link>
+                                    </div>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        {[
+                                            { label: 'Live Signal', value: 'AI Sync' },
+                                            { label: 'Trusted', value: 'Verified List' },
+                                            { label: 'Komuniti', value: 'Wins & Chat' },
+                                        ].map((item) => (
+                                            <div key={item.label} className="rounded-2xl border border-white/8 bg-black/25 px-3 py-2 backdrop-blur-sm">
+                                                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/45">{item.label}</div>
+                                                <div className="mt-1 text-sm font-bold text-white/95">{item.value}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
 
