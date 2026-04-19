@@ -6,11 +6,11 @@ import BackgroundMusic from "@/components/BackgroundMusic";
 export const metadata: Metadata = {
   metadataBase: new URL("https://tipsmega888.com"),
   title: {
-    default: "Tips Mega888 Malaysia 2026 | Tips, RTP Scanner & Trusted Company",
-    template: "%s | Tips Mega888 Malaysia"
+    default: "TipsMega888 — Tips, Tricks & Live RTP Mega888 Malaysia",
+    template: "%s | TipsMega888"
   },
   description:
-    "Tips Mega888 Malaysia 2026 dengan panduan ringkas, semakan RTP Scanner, trusted company, dan rujukan download APK untuk pengguna baru dan lama.",
+    "Panduan Mega888 Malaysia 2026: tips harian, RTP live, download APK terkini & senarai trusted company. Mula semakan ringkas & main selamat hari ini.",
   keywords: [
     "tipsmega888",
     "tips mega888",
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     "mega888 ai",
   ],
   openGraph: {
-    title: "Tips Mega888 Malaysia 2026 | Tips, RTP Scanner & Trusted Company",
+    title: "TipsMega888 — Tips, Tricks & Live RTP Mega888 Malaysia",
     description:
-      "Tips Mega888 Malaysia 2026 dengan panduan ringkas, semakan RTP Scanner, trusted company, dan rujukan download APK untuk pengguna baru dan lama.",
+      "Panduan Mega888 Malaysia 2026: tips harian, RTP live, download APK terkini & senarai trusted company. Mula semakan ringkas & main selamat hari ini.",
     url: "https://tipsmega888.com",
     siteName: "Tips Mega888",
     locale: "ms_MY",
@@ -48,9 +48,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tips Mega888 Malaysia 2026 | Tips, RTP Scanner & Trusted Company",
+    title: "TipsMega888 — Tips, Tricks & Live RTP Mega888 Malaysia",
     description:
-      "Tips Mega888 Malaysia 2026 dengan panduan ringkas, semakan RTP Scanner, trusted company, dan rujukan download APK.",
+      "Panduan Mega888 Malaysia 2026: tips harian, RTP live, download APK & senarai trusted company. Mula main selamat hari ini.",
     images: ["https://tipsmega888.com/wins/win-4.jpg"],
   },
   alternates: {
