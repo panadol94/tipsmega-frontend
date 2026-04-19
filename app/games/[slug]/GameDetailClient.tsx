@@ -28,50 +28,6 @@ export default function GameDetailClient({ game }: { game: Game }) {
     <SharedPageNav>
       <div className="min-h-screen bg-[#07090f] text-white app-bg relative overflow-x-hidden">
 
-        {/* JSON-LD Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              name: `${game.name} - Mega888`,
-              applicationCategory: "GameApplication",
-              operatingSystem: "Android, iOS",
-              description: game.description,
-              offers: { "@type": "Offer", price: "0", priceCurrency: "MYR" },
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Home", item: "https://tipsmega888.com" },
-                { "@type": "ListItem", position: 2, name: "Games", item: "https://tipsmega888.com/games" },
-                { "@type": "ListItem", position: 3, name: game.name, item: `https://tipsmega888.com/games/${game.slug}` },
-              ],
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              mainEntity: game.faq.map((f) => ({
-                "@type": "Question",
-                name: f.q,
-                acceptedAnswer: { "@type": "Answer", text: f.a },
-              })),
-            }),
-          }}
-        />
-
         {/* Ambient Background */}
         <div className="fixed inset-0 bg-[url('/img/noise.png')] opacity-5 pointer-events-none" />
         <div className="fixed -top-32 -left-32 w-80 h-80 bg-amber-600/10 rounded-full blur-[120px] pointer-events-none" />
@@ -127,7 +83,7 @@ export default function GameDetailClient({ game }: { game: Game }) {
                   {/* RTP Badge */}
                   <div className="flex items-center gap-1.5 bg-amber-500/15 border border-amber-500/30 text-amber-300 px-3 py-1.5 rounded-full">
                     <span className="text-[10px] font-black tracking-wider uppercase">RTP</span>
-                    <span className="text-xs font-black">{game.rtpMin}–{game.rtpMax}%</span>
+                    <span className="text-xs font-black">{game.rtpMin}â{game.rtpMax}%</span>
                   </div>
 
                   {/* Volatility Badge */}
@@ -173,7 +129,7 @@ export default function GameDetailClient({ game }: { game: Game }) {
                   key={i}
                   className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-colors"
                 >
-                  ✦ {f}
+                  â¦ {f}
                 </span>
               ))}
             </div>
@@ -225,7 +181,7 @@ export default function GameDetailClient({ game }: { game: Game }) {
             <div className="flex items-center gap-2 mb-4">
               <div className="h-1 w-5 bg-emerald-400 rounded-full shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
               <h2 className="text-sm font-black tracking-wider text-emerald-400 uppercase">
-                FAQ — {game.name}
+                FAQ â {game.name}
               </h2>
             </div>
             <div className="space-y-4">
@@ -277,12 +233,12 @@ export default function GameDetailClient({ game }: { game: Game }) {
               boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
             }}
           >
-            <div className="text-2xl mb-2">🔥</div>
+            <div className="text-2xl mb-2">ð¥</div>
             <p className="text-base font-black text-white mb-1">
               Scan RTP {game.name} Sekarang
             </p>
             <p className="text-xs text-white/50 mb-5 font-medium">
-              Check live RTP with AI Scanner — free!
+              Check live RTP with AI Scanner â free!
             </p>
             <Link
               href="/"
@@ -292,21 +248,21 @@ export default function GameDetailClient({ game }: { game: Game }) {
                 boxShadow: "0 6px 24px rgba(251,191,36,0.35)",
               }}
             >
-              Buka AI Scanner →
+              Buka AI Scanner â
             </Link>
 
             {/* Bottom nav links */}
             <div className="flex items-center justify-center gap-4 mt-6 text-xs font-medium">
               <Link href="/games" className="text-blue-400 hover:text-blue-300 transition-colors">
-                ← Semua Game
+                â Semua Game
               </Link>
               <span className="text-white/20">|</span>
               <Link href="/blog" className="text-amber-400 hover:text-amber-300 transition-colors">
-                📝 Blog Tips
+                ð Blog Tips
               </Link>
               <span className="text-white/20">|</span>
               <Link href="/" className="text-emerald-400 hover:text-emerald-300 transition-colors">
-                🏠 Home
+                ð  Home
               </Link>
             </div>
           </div>

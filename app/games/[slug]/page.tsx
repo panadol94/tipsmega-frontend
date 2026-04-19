@@ -46,5 +46,41 @@ export default async function GamePage({ params }: { params: Promise<{ slug: str
   const game = getGameBySlug(slug);
   if (!game) return notFound();
 
-  return <GameDetailClient game={game} />;
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: `${game.name} - Mega888`,
+      applicationCategory: "GameApplication",
+      operatingSystem: "Android, iOS",
+      description: game.description,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "MYR" },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://tipsmega888.com" },
+        { "@type": "ListItem", position: 2, name: "Games", item: "https://tipsmega888.com/games" },
+        { "@type": "ListItem", position: 3, name: game.name, item: `https://tipsmega888.com/games/${game.slug}` },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: game.faq.map((f: { q: string; a: string }) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+  ];
+  return (
+    <>
+      {jsonLd.map((schema, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      ))}
+      <GameDetailClient game={game} />
+    </>
+  );
 }
