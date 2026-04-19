@@ -51,7 +51,7 @@ export const metadata = {
 const HUB_LINKS = [
   {
     title: "Mega888 Malaysia 2026: Panduan Lengkap",
-    href: "/blog/mega888-rtp-scanner-panduan-lengkap-2026",
+    href: "/blog/mega888-rtp-tracker-panduan-lengkap-2026",
     note: "Artikel utama untuk pengguna Malaysia: login, APK, trusted agent, RTP live, dan flow terbaik.",
   },
   {
@@ -206,7 +206,7 @@ export default function Mega888HubPage() {
           }}
         >
           {[
-            ["Mega888 Malaysia", "/blog/mega888-rtp-scanner-panduan-lengkap-2026"],
+            ["Mega888 Malaysia", "/blog/mega888-rtp-tracker-panduan-lengkap-2026"],
             ["Login Guide", "/blog/mega888-register-akaun-baru-2026"],
             ["Download APK", "/blog/mega888-download-android-apk-terbaru-2026"],
             ["RTP Live", "/blog/mega888-rtp-live-malaysia-2026"],
