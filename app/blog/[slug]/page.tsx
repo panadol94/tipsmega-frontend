@@ -86,7 +86,7 @@ function autoLinkArticleContent(content: string, rules: InternalLinkRule[], maxL
 }
 
 export function generateStaticParams() {
-  return BLOG_ARTICLES.map((a) => ({ slug: a.slug }));
+  return BLOG_ARTICLES.filter((a) => !BLOG_REDIRECT_SOURCE_SLUGS.has(a.slug)).map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
