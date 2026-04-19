@@ -13,7 +13,8 @@ export const BLOG_REDIRECTS: Record<string, string> = {
   "tips-mega888-pro": "cara-menang-mega888",
   "game-senang-jackpot": "top-slot-mega888",
   "hack-rtp-mega888": "mega888-rtp-scanner-panduan-lengkap-2026",
-  "slot-gacor-hari-ini": "mega888-rtp-live-malaysia-2026"
+  "slot-gacor-hari-ini": "mega888-rtp-live-malaysia-2026",
+  "mega888-918kiss-beza": "mega888-vs-918kiss"
 };
 
 export const BLOG_REDIRECT_SOURCE_SLUGS = new Set(Object.keys(BLOG_REDIRECTS));
