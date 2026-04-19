@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BLOG_ARTICLES, getArticleBySlug, type BlogArticle } from "../../data/blogArticles";
 import { BLOG_REDIRECTS, BLOG_REDIRECT_SOURCE_SLUGS } from "../../data/blogRedirects";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import BlogEngagement from "./BlogEngagement";
 import SharedPageNav from "../../ui/SharedPageNav";
 
@@ -171,9 +171,10 @@ const categoryMeta: Record<string, { label: string; bg: string; text: string; bo
 
 export default async function BlogArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const redirectTarget = BLOG_REDIRECTS[slug];
+  if (redirectTarget) permanentRedirect(`/blog/${redirectTarget}`);
   const article = getArticleBySlug(slug);
   if (!article) return notFound();
-  const redirectTarget = BLOG_REDIRECTS[slug];
 
   const heroImage = resolveHeroImage(article);
   
