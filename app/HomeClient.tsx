@@ -551,28 +551,70 @@ export default function HomeClient() {
                 <HackerScanOverlay megaId={megaId} />
             )}
 
-            {/* Scanner Section - CENTERED & CLEAN */}
+            {/* Premium Mega888 casino dashboard */}
             <main className="flex flex-col items-center justify-start min-h-screen px-4 py-4 pb-28">
-                <div className="w-full max-w-lg space-y-4">
-                    <section className="tm-hero card relative overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.98),rgba(2,6,23,0.96))] p-2 shadow-[0_24px_80px_rgba(2,6,23,0.45)]">
-                        <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-red-400/50 to-transparent" />
-                        <img
-                            src="/home/scanner-social-proof-top.jpg"
-                            alt="AI RTP Scanner Teknologi Pintar Percuma"
-                            className="w-full rounded-[24px] border border-white/10 object-cover shadow-[0_20px_60px_rgba(0,0,0,0.28)]"
-                        />
+                <div className="w-full max-w-5xl space-y-4">
+                    <section className="tm-hero tm-premium-hero card relative overflow-hidden rounded-[32px] p-4 sm:p-6">
+                        <div className="tm-premium-hero-grid">
+                            <div className="relative z-10 space-y-4">
+                                <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-amber-200">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(110,231,183,0.8)] animate-pulse" />
+                                    Live Mega888 Signal
+                                </div>
+                                <div>
+                                    <h1 className="text-3xl font-black leading-tight text-white sm:text-5xl">
+                                        Mega888 RTP Live Scanner Malaysia
+                                    </h1>
+                                    <p className="mt-3 max-w-xl text-sm leading-6 text-white/68 sm:text-base">
+                                        Dashboard premium untuk semak signal RTP, trusted company, dan update komuniti dalam satu halaman yang lebih clean dan mahal.
+                                    </p>
+                                </div>
+                                <div className="grid grid-cols-3 gap-2 max-w-md">
+                                    {[
+                                        ['98%', 'Peak RTP'],
+                                        ['24/7', 'Live Sync'],
+                                        ['AI', 'Signal Scan'],
+                                    ].map(([value, label]) => (
+                                        <div key={label} className="tm-premium-stat">
+                                            <div className="text-lg font-black text-white">{value}</div>
+                                            <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.15em] text-white/45">{label}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="flex flex-col gap-2 sm:flex-row">
+                                    <button
+                                        type="button"
+                                        onClick={() => document.getElementById('scanner-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                                        className="tm-premium-primary-btn"
+                                    >
+                                        Scan RTP Sekarang
+                                    </button>
+                                    <Link href="/trusted" className="tm-premium-secondary-btn">
+                                        Lihat Trusted Company
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="tm-premium-visual relative z-10">
+                                <img
+                                    src="/home/scanner-social-proof-top.jpg"
+                                    alt="AI RTP Scanner Teknologi Pintar Percuma"
+                                    className="w-full rounded-[26px] border border-white/10 object-cover shadow-[0_22px_70px_rgba(0,0,0,0.38)]"
+                                />
+                                <div className="tm-premium-scanline" />
+                            </div>
+                        </div>
                     </section>
 
-                    <section id="scanner-section" className="card relative overflow-hidden rounded-[28px] border border-red-500/20 bg-[#0d1321]/95 p-4 tm-scan tm-scan-pulse shadow-[0_22px_80px_rgba(0,0,0,0.35)]">
-                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent" />
+                    <section id="scanner-section" className="card tm-premium-panel relative overflow-hidden rounded-[30px] p-4 tm-scan tm-scan-pulse">
+                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
                         <div className="flex items-center gap-2 border-b border-red-500/20 pb-2">
                             <div className="flex gap-1.5">
                                 <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
                                 <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
                                 <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
                             </div>
-                            <span className="ml-2 text-[10px] font-mono tracking-widest text-red-400/60">
-                                SCANNER_TERMINAL_v2.exe
+                            <span className="ml-2 text-[10px] font-mono tracking-widest text-amber-200/70">
+                                MEGA888_PREMIUM_SCAN.exe
                             </span>
                             <div className="ml-auto flex items-center gap-2">
                                 <span className="live-dot" />
@@ -581,9 +623,9 @@ export default function HomeClient() {
                         </div>
 
                         <div className="mt-4 flex flex-wrap items-center gap-2">
-                            <span className="inline-flex items-center gap-2 rounded-full border border-red-400/30 bg-red-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-red-300">
-                                <span className="h-1.5 w-1.5 rounded-full bg-red-300 animate-pulse" />
-                                Live AI
+                            <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/35 bg-amber-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-amber-200">
+                                <span className="h-1.5 w-1.5 rounded-full bg-amber-200 animate-pulse" />
+                                Premium AI
                             </span>
                             <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] ${busy ? "border-cyan-400/30 bg-cyan-400/10 text-cyan-300" : isValidMegaId ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300" : "border-white/10 bg-white/5 text-white/40"}`}>
                                 {busy ? "Scanning..." : isValidMegaId ? "Ready" : "Awaiting ID"}
@@ -598,11 +640,11 @@ export default function HomeClient() {
                                 <div className="mb-3 space-y-1">
                                     <h2 className="text-xl font-black text-white">Scan Mega888 ID anda</h2>
                                     <p className="text-sm text-white/60">
-                                        Masukkan ID untuk semakan RTP semasa. Cooldown, auth, dan result modal kekal seperti biasa.
+                                        Masukkan ID untuk semakan signal RTP semasa dengan paparan dashboard yang lebih premium.
                                     </p>
                                 </div>
 
-                                <div className="mb-3 rounded-xl border border-red-600/30 bg-[#0a0f1a]/70 p-3">
+                                <div className="mb-3 rounded-2xl border border-amber-300/20 bg-black/35 p-3 shadow-[inset_0_0_30px_rgba(245,158,11,0.05)]">
                                     <input
                                         className={`tm-scan-item terminal-input ${inputError ? 'shake-error' : ''}`}
                                         value={megaId}
@@ -614,7 +656,7 @@ export default function HomeClient() {
                                         autoComplete="off"
                                         style={{ fontFamily: "'JetBrains Mono', monospace" }}
                                     />
-                                    <div className="mt-2 flex justify-between text-xs font-mono text-red-400/50">
+                                    <div className="mt-2 flex justify-between text-xs font-mono text-amber-200/55">
                                         <span className="flex items-center gap-1">
                                             <span className="text-[10px]">&gt;_</span> {megaId.trim().length}/12 digit
                                         </span>
@@ -624,7 +666,7 @@ export default function HomeClient() {
 
                                 <div className="scanner-terminal-shell mb-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
                                     <div className="scanner-terminal-line" />
-                                    <span className="font-mono text-xs text-red-400/80">[AI] SIGNAL READY • ENTER ID TO BEGIN SCAN...</span>
+                                    <span className="font-mono text-xs text-amber-200/80">[AI] PREMIUM SIGNAL READY • ENTER ID TO BEGIN SCAN...</span>
                                 </div>
 
                                 <button
@@ -643,7 +685,7 @@ export default function HomeClient() {
                                 </div>
                             </div>
 
-                            <aside className="rounded-2xl border border-white/10 bg-white/[0.04] p-3">
+                            <aside className="rounded-3xl border border-cyan-300/15 bg-cyan-300/[0.045] p-3 shadow-[inset_0_0_35px_rgba(34,211,238,0.04)]">
                                 <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Flow Pantas</div>
                                 <div className="mt-2 space-y-2">
                                     {[
@@ -656,15 +698,29 @@ export default function HomeClient() {
                                         </div>
                                     ))}
                                 </div>
-                                <Link href="/trusted" className="mt-3 flex items-center justify-between rounded-2xl border border-red-500/20 bg-red-500/10 px-3 py-3 transition hover:border-red-400/40 hover:bg-red-500/15">
+                                <Link href="/trusted" className="mt-3 flex items-center justify-between rounded-2xl border border-amber-300/25 bg-amber-300/10 px-3 py-3 transition hover:border-amber-200/50 hover:bg-amber-300/15">
                                     <div>
-                                        <div className="text-xs font-black uppercase tracking-[0.18em] text-red-200">Trusted Company</div>
+                                        <div className="text-xs font-black uppercase tracking-[0.18em] text-amber-100">Trusted Company</div>
                                         <div className="mt-1 text-sm text-white/75">Laluan kedua yang paling jelas selepas scan.</div>
                                     </div>
                                     <Flame className="h-5 w-5 text-red-300 premium-icon-glow-red" />
                                 </Link>
                             </aside>
                         </div>
+                    </section>
+
+                    <section className="tm-hero grid gap-3 md:grid-cols-3">
+                        {[
+                            { title: 'HOT RTP', value: '96.8%', note: 'Signal tinggi untuk sesi aktif', tone: 'from-emerald-400/18 to-cyan-400/8' },
+                            { title: 'SAFE ROUTE', value: 'Verified', note: 'Terus ke trusted company', tone: 'from-amber-300/18 to-orange-400/8' },
+                            { title: 'LIVE ALERT', value: 'Telegram', note: 'Update komuniti dan bantuan', tone: 'from-purple-400/18 to-pink-400/8' },
+                        ].map((item) => (
+                            <div key={item.title} className={`tm-premium-mini-card bg-gradient-to-br ${item.tone}`}>
+                                <div className="text-[10px] font-black uppercase tracking-[0.2em] text-white/45">{item.title}</div>
+                                <div className="mt-2 text-2xl font-black text-white">{item.value}</div>
+                                <div className="mt-1 text-xs leading-5 text-white/58">{item.note}</div>
+                            </div>
+                        ))}
                     </section>
 
                     <section className="tm-hero">
