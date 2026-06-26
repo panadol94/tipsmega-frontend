@@ -99,6 +99,21 @@ const HUB_LINKS = [
     href: "/blog/mega888-free-credit-no-deposit-2026",
     note: "Cara semak promo dengan lebih berhati-hati.",
   },
+  {
+    title: "Group WhatsApp Mega888 Malaysia",
+    href: "/blog/group-whatsapp-mega888-malaysia-2026",
+    note: "Cara join komuniti, guna update RTP, dan elak group scam.",
+  },
+  {
+    title: "RTP Scanner Mega888",
+    href: "/blog/rtp-scanner-mega888-cara-baca-data-live",
+    note: "Cara baca data live, volatiliti, dan masa semakan sebelum pilih game.",
+  },
+  {
+    title: "Global Rank Growth Plan",
+    href: "/blog/mega888-malaysia-global-rank-growth-plan",
+    note: "Pelan trafik real, backlink, dan SEO untuk bantu domain mula dapat rank public.",
+  },
 ];
 
 const FAQS = [
@@ -212,6 +227,8 @@ export default function Mega888HubPage() {
             ["RTP Live", "/blog/mega888-rtp-live-malaysia-2026"],
             ["Trusted Agent", "/trusted"],
             ["Semua Game", "/games"],
+            ["Group WhatsApp", "/blog/group-whatsapp-mega888-malaysia-2026"],
+            ["Global Rank Plan", "/blog/mega888-malaysia-global-rank-growth-plan"],
           ].map(([label, href]) => (
             <Link
               key={href}

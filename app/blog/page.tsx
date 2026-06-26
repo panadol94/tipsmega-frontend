@@ -165,6 +165,21 @@ export default function BlogPage() {
               title: "Game Untuk Pemula",
               note: "Pilihan modal kecil dan silap biasa beginner.",
             },
+            {
+              href: "/blog/group-whatsapp-mega888-malaysia-2026",
+              title: "Group WhatsApp Mega888",
+              note: "Cara join komuniti dan elak link scam.",
+            },
+            {
+              href: "/blog/rtp-scanner-mega888-cara-baca-data-live",
+              title: "RTP Scanner Mega888",
+              note: "Cara baca data live sebelum pilih game.",
+            },
+            {
+              href: "/blog/mega888-malaysia-global-rank-growth-plan",
+              title: "Global Rank Growth Plan",
+              note: "Trafik real, backlink dan SEO cluster.",
+            },
           ].map((item) => (
             <Link
               key={item.href}
