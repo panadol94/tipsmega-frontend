@@ -56,9 +56,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://tipsmega888.com",
   },
-  verification: {
-    google: "google-site-verification-code", // Replace with actual code
-  },
 };
 
 export default function RootLayout({
@@ -99,30 +96,6 @@ export default function RootLayout({
     },
     {
       "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: "https://tipsmega888.com"
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Mega888 Community",
-          item: "https://tipsmega888.com/games"
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Trusted Platforms",
-          item: "https://tipsmega888.com/trusted"
-        }
-      ]
-    },
-    {
-      "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       name: "Tips Mega888 AI RTP Scanner",
       applicationCategory: "UtilitiesApplication",
@@ -132,12 +105,7 @@ export default function RootLayout({
         price: "0",
         priceCurrency: "MYR"
       },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.8",
-        ratingCount: "50000"
-      },
-      description: "AI-powered RTP scanner percuma untuk analisis slot Mega888 Malaysia. Tingkatkan peluang menang dengan data real-time dan komuniti 50,000+ ahli."
+      description: "Alat rujukan percuma untuk menyusun bacaan RTP slot Mega888 Malaysia. Bacaan tidak menjamin keputusan permainan."
     }
   ];
 
