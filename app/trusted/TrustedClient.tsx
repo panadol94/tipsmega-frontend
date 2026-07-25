@@ -42,7 +42,7 @@ function LazyVideo({
           observer.disconnect();
         }
       },
-      { rootMargin: "50px", threshold: 0.01 }
+      { rootMargin: "0px", threshold: 0.1 }
     );
     if (containerRef.current) {
       observer.observe(containerRef.current);
@@ -56,7 +56,7 @@ function LazyVideo({
         <video
           src={mediaUrl}
           title={title}
-          preload="metadata"
+          preload="none"
           className="premium-media"
           muted
           autoPlay
@@ -309,7 +309,7 @@ function forcePlay(video: HTMLVideoElement | null) {
   if (p && typeof p.catch === "function") p.catch(() => {});
 }
 
-const COMPANIES_PER_PAGE = 100; // Show all companies at once
+const COMPANIES_PER_PAGE = 12;
 
 export default function TrustedClient() {
   const { playSound, triggerHaptic } = useGlobalSettings();
@@ -426,11 +426,11 @@ export default function TrustedClient() {
                         return <LazyVideo mediaUrl={mediaUrl} title={`${c.name} - Mega888 Platform`} poster="/mega888.webp" />;
                       }
                       // eslint-disable-next-line @next/next/no-img-element
-                      return <img src={mediaUrl} alt={c.name} loading="lazy" className="premium-media" />;
+                      return <img src={mediaUrl} alt={c.name} loading="lazy" decoding="async" className="premium-media" />;
                     })()
                   ) : (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src="/mega888.webp" alt="Mega888" loading="lazy" className="premium-media" />
+                    <img src="/mega888.webp" alt="Mega888" loading="lazy" decoding="async" className="premium-media" />
                   )}
                   <div className="premium-media-overlay" />
                 </div>

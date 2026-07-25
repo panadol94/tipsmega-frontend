@@ -1,18 +1,23 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const hasStartedRef = useRef(false);
+  const pathname = usePathname();
+  const disabled = pathname.startsWith('/trusted');
 
   useEffect(() => {
+    if (disabled) return;
+
     const audio = audioRef.current;
     if (!audio) return;
 
     audio.volume = 0.3;
     audio.loop = true;
-    audio.preload = 'auto';
+    audio.preload = 'none';
     audio.setAttribute('playsinline', 'true');
 
     const startPlayback = async () => {
@@ -44,14 +49,16 @@ export default function BackgroundMusic() {
         document.removeEventListener(event, handleInteraction);
       });
     };
-  }, []);
+  }, [disabled]);
+
+  if (disabled) return null;
 
   return (
     <audio
       ref={audioRef}
       src="/audio/background-music.m4a"
       loop
-      preload="auto"
+      preload="none"
       playsInline
       style={{ display: 'none' }}
     />

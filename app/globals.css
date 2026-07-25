@@ -3123,6 +3123,8 @@ a {
 /* ---- Company Card ---- */
 .premium-company-card {
   position: relative;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 360px;
   border-radius: 20px;
   background: linear-gradient(180deg,
     rgba(22, 28, 40, 0.95) 0%,
@@ -3134,6 +3136,36 @@ a {
     0 10px 40px rgba(0, 0, 0, 0.35),
     0 0 1px rgba(255, 255, 255, 0.1);
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 640px), (prefers-reduced-motion: reduce) {
+  .premium-play-btn,
+  .premium-play-btn-shine,
+  .premium-load-more-shine,
+  .play-now-glow {
+    animation: none !important;
+  }
+
+  .premium-stat-card,
+  .premium-company-card,
+  .premium-media {
+    transition: none !important;
+  }
+
+  .premium-stat-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .premium-badge {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .social-proof-toast {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
 .premium-company-card:hover {
