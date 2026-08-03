@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const corePages: MetadataRoute.Sitemap = [
         { url: baseUrl, lastModified: coreLastModified, changeFrequency: "weekly", priority: 1 },
         { url: `${baseUrl}/trusted`, lastModified: coreLastModified, changeFrequency: "weekly", priority: 0.9 },
-        { url: `${baseUrl}/info`, lastModified: coreLastModified, changeFrequency: "monthly", priority: 0.6 },
+        { url: `${baseUrl}/info`, lastModified: new Date("2026-08-03T08:20:00.000Z"), changeFrequency: "monthly", priority: 0.6 },
         { url: `${baseUrl}/blog`, lastModified: coreLastModified, changeFrequency: "weekly", priority: 0.85 },
         { url: `${baseUrl}/mega888`, lastModified: coreLastModified, changeFrequency: "weekly", priority: 0.95 },
         { url: `${baseUrl}/games`, lastModified: coreLastModified, changeFrequency: "weekly", priority: 0.85 },

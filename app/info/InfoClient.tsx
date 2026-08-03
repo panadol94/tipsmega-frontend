@@ -29,10 +29,10 @@ export default function InfoClient() {
               <h2 className="text-xs font-black text-white/90 mb-3 tracking-widest uppercase italic">Apa fungsi scanner ini?</h2>
               <div className="text-[13px] leading-relaxed text-white/60 space-y-3">
                 <p>
-                  AI Scanner di TipsMega888 ialah alat rujukan untuk membantu pengguna melihat bacaan RTP semasa dan memilih game dengan lebih teratur.
+                  AI Scanner di TipsMega888 ialah alat simulasi dan rujukan untuk membantu pengguna membandingkan julat RTP yang dikonfigurasikan bagi setiap game dengan lebih teratur.
                 </p>
                 <p>
-                  Ia bukan alat untuk menggodam sistem, dan ia juga bukan jaminan untuk menang. Keputusan scan patut dibaca sebagai rujukan tambahan bersama pemilihan game dan pengurusan modal.
+                  Ia tidak mempunyai akses kepada RNG, pelayan atau rekod pusingan operator Mega888. Ia bukan alat untuk menggodam sistem dan bukan ramalan atau jaminan untuk menang.
                 </p>
               </div>
             </div>
@@ -50,7 +50,7 @@ export default function InfoClient() {
                 </div>
                 <div>
                   <h3 className="text-xs font-bold text-white mb-1 uppercase">3. Baca keputusan</h3>
-                  <p>Lihat bacaan RTP yang dipaparkan dan gunakan ia sebagai panduan untuk memilih game yang ingin diperhatikan.</p>
+                  <p>Lihat bacaan indikatif yang dipaparkan dan gunakan ia untuk membandingkan game, bukan untuk meramal keputusan pusingan seterusnya.</p>
                 </div>
               </div>
             </div>
@@ -59,10 +59,25 @@ export default function InfoClient() {
               <h2 className="text-xs font-black text-white/90 mb-3 tracking-widest uppercase italic">Cara baca keputusan RTP</h2>
               <div className="text-[13px] leading-relaxed text-white/60 space-y-3">
                 <p>
-                  Bacaan RTP yang lebih tinggi biasanya digunakan sebagai petunjuk bahawa sesuatu game sedang berada dalam keadaan yang lebih menarik untuk diperhatikan.
+                  RTP sebenar ialah ukuran pulangan teori dalam jangka panjang. Ia tidak menerangkan peluang menang untuk satu sesi dan tidak semestinya berubah mengikut waktu atau jumlah pemain.
                 </p>
                 <p>
-                  Walau begitu, bacaan ini tidak bermaksud keputusan akan sama untuk setiap pemain atau setiap masa. Gunakan bacaan ini sebagai panduan, bukan jaminan hasil.
+                  Bacaan pada scanner ini ialah output indikatif dalam julat yang dikonfigurasikan pada katalog TipsMega888. Ia bukan data langsung daripada operator atau audit bebas.
+                </p>
+              </div>
+            </div>
+
+            <div className="card p-6 bg-slate-900/80 border-amber-400/20">
+              <h2 className="text-xs font-black text-amber-300 mb-3 tracking-widest uppercase italic">Metodologi &amp; limitasi data</h2>
+              <div className="text-[13px] leading-relaxed text-white/60 space-y-3">
+                <p>
+                  Setiap game mempunyai julat rujukan yang disimpan dalam katalog TipsMega888. Sistem menghasilkan paparan semakan berdasarkan julat tersebut dan tetapan dalaman platform.
+                </p>
+                <p>
+                  TipsMega888 tidak mendakwa mempunyai sambungan terus kepada algoritma permainan, sejarah pertaruhan pengguna atau keputusan RNG. Untuk RTP rasmi, rujuk maklumat yang diterbitkan oleh pembangun atau operator game.
+                </p>
+                <p>
+                  Tarikh semakan metodologi terakhir: 3 Ogos 2026. Perubahan besar pada cara pengiraan akan diterangkan pada halaman ini.
                 </p>
               </div>
             </div>
