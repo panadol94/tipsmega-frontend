@@ -18,6 +18,14 @@ function stripHtml(input: string) {
   return input.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 }
 
+// The article title is rendered as the page's single H1. Some legacy article
+// bodies also contain an H1, so demote those headings to avoid duplicate H1s.
+function normalizeArticleHeadings(input: string) {
+  return input
+    .replace(/<h1(\s[^>]*)?>/gi, "<h2$1>")
+    .replace(/<\/h1>/gi, "</h2>");
+}
+
 function getHeroImageFromContent(content: string, fallbackSlug: string) {
   const m = content.match(/<img[^>]+src=["']([^"']+)["']/i);
   const raw = m?.[1] || `/blog/images/${fallbackSlug}.webp`;
@@ -192,7 +200,10 @@ async function BlogArticleContent({ slug, article, redirectTarget, heroImage }: 
   heroImage: string;
 }) {
   const internalLinkRules = buildInternalLinkRules(article.slug, article.relatedArticles);
-  const linkedContent = autoLinkArticleContent(article.content, internalLinkRules);
+  const linkedContent = autoLinkArticleContent(
+    normalizeArticleHeadings(article.content),
+    internalLinkRules
+  );
   const wordCount = stripHtml(article.content).split(" ").filter(Boolean).length;
   const cat = categoryMeta[article.category] || categoryMeta.tips;
 

@@ -7,20 +7,22 @@ export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = "https://tipsmega888.com";
-    const now = new Date();
+    // Keep lastmod honest. Replacing it with every build date tells crawlers
+    // unchanged pages were updated and wastes crawl budget.
+    const coreLastModified = new Date("2026-07-25T06:33:53.920Z");
 
     // Core pages
     const corePages: MetadataRoute.Sitemap = [
-        { url: baseUrl, lastModified: now, changeFrequency: "daily", priority: 1 },
-        { url: `${baseUrl}/trusted`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
-        { url: `${baseUrl}/info`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-        { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: "daily", priority: 0.85 },
-        { url: `${baseUrl}/mega888`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
-        { url: `${baseUrl}/games`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
-        { url: `${baseUrl}/about`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
-        { url: `${baseUrl}/privacy-policy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-        { url: `${baseUrl}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
-        { url: `${baseUrl}/disclaimer`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+        { url: baseUrl, lastModified: coreLastModified, changeFrequency: "weekly", priority: 1 },
+        { url: `${baseUrl}/trusted`, lastModified: coreLastModified, changeFrequency: "weekly", priority: 0.9 },
+        { url: `${baseUrl}/info`, lastModified: coreLastModified, changeFrequency: "monthly", priority: 0.6 },
+        { url: `${baseUrl}/blog`, lastModified: coreLastModified, changeFrequency: "weekly", priority: 0.85 },
+        { url: `${baseUrl}/mega888`, lastModified: coreLastModified, changeFrequency: "weekly", priority: 0.95 },
+        { url: `${baseUrl}/games`, lastModified: coreLastModified, changeFrequency: "weekly", priority: 0.85 },
+        { url: `${baseUrl}/about`, lastModified: coreLastModified, changeFrequency: "yearly", priority: 0.4 },
+        { url: `${baseUrl}/privacy-policy`, lastModified: coreLastModified, changeFrequency: "yearly", priority: 0.3 },
+        { url: `${baseUrl}/terms`, lastModified: coreLastModified, changeFrequency: "yearly", priority: 0.3 },
+        { url: `${baseUrl}/disclaimer`, lastModified: coreLastModified, changeFrequency: "yearly", priority: 0.3 },
     ];
 
     // Blog article pages — high priority for indexing
@@ -29,15 +31,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         .map((article) => ({
             url: `${baseUrl}/blog/${article.slug}`,
             lastModified: new Date(article.updatedAt),
-            changeFrequency: "daily" as const,
+            changeFrequency: "monthly" as const,
             priority: 0.8,
         }));
 
     // Game pages
     const gamePages: MetadataRoute.Sitemap = GAME_PAGES.map((game) => ({
         url: `${baseUrl}/games/${game.slug}`,
-        lastModified: now,
-        changeFrequency: "weekly" as const,
+        lastModified: coreLastModified,
+        changeFrequency: "monthly" as const,
         priority: 0.65,
     }));
 

@@ -795,12 +795,12 @@ export default function HomeClient() {
                                     <Trophy className="w-5 h-5 text-amber-400" />
                                 </div>
                                 <div>
-                                    <h1 className="text-sm font-black text-white tracking-wide">
+                                    <h2 className="text-sm font-black text-white tracking-wide">
                                         🎯 TIPSMEGA888 | RTP MEGA888 LIVE
-                                    </h1>
-                                    <h2 className="text-[10px] text-amber-400/70 font-medium tracking-wider uppercase">
-                                        Community Wins
                                     </h2>
+                                    <p className="text-[10px] text-amber-400/70 font-medium tracking-wider uppercase">
+                                        Community Wins
+                                    </p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">

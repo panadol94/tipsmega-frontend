@@ -301,7 +301,7 @@ export default function Page() {
       {/* ── SEO LONG-FORM CONTENT ── */}
       <div className="px-4 py-8 mb-6 mt-4 max-w-4xl mx-auto border-t border-white/10">
         <article className="prose prose-sm prose-invert max-w-none">
-          <h1 className="text-xl font-bold text-white mb-4 text-center">Tips Mega888 Malaysia 2026 | Panduan, RTP Scanner, dan Rujukan Pengguna</h1>
+          <h2 className="text-xl font-bold text-white mb-4 text-center">Tips Mega888 Malaysia 2026 | Panduan, RTP Scanner, dan Rujukan Pengguna</h2>
 
           <section className="space-y-4 text-[12px] text-white/70 leading-relaxed">
             <h2 className="text-lg font-semibold text-white/90 mt-6">Apa Itu Tips Mega888?</h2>

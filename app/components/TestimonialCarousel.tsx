@@ -71,12 +71,12 @@ export default function TestimonialCarousel() {
             <Quote className="w-5 h-5 text-red-400" />
           </div>
           <div>
-            <h1 className="text-sm font-black text-white tracking-wide">
+            <h2 className="text-sm font-black text-white tracking-wide">
               ⭐ Apa Kata Pengguna
-            </h1>
-            <h2 className="text-[10px] text-red-400/70 font-medium tracking-wider uppercase">
-              Testimoni Pelanggan
             </h2>
+            <p className="text-[10px] text-red-400/70 font-medium tracking-wider uppercase">
+              Testimoni Pelanggan
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-1.5">
