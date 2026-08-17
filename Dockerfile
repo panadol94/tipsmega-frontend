@@ -1,6 +1,9 @@
 # Stage 1: Builder
 # Use a specific version for stability, matching your local environment roughly if possible
-FROM node:20-alpine AS builder
+# Tailwind/Lightning CSS ships platform-specific native binaries. Debian's
+# glibc build is consistently resolved by npm; Alpine/musl can miss the
+# optional native package during a clean Coolify build.
+FROM node:20-bookworm-slim AS builder
 
 WORKDIR /app
 
