@@ -563,10 +563,10 @@ export default function HomeClient() {
                                 </div>
                                 <div>
                                     <h1 className="text-3xl font-black leading-tight text-white sm:text-5xl">
-                                        Mega888 RTP Live Scanner Malaysia
+                                        Tips Mega888 Malaysia & RTP Scanner
                                     </h1>
                                     <p className="mt-3 max-w-xl text-sm leading-6 text-white/68 sm:text-base">
-                                        Dashboard premium untuk semak signal RTP, trusted company, dan update komuniti dalam satu halaman yang lebih clean dan mahal.
+                                        Panduan TipsMega888 untuk semakan RTP, rujukan platform, dan kemas kini komuniti dalam satu halaman.
                                     </p>
                                 </div>
                                 <div className="grid grid-cols-3 gap-2 max-w-md">

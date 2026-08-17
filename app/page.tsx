@@ -52,36 +52,11 @@ export const metadata = {
   alternates: {
     canonical: "https://tipsmega888.com",
   },
-  other: {
-    preload: [
-      { rel: 'preload', href: '/carousel/image-1-1.png', as: 'image', type: 'image/png' }
-    ],
-  },
 };
 
 export default function Page() {
   return (
     <SharedPageNav>
-      {/* WebSite schema — enables sitelinks search box in Google */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            name: "Tips Mega888",
-            url: "https://tipsmega888.com",
-            description: "Laman rujukan Tips Mega888 Malaysia dengan panduan penggunaan, semakan RTP, dan halaman utama untuk topik berkaitan download serta trusted agent.",
-            inLanguage: "ms-MY",
-            potentialAction: {
-              "@type": "SearchAction",
-              target: "https://tipsmega888.com/games?q={search_term_string}",
-              "query-input": "required name=search_term_string",
-            },
-          }),
-        }}
-      />
-
       {/* Breadcrumb schema */}
       <script
         type="application/ld+json"
@@ -92,33 +67,6 @@ export default function Page() {
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: "https://tipsmega888.com" },
             ],
-          }),
-        }}
-      />
-
-      {/* Organization schema — Google Knowledge Panel with Community */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "Tips Mega888",
-            url: "https://tipsmega888.com",
-            logo: "https://tipsmega888.com/og-image.webp",
-            description: "Laman rujukan Tips Mega888 Malaysia dengan panduan, semakan RTP, dan halaman berkaitan trusted agent.",
-            sameAs: [
-              "https://tipsmega888.com/mega888",
-              "https://tipsmega888.com/blog",
-              "https://tipsmega888.com/trusted",
-              "https://t.me/tipsmega888chat"
-            ],
-            contactPoint: {
-              "@type": "ContactPoint",
-              contactType: "customer support",
-              url: "https://t.me/tipsmega888chat",
-              availableLanguage: ["Malay", "English"]
-            }
           }),
         }}
       />
@@ -169,23 +117,6 @@ export default function Page() {
         }}
       />
 
-
-      {/* SoftwareApplication schema — AI Scanner tool */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: "Tips Mega888 AI RTP Scanner",
-            url: "https://tipsmega888.com",
-            applicationCategory: "UtilitiesApplication",
-            operatingSystem: "Web",
-            offers: { "@type": "Offer", price: "0", priceCurrency: "MYR" },
-            description: "Tips Mega888 Malaysia - alat semakan RTP untuk rujukan pengguna yang mahu melihat bacaan semasa dengan lebih teratur.",
-          }),
-        }}
-      />
 
       {/* Homepage FAQPage schema */}
       <script
