@@ -136,6 +136,11 @@ export default function BlogPage() {
         >
           {[
             {
+              href: "/blog/cara-menang-mega888",
+              title: "Tips Game Mega888 Hari Ini",
+              note: "Checklist semasa, cara baca RTP dan had bajet.",
+            },
+            {
               href: "/",
               title: "RTP Scanner Malaysia",
               note: "Semak RTP live sebelum pilih game.",
@@ -337,7 +342,7 @@ export default function BlogPage() {
         {/* ── ARTICLE GRID ── */}
         {rest.length > 0 && (
           <div style={{ display: "grid", gap: "1rem" }}>
-            {rest.map((article, idx) => {
+            {rest.map((article) => {
               const cat = categoryMeta[article.category] || categoryMeta.tips;
               const wc = getWordCount(article.content);
               return (

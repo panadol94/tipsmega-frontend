@@ -50,6 +50,11 @@ export const metadata = {
 
 const HUB_LINKS = [
   {
+    title: "Tips Game Mega888 Hari Ini",
+    href: "/blog/cara-menang-mega888",
+    note: "Checklist semasa, cara menilai game, memahami RTP dan menetapkan had bajet.",
+  },
+  {
     title: "Mega888 Malaysia 2026: Panduan Lengkap",
     href: "/blog/mega888-rtp-tracker-panduan-lengkap-2026",
     note: "Artikel utama untuk pengguna Malaysia: login, APK, trusted agent, RTP live, dan flow terbaik.",

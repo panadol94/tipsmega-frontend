@@ -2,6 +2,7 @@
 import HomeClient from "./HomeClient";
 import SlotMachineButton from "./components/SlotMachineButton";
 import SharedPageNav from "./ui/SharedPageNav";
+import Link from "next/link";
 
 export const metadata = {
   title: "TipsMega888 — Tips, Tricks & Live RTP Mega888 Malaysia",
@@ -145,6 +146,7 @@ export default function Page() {
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "0.5rem" }}>
           {[
+            ["🎯 Tips Game Hari Ini", "/blog/cara-menang-mega888", "Checklist semasa, RTP, bajet & risiko"],
             ["🔥 Trusted Company", "/trusted", "Verified agents & payout speed"],
             ["🎮 Semua Game", "/games", "197+ slot dengan RTP & volatiliti"],
             ["📝 Blog Tips & Strategi", "/blog", "Panduan, download, withdraw & more"],
@@ -200,16 +202,17 @@ export default function Page() {
             <span className="text-lg">🎯</span> Strategi & Panduan Mega888 2026
           </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-[11px] text-white/70">
-            <li><a href="/blog/mega888-rtp-tracker-panduan-lengkap-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Rahsia Scanner AI RTP Mega888 2026</a></li>
-            <li><a href="/blog/mega888-download-panduan-lengkap-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Panduan Selamat Download APK Mega888</a></li>
-            <li><a href="/blog/mega888-free-credit-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Cara Claim Free Credit RM10 Anti-Scam</a></li>
-            <li><a href="/blog/cara-menang-mega888" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>5 Strategi Cara Menang Data-Driven</a></li>
-            <li><a href="/blog/game-senang-jackpot" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>10 Slot Paling Mudah Menang (Data AI)</a></li>
-            <li><a href="/blog/mega888-test-id-percuma-cara-guna-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Senarai Test ID Mega888 Percuma 2026</a></li>
-            <li><a href="/blog/mega888-original-vs-fake" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Kenal Pasti Mega888 Original vs Fake</a></li>
-            <li><a href="/blog/mega888-akaun-kena-block" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Mega888 Akaun Kena Block? Cara Selesaikan</a></li>
-            <li><a href="/blog/mega888-vs-pussy888" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Mega888 vs Pussy888: Mana Lebih Untung?</a></li>
-            <li><a href="/blog/mega888-918kiss-beza" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Perbandingan Mega888 & 918Kiss 2026</a></li>
+            <li><Link href="/blog/cara-menang-mega888" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Tips Game Mega888 Hari Ini & Checklist Selamat</Link></li>
+            <li><Link href="/blog/mega888-rtp-tracker-panduan-lengkap-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Rahsia Scanner AI RTP Mega888 2026</Link></li>
+            <li><Link href="/blog/mega888-download-panduan-lengkap-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Panduan Selamat Download APK Mega888</Link></li>
+            <li><Link href="/blog/mega888-free-credit-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Cara Claim Free Credit RM10 Anti-Scam</Link></li>
+            <li><Link href="/blog/cara-menang-mega888" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>5 Strategi Cara Menang Data-Driven</Link></li>
+            <li><Link href="/blog/game-senang-jackpot" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>10 Slot Paling Mudah Menang (Data AI)</Link></li>
+            <li><Link href="/blog/mega888-test-id-percuma-cara-guna-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Senarai Test ID Mega888 Percuma 2026</Link></li>
+            <li><Link href="/blog/mega888-original-vs-fake" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Kenal Pasti Mega888 Original vs Fake</Link></li>
+            <li><Link href="/blog/mega888-akaun-kena-block" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Mega888 Akaun Kena Block? Cara Selesaikan</Link></li>
+            <li><Link href="/blog/mega888-vs-pussy888" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Mega888 vs Pussy888: Mana Lebih Untung?</Link></li>
+            <li><Link href="/blog/mega888-918kiss-beza" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Perbandingan Mega888 & 918Kiss 2026</Link></li>
           </ul>
         </div>
       </div>
@@ -259,7 +262,7 @@ export default function Page() {
 
             <h2 className="text-lg font-semibold text-white/90 mt-6">Halaman Trusted Agent sebagai Rujukan</h2>
             <p>
-              Halaman <a href="/trusted" className="text-red-400 hover:underline"><strong>Trusted Agent</strong></a> disediakan sebagai rujukan awal,
+              Halaman <Link href="/trusted" className="text-red-400 hover:underline"><strong>Trusted Agent</strong></Link> disediakan sebagai rujukan awal,
               bukan jaminan terhadap mana-mana platform.
               Pengguna digalakkan menyemak identiti brand, kejelasan langkah deposit dan withdrawal,
               serta respons support sebelum berurusan dengan mana-mana pihak.
@@ -268,7 +271,7 @@ export default function Page() {
             <h2 className="text-lg font-semibold text-white/90 mt-6">Cara Guna Halaman Ini</h2>
             <p>
               Jika anda baru bermula, laluan paling mudah ialah gunakan scanner untuk semakan ringkas,
-              kemudian teruskan ke halaman <a href="/mega888" className="text-red-400 hover:underline"><strong>Mega888 Hub</strong></a>,
+              kemudian teruskan ke halaman <Link href="/mega888" className="text-red-400 hover:underline"><strong>Mega888 Hub</strong></Link>,
               halaman trusted, atau artikel blog mengikut topik yang anda perlukan.
               Struktur ini membantu pengguna mencari maklumat dengan lebih cepat tanpa perlu melompat terlalu banyak antara halaman.
             </p>

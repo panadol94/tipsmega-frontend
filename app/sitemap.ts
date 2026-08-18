@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = "https://tipsmega888.com";
     // Keep lastmod honest. Replacing it with every build date tells crawlers
     // unchanged pages were updated and wastes crawl budget.
-    const coreLastModified = new Date("2026-07-25T06:33:53.920Z");
+    const coreLastModified = new Date("2026-08-18T01:30:00.000Z");
 
     // Core pages
     const corePages: MetadataRoute.Sitemap = [
