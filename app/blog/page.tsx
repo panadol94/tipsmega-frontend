@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BLOG_ARTICLES } from "../data/blogArticles";
-import { BLOG_REDIRECT_SOURCE_SLUGS } from "../data/blogRedirects";
+import { BLOG_NOINDEX_SLUGS, BLOG_REDIRECT_SOURCE_SLUGS } from "../data/blogRedirects";
 import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
@@ -57,7 +57,9 @@ function getWordCount(content: string) {
 }
 
 export default function BlogPage() {
-  const visibleArticles = BLOG_ARTICLES.filter((a) => !BLOG_REDIRECT_SOURCE_SLUGS.has(a.slug));
+  const visibleArticles = BLOG_ARTICLES.filter(
+    (a) => !BLOG_REDIRECT_SOURCE_SLUGS.has(a.slug) && !BLOG_NOINDEX_SLUGS.has(a.slug)
+  );
   const [featured, ...rest] = visibleArticles;
 
   return (

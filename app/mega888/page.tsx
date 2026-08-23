@@ -55,19 +55,14 @@ const HUB_LINKS = [
     note: "Checklist semasa, cara menilai game, memahami RTP dan menetapkan had bajet.",
   },
   {
-    title: "Mega888 Malaysia 2026: Panduan Lengkap",
-    href: "/blog/mega888-rtp-tracker-panduan-lengkap-2026",
-    note: "Artikel utama untuk pengguna Malaysia: login, APK, trusted agent, RTP live, dan flow terbaik.",
+    title: "Cara Baca RTP Scanner Mega888",
+    href: "/blog/rtp-scanner-mega888-cara-baca-data-live",
+    note: "Panduan memahami bacaan scanner, RTP dan volatiliti tanpa menganggapnya sebagai jaminan hasil.",
   },
   {
     title: "Mega888 Login & Register Akaun 2026",
     href: "/blog/mega888-register-akaun-baru-2026",
     note: "Panduan masuk dan daftar akaun dengan lebih selamat sambil elak link palsu.",
-  },
-  {
-    title: "Cara Register Akaun Mega888 Baru",
-    href: "/blog/mega888-register-akaun-baru-2026",
-    note: "Panduan beginner dari daftar sampai siap aktif.",
   },
   {
     title: "Download Android APK Terbaru",
@@ -115,9 +110,9 @@ const HUB_LINKS = [
     note: "Cara baca data live, volatiliti, dan masa semakan sebelum pilih game.",
   },
   {
-    title: "Global Rank Growth Plan",
-    href: "/blog/mega888-malaysia-global-rank-growth-plan",
-    note: "Pelan trafik real, backlink, dan SEO untuk bantu domain mula dapat rank public.",
+    title: "Mega888 Original vs Fake",
+    href: "/blog/mega888-original-vs-fake",
+    note: "Checklist membezakan aplikasi dan pautan sebenar daripada salinan yang meragukan.",
   },
 ];
 
@@ -226,14 +221,14 @@ export default function Mega888HubPage() {
           }}
         >
           {[
-            ["Mega888 Malaysia", "/blog/mega888-rtp-tracker-panduan-lengkap-2026"],
+            ["Panduan Scanner RTP", "/blog/rtp-scanner-mega888-cara-baca-data-live"],
             ["Login Guide", "/blog/mega888-register-akaun-baru-2026"],
             ["Download APK", "/blog/mega888-download-android-apk-terbaru-2026"],
             ["RTP Live", "/blog/mega888-rtp-live-malaysia-2026"],
             ["Trusted Agent", "/trusted"],
             ["Semua Game", "/games"],
             ["Group WhatsApp", "/blog/group-whatsapp-mega888-malaysia-2026"],
-            ["Global Rank Plan", "/blog/mega888-malaysia-global-rank-growth-plan"],
+            ["Original vs Fake", "/blog/mega888-original-vs-fake"],
           ].map(([label, href]) => (
             <Link
               key={href}

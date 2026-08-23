@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BLOG_ARTICLES, getArticleBySlug, type BlogArticle } from "../../data/blogArticles";
-import { BLOG_REDIRECTS, BLOG_REDIRECT_SOURCE_SLUGS } from "../../data/blogRedirects";
+import { BLOG_NOINDEX_SLUGS, BLOG_REDIRECTS, BLOG_REDIRECT_SOURCE_SLUGS } from "../../data/blogRedirects";
 import { notFound, permanentRedirect } from "next/navigation";
 import BlogEngagement from "./BlogEngagement";
 import SharedPageNav from "../../ui/SharedPageNav";
@@ -105,6 +105,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const canonicalSlug = redirectTarget ?? article.slug;
   const canonicalUrl = `https://tipsmega888.com/blog/${canonicalSlug}`;
   const imageUrl = resolveHeroImage(article);
+  const shouldIndex = !BLOG_REDIRECT_SOURCE_SLUGS.has(slug) && !BLOG_NOINDEX_SLUGS.has(slug);
   return {
     title: article.title,
     description: article.description,
@@ -127,10 +128,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     },
     robots: {
       // Keep redirect-source slugs non-indexable, but allow real article pages to index.
-      index: !BLOG_REDIRECT_SOURCE_SLUGS.has(slug),
+      index: shouldIndex,
       follow: true,
       googleBot: {
-        index: !BLOG_REDIRECT_SOURCE_SLUGS.has(slug),
+        index: shouldIndex,
         follow: true,
         "max-image-preview": "large",
         "max-snippet": -1,

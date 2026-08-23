@@ -563,10 +563,10 @@ export default function HomeClient() {
                                 </div>
                                 <div>
                                     <h1 className="text-3xl font-black leading-tight text-white sm:text-5xl">
-                                        Tips Mega888 Malaysia & RTP Scanner
+                                        RTP Mega888 Live Malaysia 2026
                                     </h1>
                                     <p className="mt-3 max-w-xl text-sm leading-6 text-white/68 sm:text-base">
-                                        Panduan TipsMega888 untuk semakan RTP, rujukan platform, dan kemas kini komuniti dalam satu halaman.
+                                        Semak bacaan RTP indikatif, bandingkan game dan teruskan ke panduan RTP Mega888 yang berkaitan.
                                     </p>
                                 </div>
                                 <div className="grid grid-cols-3 gap-2 max-w-md">

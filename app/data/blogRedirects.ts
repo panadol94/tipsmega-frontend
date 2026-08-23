@@ -49,3 +49,9 @@ export const BLOG_REDIRECTS: Record<string, string> = {
 };
 
 export const BLOG_REDIRECT_SOURCE_SLUGS = new Set(Object.keys(BLOG_REDIRECTS));
+
+// Internal marketing/SEO operations content can remain reachable for the team,
+// but it should not compete with user-facing Mega888 guides in search.
+export const BLOG_NOINDEX_SLUGS = new Set([
+  "mega888-malaysia-global-rank-growth-plan",
+]);

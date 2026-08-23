@@ -5,31 +5,25 @@ import SharedPageNav from "./ui/SharedPageNav";
 import Link from "next/link";
 
 export const metadata = {
-  title: "TipsMega888 — Tips, Tricks & Live RTP Mega888 Malaysia",
+  title: "RTP Mega888 Live Malaysia 2026 | TipsMega888 Scanner",
   description:
-    "Panduan Mega888 Malaysia 2026: tips harian, RTP live, download APK terkini & senarai trusted company. Mula semakan ringkas & main selamat hari ini.",
+    "Semak RTP Mega888 live Malaysia 2026 melalui dashboard TipsMega888. Bandingkan bacaan game, kemudian rujuk panduan RTP, senarai game dan trusted company.",
   keywords: [
     "tips mega888",
     "tipsmega888",
-    "mega888 malaysia",
     "scanner mega888",
     "rtp mega888",
+    "rtp mega888 live malaysia",
     "mega888 scanner ai",
     "download apk mega888",
     "mega888 trusted company",
     "mega888 trusted agent",
-    "mega888 hub",
-    "mega888 login",
-    "mega888 download",
     "mega888 rtp live",
-    "mega888 malaysia guide",
-    "trusted agent mega888",
-    "panduan mega888",
   ],
   openGraph: {
-    title: "TipsMega888 — Tips, Tricks & Live RTP Mega888 Malaysia",
+    title: "RTP Mega888 Live Malaysia 2026 | TipsMega888 Scanner",
     description:
-      "Panduan Mega888 Malaysia 2026: tips harian, RTP live, download APK terkini & senarai trusted company. Mula semakan ringkas & main selamat hari ini.",
+      "Semak RTP Mega888 live melalui dashboard TipsMega888 dan bandingkan bacaan game sebelum membaca panduan berkaitan.",
     url: "https://tipsmega888.com",
     siteName: "Tips Mega888",
     locale: "ms_MY",
@@ -45,9 +39,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image" as const,
-    title: "TipsMega888 — Tips, Tricks & Live RTP Mega888 Malaysia",
+    title: "RTP Mega888 Live Malaysia 2026 | TipsMega888 Scanner",
     description:
-      "Panduan Mega888 Malaysia 2026: tips harian, RTP live, download APK terkini & senarai trusted company. Mula semakan ringkas & main selamat hari ini.",
+      "Semak RTP Mega888 live melalui dashboard TipsMega888 dan bandingkan bacaan game sebelum membaca panduan berkaitan.",
     images: ["https://tipsmega888.com/wins/win-4.jpg"],
   },
   alternates: {
@@ -146,7 +140,7 @@ export default function Page() {
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "0.5rem" }}>
           {[
-            ["🎯 Tips Game Hari Ini", "/blog/cara-menang-mega888", "Checklist semasa, RTP, bajet & risiko"],
+            ["🎯 Panduan RTP Live", "/blog/mega888-rtp-live-malaysia-2026", "Cara membaca RTP dan volatiliti game"],
             ["🔥 Trusted Company", "/trusted", "Verified agents & payout speed"],
             ["🎮 Semua Game", "/games", "197+ slot dengan RTP & volatiliti"],
             ["📝 Blog Tips & Strategi", "/blog", "Panduan, download, withdraw & more"],
@@ -203,84 +197,52 @@ export default function Page() {
           </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-[11px] text-white/70">
             <li><Link href="/blog/cara-menang-mega888" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Tips Game Mega888 Hari Ini & Checklist Selamat</Link></li>
-            <li><Link href="/blog/mega888-rtp-tracker-panduan-lengkap-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Rahsia Scanner AI RTP Mega888 2026</Link></li>
+            <li><Link href="/blog/rtp-scanner-mega888-cara-baca-data-live" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Cara Baca Scanner RTP Mega888</Link></li>
             <li><Link href="/blog/mega888-download-panduan-lengkap-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Panduan Selamat Download APK Mega888</Link></li>
-            <li><Link href="/blog/mega888-free-credit-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Cara Claim Free Credit RM10 Anti-Scam</Link></li>
+            <li><Link href="/blog/mega888-free-credit-no-deposit-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Cara Semak Free Credit Anti-Scam</Link></li>
             <li><Link href="/blog/cara-menang-mega888" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>5 Strategi Cara Menang Data-Driven</Link></li>
-            <li><Link href="/blog/game-senang-jackpot" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>10 Slot Paling Mudah Menang (Data AI)</Link></li>
+            <li><Link href="/blog/top-slot-mega888" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Senarai Slot Mega888 & Ciri Game</Link></li>
             <li><Link href="/blog/mega888-test-id-percuma-cara-guna-2026" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Senarai Test ID Mega888 Percuma 2026</Link></li>
             <li><Link href="/blog/mega888-original-vs-fake" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Kenal Pasti Mega888 Original vs Fake</Link></li>
             <li><Link href="/blog/mega888-akaun-kena-block" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Mega888 Akaun Kena Block? Cara Selesaikan</Link></li>
             <li><Link href="/blog/mega888-vs-pussy888" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Mega888 vs Pussy888: Mana Lebih Untung?</Link></li>
-            <li><Link href="/blog/mega888-918kiss-beza" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Perbandingan Mega888 & 918Kiss 2026</Link></li>
+            <li><Link href="/blog/mega888-vs-918kiss" className="hover:text-red-400 transition-colors flex items-center gap-2"><span className="w-1 h-1 bg-red-500 rounded-full"></span>Perbandingan Mega888 & 918Kiss 2026</Link></li>
           </ul>
         </div>
-      </div>
-
-      <div className="px-4 py-8 mb-6 mt-4 opacity-90 transition-opacity">
-        <article className="prose prose-sm prose-invert max-w-none text-[11px] text-white/60 text-center space-y-3">
-          <h2 className="text-white/80 font-bold mb-2">Tentang TipsMega888 AI Scanner</h2>
-          <p>
-            TipsMega888 menghimpunkan scanner, panduan, dan halaman rujukan untuk pengguna yang mahu melihat bacaan RTP semasa dan memahami topik berkaitan Mega888 Malaysia dengan lebih teratur.
-          </p>
-          <p>
-            Scanner ini disediakan sebagai alat rujukan. Ia boleh membantu pengguna membaca bacaan RTP live dan menapis topik penting seperti download, trusted agent, dan panduan asas lain, tetapi ia bukan jaminan untuk hasil tertentu.
-          </p>
-          <p>
-            Jika anda baru bermula, gunakan halaman ini untuk scan RTP, kemudian teruskan ke Mega888 Hub, blog, atau trusted page mengikut topik yang anda perlukan.
-          </p>
-        </article>
       </div>
 
       {/* ── SEO LONG-FORM CONTENT ── */}
       <div className="px-4 py-8 mb-6 mt-4 max-w-4xl mx-auto border-t border-white/10">
         <article className="prose prose-sm prose-invert max-w-none">
-          <h2 className="text-xl font-bold text-white mb-4 text-center">Tips Mega888 Malaysia 2026 | Panduan, RTP Scanner, dan Rujukan Pengguna</h2>
+          <h2 className="text-xl font-bold text-white mb-4 text-center">Cara Semak RTP Mega888 Live Malaysia</h2>
 
           <section className="space-y-4 text-[12px] text-white/70 leading-relaxed">
-            <h2 className="text-lg font-semibold text-white/90 mt-6">Apa Itu Tips Mega888?</h2>
+            <h3 className="text-lg font-semibold text-white/90 mt-6">Apa Maksud RTP Mega888?</h3>
             <p>
-              <strong className="text-white">Tips Mega888</strong> ialah laman rujukan Mega888 Malaysia yang menghimpunkan panduan asas,
-              halaman trusted agent, artikel berkaitan, dan alat semakan RTP sebagai bahan rujukan pengguna.
-              Fokus utama halaman ini ialah membantu pengguna memahami topik popular seperti login, download APK,
-              trusted agent, dan semakan RTP live dalam satu aliran yang lebih teratur.
+              <strong className="text-white">RTP (Return to Player)</strong> ialah kadar pulangan teori jangka panjang sesuatu game.
+              Ia bukan ramalan untuk spin seterusnya. Dashboard ini menyusun bacaan indikatif supaya pengguna boleh membandingkan game,
+              manakala penerangan lebih lengkap tersedia dalam <Link href="/blog/mega888-rtp-live-malaysia-2026" className="text-red-400 hover:underline">panduan RTP Mega888 live</Link>.
             </p>
 
-            <h2 className="text-lg font-semibold text-white/90 mt-6">Peranan AI RTP Scanner</h2>
+            <h3 className="text-lg font-semibold text-white/90 mt-6">Cara Guna RTP Scanner</h3>
             <p>
-              AI RTP Scanner di TipsMega888 disediakan sebagai alat semakan tambahan.
-              Ia membantu pengguna melihat bacaan RTP semasa dan menapis rujukan awal sebelum meneruskan ke halaman panduan lain.
-              Scanner ini bukan jaminan untuk hasil tertentu, tetapi lebih sesuai digunakan sebagai bahan rujukan apabila pengguna mahu membuat semakan pola secara ringkas.
+              Masukkan ID dalam scanner, bandingkan bacaan yang dipaparkan dan semak volatiliti game sebelum membuat pilihan.
+              Bacaan scanner ialah output indikatif, bukan sambungan terus kepada operator atau RNG dan tidak menjamin kemenangan.
+              Baca juga <Link href="/blog/rtp-scanner-mega888-cara-baca-data-live" className="text-red-400 hover:underline">cara membaca data scanner RTP</Link>.
             </p>
 
-            <h2 className="text-lg font-semibold text-white/90 mt-6">Panduan Download dan Akses Mega888</h2>
+            <h3 className="text-lg font-semibold text-white/90 mt-6">Bandingkan Game dan Volatiliti</h3>
             <p>
-              Ramai pengguna mencari maklumat tentang cara download APK Mega888, langkah login, dan cara memilih saluran yang lebih selamat.
-              Atas sebab itu, TipsMega888 menyusun halaman berkaitan supaya pengguna boleh mulakan dengan panduan asas,
-              kemudian semak halaman trusted agent sebelum membuat keputusan sendiri.
+              RTP perlu dibaca bersama volatiliti: game volatiliti rendah biasanya memberi hasil lebih kecil tetapi lebih kerap,
+              manakala volatiliti tinggi mempunyai turun naik lebih besar. Lihat <Link href="/games" className="text-red-400 hover:underline">senarai game Mega888</Link>
+              untuk membandingkan maklumat setiap game dalam satu halaman.
             </p>
 
-            <h2 className="text-lg font-semibold text-white/90 mt-6">Halaman Trusted Agent sebagai Rujukan</h2>
+            <h3 className="text-lg font-semibold text-white/90 mt-6">Rujukan Lanjutan</h3>
             <p>
-              Halaman <Link href="/trusted" className="text-red-400 hover:underline"><strong>Trusted Agent</strong></Link> disediakan sebagai rujukan awal,
-              bukan jaminan terhadap mana-mana platform.
-              Pengguna digalakkan menyemak identiti brand, kejelasan langkah deposit dan withdrawal,
-              serta respons support sebelum berurusan dengan mana-mana pihak.
-            </p>
-
-            <h2 className="text-lg font-semibold text-white/90 mt-6">Cara Guna Halaman Ini</h2>
-            <p>
-              Jika anda baru bermula, laluan paling mudah ialah gunakan scanner untuk semakan ringkas,
-              kemudian teruskan ke halaman <Link href="/mega888" className="text-red-400 hover:underline"><strong>Mega888 Hub</strong></Link>,
-              halaman trusted, atau artikel blog mengikut topik yang anda perlukan.
-              Struktur ini membantu pengguna mencari maklumat dengan lebih cepat tanpa perlu melompat terlalu banyak antara halaman.
-            </p>
-
-            <h2 className="text-lg font-semibold text-white/90 mt-6">Ringkasan</h2>
-            <p>
-              Secara ringkas, TipsMega888 berfungsi sebagai pusat rujukan kandungan Mega888 Malaysia.
-              Ia menggabungkan panduan, halaman trusted agent, dan alat semakan RTP untuk membantu pengguna membuat semakan awal dengan lebih jelas,
-              sambil mengekalkan pendekatan yang lebih berhati-hati dan tidak bergantung pada janji hasil tertentu.
+              Untuk topik selain RTP, gunakan <Link href="/mega888" className="text-red-400 hover:underline"><strong>Mega888 Hub</strong></Link>
+              sebagai halaman utama bagi panduan login, download, withdrawal dan keselamatan. Halaman
+              <Link href="/trusted" className="text-red-400 hover:underline"> trusted company</Link> pula menyediakan checklist semakan platform.
             </p>
           </section>
         </article>

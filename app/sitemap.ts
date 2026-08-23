@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { GAME_PAGES } from "./data/gamePages";
 import { BLOG_ARTICLES } from "./data/blogArticles";
-import { BLOG_REDIRECT_SOURCE_SLUGS } from "./data/blogRedirects";
+import { BLOG_NOINDEX_SLUGS, BLOG_REDIRECT_SOURCE_SLUGS } from "./data/blogRedirects";
 
 export const dynamic = "force-static";
 
@@ -27,7 +27,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Blog article pages — high priority for indexing
     const blogPages: MetadataRoute.Sitemap = BLOG_ARTICLES
-        .filter((article) => !BLOG_REDIRECT_SOURCE_SLUGS.has(article.slug))
+        .filter(
+            (article) => !BLOG_REDIRECT_SOURCE_SLUGS.has(article.slug) && !BLOG_NOINDEX_SLUGS.has(article.slug)
+        )
         .map((article) => ({
             url: `${baseUrl}/blog/${article.slug}`,
             lastModified: new Date(article.updatedAt),
