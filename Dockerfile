@@ -9,7 +9,7 @@ WORKDIR /app
 
 # Install dependencies first for caching
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci && npm install --no-save @next/swc-linux-x64-gnu@16.1.3
 
 # Copy source code
 COPY . .
