@@ -56,6 +56,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://tipsmega888.com",
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -113,8 +124,6 @@ export default function RootLayout({
     <html lang="ms">
       <head>
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        <meta name="googlebot" content="index, follow" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
