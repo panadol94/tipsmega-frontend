@@ -18,10 +18,10 @@ python3 /root/.openclaw/gsc_index.py "https://tipsmega888.com/" >> "$LOG_FILE" 2
 echo "[$DATE] Submitting trusted page..." >> "$LOG_FILE"
 python3 /root/.openclaw/gsc_index.py "https://tipsmega888.com/trusted" >> "$LOG_FILE" 2>&1 || true
 
-# 3. Submit top 5 company pages (rotate daily)
-COMPANIES=("Winbest" "Ezrich88" "X9" "Atas" "Aiplay")
+# 3. Submit selected company pages (rotate daily)
+COMPANIES=("Winbest" "Ezrich88" "X9" "Atas")
 DAY_OF_WEEK=$(date +%u)
-COMPANY_INDEX=$(( (DAY_OF_WEEK - 1) % 5 ))
+COMPANY_INDEX=$(( (DAY_OF_WEEK - 1) % ${#COMPANIES[@]} ))
 TODAY_COMPANY=${COMPANIES[$COMPANY_INDEX]}
 
 echo "[$DATE] Submitting company page: $TODAY_COMPANY..." >> "$LOG_FILE"
