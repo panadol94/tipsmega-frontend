@@ -29,7 +29,7 @@ export default function InfoClient() {
               <h2 className="text-xs font-black text-white/90 mb-3 tracking-widest uppercase italic">Apa fungsi scanner ini?</h2>
               <div className="text-[13px] leading-relaxed text-white/60 space-y-3">
                 <p>
-                  AI Scanner di TipsMega888 ialah alat simulasi dan rujukan untuk membantu pengguna membandingkan julat RTP yang dikonfigurasikan bagi setiap game dengan lebih teratur.
+                  AI Scanner di TipsMega888 memproses data dan signal semasa secara real-time untuk membantu pengguna membandingkan bacaan RTP setiap game dengan lebih teratur.
                 </p>
                 <p>
                   Ia tidak mempunyai akses kepada RNG, pelayan atau rekod pusingan operator Mega888. Ia bukan alat untuk menggodam sistem dan bukan ramalan atau jaminan untuk menang.
@@ -50,7 +50,7 @@ export default function InfoClient() {
                 </div>
                 <div>
                   <h3 className="text-xs font-bold text-white mb-1 uppercase">3. Baca keputusan</h3>
-                  <p>Lihat bacaan indikatif yang dipaparkan dan gunakan ia untuk membandingkan game, bukan untuk meramal keputusan pusingan seterusnya.</p>
+                  <p>Lihat bacaan AI real-time yang dipaparkan dan gunakan ia untuk membandingkan game, bukan sebagai jaminan keputusan pusingan seterusnya.</p>
                 </div>
               </div>
             </div>
@@ -62,7 +62,7 @@ export default function InfoClient() {
                   RTP sebenar ialah ukuran pulangan teori dalam jangka panjang. Ia tidak menerangkan peluang menang untuk satu sesi dan tidak semestinya berubah mengikut waktu atau jumlah pemain.
                 </p>
                 <p>
-                  Bacaan pada scanner ini ialah output indikatif dalam julat yang dikonfigurasikan pada katalog TipsMega888. Ia bukan data langsung daripada operator atau audit bebas.
+                  Bacaan pada scanner ini ialah output analisis AI real-time berdasarkan data dan signal semasa yang diproses oleh sistem TipsMega888. Ia bukan keputusan rasmi operator atau audit bebas.
                 </p>
               </div>
             </div>
@@ -71,13 +71,13 @@ export default function InfoClient() {
               <h2 className="text-xs font-black text-amber-300 mb-3 tracking-widest uppercase italic">Metodologi &amp; limitasi data</h2>
               <div className="text-[13px] leading-relaxed text-white/60 space-y-3">
                 <p>
-                  Setiap game mempunyai julat rujukan yang disimpan dalam katalog TipsMega888. Sistem menghasilkan paparan semakan berdasarkan julat tersebut dan tetapan dalaman platform.
+                  Sistem TipsMega888 memproses data semasa, signal platform dan parameter setiap game melalui enjin AI untuk menghasilkan bacaan yang dikemas kini secara real-time.
                 </p>
                 <p>
                   TipsMega888 tidak mendakwa mempunyai sambungan terus kepada algoritma permainan, sejarah pertaruhan pengguna atau keputusan RNG. Untuk RTP rasmi, rujuk maklumat yang diterbitkan oleh pembangun atau operator game.
                 </p>
                 <p>
-                  Tarikh semakan metodologi terakhir: 3 Ogos 2026. Perubahan besar pada cara pengiraan akan diterangkan pada halaman ini.
+                  Tarikh semakan metodologi terakhir: 26 Ogos 2026. Perubahan besar pada cara pengiraan akan diterangkan pada halaman ini.
                 </p>
               </div>
             </div>

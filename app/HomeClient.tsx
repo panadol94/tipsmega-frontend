@@ -566,7 +566,7 @@ export default function HomeClient() {
                                         RTP Mega888 Live Malaysia 2026
                                     </h1>
                                     <p className="mt-3 max-w-xl text-sm leading-6 text-white/68 sm:text-base">
-                                        Semak bacaan RTP indikatif, bandingkan game dan teruskan ke panduan RTP Mega888 yang berkaitan.
+                                        Semak bacaan RTP AI secara real-time, bandingkan game dan teruskan ke panduan RTP Mega888 yang berkaitan.
                                     </p>
                                 </div>
                                 <div className="grid grid-cols-3 gap-2 max-w-md">
