@@ -105,8 +105,8 @@ export default function SharedPageNav({ children }: { children: React.ReactNode 
                                 href="/?auth=login"
                                 className="px-4 py-1.5 rounded-full text-[11px] font-bold text-white transition-all hover:scale-105 hover:shadow-md"
                                 style={{
-                                    background: "#e52330",
-                                    boxShadow: "none",
+                                    background: "linear-gradient(135deg, #4f8EFF, #7B5CFF)",
+                                    boxShadow: "0 4px 14px rgba(79,142,255,0.35)",
                                 }}
                             >
                                 Login
