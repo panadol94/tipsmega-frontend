@@ -24,7 +24,7 @@ export default function SharedPageNav({ children }: { children: React.ReactNode 
         <>
             {/* Top Navigation — premium glassmorphism bar */}
             <nav
-                className="sport-top-nav flex items-center justify-between px-4 py-3 sticky top-0 z-50"
+                className="flex items-center justify-between px-4 py-3 sticky top-0 z-50"
                 style={{
                     background: "rgba(7,9,15,0.82)",
                     backdropFilter: "blur(16px)",
@@ -77,8 +77,6 @@ export default function SharedPageNav({ children }: { children: React.ReactNode 
 
                 {/* Right nav cluster */}
                 <div className="flex items-center gap-1.5">
-                    <Link href="/mega888" className="hidden sm:block px-3 py-2 text-sm">Panduan</Link>
-                    <Link href="/profile" className="hidden sm:block px-3 py-2 text-sm">Akaun</Link>
                     <Link
                         href="/trusted"
                         className="px-3 py-1.5 text-[11px] font-bold text-white/50 hover:text-white transition-colors hidden sm:inline-flex"
@@ -124,7 +122,7 @@ export default function SharedPageNav({ children }: { children: React.ReactNode 
             </nav>
 
             {/* Page Content */}
-            <main className="pb-24 md:pb-8">
+            <main className="pb-24">
                 {children}
             </main>
 

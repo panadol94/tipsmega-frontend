@@ -5,12 +5,12 @@ import { animate, utils } from "animejs";
 import Link from "next/link";
 import { Flame, HelpCircle, Star, Send, Trophy } from "lucide-react";
 import Toast, { ToastType } from "./ui/Toast";
-
+import MatrixBackground from "./components/MatrixBackground";
 
 import TerminalScan from "./ui/TerminalScan";
 import HackerScanOverlay from "./ui/HackerScanOverlay";
 import AuthModal from "./ui/AuthModal";
-
+import InstallPrompt from "./ui/InstallPrompt";
 import TestimonialCarousel from "./components/TestimonialCarousel";
 
 import { useGlobalSettings } from "./context/GlobalSettingsContext";
@@ -319,7 +319,7 @@ export default function HomeClient() {
         const handleAuthParam = () => {
             const params = new URLSearchParams(window.location.search);
             const authParam = params.get("auth");
-
+            
             // Only reopen if auth param CHANGED (not just polling same URL)
             if (authParam !== lastAuthParam) {
                 lastAuthParam = authParam;
@@ -544,7 +544,7 @@ export default function HomeClient() {
     return (
         <>
             {/* Matrix Background */}
-
+            <MatrixBackground opacity={0.08} speed={1} density={1} />
 
             {/* HACKER SCAN OVERLAY */}
             {showHackerOverlay && (
@@ -552,23 +552,95 @@ export default function HomeClient() {
             )}
 
             {/* Premium Mega888 casino dashboard */}
-            <main className="sport-home flex flex-col items-center justify-start min-h-screen px-4 py-4 pb-28">
+            <main className="flex flex-col items-center justify-start min-h-screen px-4 py-4 pb-28">
                 <div className="w-full max-w-5xl space-y-4">
-                    <section className="sport-hero tm-hero">
-                        <div className="sport-eyebrow"><span /> TIPSMEGA888 / SCANNER</div>
-                        <h1>SEMAK RTP.<br /><em>LEBIH JELAS.</em></h1>
-                        <p>Dashboard Mega888 Malaysia. Semak bacaan indikatif dan fahami maksudnya.</p>
-                        <div className="sport-hero-number" aria-hidden="true">888</div>
+                    <section className="tm-hero tm-premium-hero card relative overflow-hidden rounded-[32px] p-4 sm:p-6">
+                        <div className="tm-premium-hero-grid">
+                            <div className="relative z-10 space-y-4">
+                                <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-amber-200">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(110,231,183,0.8)] animate-pulse" />
+                                    Live Mega888 Signal
+                                </div>
+                                <div>
+                                    <h1 className="text-3xl font-black leading-tight text-white sm:text-5xl">
+                                        RTP Mega888 Live Malaysia 2026
+                                    </h1>
+                                    <p className="mt-3 max-w-xl text-sm leading-6 text-white/68 sm:text-base">
+                                        Semak bacaan RTP AI secara real-time, bandingkan game dan teruskan ke panduan RTP Mega888 yang berkaitan.
+                                    </p>
+                                </div>
+                                <div className="grid grid-cols-3 gap-2 max-w-md">
+                                    {[
+                                        ['98%', 'Peak RTP'],
+                                        ['24/7', 'Live Sync'],
+                                        ['AI', 'Signal Scan'],
+                                    ].map(([value, label]) => (
+                                        <div key={label} className="tm-premium-stat">
+                                            <div className="text-lg font-black text-white">{value}</div>
+                                            <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.15em] text-white/45">{label}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="flex flex-col gap-2 sm:flex-row">
+                                    <button
+                                        type="button"
+                                        onClick={() => document.getElementById('scanner-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                                        className="tm-premium-primary-btn"
+                                    >
+                                        Scan RTP Sekarang
+                                    </button>
+                                    <Link href="/trusted" className="tm-premium-secondary-btn">
+                                        Lihat Trusted Company
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="tm-premium-visual relative z-10">
+                                <img
+                                    src="/home/scanner-social-proof-top.jpg"
+                                    alt="AI RTP Scanner Teknologi Pintar Percuma"
+                                    className="w-full rounded-[26px] border border-white/10 object-cover shadow-[0_22px_70px_rgba(0,0,0,0.38)]"
+                                />
+                                <div className="tm-premium-scanline" />
+                            </div>
+                        </div>
                     </section>
 
                     <section id="scanner-section" className="card tm-premium-panel relative overflow-hidden rounded-[30px] p-4 tm-scan tm-scan-pulse">
-                        <div className="sport-panel-heading"><span>01 / SEMAK ID</span><span>{busy ? "SEDANG DIPROSES" : "SCANNER"}</span></div>
+                        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent" />
+                        <div className="flex items-center gap-2 border-b border-red-500/20 pb-2">
+                            <div className="flex gap-1.5">
+                                <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
+                                <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
+                                <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
+                            </div>
+                            <span className="ml-2 text-[10px] font-mono tracking-widest text-amber-200/70">
+                                MEGA888_PREMIUM_SCAN.exe
+                            </span>
+                            <div className="ml-auto flex items-center gap-2">
+                                <span className="live-dot" />
+                                <span className="text-[10px] font-mono tracking-widest text-green-400">LIVE_SYNC: OK</span>
+                            </div>
+                        </div>
+
+                        <div className="mt-4 flex flex-wrap items-center gap-2">
+                            <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/35 bg-amber-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-amber-200">
+                                <span className="h-1.5 w-1.5 rounded-full bg-amber-200 animate-pulse" />
+                                Premium AI
+                            </span>
+                            <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] ${busy ? "border-cyan-400/30 bg-cyan-400/10 text-cyan-300" : isValidMegaId ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300" : "border-white/10 bg-white/5 text-white/40"}`}>
+                                {busy ? "Scanning..." : isValidMegaId ? "Ready" : "Awaiting ID"}
+                            </span>
+                            <span className="rtp-badge rtp-badge-medium">
+                                <span>◆</span> RTP SCORE
+                            </span>
+                        </div>
+
                         <div className="mt-4 grid gap-4 lg:grid-cols-[1.3fr_0.7fr] lg:items-start">
                             <div>
                                 <div className="mb-3 space-y-1">
-                                    <h2 className="text-xl font-black text-white">Masukkan ID Mega888</h2>
+                                    <h2 className="text-xl font-black text-white">Scan Mega888 ID anda</h2>
                                     <p className="text-sm text-white/60">
-                                        Gunakan ID 12 digit anda untuk memulakan semakan.
+                                        Masukkan ID untuk semakan signal RTP semasa dengan paparan dashboard yang lebih premium.
                                     </p>
                                 </div>
 
@@ -578,8 +650,7 @@ export default function HomeClient() {
                                         value={megaId}
                                         onChange={(e) => setMegaId(e.target.value)}
                                         inputMode="numeric"
-                                        aria-label="ID Mega888"
-                                        placeholder="ID Mega888 anda"
+                                        placeholder="ENTER_ID_HERE"
                                         maxLength={12}
                                         name="megaId"
                                         autoComplete="off"
@@ -589,8 +660,13 @@ export default function HomeClient() {
                                         <span className="flex items-center gap-1">
                                             <span className="text-[10px]">&gt;_</span> {megaId.trim().length}/12 digit
                                         </span>
-                                        <span>Bermula 1, 2 atau 09</span>
+                                        <span>Format: 1xxxxxxxxxxx | 09xxxxxxxx</span>
                                     </div>
+                                </div>
+
+                                <div className="scanner-terminal-shell mb-3 rounded-2xl border border-white/10 bg-white/5 px-3 py-2">
+                                    <div className="scanner-terminal-line" />
+                                    <span className="font-mono text-xs text-amber-200/80">[AI] PREMIUM SIGNAL READY • ENTER ID TO BEGIN SCAN...</span>
                                 </div>
 
                                 <button
@@ -600,22 +676,22 @@ export default function HomeClient() {
                                     disabled={busy || cooldownRemaining > 0 || !isValidMegaId}
                                 >
                                     <span className={cooldownRemaining > 0 ? "" : "btn-green-spin-content"}>
-                                        {busy ? "SCANNING..." : cooldownRemaining > 0 ? `⏱️ ${Math.floor(cooldownRemaining / 60)}:${(cooldownRemaining % 60).toString().padStart(2, '0')}` : "SEMAK SEKARANG"}
+                                        {busy ? "SCANNING..." : cooldownRemaining > 0 ? `⏱️ ${Math.floor(cooldownRemaining / 60)}:${(cooldownRemaining % 60).toString().padStart(2, '0')}` : "START SCAN"}
                                     </span>
                                 </button>
 
                                 <div className="mt-3 text-center text-xs text-white/40">
-                                    {busy ? "Semakan sedang diproses..." : isValidMegaId ? "ID sedia untuk disemak" : "Masukkan ID untuk mengaktifkan butang semak"}
+                                    {busy ? "AI analysis in progress..." : isValidMegaId ? "Ready to scan" : "Enter your Mega888 ID above"}
                                 </div>
                             </div>
 
                             <aside className="rounded-3xl border border-cyan-300/15 bg-cyan-300/[0.045] p-3 shadow-[inset_0_0_35px_rgba(34,211,238,0.04)]">
-                                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Cara semakan</div>
+                                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Flow Pantas</div>
                                 <div className="mt-2 space-y-2">
                                     {[
-                                        '1. Masukkan ID Mega888 anda',
-                                        '2. Tekan Semak Sekarang',
-                                        '3. Baca keputusan bersama panduan RTP',
+                                        '1. Scan dulu untuk tengok signal semasa',
+                                        '2. Bandingkan trusted company yang verified',
+                                        '3. Join komuniti untuk alert dan update',
                                     ].map((step) => (
                                         <div key={step} className="rounded-xl border border-white/8 bg-black/20 px-3 py-2 text-xs text-white/70">
                                             {step}
@@ -625,20 +701,19 @@ export default function HomeClient() {
                                 <Link href="/trusted" className="mt-3 flex items-center justify-between rounded-2xl border border-amber-300/25 bg-amber-300/10 px-3 py-3 transition hover:border-amber-200/50 hover:bg-amber-300/15">
                                     <div>
                                         <div className="text-xs font-black uppercase tracking-[0.18em] text-amber-100">Trusted Company</div>
-                                        <div className="mt-1 text-sm text-white/75">Lihat maklumat company dan rujukan.</div>
+                                        <div className="mt-1 text-sm text-white/75">Laluan kedua yang paling jelas selepas scan.</div>
                                     </div>
                                     <Flame className="h-5 w-5 text-red-300 premium-icon-glow-red" />
                                 </Link>
                             </aside>
                         </div>
-                        <p className="sport-disclosure">Bacaan indikatif, bukan akses kepada RNG atau ramalan kemenangan. <Link href="/info">Fahami cara bacaan →</Link></p>
                     </section>
 
                     <section className="tm-hero grid gap-3 md:grid-cols-3">
                         {[
-                            { title: 'PANDUAN', value: 'Fahami RTP', note: 'Bacaan indikatif, bukan jaminan hasil', tone: 'from-emerald-400/18 to-cyan-400/8' },
-                            { title: 'RUJUKAN', value: 'Company', note: 'Semak maklumat sebelum membuat pilihan', tone: 'from-amber-300/18 to-orange-400/8' },
-                            { title: 'KOMUNITI', value: 'Telegram', note: 'Update komuniti dan bantuan', tone: 'from-purple-400/18 to-pink-400/8' },
+                            { title: 'HOT RTP', value: '96.8%', note: 'Signal tinggi untuk sesi aktif', tone: 'from-emerald-400/18 to-cyan-400/8' },
+                            { title: 'SAFE ROUTE', value: 'Verified', note: 'Terus ke trusted company', tone: 'from-amber-300/18 to-orange-400/8' },
+                            { title: 'LIVE ALERT', value: 'Telegram', note: 'Update komuniti dan bantuan', tone: 'from-purple-400/18 to-pink-400/8' },
                         ].map((item) => (
                             <div key={item.title} className={`tm-premium-mini-card bg-gradient-to-br ${item.tone}`}>
                                 <div className="text-[10px] font-black uppercase tracking-[0.2em] text-white/45">{item.title}</div>
@@ -741,7 +816,7 @@ export default function HomeClient() {
                             <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[#0a0f1a] to-transparent z-10 pointer-events-none" />
 
                             {/* Marquee Track */}
-                            <div
+                            <div 
                                 className="flex gap-3 wins-marquee-track"
                                 style={{ width: 'max-content' }}
                             >
@@ -753,20 +828,20 @@ export default function HomeClient() {
                                     { img: '/wins/win-4.jpg', amount: '15,000,000', game: 'CM8 Jackpot', player: 'Player 4', alt: 'Mega888 big jackpot community win - RM 15 Million CM8 Jackpot screenshot' },
                                     { img: '/wins/win-5.jpg', amount: '6,567', game: 'Rush Xmas', player: 'Player 5', alt: 'Group WhatsApp Mega888 spin win - Rush Xmas RM 6,567 big win' },
                                 ].map((win, i) => (
-                                    <div
+                                    <div 
                                         key={`win-a-${i}`}
                                         className="relative group/win flex-shrink-0 w-[200px] rounded-xl overflow-hidden bg-slate-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300"
                                     >
                                         {/* Win Image */}
                                         <div className="relative aspect-[4/3] overflow-hidden">
-                                            <img
-                                                src={win.img}
+                                            <img 
+                                                src={win.img} 
                                                 alt={win.alt}
                                                 className="w-full h-full object-cover transition-transform duration-500 group-hover/win:scale-110"
                                             />
                                             {/* Gradient Overlay */}
                                             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-
+                                            
                                             {/* Amount Badge */}
                                             <div className="absolute top-2 right-2 px-2 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 shadow-lg shadow-amber-500/30">
                                                 <span className="text-[10px] font-black text-slate-950">
@@ -799,17 +874,17 @@ export default function HomeClient() {
                                     { img: '/wins/win-4.jpg', amount: '15,000,000', game: 'CM8 Jackpot', player: 'Player 4', alt: 'Mega888 big jackpot community win - RM 15 Million CM8 Jackpot screenshot' },
                                     { img: '/wins/win-5.jpg', amount: '6,567', game: 'Rush Xmas', player: 'Player 5', alt: 'Group WhatsApp Mega888 spin win - Rush Xmas RM 6,567 big win' },
                                 ].map((win, i) => (
-                                    <div
+                                    <div 
                                         key={`win-b-${i}`}
                                         className="relative group/win flex-shrink-0 w-[200px] rounded-xl overflow-hidden bg-slate-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300"
                                     >
                                         <div className="relative aspect-[4/3] overflow-hidden">
-                                            <img
-                                                src={win.img}
+                                            <img 
+                                                src={win.img} 
                                                 alt={win.alt}
                                                 className="w-full h-full object-cover transition-transform duration-500 group-hover/win:scale-110"
                                             />
-
+                                            
                                             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
                                             <div className="absolute top-2 right-2 px-2 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-500 shadow-lg shadow-amber-500/30">
                                                 <span className="text-[10px] font-black text-slate-950">
@@ -841,8 +916,8 @@ export default function HomeClient() {
                                 { val: '1,200+', lbl: 'Winners' },
                                 { val: 'Today', lbl: 'Just Now' },
                             ].map((s, i) => (
-                                <div
-                                    key={i}
+                                <div 
+                                    key={i} 
                                     className="text-center py-2 rounded-xl bg-amber-500/5 border border-amber-500/10"
                                 >
                                     <div className="text-sm font-black text-amber-400">{s.val}</div>
@@ -954,7 +1029,7 @@ export default function HomeClient() {
             )}
 
 
-
+            <InstallPrompt />
 
             <div className="fixed inset-x-0 bottom-3 z-40 px-3 md:hidden">
                 <div className="mx-auto grid max-w-lg grid-cols-3 gap-2 rounded-2xl border border-white/10 bg-slate-950/90 p-2 shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-xl">
@@ -1007,14 +1082,14 @@ export default function HomeClient() {
                     top: 50%;
                     width: 50%;
                     height: 2px;
-                    background: linear-gradient(90deg,
-                        transparent 0%,
-                        rgba(255, 0, 0, 0.3) 20%,
-                        rgba(255, 50, 50, 0.9) 50%,
-                        rgba(255, 0, 0, 0.3) 80%,
+                    background: linear-gradient(90deg, 
+                        transparent 0%, 
+                        rgba(255, 0, 0, 0.3) 20%, 
+                        rgba(255, 50, 50, 0.9) 50%, 
+                        rgba(255, 0, 0, 0.3) 80%, 
                         transparent 100%
                     );
-                    box-shadow:
+                    box-shadow: 
                         0 0 8px rgba(255, 0, 0, 0.8),
                         0 0 16px rgba(255, 50, 50, 0.6),
                         0 0 32px rgba(255, 0, 0, 0.4),
@@ -1077,18 +1152,18 @@ export default function HomeClient() {
                 .wins-marquee-track {
                     animation: winsMarquee 30s linear infinite;
                 }
-
+                
                 .group:hover .wins-marquee-track {
                     animation-play-state: paused;
                 }
-
+                
                 @keyframes winsMarquee {
                     0% { transform: translateX(0); }
                     100% { transform: translateX(-50%); }
                 }
 
                 /* ===== MEGA888 PREMIUM ANIMATED LOGO ===== */
-
+                
                 /* Main logo container */
                 .mega888-logo-container {
                     font-family: 'JetBrains Mono', monospace;
@@ -1237,12 +1312,12 @@ export default function HomeClient() {
                 }
 
                 @keyframes neonPulse {
-                    0%, 100% {
+                    0%, 100% { 
                         opacity: 0.3;
                         -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
                         filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
                     }
-                    50% {
+                    50% { 
                         opacity: 0.8;
                         -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.9);
                         filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 15px rgba(0, 255, 255, 0.6));
@@ -1289,26 +1364,26 @@ export default function HomeClient() {
                 }
 
                 @keyframes sparkFloat {
-                    0%, 100% {
-                        opacity: 0;
-                        transform: scale(0) translateY(0);
+                    0%, 100% { 
+                        opacity: 0; 
+                        transform: scale(0) translateY(0); 
                     }
-                    25% {
-                        opacity: 1;
-                        transform: scale(1.2) translateY(-5px);
+                    25% { 
+                        opacity: 1; 
+                        transform: scale(1.2) translateY(-5px); 
                     }
-                    50% {
-                        opacity: 1;
-                        transform: scale(0.8) translateY(-12px);
+                    50% { 
+                        opacity: 1; 
+                        transform: scale(0.8) translateY(-12px); 
                         box-shadow: 0 0 8px #fff, 0 0 16px #00ffff, 0 0 24px #ff0040;
                     }
-                    75% {
-                        opacity: 0.5;
-                        transform: scale(0.4) translateY(-18px);
+                    75% { 
+                        opacity: 0.5; 
+                        transform: scale(0.4) translateY(-18px); 
                     }
-                    100% {
-                        opacity: 0;
-                        transform: scale(0) translateY(-25px);
+                    100% { 
+                        opacity: 0; 
+                        transform: scale(0) translateY(-25px); 
                     }
                 }
 
@@ -1332,11 +1407,11 @@ export default function HomeClient() {
                 }
 
                 @keyframes subtitleGlow {
-                    0%, 100% {
+                    0%, 100% { 
                         color: rgba(255, 255, 255, 0.85);
                         text-shadow: 0 0 8px rgba(255, 0, 64, 0.5);
                     }
-                    50% {
+                    50% { 
                         color: #ffffff;
                         text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(255, 0, 64, 0.5);
                     }
