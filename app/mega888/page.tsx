@@ -6,7 +6,7 @@ import SharedPageNav from "../ui/SharedPageNav";
 export const metadata = {
   title: "Mega888 Malaysia 2026 | Login, Download, RTP & Trusted Company",
   description:
-    "Halaman rujukan Mega888 Malaysia untuk login, daftar akaun, download APK Android atau iPhone, semak RTP, dan baca panduan trusted company dengan lebih tersusun.",
+    "Panduan Mega888 Malaysia: login, pemasangan, checklist connection failed, laporan sokongan, limitasi scanner dan semakan company.",
   keywords: [
     "mega888 malaysia 2026",
     "mega888 login",
@@ -22,7 +22,7 @@ export const metadata = {
   alternates: { canonical: "https://tipsmega888.com/mega888" },
   openGraph: {
     title: "Mega888 Malaysia 2026 | Hub Panduan Lengkap",
-    description: "Halaman hub Mega888 Malaysia untuk login, download, RTP, trusted company, dan panduan asas lain dalam satu tempat.",
+    description: "Panduan login, pemasangan dan connection failed: bandingkan sambungan, rekod ralat serta fahami limitasi scanner.",
     url: "https://tipsmega888.com/mega888",
     siteName: "TipsMega888",
     locale: "ms_MY",
@@ -39,7 +39,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mega888 Malaysia 2026 | Hub Panduan Lengkap",
-    description: "Halaman hub Mega888 Malaysia untuk login, download, RTP, trusted company, dan panduan asas lain dalam satu tempat.",
+    description: "Panduan login, pemasangan dan connection failed: bandingkan sambungan, rekod ralat serta fahami limitasi scanner.",
     images: ["https://tipsmega888.com/hub/mega888-panduan-visual.webp"],
   },
   robots: {
@@ -150,6 +150,7 @@ export default function Mega888HubPage() {
             description:
               "Halaman hub Mega888 Malaysia untuk login, daftar, download, RTP live, trusted agent, dan rujukan panduan asas lain.",
             inLanguage: "ms-MY",
+            dateModified: "2026-09-24",
           }),
         }}
       />

@@ -32,3 +32,6 @@
 .result ol { list-style:decimal; padding-left:22px; }
 .result li { margin:12px 0; }
 .visual { margin:28px 0; padding:20px 0; border-bottom:1px solid #464650; scroll-margin-top:90px; }
+
+.checkSteps { list-style:decimal; padding-left:24px; }
+.checkSteps li { margin:14px 0; }
