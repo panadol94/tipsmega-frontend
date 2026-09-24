@@ -1,5 +1,6 @@
 
 import Link from "next/link";
+import HubGuide from "./HubGuide";
 import SharedPageNav from "../ui/SharedPageNav";
 
 export const metadata = {
@@ -28,9 +29,9 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://tipsmega888.com/og-image.webp",
-        width: 1200,
-        height: 630,
+        url: "https://tipsmega888.com/hub/mega888-panduan-visual.webp",
+        width: 1536,
+        height: 1024,
         alt: "Mega888 Malaysia 2026 - Hub Panduan Lengkap",
       },
     ],
@@ -39,7 +40,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Mega888 Malaysia 2026 | Hub Panduan Lengkap",
     description: "Halaman hub Mega888 Malaysia untuk login, download, RTP, trusted company, dan panduan asas lain dalam satu tempat.",
-    images: ["https://tipsmega888.com/og-image.webp"],
+    images: ["https://tipsmega888.com/hub/mega888-panduan-visual.webp"],
   },
   robots: {
     index: true,
@@ -127,7 +128,7 @@ const FAQS = [
   },
   {
     q: "Perlu ke semak RTP live dulu?",
-    a: "Ramai pengguna suka semak RTP live atau pola game semasa terlebih dahulu kerana ia membantu memilih game yang lebih sesuai pada waktu tertentu. Di TipsMega888, anda boleh gunakan AI Scanner sebagai rujukan tambahan.",
+    a: "Tidak wajib. Scanner TipsMega888 ialah rujukan indikatif, bukan data RNG operator atau ramalan kemenangan. Baca metodologi dan limitasinya sebelum mentafsir keputusan.",
   },
   {
     q: "Macam mana nak pilih trusted agent?",
@@ -271,6 +272,8 @@ export default function Mega888HubPage() {
           </Link>
         </section>
 
+        <HubGuide />
+
         <section style={{ marginBottom: "2rem" }}>
           <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 10 }}>📚 Artikel utama dalam cluster Mega888</h2>
           <p style={{ color: "#94a3b8", lineHeight: 1.8, marginTop: 0 }}>
@@ -280,7 +283,7 @@ export default function Mega888HubPage() {
           <div style={{ display: "grid", gap: "0.8rem" }}>
             {HUB_LINKS.map((item, idx) => (
               <Link
-                key={item.href}
+                key={`${item.href}-${idx}`}
                 href={item.href}
                 className={`link-card card-entrance card-entrance-${Math.min(idx + 1, 8)}`}
               >
@@ -304,7 +307,7 @@ export default function Mega888HubPage() {
             <h2 style={{ fontSize: "1.15rem", fontWeight: 800, marginTop: 0 }}>Di mana AI Scanner masuk?</h2>
             <p style={{ color: "#cbd5e1", lineHeight: 1.8, marginBottom: 0 }}>
               AI Scanner lebih sesuai sebagai alat rujukan tambahan selepas pengguna sudah faham cara akses, download, dan pilih laluan yang betul.
-              Dengan kata lain, hub ini jawab intent asas, manakala scanner bantu pada bahagian semakan pola dan pemilihan game.
+              Dengan kata lain, hub ini jawab intent asas, manakala scanner menyediakan bacaan indikatif yang perlu dibaca bersama limitasinya.
             </p>
           </article>
           <article style={{ borderRadius: 14, border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)", padding: "1rem" }}>
@@ -332,9 +335,8 @@ export default function Mega888HubPage() {
               {" "}atau AI Scanner untuk semakan tambahan.
             </p>
             <p>
-              Strategi kandungan macam ini bukan sahaja bantu pengguna bergerak ikut urutan yang logik, tetapi juga bantu enjin carian faham bahawa
-              halaman <strong>/mega888</strong> ialah pintu masuk utama untuk topik umum Mega888 di domain ini. Dari situ, artikel-artikel khusus boleh menyokong
-              ranking long-tail seperti login, APK, trusted agent, free credit, atau withdraw.
+              Jika bantuan asas tidak menyelesaikan masalah, catat mesej ralat dan jenis peranti sebelum menghubungi sokongan.
+              Gunakan pautan panduan di atas mengikut masalah sebenar; jangan kongsi kata laluan atau OTP dalam ruang awam.
             </p>
           </div>
         </section>
