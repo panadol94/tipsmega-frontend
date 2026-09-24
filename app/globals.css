@@ -4029,3 +4029,64 @@ a {
         border-radius: 26px;
     }
 }
+
+/* Sport skin v2: presentation only. No content, routes, layout order or controls removed. */
+body:has(.tm-premium-hero) {
+    background: #101114;
+    font-family: 'Exo 2', Arial, sans-serif;
+    --bg0: #101114;
+    --bg1: #17191e;
+    --card: #1b1d22;
+    --card2: #17191e;
+}
+body:has(.tm-premium-hero)::after { opacity: .07; }
+.tm-premium-hero, .tm-premium-panel {
+    border: 1px solid #3c3035;
+    border-top: 3px solid #e52330;
+    border-radius: 14px;
+    background: linear-gradient(120deg, #1b1d22 65%, #29191e);
+    box-shadow: 0 12px 30px #0003;
+}
+.tm-premium-hero::before, .tm-premium-panel::before {
+    background: repeating-linear-gradient(120deg, transparent 0 100px, #ffffff03 100px 102px);
+    opacity: .5;
+}
+.tm-premium-hero h1 { font-family:'Exo 2',Arial,sans-serif; font-weight:900; font-style:italic; letter-spacing:-.025em; }
+.tm-premium-hero p, .tm-premium-panel p { color:#d0d2d9; }
+.tm-premium-visual { border-radius:14px; padding:5px; background:linear-gradient(135deg,#e52330,#282a32 65%); box-shadow:0 8px 22px #0004; }
+.tm-premium-visual img { border-radius:10px; }
+.tm-premium-scanline { background:linear-gradient(90deg,transparent,#ff6b76,transparent); box-shadow:0 0 8px #e5233033; }
+.tm-premium-stat, .tm-premium-mini-card { border-radius:10px; border-color:#3c3e47; background:#1b1d22; box-shadow:none; }
+.tm-premium-primary-btn { background:#e52330; color:#fff; border-radius:8px; box-shadow:0 5px 14px #0003; letter-spacing:.06em; }
+.tm-premium-primary-btn:hover { background:#c61e2a; box-shadow:0 7px 18px #0004; }
+.tm-premium-secondary-btn { background:#24262d; color:#f7f7f9; border-color:#575a66; border-radius:8px; letter-spacing:.06em; }
+.tm-premium-secondary-btn:hover { border-color:#ff6b76; box-shadow:0 5px 14px #0003; }
+.tm-premium-panel .terminal-input { color:#fff; border-color:#686b77; background:#101114; box-shadow:none; border-radius:8px; text-shadow:none; }
+.tm-premium-panel .terminal-input::placeholder { color:#c4c7d0; opacity:1; }
+.tm-premium-panel .terminal-input:focus { border-color:#ff6b76; outline:2px solid #ff6b76; outline-offset:2px; }
+.tm-premium-panel .tm-scan-cta { background:#e52330; color:#fff; border:1px solid #ff6b7666; border-radius:8px; box-shadow:0 6px 18px #0004; text-shadow:none; }
+.tm-premium-panel .tm-scan-cta .btn-green-spin-content { color:#fff; text-shadow:none; }
+.tm-premium-panel .tm-scan-cta::before, .tm-premium-panel .tm-scan-cta::after { opacity:.08; }
+.tm-premium-panel .tm-scan-cta:not(:disabled):hover { background:#c61e2a; }
+.tm-premium-panel .tm-scan-cta:disabled { opacity:1!important; background:#444751; color:#e5e7eb; cursor:not-allowed; }
+.tm-premium-panel aside { background:#191b20; border-color:#45404a; border-radius:12px; box-shadow:none; }
+.tm-premium-panel .scanner-terminal-shell { background:#16181d; border-radius:8px; }
+:is(.tm-premium-hero,.tm-premium-panel) [class*="text-amber-"] { color:#ffb2b9; }
+:is(.tm-premium-hero,.tm-premium-panel) [class*="border-amber-"] { border-color:#e5233055; }
+:is(.tm-premium-hero,.tm-premium-panel) [class*="bg-amber-"] { background-color:#e5233010; }
+:is(.tm-premium-hero,.tm-premium-panel,.tm-premium-mini-card) [class*="text-white/"] { color:#c4c7d0; }
+.tm-premium-panel .rtp-badge-medium { background:#291b20; border-color:#e5233066; color:#ffb2b9; box-shadow:none; }
+.trusted-popup-card { background:#17191e!important; border-color:#e5233066!important; border-radius:14px!important; box-shadow:0 24px 70px #0009!important; }
+.trusted-popup-card .trusted-beam-a, .trusted-popup-card .trusted-beam-b { background:#e52330!important; opacity:.13; }
+.trusted-popup-card .trusted-mini-panel { background:#1e2027; border-color:#4a3b42; border-radius:10px; }
+.trusted-popup-card p { color:#d0d2d9; }
+.trusted-popup-card button { border-radius:8px; }
+.trusted-popup-card button:focus-visible { outline:2px solid #ff8b95; outline-offset:3px; }
+body:has(.tm-premium-hero) nav a[href="/?auth=login"] { background:#e52330!important; box-shadow:0 4px 12px #0003!important; }
+body:has(.tm-premium-hero) nav.fixed > div { background:#17191ef5!important; border-color:#49404a!important; border-radius:12px!important; box-shadow:0 10px 30px #0006!important; }
+body:has(.tm-premium-hero) nav.fixed a > .bg-gradient-to-tr { background:#e52330; box-shadow:none; }
+body:has(.tm-premium-hero) nav.fixed a span { color:#d6d8df; }
+body:has(.tm-premium-hero) nav.fixed a svg { color:#e4e5eb; }
+body:has(.tm-premium-hero) nav.fixed a[href*="Prospinner"] svg { color:#ff8993; }
+body:has(.tm-premium-hero) :is(a,button):focus-visible { outline:2px solid #ff8b95; outline-offset:3px; }
+@media(max-width:520px) { .tm-premium-hero { border-radius:14px; } }
