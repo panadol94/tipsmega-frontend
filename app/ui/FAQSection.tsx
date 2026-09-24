@@ -42,7 +42,16 @@ const FAQ_DATA: FAQItem[] = [
     }
 ];
 
-export default function FAQSection() {
+const INDICATIVE_ANSWERS: Record<string, string> = {
+    "Apa itu Mega888 RTP Scanner?": "Scanner TipsMega888 ialah alat simulasi dan rujukan dengan bacaan indikatif berdasarkan julat katalog yang dikonfigurasikan. Ia tidak mengakses RNG atau data langsung operator dan tidak meramal kemenangan.",
+    "Bagaimana cara menggunakan scanner ini?": "Masukkan ID pada homepage dan ikut arahan pengesahan input, kemudian tekan butang scan. Semak keperluan Stars sebelum meneruskan. Baca output bersama metodologi dan limitasinya, bukan sebagai jaminan menang.",
+    "Apa kelebihan sistem AI TipsMega888?": "Paparan scanner mengumpulkan bacaan rujukan dalam satu tempat. Label AI tidak membuktikan ramalan pusingan, akses data operator atau ketepatan kemenangan yang telah diuji secara bebas.",
+    "Adakah TipsMega888 percuma?": "Scan menggunakan Stars mengikut syarat yang dipaparkan pada akaun. Semak baki dan keperluan sebelum scan; jangan anggap semua scan percuma.",
+    "Apakah maksud RTP dalam Mega888?": "RTP ialah pulangan teori jangka panjang bagi sejumlah besar pertaruhan. Ia bukan janji pulangan untuk RM100 tertentu, satu sesi atau satu pemain, dan bukan peluang menang pusingan seterusnya."
+};
+
+export default function FAQSection({ indicative = false }: { indicative?: boolean }) {
+    const items = indicative ? FAQ_DATA.map(item => ({ ...item, answer: INDICATIVE_ANSWERS[item.question] ?? item.answer })) : FAQ_DATA;
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     const toggleFAQ = (index: number) => {
@@ -58,7 +67,7 @@ export default function FAQSection() {
                     __html: JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "FAQPage",
-                        "mainEntity": FAQ_DATA.map(item => ({
+                        "mainEntity": items.map(item => ({
                             "@type": "Question",
                             "name": item.question,
                             "acceptedAnswer": {
@@ -77,7 +86,7 @@ export default function FAQSection() {
                 <p className="text-sm text-white/60 mb-6">Jawapan kepada soalan popular tentang Mega888 RTP Scanner</p>
 
                 <div className="faq-list space-y-3">
-                    {FAQ_DATA.map((item, index) => (
+                    {items.map((item, index) => (
                         <div
                             key={index}
                             className="faq-item border border-white/10 rounded-xl overflow-hidden bg-black/20"

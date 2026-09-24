@@ -1,4 +1,6 @@
 import Link from "next/link";
+import ProblemSolver from "./ProblemSolver";
+import VisualGuides from "./VisualGuides";
 import styles from "./hub-guide.module.css";
 
 const issues = [
@@ -16,7 +18,7 @@ export default function HubGuide() {
    <figcaption>Ilustrasi konsep untuk panduan — bukan screenshot aplikasi atau bukti pengesahan company.</figcaption>
   </figure>
   <nav className={styles.jump} aria-label="Isi kandungan panduan">
-   <a href="#kenali">Kenali Mega888</a><a href="#masalah">Selesaikan masalah</a><a href="#cara-scanner">Cara scanner</a><a href="#semakan-company">Semakan company</a><a href="#sumber">Sumber & kemas kini</a>
+   <a href="#problem-solver">Problem Solver</a><a href="#panduan-visual">Panduan visual</a><a href="#kenali">Kenali Mega888</a><a href="#masalah">Selesaikan masalah</a><a href="#cara-scanner">Cara scanner</a><a href="#semakan-company">Semakan company</a><a href="#sumber">Sumber & kemas kini</a>
   </nav>
   <section id="kenali">
    <span className={styles.kicker}>01 / KENALI PERBEZAANNYA</span>
@@ -29,6 +31,8 @@ export default function HubGuide() {
    </div>
    <p>Hub ini diterbitkan oleh TipsMega888 sebagai panduan. Jangan anggap artikel, logo atau pautan di sini sebagai bukti pelantikan rasmi oleh pemilik jenama.</p>
   </section>
+  <ProblemSolver />
+  <VisualGuides />
   <section id="masalah">
    <span className={styles.kicker}>02 / PUSAT BANTUAN</span>
    <h2>Penyelesaian masalah Mega888 yang biasa dicari</h2>
