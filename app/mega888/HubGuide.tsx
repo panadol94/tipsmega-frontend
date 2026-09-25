@@ -1,4 +1,5 @@
 import Link from "next/link";
+import StorageGuide from "./StorageGuide";
 import ConnectionChecklist from "./ConnectionChecklist";
 import ProblemSolver from "./ProblemSolver";
 import VisualGuides from "./VisualGuides";
@@ -19,7 +20,7 @@ export default function HubGuide() {
    <figcaption>Ilustrasi konsep untuk panduan — bukan screenshot aplikasi atau bukti pengesahan company.</figcaption>
   </figure>
   <nav className={styles.jump} aria-label="Isi kandungan panduan">
-   <a href="#problem-solver">Problem Solver</a><a href="#connection-failed">Connection failed</a><a href="#panduan-visual">Panduan visual</a><a href="#kenali">Kenali Mega888</a><a href="#masalah">Selesaikan masalah</a><a href="#cara-scanner">Cara scanner</a><a href="#semakan-company">Semakan company</a><a href="#sumber">Sumber & kemas kini</a>
+   <a href="#problem-solver">Problem Solver</a><a href="#connection-failed">Connection failed</a><a href="#cache-dan-data">Cache, data & offload</a><a href="#panduan-visual">Panduan visual</a><a href="#kenali">Kenali Mega888</a><a href="#masalah">Selesaikan masalah</a><a href="#cara-scanner">Cara scanner</a><a href="#semakan-company">Semakan company</a><a href="#sumber">Sumber & kemas kini</a>
   </nav>
   <section id="kenali">
    <span className={styles.kicker}>01 / KENALI PERBEZAANNYA</span>
@@ -34,6 +35,7 @@ export default function HubGuide() {
   </section>
   <ProblemSolver />
   <ConnectionChecklist />
+  <StorageGuide />
   <VisualGuides />
   <section id="masalah">
    <span className={styles.kicker}>02 / PUSAT BANTUAN</span>
@@ -66,7 +68,7 @@ export default function HubGuide() {
   <section id="sumber">
    <span className={styles.kicker}>05 / SUMBER & REKOD</span>
    <h2>Rujukan dan kemas kini kandungan</h2>
-   <p>Diterbitkan oleh TipsMega888. Dikemas kini pada <time dateTime="2026-09-24">24 September 2026</time>: ditambah checklist connection failed, templat laporan sokongan, pusat penyelesaian masalah, penerangan scanner, checklist company dan ilustrasi panduan. Tarikh ini ialah tarikh kemas kini artikel, bukan tarikh audit company atau ujian setiap versi aplikasi.</p>
+   <p>Diterbitkan oleh TipsMega888. Dikemas kini pada <time dateTime="2026-09-25">25 September 2026</time>: ditambah panduan perbezaan cache, padam data dan offload dengan ilustrasi konsep AI khusus. Checklist connection failed, Problem Solver dan panduan terdahulu dikekalkan. Tarikh ini ialah tarikh kemas kini artikel, bukan tarikh audit company atau ujian setiap versi aplikasi.</p>
    <ul><li><a href="https://support.google.com/android/answer/2668665">Google Android Help: aplikasi tidak berfungsi</a></li><li><a href="https://support.apple.com/en-us/119876">Apple Support: aplikasi iPhone/iPad tidak boleh dibuka</a></li><li><Link href="/info">TipsMega888: metodologi dan limitasi scanner</Link></li></ul>
    <p>Panduan Google dan Apple menerangkan langkah umum peranti; ia bukan sokongan atau pengesahan mereka terhadap Mega888. Jika anda menemui maklumat yang berubah, gunakan <Link href="/help">halaman bantuan</Link> dan sertakan pautan serta butiran pembetulan tanpa rahsia akaun.</p>
   </section>
