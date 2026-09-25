@@ -123,6 +123,7 @@ export default function RootLayout({
   return (
     <html lang="ms">
       <head>
+        <link rel="stylesheet" href="/racing-premium-20260925.css" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
         <script
           type="application/ld+json"
