@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ScreenshotGuide from "./ScreenshotGuide";
 import WifiPortalGuide from "./WifiPortalGuide";
 import styles from "./hub-guide.module.css";
 
@@ -48,6 +49,7 @@ export default function ConnectionChecklist() {
    <li><a href="https://support.apple.com/en-us/111786">Apple: iPhone/iPad tidak dapat menyambung Wi-Fi</a> — semakan peranti/rangkaian lain dan kesan reset rangkaian.</li>
   </ul>
   <p>Rujukan ini menyokong langkah umum peranti, bukan kod ralat, keserasian versi atau status server Mega888. Tiada pemetaan kod ralat atau jaminan masa pemulihan dibuat di sini.</p>
+  <ScreenshotGuide />
   <WifiPortalGuide />
  </section>;
 }
