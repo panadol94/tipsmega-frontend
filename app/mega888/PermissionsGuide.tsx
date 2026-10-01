@@ -1,4 +1,5 @@
 import Link from "next/link";
+import IphoneVerificationGuide from "./IphoneVerificationGuide";
 import styles from "./hub-guide.module.css";
 
 export default function PermissionsGuide() {
@@ -48,5 +49,6 @@ export default function PermissionsGuide() {
    <li><a href="https://support.apple.com/guide/iphone/control-access-to-information-in-apps-iph251e92810/ios">Apple iPhone User Guide: kawal akses maklumat dalam app</a> — semakan mengikut kategori privasi.</li>
   </ul>
   <p>Disemak pada <time dateTime="2026-09-26">26 September 2026</time>. Rujukan ini menyokong fungsi sistem peranti, bukan pengesahan Mega888 oleh Google atau Apple. Tiada audit APK, ujian permission app sebenar atau jaminan pemulihan akaun dibuat untuk artikel ini.</p>
+  <IphoneVerificationGuide />
  </section>;
 }

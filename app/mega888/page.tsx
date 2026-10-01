@@ -6,7 +6,7 @@ import SharedPageNav from "../ui/SharedPageNav";
 export const metadata = {
   title: "Mega888 Malaysia 2026 | Login, Download, RTP & Trusted Company",
   description:
-    "Panduan Mega888 Malaysia: login, pemasangan, connection failed, cache dan data, permission app, pautan reset mencurigakan, ralat pemasangan Android, portal Wi-Fi, screenshot ralat untuk sokongan, limitasi scanner dan semakan company.",
+    "Panduan Mega888 Malaysia: login, pemasangan, connection failed, cache dan data, permission app, pautan reset mencurigakan, ralat pemasangan Android, portal Wi-Fi, screenshot ralat untuk sokongan, amaran pengesahan iPhone, limitasi scanner dan semakan company.",
   keywords: [
     "mega888 malaysia 2026",
     "mega888 login",
@@ -22,7 +22,7 @@ export const metadata = {
   alternates: { canonical: "https://tipsmega888.com/mega888" },
   openGraph: {
     title: "Mega888 Malaysia 2026 | Hub Panduan Lengkap",
-    description: "Panduan login dan connection failed Mega888: sediakan screenshot ralat untuk sokongan, potong data peribadi dan semak lampiran sebelum menghantar.",
+    description: "Panduan login, connection failed dan amaran pengesahan iPhone Mega888: bezakan profil, semak maklumat dan sediakan laporan tanpa memintas perlindungan.",
     url: "https://tipsmega888.com/mega888",
     siteName: "TipsMega888",
     locale: "ms_MY",
@@ -39,7 +39,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mega888 Malaysia 2026 | Hub Panduan Lengkap",
-    description: "Panduan login dan connection failed Mega888: sediakan screenshot ralat untuk sokongan, potong data peribadi dan semak lampiran sebelum menghantar.",
+    description: "Panduan login, connection failed dan amaran pengesahan iPhone Mega888: bezakan profil, semak maklumat dan sediakan laporan tanpa memintas perlindungan.",
     images: ["https://tipsmega888.com/hub/mega888-panduan-visual.webp"],
   },
   robots: {
@@ -150,7 +150,7 @@ export default function Mega888HubPage() {
             description:
               "Halaman hub Mega888 Malaysia untuk login, daftar, download, RTP live, trusted agent, dan rujukan panduan asas lain.",
             inLanguage: "ms-MY",
-            dateModified: "2026-09-30",
+            dateModified: "2026-10-01",
           }),
         }}
       />
