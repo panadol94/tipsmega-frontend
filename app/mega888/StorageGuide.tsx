@@ -1,3 +1,4 @@
+import HeatGuide from "./HeatGuide";
 import Link from "next/link";
 import styles from "./hub-guide.module.css";
 
@@ -36,5 +37,6 @@ export default function StorageGuide() {
    <li><a href="https://support.apple.com/en-us/119876">Apple Support: app tidak boleh dibuka</a> dan <a href="https://support.google.com/android/answer/2668665">Google: app tidak berfungsi</a> — langkah awal sebelum pemadaman.</li>
   </ul>
   <p>Disemak pada <time dateTime="2026-09-25">25 September 2026</time>. Rujukan ini menerangkan sistem peranti, bukan pengesahan Google atau Apple terhadap Mega888. Tiada ujian app sebenar atau pemulihan akaun dilakukan untuk artikel ini.</p>
+  <HeatGuide />
  </section>;
 }
