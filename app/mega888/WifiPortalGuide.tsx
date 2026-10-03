@@ -4,7 +4,7 @@ import styles from "./hub-guide.module.css";
 export default function WifiPortalGuide() {
  return <section id="wifi-portal-jam" aria-labelledby="wifi-portal-title">
   <span className={styles.kicker}>SEMAKAN LANJUT SAMBUNGAN / 29 SEPTEMBER 2026</span>
-  <h3 id="wifi-portal-title">Mega888 connection error di Wi-Fi awam: portal, amaran pelayar atau jam peranti?</h3>
+  <h1 id="wifi-portal-title" style={{fontSize:"clamp(26px,5vw,40px)",lineHeight:1.2,fontWeight:800,color:"white",margin:"24px 0"}}>Mega888 connection error di Wi-Fi awam: portal, amaran pelayar atau jam peranti?</h1>
   <p>Ikon Wi-Fi yang bersambung belum bermaksud akses internet sudah tersedia. Di hotel, kafe atau lapangan terbang, rangkaian mungkin memerlukan log masuk portal terlebih dahulu. Pada masa yang sama, amaran sambungan peribadi dalam pelayar ialah gejala berbeza daripada mesej gagal menyambung di dalam app. Bezakan tempat mesej muncul sebelum mengubah apa-apa.</p>
   <p>Semakan lanjutan ini melengkapkan checklist di atas. Ia tidak menentukan status server Mega888, tidak mengesahkan identiti sesuatu hotspot dan tidak menganggap setiap amaran sijil berpunca daripada Wi-Fi. Tiada akaun atau aplikasi operator diuji untuk panduan ini.</p>
   <figure className={styles.figure}>
@@ -24,7 +24,7 @@ export default function WifiPortalGuide() {
    <li><strong>Pada peranti dengan Chrome:</strong> perhatikan pemberitahuan atau gesaan log masuk rangkaian. Google menerangkan bahawa portal Wi-Fi awam boleh dikesan oleh Chrome. Jika gesaan tidak muncul atau halaman meragukan, minta bantuan pengendali; jangan memasang sijil, profil atau app tambahan daripada pautan rawak sebagai jalan pintas.</li>
    <li><strong>Jika tidak mahu meneruskan:</strong> putuskan sambungan Wi-Fi tersebut. Pada iPhone, pilihan “Without Internet” boleh mengekalkan sambungan ke rangkaian tanpa akses internet; ia bukan bukti portal berjaya diselesaikan. Jika perlu, gunakan sambungan lain yang dibenarkan dan diketahui, dengan mengambil kira caj data.</li>
   </ol>
-  <p>Selepas akses rangkaian selesai, buka laman biasa yang anda kenali dahulu. Catat sama ada internet boleh digunakan dan sama ada amaran masih muncul. Jangan membuat deposit, permainan atau scan berbayar untuk menguji sambungan. Jika laman lain berfungsi tetapi app masih gagal, kembali kepada <a href="#connection-failed">tafsiran keputusan checklist</a>; itu masih belum membuktikan maintenance.</p>
+  <p>Selepas akses rangkaian selesai, buka laman biasa yang anda kenali dahulu. Catat sama ada internet boleh digunakan dan sama ada amaran masih muncul. Jangan membuat deposit, permainan atau scan berbayar untuk menguji sambungan. Jika laman lain berfungsi tetapi app masih gagal, kembali kepada <Link href="/panduan/mega888-connection-failed">tafsiran keputusan checklist</Link>; itu masih belum membuktikan maintenance.</p>
   <h4 style={{ fontWeight: 800, color: "#fff", margin: "20px 0 10px", lineHeight: 1.4 }}>3. Jika amaran menyebut jam atau tarikh</h4>
   <p>Google menyatakan bahawa “Your clock is behind”, “Your clock is ahead” atau “NET::ERR_CERT_DATE_INVALID” boleh muncul apabila tarikh dan masa komputer atau telefon tidak tepat. Semak tarikh, tahun, masa dan zon masa dalam tetapan peranti. Betulkan kepada masa sebenar; jangan sengaja mengundurkan tarikh untuk cuba melepasi sijil tamat tempoh. Jika peranti diurus organisasi atau tetapan tidak boleh diubah, rujuk pentadbir.</p>
   <p>Selepas pembetulan yang memang diperlukan, buka semula halaman sekali. Jika jam sudah betul tetapi amaran kekal, hentikan cubaan pada halaman itu dan laporkan kepada pemilik laman atau sokongan peranti/rangkaian. Jam salah ialah satu kemungkinan, bukan diagnosis automatik bagi semua ralat sijil. Jangan nyahaktif perlindungan, ubah DNS secara rawak atau mempercayai sijil tidak dikenali.</p>
@@ -35,7 +35,7 @@ export default function WifiPortalGuide() {
    <li><strong>Semakan masa:</strong> tarikh/zon masa yang dipaparkan dan sama ada pembetulan dibuat; catat masa kejadian sebenar jika diketahui.</li>
    <li><strong>Skop kegagalan:</strong> satu domain atau beberapa laman, Wi-Fi sahaja atau sambungan lain juga. Kongsi domain tanpa parameter pautan peribadi atau token sesi.</li>
   </ul>
-  <p>Masalah portal pergi kepada pengendali rangkaian; amaran yang kekal pada satu laman pergi kepada pemilik laman; masalah app pergi kepada saluran bantuan akaun yang disahkan secara berasingan. Tutup notifikasi, ID penuh dan data peribadi pada salinan screenshot. Jika seseorang menghantar pautan “baiki login”, gunakan <a href="#pautan-reset-login">panduan semakan pautan reset</a> sebelum bertindak.</p>
+  <p>Masalah portal pergi kepada pengendali rangkaian; amaran yang kekal pada satu laman pergi kepada pemilik laman; masalah app pergi kepada saluran bantuan akaun yang disahkan secara berasingan. Tutup notifikasi, ID penuh dan data peribadi pada salinan screenshot. Jika seseorang menghantar pautan “baiki login”, gunakan <Link href="/panduan/mega888-pautan-reset-login">panduan semakan pautan reset</Link> sebelum bertindak.</p>
   <h4 style={{ fontWeight: 800, color: "#fff", margin: "20px 0 10px", lineHeight: 1.4 }}>Rujukan utama dan batas panduan</h4>
   <ul>
    <li><a href="https://support.apple.com/en-us/102554">Apple: menggunakan captive Wi-Fi pada iPhone/iPad</a> — portal, caj dan maksud pilihan tanpa internet.</li>

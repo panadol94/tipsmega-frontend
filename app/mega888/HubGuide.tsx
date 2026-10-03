@@ -1,9 +1,5 @@
+import GuideIndex from "./GuideIndex";
 import Link from "next/link";
-import InstallWarningGuide from "./InstallWarningGuide";
-import ResetLinkGuide from "./ResetLinkGuide";
-import PermissionsGuide from "./PermissionsGuide";
-import StorageGuide from "./StorageGuide";
-import ConnectionChecklist from "./ConnectionChecklist";
 import ProblemSolver from "./ProblemSolver";
 import VisualGuides from "./VisualGuides";
 import styles from "./hub-guide.module.css";
@@ -37,11 +33,7 @@ export default function HubGuide() {
    <p>Hub ini diterbitkan oleh TipsMega888 sebagai panduan. Jangan anggap artikel, logo atau pautan di sini sebagai bukti pelantikan rasmi oleh pemilik jenama.</p>
   </section>
   <ProblemSolver />
-  <ConnectionChecklist />
-  <StorageGuide />
-  <PermissionsGuide />
-  <ResetLinkGuide />
-  <InstallWarningGuide />
+  <GuideIndex />
   <VisualGuides />
   <section id="masalah">
    <span className={styles.kicker}>02 / PUSAT BANTUAN</span>

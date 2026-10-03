@@ -559,21 +559,21 @@ export default function HomeClient() {
                             <div className="relative z-10 space-y-4">
                                 <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-amber-200">
                                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(110,231,183,0.8)] animate-pulse" />
-                                    Live Mega888 Signal
+                                    Rujukan Katalog Mega888
                                 </div>
                                 <div>
                                     <h1 className="text-3xl font-black leading-tight text-white sm:text-5xl">
-                                        RTP Mega888 Live Malaysia 2026
+                                        Scanner Mega888 Malaysia 2026
                                     </h1>
                                     <p className="mt-3 max-w-xl text-sm leading-6 text-white/68 sm:text-base">
-                                        Semak bacaan RTP AI secara real-time, bandingkan game dan teruskan ke panduan RTP Mega888 yang berkaitan.
+                                        Semak bacaan indikatif berasaskan katalog. Ini simulasi rujukan, bukan RTP langsung operator atau ramalan kemenangan.
                                     </p>
                                 </div>
                                 <div className="grid grid-cols-3 gap-2 max-w-md">
                                     {[
-                                        ['98%', 'Peak RTP'],
-                                        ['24/7', 'Live Sync'],
-                                        ['AI', 'Signal Scan'],
+                                        ['Katalog', 'Sumber Rujukan'],
+                                        ['Simulasi', 'Jenis Bacaan'],
+                                        ['Rujukan', 'Bukan Ramalan'],
                                     ].map(([value, label]) => (
                                         <div key={label} className="tm-premium-stat">
                                             <div className="text-lg font-black text-white">{value}</div>
@@ -618,7 +618,7 @@ export default function HomeClient() {
                             </span>
                             <div className="ml-auto flex items-center gap-2">
                                 <span className="live-dot" />
-                                <span className="text-[10px] font-mono tracking-widest text-green-400">LIVE_SYNC: OK</span>
+                                <span className="text-[10px] font-mono tracking-widest text-green-400">MOD: INDIKATIF</span>
                             </div>
                         </div>
 

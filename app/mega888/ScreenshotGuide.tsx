@@ -4,9 +4,9 @@ import styles from "./hub-guide.module.css";
 export default function ScreenshotGuide() {
  return <section id="screenshot-ralat" aria-labelledby="screenshot-title">
   <span className={styles.kicker}>LAPORAN SOKONGAN / MINIMUMKAN DATA</span>
-  <h3 id="screenshot-title">Screenshot ralat Mega888: apa perlu ditunjukkan, dipotong dan disemak?</h3>
+  <h1 id="screenshot-title" style={{fontSize:"clamp(26px,5vw,40px)",lineHeight:1.2,fontWeight:800,color:"white",margin:"24px 0"}}>Screenshot ralat Mega888: apa perlu ditunjukkan, dipotong dan disemak?</h1>
   <p>Screenshot boleh membantu menjelaskan mesej ralat, tetapi satu skrin penuh mungkin turut menunjukkan ID, baki, notifikasi atau pautan peribadi. Mulakan dengan soalan mudah: adakah teks ralat dan catatan masa sudah mencukupi? Jika ya, hantar laporan teks dahulu. Gambar bukan syarat wajib dalam checklist ini, dan bukan bukti bahawa akaun atau company telah disahkan.</p>
-  <p>Dikemas kini <time dateTime="2026-09-30">30 September 2026</time>. Panduan ini melengkapkan <a href="#connection-failed">templat laporan connection failed</a>; ia tidak mengumpul screenshot, mengakses galeri atau menghantar laporan bagi pihak anda.</p>
+  <p>Dikemas kini <time dateTime="2026-09-30">30 September 2026</time>. Panduan ini melengkapkan <Link href="/panduan/mega888-connection-failed">templat laporan connection failed</Link>; ia tidak mengumpul screenshot, mengakses galeri atau menghantar laporan bagi pihak anda.</p>
   <figure className={styles.figure}>
    <img src="/hub/mega888-support-screenshot-privacy-20260930.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Ilustrasi bingkai pemotong merah mengasingkan jubin ralat daripada panel arang gelap, dengan kad salinan dan kanta pemeriksa di sisi" style={{ maxHeight: "none", objectFit: "contain" }} />
    <figcaption>Ilustrasi konsep dijana AI: asingkan maklumat yang diperlukan dan periksa salinan sebelum berkongsi. Bukan screenshot aplikasi, ujian redaksi atau jaminan privasi.</figcaption>
@@ -31,7 +31,7 @@ export default function ScreenshotGuide() {
   <p className={styles.note}>Semakan visual ini mengurangkan pendedahan yang jelas, bukan audit forensik fail. Panduan ini tidak menjamin pembuangan metadata, sejarah suntingan atau semua maklumat tersembunyi bagi setiap editor dan format. Jangan muat naik bahan sensitif ke alat redaksi atau semakan awam yang tidak dikenal pasti.</p>
   <h4 style={{ fontWeight: 800, color: "#fff", fontSize: 18 }}>4. Sertakan konteks tanpa menambah rahsia</h4>
   <p>Gunakan ayat ringkas ini dan isi pemerhatian sebenar: “Ralat berlaku pada [tarikh/masa/zon masa], ketika [tahap kegagalan]. Mesej: [teks tanpa rahsia]. Peranti/sistem: […]. Langkah yang sudah dicuba: […]. Lampiran ialah salinan dipotong; maklumat peribadi tidak disertakan.” Jika masa hanya anggaran atau versi app tidak diketahui, nyatakan begitu. Jangan mengubah mesej untuk menyesuaikannya dengan kod ralat daripada laman lain.</p>
-  <p>Jika tersalah menghantar bahan sensitif, jangan anggap memadam mesej menarik balik semua salinan. Hentikan perkongsian lanjut dan gunakan <a href="#pautan-reset-login">langkah mengikut jenis pendedahan</a> jika password atau kod telah terdedah. Untuk masalah laman TipsMega888, rujuk <Link href="/help">halaman bantuan</Link>; untuk akaun operator, gunakan saluran akaun yang telah disahkan secara berasingan.</p>
+  <p>Jika tersalah menghantar bahan sensitif, jangan anggap memadam mesej menarik balik semua salinan. Hentikan perkongsian lanjut dan gunakan <Link href="/panduan/mega888-pautan-reset-login">langkah mengikut jenis pendedahan</Link> jika password atau kod telah terdedah. Untuk masalah laman TipsMega888, rujuk <Link href="/help">halaman bantuan</Link>; untuk akaun operator, gunakan saluran akaun yang telah disahkan secara berasingan.</p>
   <h4 style={{ fontWeight: 800, color: "#fff", fontSize: 18 }}>Rujukan utama dan batas panduan</h4>
   <ul>
    <li><a href="https://support.google.com/android/answer/9075928?hl=en">Google Android: screenshot, tangkapan panjang dan kaedah mengikut peranti</a>.</li>

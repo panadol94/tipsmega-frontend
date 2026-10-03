@@ -1,14 +1,13 @@
 import Link from "next/link";
-import ScreenshotGuide from "./ScreenshotGuide";
-import WifiPortalGuide from "./WifiPortalGuide";
 import styles from "./hub-guide.module.css";
 
 export default function ConnectionChecklist() {
  return <section id="connection-failed" aria-labelledby="connection-title">
   <span className={styles.kicker}>CHECKLIST SAMBUNGAN & LAPORAN</span>
-  <h2 id="connection-title">Mega888 “connection failed”: apa perlu diperiksa dan dicatat?</h2>
+  <h1 id="connection-title" style={{fontSize:"clamp(26px,5vw,40px)",lineHeight:1.2,fontWeight:800,color:"white",margin:"24px 0"}}>Mega888 “connection failed”: apa perlu diperiksa dan dicatat?</h1>
   <p>Mesej “connection failed”, timeout atau loading berterusan belum menentukan puncanya. Tujuan checklist ini ialah membezakan masalah internet umum daripada masalah yang hanya muncul dalam aplikasi, kemudian menyediakan maklumat berguna untuk sokongan. Ia bukan pengesan server atau ujian langsung Mega888.</p>
-  <p>Dikemas kini <time dateTime="2026-09-24">24 September 2026</time>. Jika mesej menyebut kata laluan salah atau akaun disekat, terus rujuk <a href="#problem-solver">Problem Solver</a>; jangan ulang login untuk menguji rangkaian.</p>
+  <p>Dikemas kini <time dateTime="2026-09-24">24 September 2026</time>. Jika mesej menyebut kata laluan salah atau akaun disekat, terus rujuk <Link href="/mega888#problem-solver">Problem Solver</Link>; jangan ulang login untuk menguji rangkaian.</p>
+  <figure className={styles.figure}><img src="/hub/mega888-panduan-visual.webp" alt="Ilustrasi konsep telefon dan alat semakan untuk panduan sambungan aplikasi" width="1536" height="1024" loading="lazy" decoding="async" /><figcaption>Ilustrasi konsep AI daripada Hub, bukan screenshot atau ujian sambungan sebenar.</figcaption></figure>
   <h3>1. Simpan keadaan asal sebelum mengubah tetapan</h3>
   <p>Catat waktu beserta zon masa (Malaysia: MYT, UTC+8), teks ralat tepat dan tahap kegagalan: sebelum skrin login, selepas menekan login, atau selepas aplikasi terbuka. Catat model telefon, versi Android/iOS dan versi aplikasi jika boleh dilihat. Jika versi tidak dapat dibuka, tulis “tidak dapat disemak”, bukan meneka.</p>
   <h3>2. Bandingkan dua sambungan, satu perubahan pada satu masa</h3>
@@ -42,14 +41,12 @@ export default function ConnectionChecklist() {
   <p>Potong atau tutup ID penuh, nombor telefon, baki dan transaksi pada screenshot. Jangan sertakan kata laluan, OTP, PIN, kod pemulihan atau pautan sesi. Hantar hanya butiran yang perlu melalui saluran sokongan yang telah anda sahkan, bukan kepada akaun yang tiba-tiba menghubungi anda.</p>
   <h3>Bila patut berhenti mencuba?</h3>
   <p>Berhenti jika muncul amaran keselamatan, akaun terkunci atau aktiviti transaksi yang tidak dikenali. Jangan bayar “fi baiki sambungan”, menerima APK pembaikan daripada orang asing, atau membuat deposit tambahan untuk menguji akses. Jika masalah berterusan selepas semakan asas, minta sokongan menyemak rekod masa dan mesej ralat; jangan anggap tempoh maintenance tertentu telah disahkan.</p>
-  <p>Reset rangkaian bukan langkah pertama: Apple menerangkan bahawa ia membuang tetapan rangkaian termasuk rangkaian Wi-Fi dan kata laluannya. Memadam aplikasi atau datanya juga bukan sebahagian daripada checklist ini. Gunakan <a href="#panduan-peranti">panduan peranti</a> untuk masalah aplikasi tidak terbuka dan <Link href="/help">halaman bantuan TipsMega888</Link> untuk isu laman ini; kami tidak boleh mengesahkan status akaun operator.</p>
+  <p>Reset rangkaian bukan langkah pertama: Apple menerangkan bahawa ia membuang tetapan rangkaian termasuk rangkaian Wi-Fi dan kata laluannya. Memadam aplikasi atau datanya juga bukan sebahagian daripada checklist ini. Gunakan <Link href="/mega888#panduan-peranti">panduan peranti</Link> untuk masalah aplikasi tidak terbuka dan <Link href="/help">halaman bantuan TipsMega888</Link> untuk isu laman ini; kami tidak boleh mengesahkan status akaun operator.</p>
   <h3>Rujukan teknikal utama</h3>
   <ul>
    <li><a href="https://support.google.com/googleplay/answer/2651367?hl=en">Google: membaiki masalah sambungan internet Android</a> — restart dan perbandingan Wi-Fi/data.</li>
    <li><a href="https://support.apple.com/en-us/111786">Apple: iPhone/iPad tidak dapat menyambung Wi-Fi</a> — semakan peranti/rangkaian lain dan kesan reset rangkaian.</li>
   </ul>
   <p>Rujukan ini menyokong langkah umum peranti, bukan kod ralat, keserasian versi atau status server Mega888. Tiada pemetaan kod ralat atau jaminan masa pemulihan dibuat di sini.</p>
-  <ScreenshotGuide />
-  <WifiPortalGuide />
  </section>;
 }

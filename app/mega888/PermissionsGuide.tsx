@@ -1,11 +1,10 @@
 import Link from "next/link";
-import IphoneVerificationGuide from "./IphoneVerificationGuide";
 import styles from "./hub-guide.module.css";
 
 export default function PermissionsGuide() {
  return <section id="semak-permission" aria-labelledby="permissions-title">
   <span className={styles.kicker}>AKSES PERANTI / 26 SEPTEMBER 2026</span>
-  <h2 id="permissions-title">Mega888 minta permission: semak akses sebelum tekan Allow</h2>
+  <h1 id="permissions-title" style={{fontSize:"clamp(26px,5vw,40px)",lineHeight:1.2,fontWeight:800,color:"white",margin:"24px 0"}}>Mega888 minta permission: semak akses sebelum tekan Allow</h1>
   <p>Permintaan kamera, mikrofon atau lokasi bukan perkara yang sama dengan mesej login gagal. Jangan beri semua akses hanya kerana mahu melepasi skrin pemasangan. Mulakan dengan tiga soalan: app mana yang meminta, akses apa yang diminta, dan fungsi apa yang sedang anda gunakan?</p>
   <p>Panduan ini menerangkan kawalan umum Android dan iPhone. Kami tidak menguji fail Mega888 tertentu atau mengesahkan senarai permission wajibnya. Nama, logo, saiz fail atau ketiadaan amaran sahaja tidak membuktikan sesuatu app selamat atau rasmi.</p>
   <figure className={styles.figure}>
@@ -40,7 +39,7 @@ export default function PermissionsGuide() {
   <h3>Rekod ringkas untuk sokongan</h3>
   <p>“Peranti/versi sistem: __. Versi app: __. Tindakan sebelum permintaan: __. Nama permission dan pilihan yang muncul: __. Pilihan saya: __. Mesej selepas itu: __. Mengapa akses ini diperlukan, dan adakah fungsi boleh digunakan dengan akses lebih terhad?”</p>
   <p>Padam ID penuh, nombor telefon, baki dan butiran transaksi daripada salinan screenshot yang dikongsi. Jangan sertakan kata laluan, OTP atau kod pemulihan. Gunakan saluran sokongan yang telah dikenal pasti, bukan akaun yang tiba-tiba menawarkan bantuan.</p>
-  <div className={styles.actions}><a href="#problem-solver">Pilih gejala dalam Problem Solver →</a><a href="#connection-failed">Jika mesejnya connection failed →</a><a href="#cache-dan-data">Sebelum padam data app →</a></div>
+  <div className={styles.actions}><Link href="/mega888#problem-solver">Pilih gejala dalam Problem Solver →</Link><Link href="/panduan/mega888-connection-failed">Jika mesejnya connection failed →</Link><Link href="/panduan/mega888-cache-dan-data">Sebelum padam data app →</Link></div>
   <p>Scanner TipsMega888 ialah simulasi/rujukan katalog indikatif, bukan alat mengimbas keselamatan APK, membaca permission telefon atau menyemak akaun operator. Lihat <Link href="/info">metodologi scanner</Link> atau <Link href="/help">bantuan laman ini</Link>.</p>
   <h3>Rujukan utama dan had panduan</h3>
   <ul>
@@ -49,6 +48,5 @@ export default function PermissionsGuide() {
    <li><a href="https://support.apple.com/guide/iphone/control-access-to-information-in-apps-iph251e92810/ios">Apple iPhone User Guide: kawal akses maklumat dalam app</a> — semakan mengikut kategori privasi.</li>
   </ul>
   <p>Disemak pada <time dateTime="2026-09-26">26 September 2026</time>. Rujukan ini menyokong fungsi sistem peranti, bukan pengesahan Mega888 oleh Google atau Apple. Tiada audit APK, ujian permission app sebenar atau jaminan pemulihan akaun dibuat untuk artikel ini.</p>
-  <IphoneVerificationGuide />
  </section>;
 }

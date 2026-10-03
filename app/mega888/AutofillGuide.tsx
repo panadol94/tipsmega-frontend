@@ -4,7 +4,7 @@ import styles from "./hub-guide.module.css";
 export default function AutofillGuide() {
  return <section id="login-autofill" aria-labelledby="autofill-title">
   <span className={styles.kicker}>LOGIN / REKOD TERSIMPAN</span>
-  <h2 id="autofill-title">Mega888 login gagal selepas reset: semak autofill dan akaun yang dipilih</h2>
+  <h1 id="autofill-title" style={{fontSize:"clamp(26px,5vw,40px)",lineHeight:1.2,fontWeight:800,color:"white",margin:"24px 0"}}>Mega888 login gagal selepas reset: semak autofill dan akaun yang dipilih</h1>
   <p>Ruangan login yang sudah terisi tidak semestinya mengandungi maklumat terkini. Pengurus kata laluan mungkin menawarkan rekod lama atau ID lain yang pernah disimpan. Sebelum reset sekali lagi, bezakan apa yang telefon isikan daripada apa yang perkhidmatan terima. Ini ialah semakan umum isian automatik, bukan pengesahan bahawa setiap versi aplikasi Mega888 menyokong Google Password Manager atau Apple Passwords.</p>
   <figure className={styles.figure}>
    <img src="/hub/mega888-autofill-rekod-login-20261003.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Ilustrasi konsep arkib kad rekod login dengan rel pemilih merah, satu kad lama diasingkan dan telefon gelap pada pedestal berasingan" style={{ maxHeight: "none", objectFit: "contain" }} />
@@ -18,7 +18,7 @@ export default function AutofillGuide() {
   </div>
   <h3>Urutan semakan tanpa memadam rekod atau meneka password</h3>
   <ol className={styles.checkSteps}>
-   <li><strong>Pastikan destinasi dahulu.</strong> Gunakan app atau alamat yang telah anda sahkan secara berasingan, bukan pautan baharu daripada mesej bantuan. Bezakan akaun operator daripada akaun TipsMega888. Jika destinasi meragukan, berhenti dan gunakan <a href="#pautan-reset-login">panduan pautan reset</a>; jangan cuba password pada halaman itu.</li>
+   <li><strong>Pastikan destinasi dahulu.</strong> Gunakan app atau alamat yang telah anda sahkan secara berasingan, bukan pautan baharu daripada mesej bantuan. Bezakan akaun operator daripada akaun TipsMega888. Jika destinasi meragukan, berhenti dan gunakan <Link href="/panduan/mega888-pautan-reset-login">panduan pautan reset</Link>; jangan cuba password pada halaman itu.</li>
    <li><strong>Semak ID yang terisi.</strong> Padankan dengan rekod akaun anda sendiri. Jika ada beberapa pilihan tersimpan, pilih entri untuk akaun dan destinasi yang betul, bukan pilihan pertama semata-mata. Jangan menukar nama domain pada rekod untuk memaksa pengurus mengisi laman yang berlainan.</li>
    <li><strong>Semak konteks reset terakhir.</strong> Adakah proses perubahan benar-benar selesai, atau anda hanya menyunting rekod pada telefon? Catat masa dan pengesahan proses tanpa menyalin kata laluan. Jika anda tidak pasti kata laluan semasa, teruskan melalui saluran pemulihan yang sudah disahkan; jangan mencuba semua rekod lama satu demi satu.</li>
    <li><strong>Jika anda pasti maklumat semasa, semak satu percubaan terkawal.</strong> Pada destinasi yang disahkan dan tanpa amaran sekatan, gunakan ID serta kata laluan semasa, bukan cadangan lama. Lakukan secara peribadi tanpa rakaman atau perkongsian skrin. Jika masih ditolak, berhenti; tiada bilangan cubaan atau tempoh buka sekatan yang dijamin di sini.</li>
@@ -36,9 +36,9 @@ export default function AutofillGuide() {
    <li><strong>Maklumat yang diyakini semasa masih ditolak:</strong> status akaun, proses reset atau sebab lain masih belum dapat dipastikan. Catat mesej sebenar dan hubungi sokongan melalui saluran yang telah dikenal pasti.</li>
    <li><strong>Tiada cadangan autofill:</strong> ia boleh berkaitan konteks simpanan atau sokongan borang/app; bukan alasan memasang keyboard, profil atau aplikasi bantuan daripada orang tidak dikenali.</li>
   </ul>
-  <p className={styles.note}>Jangan hantar screenshot pengurus password, fail eksport, password, OTP atau kod pemulihan. Jika skrin menyatakan akaun terkunci, jangan terus mencuba. Jika gejalanya timeout atau connection failed, gunakan <a href="#connection-failed">semakan rangkaian</a> dan jangan andaikan password rosak.</p>
+  <p className={styles.note}>Jangan hantar screenshot pengurus password, fail eksport, password, OTP atau kod pemulihan. Jika skrin menyatakan akaun terkunci, jangan terus mencuba. Jika gejalanya timeout atau connection failed, gunakan <Link href="/panduan/mega888-connection-failed">semakan rangkaian</Link> dan jangan andaikan password rosak.</p>
   <h3>Rekod ringkas untuk sokongan</h3>
-  <p>“Masa dan zon waktu: __. Peranti/versi sistem: __. App atau pelayar: __. Mesej ralat tepat: __. Berlaku sebelum/selepas proses reset: __. Ruangan diisi secara manual/autofill: __. ID yang terpilih sepadan/tidak sepadan, tanpa menulis ID penuh: __. Langkah yang telah dibuat: __.” Jika perlu lampiran, ikut <a href="#screenshot-ralat">panduan screenshot ralat</a> dan jangan rakam semasa membuka rekod rahsia.</p>
+  <p>“Masa dan zon waktu: __. Peranti/versi sistem: __. App atau pelayar: __. Mesej ralat tepat: __. Berlaku sebelum/selepas proses reset: __. Ruangan diisi secara manual/autofill: __. ID yang terpilih sepadan/tidak sepadan, tanpa menulis ID penuh: __. Langkah yang telah dibuat: __.” Jika perlu lampiran, ikut <Link href="/panduan/mega888-screenshot-ralat">panduan screenshot ralat</Link> dan jangan rakam semasa membuka rekod rahsia.</p>
   <p>TipsMega888 tidak boleh menyemak atau reset password operator. Scanner ialah simulasi/rujukan katalog indikatif, bukan pemeriksa login. Untuk isu akaun laman ini, gunakan <Link href="/help">bantuan TipsMega888</Link>; lihat <Link href="/info">metodologi scanner</Link> untuk had aksesnya.</p>
   <h3>Rujukan utama dan batas panduan</h3>
   <ul>

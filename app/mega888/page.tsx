@@ -1,3 +1,4 @@
+import { HUB_UPDATED } from "../data/hubGuides";
 
 import Link from "next/link";
 import HubGuide from "./HubGuide";
@@ -6,7 +7,7 @@ import SharedPageNav from "../ui/SharedPageNav";
 export const metadata = {
   title: "Mega888 Malaysia 2026 | Login, Download, RTP & Trusted Company",
   description:
-    "Panduan Mega888 Malaysia: login, pemasangan, connection failed, cache dan data, permission app, pautan reset mencurigakan, ralat pemasangan Android, portal Wi-Fi, screenshot ralat untuk sokongan, amaran pengesahan iPhone, telefon panas dan amaran suhu, autofill login selepas reset, limitasi scanner dan semakan company.",
+    "Panduan Mega888 Malaysia: selesaikan masalah login dan pemasangan, fahami bacaan scanner serta semak company. Pilih panduan lengkap mengikut masalah.",
   keywords: [
     "mega888 malaysia 2026",
     "mega888 login",
@@ -78,7 +79,7 @@ const HUB_LINKS = [
   {
     title: "RTP Live Malaysia 2026",
     href: "/blog/mega888-rtp-live-malaysia-2026",
-    note: "Cara baca data live dan pilih game yang lebih sesuai.",
+    note: "Fahami RTP teori dan batas bacaan scanner indikatif.",
   },
   {
     title: "Withdraw Cepat Malaysia",
@@ -108,7 +109,7 @@ const HUB_LINKS = [
   {
     title: "RTP Scanner Mega888",
     href: "/blog/rtp-scanner-mega888-cara-baca-data-live",
-    note: "Cara baca data live, volatiliti, dan masa semakan sebelum pilih game.",
+    note: "Cara baca bacaan indikatif, volatiliti dan limitasi semakan.",
   },
   {
     title: "Mega888 Original vs Fake",
@@ -150,7 +151,7 @@ export default function Mega888HubPage() {
             description:
               "Halaman hub Mega888 Malaysia untuk login, daftar, download, RTP live, trusted agent, dan rujukan panduan asas lain.",
             inLanguage: "ms-MY",
-            dateModified: "2026-10-03",
+            dateModified: HUB_UPDATED,
           }),
         }}
       />
@@ -205,7 +206,7 @@ export default function Mega888HubPage() {
             Mega888 Malaysia Hub
           </div>
           <h1 style={{ fontSize: "2rem", fontWeight: 800, lineHeight: 1.25, margin: "0.9rem 0 0.7rem" }}>
-            Mega888 Malaysia 2026 — Login, Download APK, RTP Live, Trusted Agent & Withdraw
+            Mega888 Malaysia: Panduan Login, Aplikasi & Scanner
           </h1>
           <p style={{ color: "#94a3b8", lineHeight: 1.8, maxWidth: 860, margin: 0 }}>
             Kalau anda cari maklumat paling penting tentang <strong>Mega888 Malaysia</strong>, ini ialah halaman rujukan utama.

@@ -5,9 +5,9 @@ import SharedPageNav from "./ui/SharedPageNav";
 import Link from "next/link";
 
 export const metadata = {
-  title: "RTP Mega888 Live Malaysia 2026 | TipsMega888 Scanner",
+  title: "Scanner Mega888 Malaysia 2026 | Bacaan Indikatif",
   description:
-    "Semak RTP Mega888 live Malaysia 2026 melalui dashboard TipsMega888. Bandingkan bacaan game, kemudian rujuk panduan RTP, senarai game dan trusted company.",
+    "Scanner Mega888 dengan bacaan indikatif berasaskan katalog, bukan data langsung operator. Baca metodologi, panduan game dan semakan Trusted Company.",
   keywords: [
     "tips mega888",
     "tipsmega888",
@@ -21,9 +21,9 @@ export const metadata = {
     "mega888 rtp live",
   ],
   openGraph: {
-    title: "RTP Mega888 Live Malaysia 2026 | TipsMega888 Scanner",
+    title: "Scanner Mega888 Malaysia 2026 | Bacaan Indikatif",
     description:
-      "Semak RTP Mega888 live melalui dashboard TipsMega888 dan bandingkan bacaan game sebelum membaca panduan berkaitan.",
+      "Fahami bacaan scanner indikatif berasaskan katalog serta batasannya. Bukan data langsung operator atau ramalan kemenangan.",
     url: "https://tipsmega888.com",
     siteName: "Tips Mega888",
     locale: "ms_MY",
@@ -39,9 +39,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image" as const,
-    title: "RTP Mega888 Live Malaysia 2026 | TipsMega888 Scanner",
+    title: "Scanner Mega888 Malaysia 2026 | Bacaan Indikatif",
     description:
-      "Semak RTP Mega888 live melalui dashboard TipsMega888 dan bandingkan bacaan game sebelum membaca panduan berkaitan.",
+      "Fahami bacaan scanner indikatif berasaskan katalog serta batasannya. Bukan data langsung operator atau ramalan kemenangan.",
     images: ["https://tipsmega888.com/wins/win-4.jpg"],
   },
   alternates: {
@@ -119,13 +119,7 @@ export default function Page() {
         dangerouslySetInnerHTML={{__html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
-          "mainEntity": [
-            {"@type": "Question", "name": "Apa itu Tips Mega888?", "acceptedAnswer": {"@type": "Answer", "text": "Tips Mega888 ialah platform rujukan yang menyediakan analisis AI RTP secara real-time, senarai trusted agent dan panduan permainan. Scanner tidak mempunyai akses terus kepada RNG permainan dan tidak menjamin kemenangan."}},
-            {"@type": "Question", "name": "Bagaimana cara guna RTP Scanner Mega888?", "acceptedAnswer": {"@type": "Answer", "text": "Masukkan ID pada bahagian Scanner untuk melihat bacaan AI real-time berdasarkan data dan signal semasa. Gunakan hasil untuk perbandingan dan bukan sebagai jaminan kemenangan."}},
-            {"@type": "Question", "name": "Adakah Tips Mega888 selamat digunakan?", "acceptedAnswer": {"@type": "Answer", "text": "Ya, tipsmega888.com adalah laman rujukan maklumat sahaja. Kami tidak memerlukan maklumat peribadi atau data akaun anda. Platform ini hanya menyediakan data RTP dan panduan permainan untuk tatapan umum."}},
-            {"@type": "Question", "name": "Apa itu trusted agent Mega888?", "acceptedAnswer": {"@type": "Answer", "text": "Trusted agent Mega888 adalah ejen yang telah disahkan mempunyai rekod pembayaran yang baik, respon pantas, dan reputasi positif dalam komuniti. Senarai trusted agent kami dikemaskini secara berkala berdasarkan maklum balas komuniti."}},
-            {"@type": "Question", "name": "Boleh saya percayai bacaan RTP dari scanner ini?", "acceptedAnswer": {"@type": "Answer", "text": "Bacaan scanner ialah output analisis AI real-time TipsMega888 berdasarkan data dan signal semasa. Ia bukan keputusan rasmi operator, audit bebas atau jaminan keputusan permainan."}}
-          ]
+          "mainEntity": [{"@type": "Question", "name": "Apa itu Tips Mega888?", "acceptedAnswer": {"@type": "Answer", "text": "Tips Mega888 ialah platform rujukan yang menyediakan simulasi semakan RTP, senarai trusted agent dan panduan permainan. Paparan scanner ialah output indikatif, bukan data langsung daripada operator atau RNG permainan."}}, {"@type": "Question", "name": "Bagaimana cara guna RTP Scanner Mega888?", "acceptedAnswer": {"@type": "Answer", "text": "Masukkan ID pada bahagian Scanner untuk melihat paparan indikatif dalam julat rujukan katalog. Gunakan hasil untuk perbandingan sahaja dan bukan sebagai ramalan atau jaminan kemenangan."}}, {"@type": "Question", "name": "Adakah Tips Mega888 selamat digunakan?", "acceptedAnswer": {"@type": "Answer", "text": "Ya, tipsmega888.com adalah laman rujukan maklumat sahaja. Kami tidak memerlukan maklumat peribadi atau data akaun anda. Platform ini hanya menyediakan data RTP dan panduan permainan untuk tatapan umum."}}, {"@type": "Question", "name": "Apa itu trusted agent Mega888?", "acceptedAnswer": {"@type": "Answer", "text": "Trusted agent Mega888 adalah ejen yang telah disahkan mempunyai rekod pembayaran yang baik, respon pantas, dan reputasi positif dalam komuniti. Senarai trusted agent kami dikemaskini secara berkala berdasarkan maklum balas komuniti."}}, {"@type": "Question", "name": "Boleh saya percayai bacaan RTP dari scanner ini?", "acceptedAnswer": {"@type": "Answer", "text": "Bacaan scanner ialah output indikatif dalam julat yang dikonfigurasikan oleh TipsMega888. Ia bukan data operator, audit bebas atau jaminan keputusan permainan."}}]
         })}}
       />
 
@@ -214,20 +208,20 @@ export default function Page() {
       {/* ── SEO LONG-FORM CONTENT ── */}
       <div className="px-4 py-8 mb-6 mt-4 max-w-4xl mx-auto border-t border-white/10">
         <article className="prose prose-sm prose-invert max-w-none">
-          <h2 className="text-xl font-bold text-white mb-4 text-center">Cara Semak RTP Mega888 Live Malaysia</h2>
+          <h2 className="text-xl font-bold text-white mb-4 text-center">Cara Baca Scanner Mega888 Malaysia</h2>
 
           <section className="space-y-4 text-[12px] text-white/70 leading-relaxed">
             <h3 className="text-lg font-semibold text-white/90 mt-6">Apa Maksud RTP Mega888?</h3>
             <p>
               <strong className="text-white">RTP (Return to Player)</strong> ialah kadar pulangan teori jangka panjang sesuatu game.
-              Ia bukan ramalan untuk spin seterusnya. Dashboard ini menyusun bacaan AI real-time supaya pengguna boleh membandingkan game,
+              Ia bukan ramalan untuk spin seterusnya. Dashboard ini menyusun bacaan indikatif berasaskan katalog untuk rujukan pengguna,
               manakala penerangan lebih lengkap tersedia dalam <Link href="/blog/mega888-rtp-live-malaysia-2026" className="text-red-400 hover:underline">panduan RTP Mega888 live</Link>.
             </p>
 
             <h3 className="text-lg font-semibold text-white/90 mt-6">Cara Guna RTP Scanner</h3>
             <p>
               Masukkan ID dalam scanner, bandingkan bacaan yang dipaparkan dan semak volatiliti game sebelum membuat pilihan.
-              Bacaan scanner ialah output analisis AI real-time, bukan sambungan terus kepada RNG dan tidak menjamin kemenangan.
+              Bacaan scanner ialah simulasi rujukan katalog, bukan data langsung operator atau sambungan kepada RNG, dan tidak menjamin kemenangan.
               Baca juga <Link href="/blog/rtp-scanner-mega888-cara-baca-data-live" className="text-red-400 hover:underline">cara membaca data scanner RTP</Link>.
             </p>
 

@@ -1,11 +1,10 @@
-import HeatGuide from "./HeatGuide";
 import Link from "next/link";
 import styles from "./hub-guide.module.css";
 
 export default function StorageGuide() {
  return <section id="cache-dan-data" aria-labelledby="storage-title">
   <span className={styles.kicker}>PANDUAN STORAN / 25 SEPTEMBER 2026</span>
-  <h2 id="storage-title">Mega888 tak boleh dibuka: beza clear cache, padam data dan offload</h2>
+  <h1 id="storage-title" style={{fontSize:"clamp(26px,5vw,40px)",lineHeight:1.2,fontWeight:800,color:"white",margin:"24px 0"}}>Mega888 tak boleh dibuka: beza clear cache, padam data dan offload</h1>
   <p>Arahan “bersihkan app” boleh merujuk kepada tindakan yang sangat berbeza. Sebelum menekan butang dalam tetapan telefon, kenal pasti apa yang akan dibuang. Panduan ini menerangkan fungsi umum Android dan iPhone; ia bukan pengesahan cara setiap versi Mega888 menyimpan akaun atau memulihkan data.</p>
   <figure className={styles.figure}>
    <img src="/hub/mega888-cache-data-offload-20260925.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Ilustrasi konsep telefon arang gelap dengan dulang fail sementara merah yang berasingan daripada teras arkib data" />
@@ -20,7 +19,7 @@ export default function StorageGuide() {
   </div>
   <h3>Urutan semakan sebelum mengubah storan</h3>
   <ol className={styles.checkSteps}>
-   <li><strong>Bezakan gejala dahulu.</strong> Jika mesejnya connection failed, gunakan <a href="#connection-failed">checklist sambungan</a>. Jika login ditolak tetapi app terbuka, gunakan <a href="#problem-solver">Problem Solver</a>. Mengosongkan storan tidak mengesahkan atau menyelesaikan status akaun pada server.</li>
+   <li><strong>Bezakan gejala dahulu.</strong> Jika mesejnya connection failed, gunakan <Link href="/panduan/mega888-connection-failed">checklist sambungan</Link>. Jika login ditolak tetapi app terbuka, gunakan <Link href="/mega888#problem-solver">Problem Solver</Link>. Mengosongkan storan tidak mengesahkan atau menyelesaikan status akaun pada server.</li>
    <li><strong>Simpan rekod yang tidak sensitif.</strong> Catat model telefon, versi sistem dan app, ruang storan tersedia serta mesej ralat sebelum perubahan. Simpan saluran pemulihan akaun yang sudah dikenal pasti. Jangan hantar kata laluan, OTP atau kod pemulihan kepada sesiapa.</li>
    <li><strong>Cuba langkah tanpa memadam data.</strong> Tutup dan buka semula app, restart telefon, kemudian semak kemas kini daripada sumber yang dipercayai. Buat satu perubahan pada satu masa supaya hasilnya boleh dibandingkan.</li>
    <li><strong>Android: baca label sebenar.</strong> Dalam Settings/Tetapan, buka maklumat app yang betul dan bahagian storannya; laluan serta label berbeza mengikut pengeluar. Jika anda memilih untuk mencuba clear cache, pilih hanya pilihan cache yang jelas. Jangan tersalah memilih Clear storage atau Clear data. Buka semula sekali dan rekod hasil tanpa bermain atau membuat transaksi ujian.</li>
@@ -28,7 +27,7 @@ export default function StorageGuide() {
   </ol>
   <p className={styles.note}><strong>Berhenti sebelum padam data, offload atau uninstall</strong> jika anda tidak pasti cara mendapatkan semula akses, sumber pemasangan atau status sandaran. Dapatkan penjelasan sokongan terlebih dahulu. Offload mengekalkan dokumen menurut fungsi iOS, tetapi bukan jaminan app boleh dimuat turun semula atau akaun dipulihkan.</p>
   <h3>Soalan ringkas untuk sokongan</h3>
-  <p>“App saya masih gagal selepas restart dan semakan versi. Adakah arahan anda bermaksud clear cache, clear data, offload atau uninstall? Apakah data setempat yang terjejas, bagaimana akses dipulihkan, dan bagaimana saya mengesahkan sumber pemasangan semula?” Sertakan <a href="#connection-failed">rekod ralat yang telah disunting</a>, bukan rahsia akaun.</p>
+  <p>“App saya masih gagal selepas restart dan semakan versi. Adakah arahan anda bermaksud clear cache, clear data, offload atau uninstall? Apakah data setempat yang terjejas, bagaimana akses dipulihkan, dan bagaimana saya mengesahkan sumber pemasangan semula?” Sertakan <Link href="/panduan/mega888-connection-failed">rekod ralat yang telah disunting</Link>, bukan rahsia akaun.</p>
   <p>Tiada jumlah storan minimum, tempoh pemulihan, keserasian versi atau jaminan baki akaun ditetapkan oleh panduan ini. Jika isu melibatkan laman TipsMega888, gunakan <Link href="/help">halaman bantuan kami</Link>; data app operator tidak boleh diperiksa melalui scanner kami.</p>
   <h3>Rujukan utama dan had panduan</h3>
   <ul>
@@ -37,6 +36,5 @@ export default function StorageGuide() {
    <li><a href="https://support.apple.com/en-us/119876">Apple Support: app tidak boleh dibuka</a> dan <a href="https://support.google.com/android/answer/2668665">Google: app tidak berfungsi</a> — langkah awal sebelum pemadaman.</li>
   </ul>
   <p>Disemak pada <time dateTime="2026-09-25">25 September 2026</time>. Rujukan ini menerangkan sistem peranti, bukan pengesahan Google atau Apple terhadap Mega888. Tiada ujian app sebenar atau pemulihan akaun dilakukan untuk artikel ini.</p>
-  <HeatGuide />
  </section>;
 }

@@ -1,3 +1,4 @@
+import { HUB_GUIDES, HUB_UPDATED } from "./data/hubGuides";
 import { MetadataRoute } from "next";
 import { GAME_PAGES } from "./data/gamePages";
 import { BLOG_ARTICLES } from "./data/blogArticles";
@@ -13,11 +14,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Core pages
     const corePages: MetadataRoute.Sitemap = [
-        { url: baseUrl, lastModified: coreLastModified, changeFrequency: "weekly", priority: 1 },
+        { url: baseUrl, lastModified: new Date("2026-10-03"), changeFrequency: "weekly", priority: 1 },
         { url: `${baseUrl}/trusted`, lastModified: coreLastModified, changeFrequency: "weekly", priority: 0.9 },
-        { url: `${baseUrl}/info`, lastModified: new Date("2026-08-03T08:20:00.000Z"), changeFrequency: "monthly", priority: 0.6 },
+        { url: `${baseUrl}/info`, lastModified: new Date("2026-09-24"), changeFrequency: "monthly", priority: 0.6 },
         { url: `${baseUrl}/blog`, lastModified: coreLastModified, changeFrequency: "weekly", priority: 0.85 },
-        { url: `${baseUrl}/mega888`, lastModified: coreLastModified, changeFrequency: "weekly", priority: 0.95 },
+        { url: `${baseUrl}/mega888`, lastModified: new Date(HUB_UPDATED), changeFrequency: "weekly", priority: 0.95 },
         { url: `${baseUrl}/games`, lastModified: coreLastModified, changeFrequency: "weekly", priority: 0.85 },
         { url: `${baseUrl}/about`, lastModified: coreLastModified, changeFrequency: "yearly", priority: 0.4 },
         { url: `${baseUrl}/privacy-policy`, lastModified: coreLastModified, changeFrequency: "yearly", priority: 0.3 },
@@ -45,5 +46,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.65,
     }));
 
-    return [...corePages, ...blogPages, ...gamePages];
+    const guidePages: MetadataRoute.Sitemap = HUB_GUIDES.map(g => ({url: `${baseUrl}/panduan/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: "monthly", priority: 0.75}));
+    return [...corePages, ...blogPages, ...gamePages, ...guidePages];
 }
