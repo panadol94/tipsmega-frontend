@@ -1,3 +1,4 @@
+import AutofillGuide from "./AutofillGuide";
 import Link from "next/link";
 import styles from "./hub-guide.module.css";
 
@@ -44,5 +45,6 @@ export default function ResetLinkGuide() {
    <li><a href="https://consumer.ftc.gov/articles/what-do-if-you-were-scammed">FTC: tindakan selepas maklumat, akses atau wang terdedah</a> — password unik, akaun yang berkongsi password dan hubungan segera dengan penyedia pembayaran.</li>
   </ul>
   <p>Disemak pada <time dateTime="2026-09-27">27 September 2026</time>. Sumber ini menerangkan prinsip keselamatan umum, bukan mengesahkan Mega888, mana-mana agent atau prosedur reset khusus. FTC ialah agensi Amerika Syarikat; saluran laporan dan hak undang-undang khusus AS tidak dianggap terpakai di Malaysia. Tiada ujian akaun, pemeriksaan peranti atau jaminan pemulihan dibuat.</p>
+  <AutofillGuide />
  </section>;
 }
