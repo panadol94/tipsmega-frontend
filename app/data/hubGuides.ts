@@ -1,16 +1,16 @@
 // Content dates reflect substantive publication, not build time.
-export const HUB_UPDATED = "2026-10-05";
+export const HUB_UPDATED = "2026-10-07";
 export const HUB_GUIDES = [
   {
     "component": "ConnectionChecklist",
     "id": "connection-failed",
     "slug": "mega888-connection-failed",
     "title": "Mega888 “connection failed”: apa perlu diperiksa dan dicatat?",
-    "summary": "Semak sambungan, akses data selular iPhone dan Data Saver Android. Bezakan petunjuk rangkaian serta sediakan laporan sokongan.",
+    "summary": "Semak sambungan, akses data aplikasi dan persediaan sebelum reset rangkaian. Fahami kesan tetapan serta sediakan laporan sokongan.",
     "image": "/hub/mega888-panduan-visual.webp",
     "alt": "Ilustrasi konsep telefon dan alat semakan untuk panduan sambungan aplikasi",
     "published": "2026-09-24",
-    "updated": "2026-10-04"
+    "updated": "2026-10-07"
   },
   {
     "component": "StorageGuide",
