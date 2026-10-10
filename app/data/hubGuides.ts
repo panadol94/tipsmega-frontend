@@ -1,5 +1,5 @@
 // Content dates reflect substantive publication, not build time.
-export const HUB_UPDATED = "2026-10-09";
+export const HUB_UPDATED = "2026-10-10";
 export const HUB_GUIDES = [
   {
     "component": "ConnectionChecklist",
@@ -105,10 +105,10 @@ export const HUB_GUIDES = [
     "id": "login-autofill",
     "slug": "mega888-login-autofill",
     "title": "Mega888 login gagal selepas reset: semak autofill dan akaun yang dipilih",
-    "summary": "Semak rekod autofill lama selepas reset dan pastikan akaun yang dipilih betul. Bezakan rekod tersimpan daripada kata laluan perkhidmatan.",
+    "summary": "Semak autofill selepas reset serta beza password tersimpan, cookies dan sesi Incognito. Rekod masalah login tanpa terus memadam data pelayar.",
     "image": "/hub/mega888-autofill-rekod-login-20261003.webp",
     "alt": "Ilustrasi konsep arkib kad rekod login dengan rel pemilih merah, satu kad lama diasingkan dan telefon gelap pada pedestal berasingan",
     "published": "2026-10-03",
-    "updated": "2026-10-03"
+    "updated": "2026-10-10"
   }
 ] as const;

@@ -40,11 +40,47 @@ export default function AutofillGuide() {
   <h3>Rekod ringkas untuk sokongan</h3>
   <p>“Masa dan zon waktu: __. Peranti/versi sistem: __. App atau pelayar: __. Mesej ralat tepat: __. Berlaku sebelum/selepas proses reset: __. Ruangan diisi secara manual/autofill: __. ID yang terpilih sepadan/tidak sepadan, tanpa menulis ID penuh: __. Langkah yang telah dibuat: __.” Jika perlu lampiran, ikut <Link href="/panduan/mega888-screenshot-ralat">panduan screenshot ralat</Link> dan jangan rakam semasa membuka rekod rahsia.</p>
   <p>TipsMega888 tidak boleh menyemak atau reset password operator. Scanner ialah simulasi/rujukan katalog indikatif, bukan pemeriksa login. Untuk isu akaun laman ini, gunakan <Link href="/help">bantuan TipsMega888</Link>; lihat <Link href="/info">metodologi scanner</Link> untuk had aksesnya.</p>
+  <section id="sesi-pelayar-cookies" aria-labelledby="browser-session-title">
+   <h2 id="browser-session-title">Mega888 login melalui pelayar: cookies, sesi dan batas Incognito</h2>
+   <p>Jika borang login kembali muncul selepas anda menutup pelayar, itu tidak semestinya bermaksud password berubah. Rekod autofill mengisi borang; sesi laman pula membantu laman mengenali lawatan yang sedang berlangsung. Bahagian ini hanya untuk masalah pada halaman web yang anda sendiri sudah sahkan, bukan arahan bagi app Mega888 asli atau bukti kewujudan sesuatu portal web rasmi.</p>
+   <figure className={styles.figure}>
+    <img src="/hub/mega888-sesi-pelayar-cookies-20261010.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Ilustrasi konsep dua bingkai pelayar pada tapak berasingan, token sesi kekal dan sementara serta peti rekod kata laluan tertutup" style={{maxHeight:"none",objectFit:"contain"}} />
+    <figcaption>Ilustrasi konsep dijana AI: sesi pelayar dan rekod password digambarkan berasingan. Bukan screenshot, bukti keselamatan laman atau jaminan login berjaya.</figcaption>
+   </figure>
+   <h3>Empat perkara yang perlu dibezakan</h3>
+   <div className={styles.grid}>
+    <article><h3>Autofill / password tersimpan</h3><p>Maklumat yang pengurus boleh isikan ke borang. Ia tidak membuktikan sesi masih aktif. Menyunting rekod password tidak memanjangkan sesi laman atau menukar polisi tamat sesi pada server.</p></article>
+    <article><h3>Cookies dan data laman</h3><p>Google menerangkan bahawa cookies boleh membantu laman mengekalkan login dan pilihan pengguna. Memadamnya boleh menyebabkan anda log keluar serta kehilangan pilihan tersimpan. Ini berbeza daripada reset password atau menutup akaun.</p></article>
+    <article><h3>Cache pelayar</h3><p>Salinan bahagian halaman, seperti imej, membantu pemuatan seterusnya. Kategori Cached images and files tidak sama dengan Cookies and other site data. Jangan anggap semua pilihan dalam dialog pemadaman mempunyai kesan yang serupa.</p></article>
+    <article><h3>Sesi Incognito</h3><p>Dalam Chrome, sesi ini berasingan daripada tetingkap biasa. Cookies dan data laman digunakan sementara, kemudian dikeluarkan apabila semua tetingkap Incognito ditutup. Membuka satu lagi tetingkap Incognito ketika yang lama masih terbuka bukan semestinya memulakan sesi baharu.</p></article>
+   </div>
+   <h3>Checklist sebelum reset password atau padam data</h3>
+   <ol className={styles.checkSteps}>
+    <li><strong>Kenal pasti tempat masalah berlaku.</strong> Catat nama dan versi pelayar, sistem peranti, mod biasa atau Incognito, serta sama ada halaman dibuka dalam pelayar penuh atau paparan di dalam app lain. Jangan samakan semua konteks itu. Jika masalah hanya berlaku dalam app asli, kembali kepada <Link href="/mega888#problem-solver">Problem Solver</Link>.</li>
+    <li><strong>Semak destinasi tanpa berkongsi pautan rahsia.</strong> Bandingkan nama hos pada bar alamat dengan saluran yang telah anda sahkan secara berasingan. Jangan mengikuti pautan baharu semata-mata kerana ia mendakwa membetulkan sesi. Untuk laporan, catat domain dan peringkat kegagalan; jangan salin URL penuh jika mengandungi token reset atau maklumat akaun.</li>
+    <li><strong>Rekod bila sesi hilang.</strong> Adakah borang muncul semula selepas semua tetingkap Incognito ditutup, selepas anda memadam cookies, atau ketika halaman masih terbuka? Rekod urutan ini sebelum mengubah tetapan. Satu contoh jelas lebih berguna daripada beberapa reset serentak.</li>
+    <li><strong>Jika membandingkan mod pelayar, ubah satu perkara sahaja.</strong> Pada peranti peribadi, destinasi yang disahkan dan tanpa amaran akaun terkunci, bandingkan keadaan halaman dalam mod biasa dengan Incognito. Pemerhatian boleh berhenti pada paparan borang; tidak perlu menghantar login berulang atau membuat transaksi. Jangan matikan perlindungan pelayar untuk memaksa kedua-duanya memberi hasil sama.</li>
+    <li><strong>Jangan terus memilih pemadaman menyeluruh.</strong> Pastikan anda boleh mendapatkan semula akses sebelum sebarang pemadaman cookies atau data laman. Baca kategori dan skop sebenar; data yang disimpan dalam Google Account juga boleh terjejas pada peranti lain apabila dipadam semasa log masuk ke Chrome. Jika tidak faham kesannya, simpan rekod ralat dan rujuk sokongan dahulu, bukannya menekan All time untuk semua kategori.</li>
+   </ol>
+   <h3>Apa yang keputusan itu boleh — dan tidak boleh — buktikan?</h3>
+   <ul>
+    <li><strong>Login diminta semula selepas sesi Incognito ditutup:</strong> ini selaras dengan data sesi sementara Chrome, bukan bukti password rosak atau akaun digodam. Tempoh sesi operator masih tidak diketahui.</li>
+    <li><strong>Mod biasa dan Incognito memberi hasil berbeza:</strong> ia menunjukkan konteks pelayar berbeza, bukan diagnosis pasti cookies rosak. Chrome menyekat cookies pihak ketiga secara lalai dalam Incognito; sesetengah laman yang bergantung padanya boleh berkelakuan berbeza. Panduan ini tidak mengesahkan keperluan cookies mana-mana operator.</li>
+    <li><strong>Kedua-duanya masih gagal:</strong> belum cukup untuk menyimpulkan server tergendala, password salah atau akaun disekat. Catat mesej sebenar; jika gejalanya timeout, gunakan <Link href="/panduan/mega888-connection-failed">checklist sambungan</Link>.</li>
+   </ul>
+   <p className={styles.note}><strong>Incognito bukan pengesahan keselamatan atau mod tanpa jejak.</strong> Laman dan pihak yang mengurus rangkaian masih boleh melihat aktiviti tertentu. Fail yang dimuat turun dan bookmark kekal selepas sesi ditutup. Jangan gunakan mod ini untuk mengabaikan amaran laman, memasang fail tidak dikenali atau berkongsi password dengan sokongan.</p>
+   <h3>Contoh laporan sesi tanpa rahsia</h3>
+   <p>“Pelayar/versi: __. Sistem: __. Domain tanpa token: __. Mod biasa/Incognito: __. Borang muncul semula selepas: __. Perubahan tunggal yang dibuat: __. Mesej tepat dan masa: __.” Jangan lampirkan cookies, token sesi, fail eksport password atau rakaman ketika menaip rahsia. Jika perlu gambar, gunakan <Link href="/panduan/mega888-screenshot-ralat">panduan screenshot ralat</Link>.</p>
+   <p>Rujukan di bawah menerangkan Chrome, khususnya dokumentasi komputer; nama menu dan tingkah laku pelayar lain boleh berbeza. Tiada ujian login operator, tempoh sesi, sokongan Incognito atau pemulihan akaun yang disahkan di sini. TipsMega888 tidak boleh membaca atau memulihkan sesi operator melalui scanner.</p>
+  </section>
   <h3>Rujukan utama dan batas panduan</h3>
   <ul>
+   <li><a href="https://support.google.com/chrome/answer/95464?hl=en">Google Chrome: sesi Incognito dan batas privasi</a> — sesi berasingan, penutupan semua tetingkap dan fail yang kekal.</li>
+   <li><a href="https://support.google.com/chrome/answer/95647?hl=en">Google Chrome: cookies dan data laman</a> — kesan pemadaman dan cookies pihak ketiga dalam Incognito.</li>
+   <li><a href="https://support.google.com/chrome/answer/2392709?hl=en">Google Chrome: jenis data pelayaran yang dipadam</a> — beza cache, cookies dan kategori lain serta kesan data tersimpan pada akaun.</li>
    <li><a href="https://support.google.com/chrome/answer/95606?hl=en&amp;co=GENIE.Platform%3DAndroid">Google Chrome Android: urus password dan pilih maklumat login tersimpan</a> — konteks simpanan, autofill dan pengurus password.</li>
    <li><a href="https://support.apple.com/en-us/104955">Apple: cari password dan passkey tersimpan pada iPhone</a> — perbezaan versi sistem, paparan rekod dan iCloud Keychain.</li>
   </ul>
-  <p>Disemak pada <time dateTime="2026-10-03">3 Oktober 2026</time>. Rujukan menerangkan fungsi Google dan Apple, bukan sokongan mereka terhadap Mega888. Tiada ujian akaun sebenar, keserasian autofill aplikasi, polisi sekatan atau kejayaan pemulihan yang disahkan untuk panduan ini.</p>
+  <p>Disemak pada <time dateTime="2026-10-10">10 Oktober 2026</time>. Rujukan menerangkan fungsi Google dan Apple, bukan sokongan mereka terhadap Mega888. Tiada ujian akaun sebenar, keserasian autofill aplikasi, polisi sekatan atau kejayaan pemulihan yang disahkan untuk panduan ini.</p>
  </section>;
 }
