@@ -1,5 +1,5 @@
 // Content dates reflect substantive publication, not build time.
-export const HUB_UPDATED = "2026-10-10";
+export const HUB_UPDATED = "2026-10-11";
 export const HUB_GUIDES = [
   {
     "component": "ConnectionChecklist",
@@ -50,11 +50,11 @@ export const HUB_GUIDES = [
     "id": "ralat-pemasangan",
     "slug": "mega888-ralat-pemasangan",
     "title": "Mega888 App Not Installed: bezakan ralat, amaran dan status peranti",
-    "summary": "Bezakan amaran pemasangan Android daripada masalah login. Semak sumber, ruang storan dan keserasian tanpa memintas perlindungan.",
+    "summary": "Bezakan amaran muat turun Chrome, ralat pemasangan Android dan status peranti. Catat mesej serta semak bantuan tanpa memintas perlindungan.",
     "image": "/hub/mega888-install-warning-triage-20260928.webp",
     "alt": "Ilustrasi konsep pakej perisian di meja pemeriksaan arang gelap dengan tolok mekanikal, prisma amaran dan rangka peranti berasingan",
     "published": "2026-09-28",
-    "updated": "2026-10-03"
+    "updated": "2026-10-11"
   },
   {
     "component": "WifiPortalGuide",
