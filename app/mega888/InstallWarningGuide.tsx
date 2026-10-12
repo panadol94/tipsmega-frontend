@@ -66,6 +66,38 @@ export default function InstallWarningGuide() {
    </ul>
    <p>Bahagian amaran muat turun disemak pada <time dateTime="2026-10-11">11 Oktober 2026</time>. Panduan editorial ini tidak menggantikan arahan keselamatan yang dipaparkan pada peranti anda.</p>
   </section>
+  <section id="kemas-kini-identiti-pakej" aria-labelledby="update-identity-title">
+   <h2 id="update-identity-title">Kemas kini Mega888 gagal: semak identiti pakej sebelum uninstall</h2>
+   <p>App lama masih ada tetapi fail yang dikatakan “versi baharu” tidak dapat dipasang? Keadaan ini berbeza daripada pemasangan pertama. Jangan terus membuang app sedia ada hanya kerana seseorang menyebut “konflik versi”. Simpan pemerhatian dahulu: kegagalan kemas kini tidak membuktikan fail palsu, akaun rosak atau telefon perlu direset. Panduan ini menerangkan syarat umum Android, bukan keputusan pemeriksaan mana-mana APK Mega888.</p>
+   <figure className={styles.figure}>
+    <img src="/hub/mega888-kemas-kini-identiti-pakej-20261012.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Ilustrasi konsep telefon menyimpan blok aplikasi sedia ada, sementara pakej pengganti dan dua profil kunci diperiksa pada jig berasingan di sebalik pembahagi merah" style={{ maxHeight: "none", objectFit: "contain" }} />
+    <figcaption>Ilustrasi konsep dijana AI: pakej pengganti diperiksa sebelum menyentuh pemasangan sedia ada. Bukan screenshot Android atau bukti tandatangan APK telah disahkan.</figcaption>
+   </figure>
+   <h3>Tiga perkara yang nama fail tidak dapat membuktikan</h3>
+   <div className={styles.grid}>
+    <article><h3>Identiti dan tandatangan</h3><p>Android Developers menerangkan bahawa sistem membandingkan sijil tandatangan versi baharu dengan versi sedia ada ketika kemas kini. Dokumentasi turut membincangkan mekanisme naik taraf kunci; butirannya bergantung pada kaedah pengedaran dan versi Android. Label app, ikon atau nama fail yang sama tidak membuktikan bahawa dua pakej mempunyai identiti kemas kini yang sesuai. Minta pembangun menjelaskan keserasian, bukan menganggap setiap penolakan berpunca daripada sijil.</p></article>
+    <article><h3>Nombor versi dalaman</h3><p>Android membezakan <code>versionName</code>, iaitu label versi yang dilihat pengguna, daripada <code>versionCode</code>, nombor dalaman untuk membandingkan keluaran. Dokumentasi menyatakan sistem mencegah pemasangan APK dengan versionCode lebih rendah daripada yang sudah dipasang. Perkataan “latest”, tahun pada nama fail atau tarikh mesej chat bukan bukti bahawa pakej itu lebih baharu.</p></article>
+    <article><h3>Keserasian sistem</h3><p>Dokumentasi versioning juga menerangkan versi minimum Android yang diperlukan oleh app melalui <code>minSdk</code>. Keperluan itu perlu datang daripada pembangun untuk keluaran berkenaan. Panduan ini tidak menetapkan versi minimum Mega888 atau menjanjikan semua telefon disokong. Jangan mengubah pakej atau perlindungan peranti untuk memaksa pemasangan.</p></article>
+   </div>
+   <h3>Checklist sebelum membuat perubahan</h3>
+   <ol className={styles.checkSteps}>
+    <li><strong>Bezakan peringkat ralat.</strong> Jika pelayar menyekat fail sebelum pemasang dibuka, gunakan <a href="#amaran-muat-turun-chrome">semakan amaran muat turun Chrome</a>. Jika pemasang menolak kemas kini, catat teks penuhnya. Jika kemas kini selesai tetapi app gagal dibuka, gunakan <Link href="/mega888#problem-solver">Problem Solver</Link>. Jangan gunakan satu diagnosis untuk ketiga-tiganya.</li>
+    <li><strong>Rekod keadaan asal tanpa menyahpasang.</strong> Catat model, versi Android, versi app yang kelihatan dalam maklumat app dan sama ada app lama masih boleh dibuka. Jika nombor tidak dipaparkan, tulis “tidak diketahui”; jangan memasang alat pemeriksa daripada pautan chat untuk mendapatkannya.</li>
+    <li><strong>Kenal pasti calon kemas kini.</strong> Catat nama fail, label versi yang didakwa, tarikh diterima dan domain sumber tanpa token peribadi. Maklumat ini hanya membezakan cubaan, bukan mengesahkan ketulenan. Jangan mengumpulkan APK daripada banyak mirror atau memilih salinan yang kebetulan boleh dipasang.</li>
+    <li><strong>Minta penjelasan teknikal yang khusus.</strong> Melalui <Link href="/panduan/mega888-pautan-reset-login">saluran bantuan yang disahkan secara berasingan</Link>, tanya sama ada pakej itu memang kemas kini untuk pemasangan sedia ada, versi Android yang disokong dan sama ada perubahan pengedaran memerlukan pelan migrasi. Sokongan pengguna tidak perlu menerima kunci tandatangan peribadi atau kata laluan anda.</li>
+    <li><strong>Fahami akibat sebelum bersetuju memadam.</strong> Baca <Link href="/panduan/mega888-cache-dan-data">beza padam data, cache dan uninstall</Link>. Minta penerangan tentang data setempat, akses semula dan sumber pemasangan pengganti. Jangan menganggap akaun atau baki pasti pulih selepas reinstall; laman ini tidak dapat memeriksa sistem operator.</li>
+   </ol>
+   <h3>Laporan ringkas yang boleh disiasat</h3>
+   <p>“Pada __, saya cuba mengemas kini app yang masih dipasang. Model/Android: __. Versi sedia ada yang kelihatan: __. Label versi calon: __. Sumber/domain: __. Mesej pemasang tepat: __. App lama masih boleh dibuka: ya/tidak/belum dicuba. Saya belum uninstall atau padam data. Adakah pakej ini serasi sebagai kemas kini, dan apakah langkah tanpa kehilangan data?” Ubah ayat terakhir mengikut tindakan sebenar; jangan mendakwa data belum dipadam jika sudah melakukannya.</p>
+   <p>Jika lampiran diperlukan, ikut <Link href="/panduan/mega888-screenshot-ralat">panduan screenshot ralat</Link>. Padamkan rahsia daripada salinan laporan, bukan data app. Jangan sertakan OTP, password, kod pemulihan, APK atau URL bertoken dalam kumpulan awam. Tiada deposit atau scan berbayar diperlukan untuk mencatat maklumat ini.</p>
+   <p className={styles.note}>Berhenti jika penyelesaian yang dicadangkan memerlukan mematikan Play Protect, menggunakan APK mod, menurunkan versi secara paksa atau memadam app tanpa penjelasan pemulihan. Mesej “App not installed” sahaja tidak mengenal pasti konflik tandatangan, downgrade atau ketidakserasian. Tiada fail, sijil atau akaun diuji di sini. Scanner TipsMega888 ialah simulasi/rujukan katalog indikatif, bukan alat pengesahan pakej.</p>
+   <h3>Rujukan Android untuk kemas kini</h3>
+   <ul>
+    <li><a href="https://developer.android.com/studio/publish/app-signing">Android Developers: Sign your app</a> — sijil, kemas kini app dan pengurusan kunci oleh pembangun; bukan panduan pengguna untuk menandatangani semula APK.</li>
+    <li><a href="https://developer.android.com/studio/publish/versioning">Android Developers: Version your app</a> — beza versionCode/versionName, perlindungan downgrade dan keperluan versi Android.</li>
+   </ul>
+   <p>Bahagian kemas kini disemak pada <time dateTime="2026-10-12">12 Oktober 2026</time>. Rujukan menerangkan Android secara umum dan tidak mengesahkan saluran muat turun Mega888.</p>
+  </section>
   <h3>Rujukan utama dan batas semakan</h3>
   <ul>
    <li><a href="https://support.google.com/googleplay/answer/2812853?hl=en">Google: fungsi Google Play Protect</a> — amaran, pemeriksaan app dan saranan mengekalkan perlindungan aktif.</li>
