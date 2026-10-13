@@ -1,5 +1,5 @@
 // Content dates reflect substantive publication, not build time.
-export const HUB_UPDATED = "2026-10-12";
+export const HUB_UPDATED = "2026-10-13";
 export const HUB_GUIDES = [
   {
     "component": "ConnectionChecklist",
@@ -28,11 +28,11 @@ export const HUB_GUIDES = [
     "id": "semak-permission",
     "slug": "mega888-semak-permission",
     "title": "Mega888 minta permission: semak akses sebelum tekan Allow",
-    "summary": "Semak permission Android/iPhone serta permintaan Accessibility ketika bantuan login. Fahami restricted settings tanpa memintas perlindungan.",
+    "summary": "Semak permission, Accessibility, notifikasi laman dan pop-up ketika mencari bantuan login Mega888. Bezakan sumber mesej sebelum memberi akses.",
     "image": "/hub/mega888-app-permissions-20260926.webp",
     "alt": "Ilustrasi konsep telefon arang gelap dengan pintu akses berasingan untuk kamera, mikrofon dan lokasi serta gelang pemilih merah",
     "published": "2026-09-26",
-    "updated": "2026-10-08"
+    "updated": "2026-10-13"
   },
   {
     "component": "ResetLinkGuide",
