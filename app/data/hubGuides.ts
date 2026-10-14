@@ -1,5 +1,5 @@
 // Content dates reflect substantive publication, not build time.
-export const HUB_UPDATED = "2026-10-13";
+export const HUB_UPDATED = "2026-10-14";
 export const HUB_GUIDES = [
   {
     "component": "ConnectionChecklist",
@@ -94,11 +94,11 @@ export const HUB_GUIDES = [
     "id": "telefon-panas",
     "slug": "mega888-telefon-panas",
     "title": "Mega888 lag dan telefon panas: bila perlu berhenti, bukan terus reinstall",
-    "summary": "Kenali amaran suhu dan langkah apabila telefon panas. Utamakan panduan pengeluar, bukan terus reinstall aplikasi.",
+    "summary": "Bezakan amaran suhu, Low Power Mode dan Battery Saver apabila Mega888 lag. Semak kerja latar, app dijeda dan rekod untuk sokongan.",
     "image": "/hub/mega888-telefon-panas-rehat-20261002.webp",
     "alt": "Ilustrasi telefon arang gelap direhatkan di atas tapak terbuka, kabel pengecas merah terputus sambungan dan jalur haba beransur hilang",
     "published": "2026-10-02",
-    "updated": "2026-10-03"
+    "updated": "2026-10-14"
   },
   {
     "component": "AutofillGuide",
