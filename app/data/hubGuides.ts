@@ -1,5 +1,5 @@
 // Content dates reflect substantive publication, not build time.
-export const HUB_UPDATED = "2026-10-14";
+export const HUB_UPDATED = "2026-10-15";
 export const HUB_GUIDES = [
   {
     "component": "ConnectionChecklist",
@@ -61,11 +61,11 @@ export const HUB_GUIDES = [
     "id": "wifi-portal-jam",
     "slug": "mega888-wifi-portal-jam",
     "title": "Mega888 connection error di Wi-Fi awam: portal, amaran pelayar atau jam peranti?",
-    "summary": "Semak portal log masuk Wi-Fi dan tetapan masa apabila sambungan gagal. Bezakan akses internet dengan akses aplikasi.",
+    "summary": "Semak portal Wi-Fi, jam peranti serta beza Private DNS, VPN dan Private Relay ketika Mega888 connection error, tanpa terus mematikan perlindungan.",
     "image": "/hub/mega888-wifi-portal-clock-20260929.webp",
     "alt": "Ilustrasi konsep laluan merah terhenti di pintu rangkaian kaca gelap, bersama mekanisme jam tanpa nombor dan prisma amaran",
     "published": "2026-09-29",
-    "updated": "2026-10-03"
+    "updated": "2026-10-15"
   },
   {
     "component": "ScreenshotGuide",

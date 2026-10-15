@@ -36,6 +36,44 @@ export default function WifiPortalGuide() {
    <li><strong>Skop kegagalan:</strong> satu domain atau beberapa laman, Wi-Fi sahaja atau sambungan lain juga. Kongsi domain tanpa parameter pautan peribadi atau token sesi.</li>
   </ul>
   <p>Masalah portal pergi kepada pengendali rangkaian; amaran yang kekal pada satu laman pergi kepada pemilik laman; masalah app pergi kepada saluran bantuan akaun yang disahkan secara berasingan. Tutup notifikasi, ID penuh dan data peribadi pada salinan screenshot. Jika seseorang menghantar pautan “baiki login”, gunakan <Link href="/panduan/mega888-pautan-reset-login">panduan semakan pautan reset</Link> sebelum bertindak.</p>
+  <section id="dns-vpn-private-relay" aria-labelledby="network-privacy-title" style={{scrollMarginTop:90}}>
+   <h2 id="network-privacy-title">Mega888 connection error: Private DNS, VPN dan Private Relay bukan tetapan yang sama</h2>
+   <p>Nasihat “tukar DNS” atau “tutup VPN” terlalu umum jika anda belum tahu tempat ralat muncul. Sebelum mengubah rangkaian, asingkan mesej aplikasi, halaman Safari/Chrome dan pemberitahuan sistem. Bahagian ini membantu menyediakan inventori tetapan untuk sokongan, bukan menawarkan resolver paling laju atau cara memintas sekatan.</p>
+   <figure className={styles.figure}>
+    <img src="/hub/mega888-dns-vpn-private-relay-20261015.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Ilustrasi konsep kapsul pertanyaan, terowong kaca dan dua prisma relay berasingan di sisi telefon grafit" style={{maxHeight:"none",objectFit:"contain"}} />
+    <figcaption>Ilustrasi konsep dijana AI: tiga mekanisme berbeza, bukan rajah teknikal laluan sebenar, screenshot tetapan atau bukti keselamatan.</figcaption>
+   </figure>
+   <h3>1. Kenal pasti fungsi sebelum menyalahkan namanya</h3>
+   <div className={styles.grid}>
+    <article><h4>Private DNS pada Android</h4><p>Google menerangkan bahawa Private DNS melindungi pertanyaan dan jawapan DNS sahaja, bukan semua trafik. Pilihan sistem termasuk Off, Automatic dan hostname penyedia. Google mengesyorkan supaya Private DNS dikekalkan aktif. Nama “private” tidak membuktikan aplikasi atau laman yang dituju selamat.</p></article>
+    <article><h4>VPN pada Android</h4><p>Ini sambungan rangkaian maya yang berasingan daripada pilihan Private DNS. Tetapannya mungkin dikendalikan aplikasi atau pentadbir; VPN profil kerja pula boleh terhad kepada aplikasi profil tersebut. Oleh itu, catatan “ada VPN” sahaja belum menjelaskan aplikasi mana yang terlibat. Jangan salin konfigurasi organisasi kepada pihak luar.</p></article>
+    <article><h4>iCloud Private Relay</h4><p>Panduan Apple membincangkan isu laman dan rangkaian serta privasi aktiviti Safari. Ia bukan nama lain bagi menu Private DNS Android. Mesej Private Relay dalam Safari tidak boleh terus dianggap punca kegagalan aplikasi Mega888. Catat konteks sebenar, bukan padankan semua perkataan “private” kepada satu masalah.</p></article>
+   </div>
+   <h3>2. Buat inventori baca sahaja</h3>
+   <ol className={styles.checkSteps}>
+    <li><strong>Tentukan pemilik tetapan.</strong> Adakah telefon peribadi, profil kerja, rangkaian sekolah atau Wi-Fi premis? Jika tetapan diurus atau tidak dikenali, jangan cuba membuang pengurusan. Minta pentadbir menyemak bahagian yang mereka kawal.</li>
+    <li><strong>Android:</strong> buka Settings → Network &amp; internet → Private DNS untuk melihat pilihan semasa; menu VPN berada berasingan di Network &amp; internet → VPN. Gunakan carian Settings jika nama menu berbeza. Catat pilihan dan sama ada VPN tersambung tanpa menekan Save, Forget atau memasang konfigurasi baharu.</li>
+    <li><strong>Jika mesej menyebut Always-on VPN:</strong> Google menerangkan bahawa pemberitahuan boleh kekal apabila sambungan always-on terputus sehingga sambungan pulih. Catat teksnya dan rujuk penyedia VPN atau pentadbir. Jangan mematikan always-on semata-mata untuk menyembunyikan amaran.</li>
+    <li><strong>Jika Safari menyebut Private Relay:</strong> bezakan satu laman gagal daripada mesej rangkaian tidak serasi. Catat Wi-Fi atau data selular yang digunakan. Apple menerangkan bahawa tetapan rangkaian mempunyai skop tersendiri; jangan menganggap satu perubahan hanya memberi kesan kepada tab yang sedang dibuka.</li>
+   </ol>
+   <h3>3. Apa yang keputusan pemerhatian boleh beritahu?</h3>
+   <p>Gunakan <Link href="/panduan/mega888-connection-failed">checklist sambungan asal</Link> untuk merekod laman biasa dan peringkat aplikasi yang gagal pada sambungan yang dibenarkan. Tidak perlu deposit, permainan, login berulang atau scan berbayar. Kekalkan keadaan asal semasa merekod; jika tiada perbandingan selamat, tulis “belum diuji” daripada meneka.</p>
+   <ul>
+    <li><strong>Safari gagal, aplikasi belum diuji:</strong> ini laporan pelayar sahaja. Jangan menukarkannya menjadi dakwaan server aplikasi rosak atau akaun disekat.</li>
+    <li><strong>Wi-Fi gagal, data berfungsi:</strong> perbezaan itu membantu mengecilkan skop siasatan, tetapi belum membuktikan DNS tertentu bersalah. Portal, dasar rangkaian dan laluan sambungan masih perlu dibezakan.</li>
+    <li><strong>Tetapan berubah dan halaman pulih:</strong> catat urutan serta masa. Satu pemerhatian tidak membuktikan hubungan sebab-akibat; keadaan rangkaian atau perkhidmatan juga mungkin berubah pada masa yang sama.</li>
+   </ul>
+   <p>Apple menyediakan pilihan pengecualian untuk isu Private Relay tertentu, tetapi menerangkan bahawa mengurangkannya boleh mendedahkan alamat IP atau aktiviti Safari kepada laman dan penyedia rangkaian. Panduan ini tidak meminta anda melakukannya untuk Mega888. Jika sokongan mencadangkan perubahan, minta mereka nyatakan tetapan tepat, skop, kesan privasi dan cara kembali kepada keadaan asal dahulu. Jangan terima arahan umum “matikan semua security”.</p>
+   <h3>4. Hantar laporan yang boleh ditindaklanjuti</h3>
+   <div className={styles.note}><p>“Masa dan zon masa: […]. Peranti/sistem: […]. Mesej muncul di: app / Safari / Chrome / sistem. Rangkaian: Wi-Fi / data. Private DNS: Automatic / hostname tersuai / tidak pasti. VPN: tersambung / tidak / tidak pasti; peribadi atau terurus: […]. Private Relay: mesej tepat / tidak berkenaan. Laman biasa: […]. Langkah aplikasi yang gagal: […]. Perubahan dibuat: tiada / […].”</p></div>
+   <p>Jangan sertakan password VPN, hostname dalaman organisasi, IP dalaman, token pautan atau fail konfigurasi penuh. Untuk lampiran, gunakan <Link href="/panduan/mega888-screenshot-ralat">checklist screenshot yang telah disunting</Link>. Isu tetapan terurus pergi kepada pentadbir; isu app kepada saluran akaun yang disahkan secara berasingan. Permintaan memasang profil baharu pula perlu dinilai melalui <Link href="/panduan/mega888-iphone-verify-app">panduan profil dan pengesahan iPhone</Link>, bukan diluluskan sebagai langkah rangkaian biasa.</p>
+   <p>Tambahan disemak pada <time dateTime="2026-10-15">15 Oktober 2026</time>. Tiada ujian VPN, resolver, keserasian Private Relay atau aplikasi operator dibuat. Tiada konfigurasi “terbaik”, jaminan login pulih atau pemetaan kod ralat diberikan.</p>
+   <ul>
+    <li><a href="https://support.google.com/android/answer/9654714?hl=en">Google: Private DNS dan tetapan rangkaian lanjutan Android</a>.</li>
+    <li><a href="https://support.google.com/android/answer/9089766?hl=en">Google: tetapan VPN, always-on dan profil kerja Android</a>.</li>
+    <li><a href="https://support.apple.com/en-us/102022">Apple: mengurus Private Relay mengikut laman dan rangkaian</a>.</li>
+   </ul>
+  </section>
   <h4 style={{ fontWeight: 800, color: "#fff", margin: "20px 0 10px", lineHeight: 1.4 }}>Rujukan utama dan batas panduan</h4>
   <ul>
    <li><a href="https://support.apple.com/en-us/102554">Apple: menggunakan captive Wi-Fi pada iPhone/iPad</a> — portal, caj dan maksud pilihan tanpa internet.</li>
