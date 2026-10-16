@@ -1,5 +1,5 @@
 // Content dates reflect substantive publication, not build time.
-export const HUB_UPDATED = "2026-10-15";
+export const HUB_UPDATED = "2026-10-16";
 export const HUB_GUIDES = [
   {
     "component": "ConnectionChecklist",
@@ -39,11 +39,11 @@ export const HUB_GUIDES = [
     "id": "pautan-reset-login",
     "slug": "mega888-pautan-reset-login",
     "title": "Mega888 reset password: apa perlu dibuat apabila pautan bantuan mencurigakan?",
-    "summary": "Kenal pasti pautan reset login yang mencurigakan. Sahkan saluran bantuan dan ketahui tindakan apabila maklumat telah terdedah.",
+    "summary": "Semak pautan reset dan QR bantuan login Mega888: bezakan destinasi, membuka pautan dan memberi kelulusan; rekod pendedahan tanpa berkongsi rahsia.",
     "image": "/hub/mega888-login-reset-link-20260927.webp",
     "alt": "Ilustrasi konsep sampul merah dengan laluan terputus dan laluan berasingan dari buku alamat menuju peti kunci arang gelap",
     "published": "2026-09-27",
-    "updated": "2026-10-03"
+    "updated": "2026-10-16"
   },
   {
     "component": "InstallWarningGuide",

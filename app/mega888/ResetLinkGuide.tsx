@@ -25,6 +25,37 @@ export default function ResetLinkGuide() {
    <li><strong>Mulakan sendiri proses yang telah disahkan.</strong> Jangan bacakan atau hantar password, OTP, PIN, kod pemulihan atau pautan sesi kepada orang lain. Jika perkhidmatan menggunakan kod pengesahan, masukkannya hanya dalam proses yang anda mulakan sendiri melalui saluran yang sudah disahkan, bukan halaman yang diarahkan oleh pengirim tidak dikenali.</li>
   </ol>
   <p className={styles.note}>Permintaan “bayar untuk unblock”, “deposit untuk sahkan identiti”, “kongsi skrin semasa masukkan OTP” atau “tutup perlindungan dahulu” ialah sebab untuk berhenti dan menyemak. Jangan buat transaksi atau scan berbayar sebagai ujian. Tiada satu tanda visual yang boleh mengesahkan keselamatan sesuatu pautan.</p>
+  <section id="qr-destinasi-login" aria-labelledby="qr-destination-title">
+   <h2 id="qr-destination-title">QR untuk bantuan login: semak destinasi sebelum membuka</h2>
+   <p>Kod QR bukan sijil identiti pengirim. Jika mesej tidak diminta mendakwa akaun perlu “disahkan sekarang”, jangan imbasnya untuk mencuba. Hubungi saluran yang anda kenal secara berasingan. Checklist ini untuk menilai permintaan dan merekod apa yang sudah berlaku, bukan arahan menggunakan QR bagi memulihkan akaun Mega888.</p>
+   <figure className={styles.figure}>
+    <img src="/hub/mega888-qr-destinasi-login-20261016.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Ilustrasi kanta memeriksa laluan merah bercabang di bawah jubin abstrak, dengan palang henti, telefon gelap dan buku alamat berasingan" style={{maxHeight:"none",objectFit:"contain"}} />
+    <figcaption>Ilustrasi konsep dijana AI: semakan destinasi dan saluran berasingan. Jubin abstrak ini bukan kod QR sebenar; bukan screenshot aplikasi atau bukti keselamatan.</figcaption>
+   </figure>
+   <h3>Tiga perkara yang jangan disamakan</h3>
+   <div className={styles.grid}>
+    <article><h4>Mengenali kandungan kod</h4><p>Pembaca boleh memaparkan pautan atau tindakan yang dikandung kod. Itu belum mengesahkan siapa yang mengeluarkannya. Paparan dan tingkah laku bergantung pada pembaca serta sistem; jangan anggap semua pembaca berhenti pada pratonton yang sama.</p></article>
+    <article><h4>Membuka destinasi</h4><p>Apple menerangkan langkah kamera iPhone/iPad sebagai menghalakan kamera pada kod, kemudian mengetik pautan untuk membuka kandungan. Menyedari pautan muncul dan mengetiknya ialah dua tindakan berbeza. Jika alamat tidak jelas, jangan ketik semata-mata untuk menyiasat.</p></article>
+    <article><h4>Memberi maklumat atau kelulusan</h4><p>Menaip password, menyerahkan kod, meluluskan permintaan atau memasang sesuatu ialah tindakan tambahan yang perlu dicatat secara berasingan. Artikel ini tidak mengesahkan Mega888 mempunyai fungsi login QR atau menerangkan cara sesi operator diluluskan.</p></article>
+   </div>
+   <h3>Keputusan apabila destinasi kelihatan</h3>
+   <ol className={styles.checkSteps}>
+    <li><strong>Periksa alamat, bukan reka bentuk kod.</strong> Jika pautan telah dipaparkan, perhatikan nama laman dan kesilapan ejaan. Padankan dengan rekod yang anda sahkan sebelum menerima mesej, bukan alamat “betul” yang pengirim baru berikan. Logo dan nama paparan tidak menyelesaikan semakan ini.</li>
+    <li><strong>Berhenti jika alamat dipendekkan atau terpotong.</strong> Jika anda tidak boleh menentukan destinasi, statusnya masih belum jelas. Jangan muat naik QR atau pautan reset peribadi ke laman penyahkod awam. Dapatkan penjelasan melalui saluran berasingan; tiada keperluan memasang pembaca baharu atas arahan pengirim.</li>
+    <li><strong>Jangan jadikan HTTPS sebagai kelulusan identiti.</strong> Chrome membezakan keselamatan sambungan daripada kewaspadaan ketika berkongsi maklumat. Sambungan sulit tidak membuktikan laman itu pihak yang anda maksudkan. Jika sudah terbuka, semak nama laman dalam bar alamat; jangan memintas amaran pelayar.</li>
+    <li><strong>Nilai apa yang diminta selepas itu.</strong> Permintaan baru untuk OTP, kawalan skrin, pemasangan profil atau bayaran bukan sekadar “membaca QR”. Hentikan aliran dan gunakan langkah pendedahan dalam artikel ini jika tindakan sudah berlaku. Jangan ulang proses sebagai ujian.</li>
+   </ol>
+   <h3>Catatan sokongan tanpa menghantar QR peribadi</h3>
+   <p>Gunakan format: “Masa dan zon waktu: __. QR diterima melalui: __. Adakah saya meminta bantuan dahulu: __. Pautan dipaparkan / kandungan dibuka / maklumat diisi / kelulusan diberi: __. Jenis permintaan seterusnya: __. Amaran yang terlihat: __. Saluran berasingan yang dihubungi: __.” Nyatakan pemerhatian, bukan andaian bahawa QR telah mencuri akaun.</p>
+   <p>Simpan bukti asal secara peribadi. Dalam salinan laporan, keluarkan kod QR, token dalam pautan, password dan OTP; nyatakan jenis pendedahan tanpa nilainya. Rujuk <Link href="/panduan/mega888-screenshot-ralat">semakan screenshot sebelum dikongsi</Link> dan <Link href="/panduan/mega888-semak-permission">panduan permission</Link> jika akses diminta. Scanner TipsMega888 tidak memeriksa destinasi QR atau membatalkan sesi operator.</p>
+   <h3>Rujukan khusus QR dan had semakan</h3>
+   <ul>
+    <li><a href="https://consumer.ftc.gov/consumer-alerts/2023/12/scammers-hide-harmful-links-qr-codes-steal-your-information">FTC: pautan berbahaya yang disembunyikan dalam QR</a> — semakan URL dan hubungan melalui saluran yang diketahui.</li>
+    <li><a href="https://support.apple.com/en-us/102680">Apple: membaca QR dengan iPhone atau iPad</a> — penerangan langkah kamera dan pautan, bukan jaminan destinasi.</li>
+    <li><a href="https://support.google.com/chrome/answer/95617?hl=en">Google Chrome: maksud keselamatan sambungan laman</a> — sambungan sulit dan kewaspadaan terhadap maklumat peribadi.</li>
+   </ul>
+   <p>Disemak pada <time dateTime="2026-10-16">16 Oktober 2026</time>. Sumber menerangkan keselamatan dan fungsi umum; tiada pengesahan operator, ujian QR akaun sebenar atau jaminan pemulihan. Menu boleh berubah mengikut versi. Panduan ini tidak meminta anda membuka kod yang mencurigakan.</p>
+  </section>
   <h3>Jika sudah terlanjur: pilih mengikut apa yang berlaku</h3>
   <div className={styles.grid}>
    <article><h3>Hanya membaca atau membuka pautan</h3><p>Tutup halaman dan jangan masukkan maklumat lagi. Catat sama ada fail dimuat turun, permission diberi atau app/profil dipasang. Membuka halaman sahaja bukan bukti akaun telah diambil alih, tetapi kami juga tidak boleh mengisytiharkan peranti bersih melalui artikel ini.</p></article>
