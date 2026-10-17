@@ -3,7 +3,7 @@ import styles from "./hub-guide.module.css";
 
 export default function PermissionsGuide() {
  return <section id="semak-permission" aria-labelledby="permissions-title">
-  <span className={styles.kicker}>AKSES PERANTI / 13 OKTOBER 2026</span>
+  <span className={styles.kicker}>AKSES PERANTI / 17 OKTOBER 2026</span>
   <h1 id="permissions-title" style={{fontSize:"clamp(26px,5vw,40px)",lineHeight:1.2,fontWeight:800,color:"white",margin:"24px 0"}}>Mega888 minta permission: semak akses sebelum tekan Allow</h1>
   <p>Permintaan kamera, mikrofon atau lokasi bukan perkara yang sama dengan mesej login gagal. Jangan beri semua akses hanya kerana mahu melepasi skrin pemasangan. Mulakan dengan tiga soalan: app mana yang meminta, akses apa yang diminta, dan fungsi apa yang sedang anda gunakan?</p>
   <p>Panduan ini menerangkan kawalan umum Android dan iPhone. Kami tidak menguji fail Mega888 tertentu atau mengesahkan senarai permission wajibnya. Nama, logo, saiz fail atau ketiadaan amaran sahaja tidak membuktikan sesuatu app selamat atau rasmi.</p>
@@ -102,6 +102,34 @@ export default function PermissionsGuide() {
   <p>Padam ID penuh, nombor telefon, baki dan butiran transaksi daripada salinan screenshot yang dikongsi. Jangan sertakan kata laluan, OTP atau kod pemulihan. Gunakan saluran sokongan yang telah dikenal pasti, bukan akaun yang tiba-tiba menawarkan bantuan.</p>
   <div className={styles.actions}><Link href="/mega888#problem-solver">Pilih gejala dalam Problem Solver →</Link><Link href="/panduan/mega888-connection-failed">Jika mesejnya connection failed →</Link><Link href="/panduan/mega888-cache-dan-data">Sebelum padam data app →</Link></div>
   <p>Scanner TipsMega888 ialah simulasi/rujukan katalog indikatif, bukan alat mengimbas keselamatan APK, membaca permission telefon atau menyemak akaun operator. Lihat <Link href="/info">metodologi scanner</Link> atau <Link href="/help">bantuan laman ini</Link>.</p>
+  <section id="kongsi-skrin-kawalan-jauh" aria-labelledby="screen-control-title">
+   <h2 id="screen-control-title">Bantuan login Mega888 minta kongsi skrin: melihat bukan sama dengan mengawal</h2>
+   <p>Apabila seseorang menawarkan untuk “tengok sekejap” masalah login, jelaskan dahulu apa yang diminta. Screenshot terpilih, perkongsian skrin secara langsung dan kawalan jauh ialah tiga skop berbeza. Persetujuan menghantar gambar ralat bukan persetujuan membenarkan orang lain membuka app atau bertindak pada telefon anda.</p>
+   <p>Checklist ini membantu anda mengenal pasti dan menamatkan akses, bukan mengajar pemasangan app bantuan jauh. Kami tidak mengesahkan bahawa sokongan Mega888 memerlukan perkongsian skrin, FaceTime atau mana-mana alat tertentu. Jika identiti penerima atau tujuan tidak jelas, pilih laporan teks dahulu.</p>
+   <figure className={styles.figure}>
+    <img src="/hub/mega888-kongsi-skrin-kawalan-jauh-20261017.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Ilustrasi telefon grafit memancarkan imej ke panel kaca, berasingan daripada tombol kawalan merah dengan sambungan kabel terputus" style={{ maxHeight: "none", objectFit: "contain" }} />
+    <figcaption>Ilustrasi konsep dijana AI: saluran paparan dan saluran kawalan perlu disemak berasingan. Bukan screenshot aplikasi atau bukti bahawa satu butang memutuskan semua akses.</figcaption>
+   </figure>
+   <h3>Tentukan skop sebelum menjawab permintaan</h3>
+   <div className={styles.grid}>
+    <article><h4>Fail yang dipilih</h4><p>Anda boleh menyemak screenshot atau video sebelum menghantarnya. Ini berbeza daripada menyiarkan tindakan seterusnya secara langsung. Gunakan <Link href="/panduan/mega888-screenshot-ralat">checklist lampiran ralat</Link> untuk menyediakan salinan minimum tanpa rahsia.</p></article>
+    <article><h4>Melihat skrin secara langsung</h4><p>Kandungan boleh berubah semasa anda berpindah antara app. Jangan membuka pengurus password, mesej kod atau urusan pembayaran untuk “menunjukkan bahawa akaun berfungsi”. Apa yang disembunyikan bergantung pada alat; jangan memindahkan andaian privasi satu app kepada app lain.</p></article>
+    <article><h4>Mengawal peranti</h4><p>Kuasa ini melibatkan tindakan, bukan sekadar melihat. Apple menerangkan bahawa kawalan skrin FaceTime boleh membolehkan pembukaan app, perubahan tetapan, pemadaman item dan penghantaran mesej. Ini contoh khusus FaceTime, bukan senarai kuasa setiap app bantuan.</p></article>
+   </div>
+   <h3>Jika anda belum memulakan sesi</h3>
+   <ol className={styles.checkSteps}>
+    <li><strong>Minta tujuan yang boleh diperiksa.</strong> Nyatakan ralat asal dan tanya mengapa teksnya tidak mencukupi. “Untuk baiki semuanya” tidak menjelaskan data yang perlu dilihat atau tindakan yang hendak dibuat.</li>
+    <li><strong>Sahkan orang itu melalui rekod berasingan.</strong> Jangan bergantung pada nombor dalam pop-up atau mesej yang tiba-tiba masuk. FTC menerangkan bahawa penyamar sokongan boleh menggunakan amaran palsu, panggilan dan hasil carian untuk mendapatkan akses jauh. Ini amaran umum, bukan tuduhan terhadap pesaing tertentu.</li>
+    <li><strong>Jangan tambah kuasa sebagai jalan pintas.</strong> Jika diminta memasang helper, membuka tetapan disekat atau memberi Accessibility, hentikan aliran itu dan rujuk <Link href="/panduan/mega888-semak-permission#akses-kebolehcapaian">semakan akses kebolehcapaian</Link>. Jangan mematikan perlindungan peranti atau membuat transaksi percubaan.</li>
+   </ol>
+   <h3>Jika sesi sudah aktif: semak dua status berasingan</h3>
+   <p><strong>Contoh FaceTime pada iPhone/iPad:</strong> Apple menyenaraikan “Viewing My Screen” pada kawalan panggilan untuk perkongsian dan “Remote Control Active” untuk kawalan. Menolak permintaan dengan Don’t Allow tidak menamatkan perkongsian skrin. Untuk menghentikan kawalan, pilih Stop di bahagian bawah tetingkap perkongsian; untuk menghentikan perkongsian, buka More dan pilih Stop di sebelah Screen Sharing. Menamatkan panggilan FaceTime menamatkan kedua-duanya. Jika menu tidak sepadan, rujuk dokumentasi bagi versi peranti; ketersediaan ciri tidak seragam.</p>
+   <p><strong>Alat lain atau status tidak pasti:</strong> jangan anggap arahan FaceTime tadi terpakai. Kenal pasti nama app yang mengendalikan sesi dan cari kawalan tamat sesi dalam panduan pembekalnya. Semak sama ada paparan dan kawalan masih aktif sebelum membuka maklumat sensitif. Jangan hanya menutup tetingkap kecil lalu menganggap sesi telah tamat. Jika anda tidak dapat mengesahkan keadaan, hentikan urusan akaun pada peranti itu dan dapatkan bantuan teknikal yang dikenali melalui peranti lain.</p>
+   <h3>Rekod selepas berhenti, bukan sambung sesi untuk menguji</h3>
+   <p className={styles.note}>“App sesi / versi peranti: __. Masa mula dan tamat / zon waktu: __. Permintaan asal: __. Paparan sahaja / kawalan turut dibenarkan / tidak pasti: __. Status yang terlihat selepas ditamatkan: __. App atau tetapan yang berubah: __. Jenis maklumat yang mungkin terlihat, tanpa nilainya: __.” Jangan masukkan kod sesi, password, OTP, ID penuh atau butiran pembayaran.</p>
+   <p>Jika maklumat sensitif telah terdedah, gunakan <Link href="/panduan/mega888-pautan-reset-login">tindakan mengikut jenis pendedahan</Link>. Menamatkan sesi tidak memadam perkara yang sudah dilihat atau disalin, dan tidak membuktikan semua akses lain telah ditarik balik. Laporan yang menyatakan “tidak pasti” lebih berguna daripada jaminan bahawa peranti sudah bersih tanpa pemeriksaan.</p>
+   <p>Rujukan khusus: <a href="https://support.apple.com/en-ae/guide/personal-safety/ips48fe06838/web">Apple: status dan penghentian perkongsian/kawalan FaceTime</a>; <a href="https://consumer.ftc.gov/articles/how-spot-avoid-and-report-tech-support-scams">FTC: penyamaran sokongan teknikal</a>. Langkah sistem bersumber, manakala urutan soalan dan format rekod ialah cadangan editorial. Tiada sesi kawalan jauh sebenar, ujian APK atau pengesahan identiti agent dijalankan.</p>
+  </section>
   <h3>Rujukan utama dan had panduan</h3>
   <ul>
    <li><a href="https://support.google.com/android/answer/12623953?hl=en">Google Android Help: Learn about restricted settings</a> — kuasa akses kebolehcapaian, maklumat sensitif dan tanda permintaan yang perlu disemak; panduan ini tidak mengajar cara memintas sekatan.</li>
@@ -109,6 +137,6 @@ export default function PermissionsGuide() {
    <li><a href="https://support.google.com/googleplay/answer/2812853?hl=en">Google Play Help: Google Play Protect</a> — fungsi amaran serta saranan mengekalkan perlindungan aktif.</li>
    <li><a href="https://support.apple.com/guide/iphone/control-access-to-information-in-apps-iph251e92810/ios">Apple iPhone User Guide: kawal akses maklumat dalam app</a> — semakan mengikut kategori privasi.</li>
   </ul>
-  <p>Disemak pada <time dateTime="2026-10-13">13 Oktober 2026</time>. Rujukan ini menyokong fungsi sistem peranti, bukan pengesahan Mega888 oleh Google atau Apple. Tiada audit APK, ujian permission app sebenar atau jaminan pemulihan akaun dibuat untuk artikel ini.</p>
+  <p>Disemak pada <time dateTime="2026-10-17">17 Oktober 2026</time>. Rujukan ini menyokong fungsi sistem peranti, bukan pengesahan Mega888 oleh Google atau Apple. Tiada audit APK, ujian permission app sebenar atau jaminan pemulihan akaun dibuat untuk artikel ini.</p>
  </section>;
 }
