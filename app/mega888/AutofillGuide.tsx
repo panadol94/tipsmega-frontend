@@ -82,5 +82,38 @@ export default function AutofillGuide() {
    <li><a href="https://support.apple.com/en-us/104955">Apple: cari password dan passkey tersimpan pada iPhone</a> — perbezaan versi sistem, paparan rekod dan iCloud Keychain.</li>
   </ul>
   <p>Disemak pada <time dateTime="2026-10-10">10 Oktober 2026</time>. Rujukan menerangkan fungsi Google dan Apple, bukan sokongan mereka terhadap Mega888. Tiada ujian akaun sebenar, keserasian autofill aplikasi, polisi sekatan atau kejayaan pemulihan yang disahkan untuk panduan ini.</p>
+  <section id="amaran-password" aria-labelledby="password-warning-title">
+   <h2 id="password-warning-title">Amaran password ketika login Mega888: lemah, digunakan semula atau terdedah?</h2>
+   <p>Amaran pengurus kata laluan bukan mesej yang sama dengan “wrong password” dalam borang login. Bezakan sumber amaran sebelum membuat keputusan. Bahagian ini membantu anda menyusun tindakan terhadap rekod tersimpan; ia tidak mengesahkan kebocoran pada Mega888, pencerobohan akaun anda atau sokongan ciri keselamatan oleh mana-mana operator.</p>
+   <figure className={styles.figure}>
+    <img src="/hub/mega888-amaran-password-slot-20261018.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Ilustrasi konsep reel slot ceri, loceng dan tujuh dengan tiga dulang kunci, termasuk kunci pendua dan prisma amaran ambar" style={{maxHeight:"none",objectFit:"contain"}} />
+    <figcaption>Ilustrasi konsep dijana AI: dulang kunci menggambarkan semakan rekod yang berbeza. Bukan screenshot aplikasi, keputusan permainan, bukti pembayaran atau pengesahan kebocoran.</figcaption>
+   </figure>
+   <h3>Baca kategori, bukan hanya warna amaran</h3>
+   <ul>
+    <li><strong>Lemah:</strong> kata laluan mudah dijangka. Ini bukan bukti seseorang sudah masuk ke akaun.</li>
+    <li><strong>Digunakan semula:</strong> kata laluan sama digunakan pada beberapa akaun. Risiko merentas akaun berbeza daripada masalah memilih ID autofill.</li>
+    <li><strong>Terdedah atau compromised:</strong> pengurus mengesan maklumat dalam pendedahan yang diketahui. Ambil tindakan segera, tetapi jangan menamakan laman tertentu sebagai punca berdasarkan label ini sahaja.</li>
+   </ul>
+   <h3>Semak amaran dari pengurus sendiri</h3>
+   <p>Google menyarankan membuka Password Checkup secara terus untuk menyemak kesahihan pemberitahuan. Pada Chrome komputer: menu → Passwords and autofill → Google Password Manager → Checkup. Laluan pelayar lain ialah passwords.google.com. Pada iPhone dengan app Passwords, buka Security dan pilih rekod berkaitan. Nama menu bergantung versi; ini bukan menu dalam aplikasi Mega888.</p>
+   <h3>Urutan keputusan tanpa menyerahkan rahsia</h3>
+   <ol className={styles.checkSteps}>
+    <li><strong>Kenal pasti tempat amaran muncul.</strong> Catat sama ada dalam pengurus yang anda buka sendiri, halaman web, atau mesej bantuan. Jangan terus mengikuti butang daripada mesej yang tidak diminta. Jika amaran hanya ada pada halaman mencurigakan, gunakan <Link href="/panduan/mega888-pautan-reset-login">semakan pautan bantuan</Link> sebelum memasukkan apa-apa.</li>
+    <li><strong>Padankan rekod dan destinasi.</strong> Semak domain serta akaun yang dimaksudkan secara peribadi. Amaran pada rekod lain tidak menerangkan mengapa borang Mega888 menolak login. Jangan mengubah domain rekod supaya cadangan autofill muncul di laman baharu.</li>
+    <li><strong>Ubah pada perkhidmatan, kemudian selaraskan simpanan.</strong> Gunakan aliran pertukaran atau pemulihan yang disahkan secara berasingan. Sediakan kata laluan unik, bukan variasi kecil yang dikitar semula. Menyunting rekod tersimpan sahaja tidak menukar kelayakan pada perkhidmatan. Jika akses tidak tersedia, rekodkan langkah yang terhalang dan hubungi saluran akaun yang telah dikenal pasti.</li>
+    <li><strong>Asingkan status setiap akaun.</strong> Jika kata laluan digunakan semula, urus akaun lain yang berkongsi rahsia itu juga. Jangan anggap perubahan pada satu operator mengemas kini e-mel, akaun Google atau Apple anda. Tidak perlu menghantar senarai akaun atau fail eksport kepada sokongan.</li>
+    <li><strong>Tutup tindakan dengan rekod, bukan sekadar amaran hilang.</strong> Catat perubahan yang benar-benar disahkan dan apa yang masih belum selesai. Menyembunyikan amaran, memadam entri, clear cache atau reinstall bukan bukti kata laluan di perkhidmatan sudah berubah. Kehilangan label sahaja juga bukan audit keselamatan akaun.</li>
+   </ol>
+   <h3>Laporan ringkas jika pemulihan tersekat</h3>
+   <p>“Masa dan zon waktu: __. Pengurus/versi: __. Kategori amaran: __. Domain tanpa token: __. Perubahan di perkhidmatan disahkan/belum selesai: __. Rekod tersimpan diselaraskan/belum: __. Halangan atau mesej ralat: __.” Jangan sertakan password lama/baharu, OTP, kod pemulihan atau screenshot peti password. Gunakan <Link href="/panduan/mega888-screenshot-ralat">panduan lampiran ralat</Link> jika gambar benar-benar diperlukan.</p>
+   <p className={styles.note}>Tiada ujian login operator atau bukti kebocoran dikumpulkan untuk artikel ini. Ketiadaan amaran tidak menjamin semua akaun selamat. Jika anda sudah berkongsi rahsia atau akses, rujuk <Link href="/panduan/mega888-pautan-reset-login">langkah mengikut jenis pendedahan</Link>; jangan mengulang login untuk menguji sama ada pencerobohan berlaku.</p>
+   <h3>Rujukan primer untuk amaran pengurus</h3>
+   <ul>
+    <li><a href="https://support.google.com/chrome/answer/9457609?hl=en">Google Chrome Help: Password Checkup, kategori amaran dan perubahan password</a></li>
+    <li><a href="https://support.apple.com/en-gb/guide/iphone/iphd5d8daf4f/ios">Apple: cadangan keselamatan dan perubahan kata laluan pada iPhone</a></li>
+   </ul>
+   <p>Disemak pada <time dateTime="2026-10-18">18 Oktober 2026</time>. Checklist laporan ialah cadangan editorial, bukan prosedur atau jaminan pemulihan operator.</p>
+  </section>
  </section>;
 }
