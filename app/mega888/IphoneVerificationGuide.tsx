@@ -33,6 +33,40 @@ export default function IphoneVerificationGuide() {
   <h4><strong>5. Sediakan laporan yang boleh disemak</strong></h4>
   <p>Gunakan templat kosong ini: “Model/iOS: __. Masa dan zon: __. Teks amaran: __. Peringkat ia muncul: __. Nama pembangun/organisasi yang dipaparkan: __ / tidak dipaparkan. Peranti peribadi atau diurus organisasi: __. Laman biasa boleh dibuka: __. App pernah terbuka sebelum ini: __ / tidak pasti. Perubahan terakhir yang diketahui: __. Apakah penjelasan sumber pengedaran dan langkah yang tidak memerlukan perlindungan dimatikan?”</p>
   <p>Hantar hanya butiran perlu melalui saluran yang anda sahkan. Gunakan <Link href="/panduan/mega888-screenshot-ralat">panduan screenshot untuk sokongan</Link>; jangan sertakan kata laluan, OTP, kod laluan iPhone, nombor siri, pautan pemasangan peribadi atau keseluruhan konfigurasi organisasi. Isu profil terurus dirujuk kepada pentadbir; isu menu atau keselamatan peranti kepada Apple; penjelasan pakej kepada penyedia yang dikenal pasti. Tiada satu pihak ini boleh dianggap telah mengesahkan status akaun operator melalui Hub.</p>
+  <section id="screen-time-had-akses" aria-labelledby="screen-time-title">
+   <h2 id="screen-time-title">Mega888 iPhone tak boleh dibuka: had Screen Time atau amaran pengesahan?</h2>
+   <p>Apabila akses berhenti sebelum skrin login, jangan terus meminta pautan pemasangan gantian. Mesej tentang masa penggunaan tidak sama dengan amaran pembangun, dan kedua-duanya tidak sama dengan password yang ditolak. Semakan ini membantu pengguna dewasa mengenal pasti lapisan yang memberi mesej, bukan membuka sekatan atau memanjangkan masa bermain. Jika had itu memang ditetapkan untuk berehat, hormatinya dan berhenti.</p>
+   <figure className={styles.figure}>
+    <img src="/hub/mega888-screen-time-rehat-slot-20261020.webp" width="1536" height="1024" loading="lazy" decoding="async" alt="Ilustrasi gelendong slot hitam dan emas bersimbol ceri, loceng dan tujuh, dengan jam pasir, tanda jeda merah dan tirai sebagai konsep rehat berjadual" style={{maxHeight:"none",objectFit:"contain"}} />
+    <figcaption>Ilustrasi konsep dijana AI: jeda dan had masa penggunaan. Bukan screenshot iPhone, keputusan permainan atau bukti kemenangan.</figcaption>
+   </figure>
+   <h3>Tiga jenis mesej, tiga catatan berbeza</h3>
+   <div className={styles.grid}>
+    <article><h4>Had atau jadual penggunaan</h4><p>Dalam panduan iOS 26 Apple, Block at Downtime boleh menghalang app dibuka ketika jadual aktif; ikon menjadi malap dengan simbol jam pasir. App Limits pula boleh meliputi satu app atau kumpulan kategori. Catat perkataan yang sebenar, bukan hanya “app rosak”. Rupa ikon sahaja belum cukup untuk membuat diagnosis.</p></article>
+    <article><h4>Pengesahan pembangun</h4><p>Mesej seperti “Untrusted Enterprise Developer” dirujuk kepada bahagian pengesahan dalam artikel ini. Jangan menganggap ia akan selesai dengan menukar had masa. Begitu juga, jangan tekan Trust kerana satu tutorial menyamakan semua halangan membuka app dengan isu sijil.</p></article>
+    <article><h4>Butiran login ditolak</h4><p>Jika app sudah terbuka dan mesej muncul selepas borang login dihantar, rekod peringkat itu. Gunakan <Link href="/panduan/mega888-login-autofill">panduan autofill dan akaun yang dipilih</Link>. Jangan jadikan percubaan password berulang sebagai ujian sama ada Screen Time sedang aktif.</p></article>
+   </div>
+   <h3>Checklist baca-sahaja sebelum menghantar laporan</h3>
+   <ol className={styles.checkSteps}>
+    <li><strong>Catat versi dan tempat mesej muncul.</strong> Tulis model, versi iOS, masa serta sama ada mesej muncul pada ikon, halaman sistem, pelayar atau dalam app. Contoh rekod yang berguna ialah “ikon malap, mesej menyebut had masa sebelum login”; elakkan kesimpulan “akaun diblokir” tanpa bukti akaun.</li>
+    <li><strong>Baca Settings → Screen Time jika anda berhak mengaksesnya.</strong> Pada iOS 26, semak nama Downtime dan App Limits serta jadual atau kategori yang dipaparkan. Jangan mengubah suis, menambah pengecualian atau memadam had untuk tujuan diagnosis ini. Jika menu berbeza, catat namanya dan rujuk dokumentasi versi sendiri; jangan mencari butang yang tiada.</li>
+    <li><strong>Semak skop laporan penggunaan.</strong> Apple menerangkan Share Across Devices sebagai penyelarasan tetapan dan laporan antara peranti dengan Apple Account yang sama. Laporan boleh memaparkan penggunaan gabungan; pilihan Devices membantu melihat peranti tertentu. Catat skop yang sedang dilihat tanpa menghantar sejarah penggunaan seluruh keluarga atau mematikan penyelarasan.</li>
+    <li><strong>Bezakan sekatan pemasangan daripada had masa.</strong> Dokumentasi iOS 26 meletakkan sekatan memasang atau memadam app dalam Content &amp; Privacy Restrictions. Ini kategori pemeriksaan berbeza daripada jadual rehat. Jangan menukar sekatan kandungan, umur atau pembelian untuk mencuba aplikasi; catat mesej dan serahkan kepada pihak yang mengurus tetapan.</li>
+    <li><strong>Berhenti pada permintaan kod atau akses pihak lain.</strong> Jangan meneka kod Screen Time, meminta orang luar “unlock”, atau memberi kawalan jauh. Untuk peranti keluarga atau organisasi, rujuk pengurus yang sah. Panduan ini tidak menyediakan pengecualian untuk akaun kanak-kanak dan bukan cara memintas had yang telah dipersetujui.</li>
+   </ol>
+   <h3>Apa yang tidak boleh disimpulkan?</h3>
+   <p>Had yang kelihatan aktif tidak membuktikan semua masalah berpunca daripadanya. Jika mesej lain muncul kemudian, rekod sebagai pemerhatian berasingan. Tidak terlihatnya had juga tidak membuktikan sijil, rangkaian atau akaun sihat. Elakkan reinstall, reset peranti atau profil gantian berdasarkan tekaan ini. Jika isu sebenar ialah sambungan, gunakan <Link href="/panduan/mega888-connection-failed">checklist connection failed</Link> tanpa mengubah had penggunaan.</p>
+   <h3>Templat ringkas untuk bantuan yang sesuai</h3>
+   <p>“Model/iOS: __. Masa dan zon: __. Mesej tepat: __. Muncul sebelum atau selepas login: __. Menu berkaitan yang terlihat: __ / tidak dipaparkan. Jadual atau kategori yang relevan: __. Laporan satu peranti atau gabungan: __ / tidak pasti. Tetapan diurus sendiri, keluarga atau organisasi: __. Perubahan dibuat: tiada / nyatakan tanpa rahsia.”</p>
+   <p>Jika perlu melampirkan gambar, ikut <Link href="/panduan/mega888-screenshot-ralat">semakan screenshot ralat</Link>. Keluarkan Apple Account, nama ahli keluarga, kod laluan, password dan OTP. Isu menu dirujuk kepada Apple atau pentadbir peranti; isu akaun kepada saluran akaun yang dikenal pasti. Scanner TipsMega888 tidak membaca atau membuka Screen Time dan tidak mengesahkan sesi operator.</p>
+   <h3>Rujukan dan batas versi</h3>
+   <ul>
+    <li><a href="https://support.apple.com/guide/iphone/iphb0c7313c9/26/ios/26">Apple iOS 26: jadual Screen Time dan App Limits</a> — asas perbezaan jadual dengan had kategori.</li>
+    <li><a href="https://support.apple.com/guide/iphone/iphbfa595995/26/ios/26">Apple iOS 26: laporan dan Share Across Devices</a> — skop peranti serta laporan penggunaan.</li>
+    <li><a href="https://support.apple.com/en-gb/guide/iphone/iph3dfd91de/26/ios/26">Apple iOS 26: sekatan App Store</a> — sekatan pemasangan, pemadaman dan kandungan.</li>
+   </ul>
+   <p>Disemak pada <time dateTime="2026-10-20">20 Oktober 2026</time>. Nama menu di atas merujuk dokumentasi iOS 26, bukan janji bahawa semua versi mempunyai susunan sama. Tiada ujian peranti atau pengesahan bahawa pakej Mega888 tertentu termasuk kategori Screen Time tertentu dilakukan. Tujuan checklist ialah catatan yang tepat sambil mengekalkan had dan perlindungan.</p>
+  </section>
   <h4><strong>Rujukan Apple dan batas panduan</strong></h4>
   <ul>
    <li><a href="https://support.apple.com/en-us/118254">Apple: custom enterprise apps</a> — skop dalaman organisasi, kepercayaan pembangun, internet dan pengesahan semula.</li>

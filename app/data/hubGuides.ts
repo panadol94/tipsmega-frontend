@@ -1,5 +1,5 @@
 // Content dates reflect substantive publication, not build time.
-export const HUB_UPDATED = "2026-10-19";
+export const HUB_UPDATED = "2026-10-20";
 export const HUB_GUIDES = [
   {
     "component": "ConnectionChecklist",
@@ -83,11 +83,11 @@ export const HUB_GUIDES = [
     "id": "iphone-verify-app",
     "slug": "mega888-iphone-verify-app",
     "title": "Mega888 iPhone “Unable to Verify App”: semak amaran, bukan terus Trust",
-    "summary": "Fahami amaran pengesahan aplikasi iPhone serta beza app, pembangun dan profil. Jangan terus meluluskan Trust atau profil baharu.",
+    "summary": "Bezakan amaran pengesahan app iPhone dengan had Screen Time, jadual rehat dan sekatan pemasangan tanpa memintas perlindungan.",
     "image": "/hub/mega888-iphone-verification-profile-20261001.webp",
     "alt": "Ilustrasi konsep telefon grafit dengan dua lapisan kaca berasingan untuk pakej app dan helaian konfigurasi, lampu amaran ambar serta palang henti merah",
     "published": "2026-10-01",
-    "updated": "2026-10-03"
+    "updated": "2026-10-20"
   },
   {
     "component": "HeatGuide",
