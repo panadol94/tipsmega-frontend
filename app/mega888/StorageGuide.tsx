@@ -55,6 +55,32 @@ export default function StorageGuide() {
    <p>Untuk sokongan, tulis: “Ralat berlaku pada [peringkat]. Storan peranti tersedia sebelum [bacaan], selepas [bacaan]. Saya hanya mengubah [tindakan]. Hasil percubaan seterusnya [mesej tepat]. Adakah terdapat keperluan ruang dan keserasian bagi versi ini?” Jangan sertakan kata laluan, OTP atau kod pemulihan. Jika tidak pasti sesuatu fail boleh dipulihkan, jangan padamnya untuk mengejar angka ruang kosong.</p>
    <p>Langkah ini ialah semakan sistem peranti, bukan diagnosis app sebenar, pengesahan sumber muat turun atau janji pemulihan baki. Tiada pemasangan atau transaksi percubaan diperlukan untuk merekod storan.</p>
   </section>
+  <section id="android-app-diarkibkan" aria-labelledby="archive-title">
+   <h2 id="archive-title">Ikon Mega888 malap di Android: app diarkibkan atau sudah dipadam?</h2>
+   <p>Ikon yang masih kelihatan tidak semestinya bermaksud app sedia dibuka. Sebelum memilih uninstall, bezakan status peranti daripada ralat login. Semakan ini berguna apabila anda kembali kepada app selepas lama tidak menggunakannya. Ia tidak mengesahkan bahawa mana-mana pakej Mega888 menyokong fungsi arkib atau boleh dipulihkan melalui Google Play.</p>
+   <figure className={styles.figure}>
+    <img src="/hub/mega888-arkib-app-slot-20261021.webp" width="1536" height="1024" loading="lazy" decoding="async" style={{maxHeight:"none",objectFit:"contain"}} alt="Ilustrasi konsep gelendong slot ceri, tujuh dan loceng dalam laci arkib baldu merah, dengan penanda emas di luar" />
+    <figcaption>Ilustrasi konsep dijana AI: gelendong disimpan dengan penanda tempat dikekalkan. Bukan screenshot app, keputusan permainan atau bukti data boleh dipulihkan.</figcaption>
+   </figure>
+   <h3>Arkib bukan clear cache, dan ikon bukan sandaran</h3>
+   <p>Menurut <a href="https://support.google.com/googleplay/answer/15523443?hl=en">Google Play Help tentang app diarkibkan</a>, arkib membuang perisian, permission dan fail sementara serta menghentikan notifikasi, tetapi mengekalkan ikon dan data app. Ikon menjadi malap dengan tanda arkib. Sebahagian langkah memerlukan Android 15 ke atas dan perkakasan yang menyokongnya. Jangan gunakan rupa ikon sahaja sebagai pengesahan; baca status dalam maklumat app.</p>
+   <p>Pemulihan memerlukan gedung app berkaitan masih dipasang dan app masih tersedia untuk dimuat turun di situ. Ruang pemasangan juga diperlukan. Google menerangkan pemulihan melalui ikon malap, App info atau halaman butiran app dalam Play Store. Jika pilihan itu tiada, jangan anggap telefon rosak atau mencari APK rawak sebagai gantinya. Laluan sebenar bergantung pada peranti dan sokongan gedung.</p>
+   <h3>Semakan sebelum sebarang pemasangan semula</h3>
+   <ol className={styles.checkSteps}>
+    <li><strong>Catat di mana masalah bermula.</strong> Adakah anda belum sampai ke skrin login, menerima permintaan memulihkan app, atau sudah melihat mesej dalam app? Tulis perkataan tepat dan masa kejadian. “Ikon malap sebelum app dibuka” lebih berguna daripada “akaun hilang”.</li>
+    <li><strong>Buka maklumat app secara baca sahaja.</strong> Cari app yang betul dalam Settings → Apps, jika menu tersedia. Catat label status dan pilihan yang dipaparkan, tanpa menekan Archive, Uninstall atau Clear storage untuk mencuba. Jika ada beberapa nama serupa, jangan meneka salinan mana yang menyimpan data anda.</li>
+    <li><strong>Kenal pasti sumber asal.</strong> Rekod sama ada pemasangan dahulu melalui gedung atau fail luar, jika diketahui. Tulis “tidak pasti” apabila tiada rekod. Panduan Google tentang arkib tidak membuktikan bahawa fail yang dihantar melalui chat mempunyai saluran pemulihan yang serasi.</li>
+    <li><strong>Semak prasyarat, bukan tukar banyak tetapan.</strong> Baca ruang tersedia dan status sambungan. Jika pemulihan yang anda kenal pasti meminta ruang, rujuk <Link href="/panduan/mega888-cache-dan-data#storan-peranti-awan">checklist storan peranti</Link>. Jangan gabungkan reset rangkaian, pemadaman data dan pemasangan fail lain dalam satu percubaan.</li>
+    <li><strong>Hentikan percubaan apabila syarat tidak jelas.</strong> Jika gedung tidak lagi menawarkan app, sumber tidak dapat disahkan atau amaran keselamatan muncul, simpan mesej tersebut. Gunakan <Link href="/panduan/mega888-ralat-pemasangan">panduan ralat pemasangan</Link>; jangan matikan Play Protect atau perlindungan lain untuk memaksa proses.</li>
+   </ol>
+   <h3>“Unused apps” tidak semestinya bermaksud diarkibkan</h3>
+   <p><a href="https://support.google.com/googleplay/answer/13627979?hl=en">Google menerangkan pengurusan app tidak digunakan</a> secara berasingan: fail sementara boleh dibuang, permission ditarik balik, aktiviti latar dan notifikasi dihentikan. Oleh itu, notifikasi yang senyap sahaja tidak membuktikan arkib atau sekatan akaun. Catat tetapan yang dilihat tanpa terus mematikan pengurusan app tidak digunakan. Jika app kemudian meminta akses, gunakan <Link href="/panduan/mega888-semak-permission">semakan permission</Link>, bukan beri semua akses sekaligus.</p>
+   <p>Jika ikon langsung tiada, statusnya juga belum jelas. <a href="https://support.google.com/googleplay/answer/113410?hl=en">Panduan pemasangan semula Google Play</a> menerangkan senarai app bagi akaun Google yang sama dan pilihan app yang tidak dipasang. Itu ialah rekod gedung, bukan rekod akaun operator. Jangan tukar akaun secara rawak, berkongsi password Google atau menganggap app dengan logo sama ialah pakej asal.</p>
+   <h3>Rekod ringkas apabila pemulihan gagal</h3>
+   <p>“Peranti [model], Android [versi]. Ikon [masih ada/tiada]; App info menyebut [label]. Sumber asal [diketahui/tidak pasti]. Proses berhenti sebelum login pada [mesej]. Ruang tersedia [bacaan]. Saya belum uninstall atau padam data.” Minta sokongan menjelaskan status pakej dan pilihan pemulihan yang sesuai, bukan menjanjikan baki kembali.</p>
+   <p>Sunting <Link href="/panduan/mega888-screenshot-ralat">screenshot laporan</Link> supaya alamat e-mel, ID penuh dan maklumat peribadi tidak terdedah. Jangan sertakan OTP, password atau kod pemulihan. Data yang dikekalkan oleh fungsi arkib bukan jaminan sesi login, baki operator atau keserasian versi baharu. Tiada pemulihan app sebenar diuji untuk panduan ini.</p>
+   <p>Rujukan disemak pada <time dateTime="2026-10-21">21 Oktober 2026</time>. Ini penerangan fungsi Android, bukan pengesahan Google terhadap Mega888 atau sumber muat turunnya.</p>
+  </section>
   <h3>Rujukan utama dan had panduan</h3>
   <ul>
    <li><a href="https://support.apple.com/en-us/102670">Apple: beza storan iCloud dan storan peranti</a> — kapasiti berasingan dan menu semakan.</li>
@@ -63,6 +89,6 @@ export default function StorageGuide() {
    <li><a href="https://support.apple.com/en-us/108429">Apple Support: semak storan iPhone/iPad</a> — lokasi menu, Offload App dan Delete App.</li>
    <li><a href="https://support.apple.com/en-us/119876">Apple Support: app tidak boleh dibuka</a> dan <a href="https://support.google.com/android/answer/2668665">Google: app tidak berfungsi</a> — langkah awal sebelum pemadaman.</li>
   </ul>
-  <p>Disemak pada <time dateTime="2026-10-05">5 Oktober 2026</time>. Rujukan ini menerangkan sistem peranti, bukan pengesahan Google atau Apple terhadap Mega888. Tiada ujian app sebenar atau pemulihan akaun dilakukan untuk artikel ini.</p>
+  <p>Disemak pada <time dateTime="2026-10-21">21 Oktober 2026</time>. Rujukan ini menerangkan sistem peranti, bukan pengesahan Google atau Apple terhadap Mega888. Tiada ujian app sebenar atau pemulihan akaun dilakukan untuk artikel ini.</p>
  </section>;
 }
