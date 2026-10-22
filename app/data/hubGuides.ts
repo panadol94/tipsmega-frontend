@@ -1,5 +1,5 @@
 // Content dates reflect substantive publication, not build time.
-export const HUB_UPDATED = "2026-10-21";
+export const HUB_UPDATED = "2026-10-22";
 export const HUB_GUIDES = [
   {
     "component": "ConnectionChecklist",
@@ -17,11 +17,11 @@ export const HUB_GUIDES = [
     "id": "cache-dan-data",
     "slug": "mega888-cache-dan-data",
     "title": "Mega888 tak boleh dibuka: beza clear cache, padam data dan offload",
-    "summary": "Bezakan cache, padam data, offload dan app Android diarkibkan. Semak ikon malap, sumber pemulihan dan storan sebelum uninstall.",
+    "summary": "Bezakan cache, padam data, offload, arkib dan Private Space Android. Semak ikon hilang atau malap sebelum uninstall dan reset.",
     "image": "/hub/mega888-cache-data-offload-20260925.webp",
     "alt": "Ilustrasi konsep telefon arang gelap dengan dulang fail sementara merah yang berasingan daripada teras arkib data",
     "published": "2026-09-25",
-    "updated": "2026-10-21"
+    "updated": "2026-10-22"
   },
   {
     "component": "PermissionsGuide",

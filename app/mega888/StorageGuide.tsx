@@ -81,6 +81,28 @@ export default function StorageGuide() {
    <p>Sunting <Link href="/panduan/mega888-screenshot-ralat">screenshot laporan</Link> supaya alamat e-mel, ID penuh dan maklumat peribadi tidak terdedah. Jangan sertakan OTP, password atau kod pemulihan. Data yang dikekalkan oleh fungsi arkib bukan jaminan sesi login, baki operator atau keserasian versi baharu. Tiada pemulihan app sebenar diuji untuk panduan ini.</p>
    <p>Rujukan disemak pada <time dateTime="2026-10-21">21 Oktober 2026</time>. Ini penerangan fungsi Android, bukan pengesahan Google terhadap Mega888 atau sumber muat turunnya.</p>
   </section>
+  <section id="android-private-space" aria-labelledby="private-space-title">
+   <h2 id="private-space-title">Ikon Mega888 hilang: semak Private Space sebelum anggap app dipadam</h2>
+   <p>Anda mencari app yang pernah dibuka, tetapi ikonnya tidak muncul. Ini belum cukup untuk menyimpulkan akaun hilang atau pemasangan rosak. Jika anda memang menggunakan Private Space Android, semak ruang tersebut dahulu. Jangan cipta ruang baharu semata-mata untuk mencuba penyelesaian ini. Panduan ini bukan pengesahan keserasian Mega888 dengan ciri tersebut.</p>
+   <figure className={styles.figure}>
+    <img src="/hub/mega888-private-space-slot-20261022.webp" width="1536" height="1024" loading="lazy" decoding="async" style={{maxHeight:"none",objectFit:"contain"}} alt="Ilustrasi dua ruang gelendong slot merah hitam dan emas, satu terbuka dan satu di sebalik pintu kaca berkunci" />
+    <figcaption>Ilustrasi konsep dijana AI: dua ruang berasingan, bukan screenshot Android, keputusan permainan atau bukti keselamatan app.</figcaption>
+   </figure>
+   <h3>Apa yang diterangkan oleh Android</h3>
+   <p><a href="https://support.google.com/android/answer/15341885?hl=en">Google menerangkan Private Space</a> sebagai ruang app berasingan pada peranti Android 15 ke atas yang menyokongnya. Apabila dikunci, app di dalamnya dihentikan, tidak menghantar notifikasi dan disembunyikan daripada beberapa paparan termasuk carian. Ini berbeza daripada <Link href="/panduan/mega888-cache-dan-data#android-app-diarkibkan">app diarkibkan</Link>.</p>
+   <p>Pemasangan dalam Private Space menghasilkan salinan app baharu; ia tidak menyalin atau mengubah pemasangan asal. Data app ruang utama tidak dipindahkan ke salinan itu. Memadam ruang memadam app dan data setempatnya; sandaran peranti tidak memulihkan Private Space. Jangan gunakan reset ruang sebagai langkah mencari ikon.</p>
+   <h3>Checklist baca dahulu, bukan padam dahulu</h3>
+   <ol className={styles.checkSteps}>
+    <li><strong>Rekod pemerhatian sebenar.</strong> Tulis “tidak muncul dalam carian” atau “ikon ada tetapi tidak terbuka”, bukan terus “akaun disekat”. Nyatakan masa terakhir app dilihat dan sama ada telefon baru direstart. Jangan ubah tetapan storan ketika mengumpulkan maklumat ini.</li>
+    <li><strong>Pastikan ciri itu memang pernah digunakan.</strong> Pada telefon sendiri yang menyokongnya, Google menyediakan laluan Settings → Security &amp; privacy → Private space. Buka dengan pengesahan biasa milik anda jika ruang itu telah disediakan. Jangan berkongsi PIN, memintas kunci atau mengubah pengurusan telefon orang lain.</li>
+    <li><strong>Bandingkan lokasi, bukan buat login berulang.</strong> Catat sama ada ikon ditemui di ruang utama atau ruang peribadi. Jika ada dua salinan, kenal pasti yang sedang diperiksa sebelum mengikuti arahan sokongan. Tidak perlu memasang salinan tambahan atau menjalankan transaksi ujian.</li>
+    <li><strong>Asingkan masalah seterusnya.</strong> Jika ikon ditemui tetapi app menunjukkan ralat, simpan teks tepat. Gunakan <Link href="/panduan/mega888-login-autofill">panduan login dan autofill</Link> untuk borang login, atau <Link href="/panduan/mega888-connection-failed">checklist sambungan</Link> untuk kegagalan rangkaian. Menemui ikon tidak mengesahkan status akaun.</li>
+   </ol>
+   <h3>Rekod sokongan tanpa mendedahkan ruang peribadi</h3>
+   <p>Contoh: “Pada [model/versi Android], ikon tidak muncul di [paparan]. Saya pernah menggunakan Private Space: [ya/tidak pasti]. Selepas semakan biasa, ikon [ditemui/tidak ditemui]. Ralat seterusnya ialah [teks]. Tiada data dipadam.” Hantar melalui saluran yang sudah dikenal pasti. Jangan sertakan senarai app peribadi; rujuk <Link href="/panduan/mega888-screenshot-ralat">cara menyunting screenshot</Link> jika gambar diperlukan.</p>
+   <p className={styles.note}>Jika anda tidak pernah menggunakan Private Space, menu tiada atau kunci tidak dapat dibuka, hentikan laluan ini. Jangan memilih Delete atau Reset untuk “memulihkan” app. Minta panduan pengeluar tentang paparan peranti; isu akaun kekal urusan sokongan akaun yang berkenaan. Ini semakan konteks, bukan diagnosis atau ujian app sebenar.</p>
+   <p>Rujukan fungsi Android disemak pada <time dateTime="2026-10-22">22 Oktober 2026</time>. Tiada jaminan pemulihan data, notifikasi atau akses akaun.</p>
+  </section>
   <h3>Rujukan utama dan had panduan</h3>
   <ul>
    <li><a href="https://support.apple.com/en-us/102670">Apple: beza storan iCloud dan storan peranti</a> — kapasiti berasingan dan menu semakan.</li>
