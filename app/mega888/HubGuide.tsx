@@ -34,6 +34,7 @@ export default function HubGuide() {
   </section>
   <ProblemSolver />
   <GuideIndex />
+  <p><strong>Kemas kini 23 Oktober 2026:</strong> <Link href="/panduan/mega888-connection-failed#dual-sim-panggilan">checklist dual SIM dan sambungan ketika panggilan</Link>, dengan rekod talian tanpa nombor penuh serta ilustrasi konsep AI khusus.</p>
   <VisualGuides />
   <section id="masalah">
    <span className={styles.kicker}>02 / PUSAT BANTUAN</span>
