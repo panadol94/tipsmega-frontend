@@ -1,5 +1,5 @@
 // Content dates reflect substantive publication, not build time.
-export const HUB_UPDATED = "2026-10-23";
+export const HUB_UPDATED = "2026-10-24";
 export const HUB_GUIDES = [
   {
     "component": "ConnectionChecklist",
@@ -72,11 +72,11 @@ export const HUB_GUIDES = [
     "id": "screenshot-ralat",
     "slug": "mega888-screenshot-ralat",
     "title": "Screenshot ralat Mega888: apa perlu ditunjukkan, dipotong dan disemak?",
-    "summary": "Sediakan screenshot ralat Mega888: semak rakaman, beza lampiran dengan pautan album, data foto serta batas menarik balik perkongsian.",
+    "summary": "Semak screenshot Mega888 disekat atau kosong, sediakan laporan teks tanpa pintasan, dan periksa privasi rakaman serta lampiran.",
     "image": "/hub/mega888-support-screenshot-privacy-20260930.webp",
     "alt": "Ilustrasi bingkai pemotong merah mengasingkan jubin ralat daripada panel arang gelap, dengan kad salinan dan kanta pemeriksa di sisi",
     "published": "2026-09-30",
-    "updated": "2026-10-19"
+    "updated": "2026-10-24"
   },
   {
     "component": "IphoneVerificationGuide",
