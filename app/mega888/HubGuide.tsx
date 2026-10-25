@@ -34,6 +34,7 @@ export default function HubGuide() {
   </section>
   <ProblemSolver />
   <GuideIndex />
+  <section id="mitos-menang-spin"><h2>Tips menang spin: nilai dakwaan sebelum percaya</h2><p>Kemas kini pendidikan 25 Oktober 2026: <Link href="/blog/cara-menang-mega888">Tips Menang Spin: Mitos, Fakta dan Janji ‘80% Menang’</Link>. Fahami beza RTP, screenshot terpilih dan untung bersih, bersama checklist dakwaan WhatsApp serta ilustrasi konsep AI khusus. Tiada pola spin atau kumpulan yang boleh menjamin kemenangan.</p></section>
   <p>Tambahan 24 Oktober 2026: <Link href="/panduan/mega888-screenshot-ralat#screenshot-disekat">checklist screenshot disekat dan laporan teks tanpa pintasan</Link>, bersama ilustrasi konsep AI khusus. <strong>Kemas kini 23 Oktober 2026:</strong> <Link href="/panduan/mega888-connection-failed#dual-sim-panggilan">checklist dual SIM dan sambungan ketika panggilan</Link>, dengan rekod talian tanpa nombor penuh serta ilustrasi konsep AI khusus.</p>
   <VisualGuides />
   <section id="masalah">
