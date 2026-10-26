@@ -51,6 +51,7 @@ export const metadata = {
 };
 
 const HUB_LINKS = [
+  {title: "Scam Mega888 di WhatsApp: Henti Bayaran Tambahan dan Simpan Bukti", href: "/blog/mega888-scam-elak", note: "Batas Semak Mule, saluran laporan Malaysia dan templat rekod tanpa berkongsi rahsia."},
   {
     title: "Tips Game Mega888 Hari Ini",
     href: "/blog/cara-menang-mega888",
