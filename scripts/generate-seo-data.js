@@ -181,14 +181,34 @@ const blogArticles = [
       }
     ]
   },
-  { slug: 'apa-itu-rtp-mega888', title: 'Apa Itu RTP Mega888 & Cara Baca Untuk Menang', category: 'guide',
-    keywords: ['rtp mega888', 'mega888 rtp', 'rtp slot', 'rtp live mega888', 'apa itu rtp'],
-    description: 'Panduan lengkap memahami RTP (Return-to-Player) dalam Mega888. Cara baca, cara guna untuk menang, dan kenapa ianya penting untuk setiap pemain.',
-    content: `<h2>Apa Itu RTP?</h2><p>RTP bermaksud Return-to-Player — peratusan wang yang dikembalikan kepada pemain dalam jangka panjang. Contoh: RTP 96% bermakna untuk setiap RM100 yang dipertaruhkan, secara purata RM96 akan dikembalikan kepada pemain.</p><h2>Kenapa RTP Penting?</h2><p>RTP membantu anda memilih game yang memberikan peluang menang terbaik. Game dengan RTP 96% jauh lebih menguntungkan berbanding game RTP 85%.</p><h2>RTP Berubah-ubah</h2><p>RTP bukan nombor tetap — ia berubah mengikut masa dan aktiviti pemain. Inilah sebabnya Mega888 AI Scanner sangat berharga — ia menganalisis RTP secara real-time supaya anda boleh memilih game yang sedang "panas".</p>`,
-    faq: [
-      { q: 'Berapakah RTP yang baik untuk slot Mega888?', a: 'RTP 93% ke atas dianggap baik. RTP 96%+ adalah sangat baik. Gunakan AI Scanner untuk mencari game dengan RTP tertinggi pada masa tersebut.' },
-    ],
-  },
+  {
+  "slug": "apa-itu-rtp-mega888",
+  "title": "Apa Itu RTP Mega888: Bukan Peluang Menang Setiap Spin",
+  "category": "guide",
+  "keywords": [
+    "rtp mega888",
+    "mega888 rtp",
+    "rtp slot",
+    "rtp live mega888",
+    "apa itu rtp"
+  ],
+  "description": "Bezakan RTP teori, pulangan rekod dan kekerapan bayaran. Contoh kiraan rekaan serta senarai semak dakwaan RTP Mega888 tanpa ramalan kemenangan.",
+  "content": "<section id=\"rtp-bukan-peluang-menang\"><h2>Peratus yang sama tidak semestinya mengukur perkara yang sama</h2><p>Apabila mesej kumpulan menyebut “RTP tinggi”, soalan pertama bukan permainan mana perlu dipilih. Soalannya ialah: angka itu mengukur apa, datang daripada siapa dan merujuk rekod yang mana? RTP bukan peluang seseorang menang setiap spin, bukan kadar keuntungan peribadi dan bukan janji bahawa wang yang telah hilang akan kembali. Panduan ini menerangkan cara membaca dakwaan, bukannya cara mencari masa atau pola taruhan.</p><figure><img src=\"/hub/mega888-rtp-ukuran-berbeza-20261027.webp\" alt=\"Ilustrasi reel ceri, loceng dan tujuh tidak sepadan, dua bekas bentuk geometri berasingan serta kanta pembesar sebagai konsep ukuran berbeza\" width=\"1536\" height=\"1024\" loading=\"lazy\" decoding=\"async\" style=\"display:block;width:100%;height:auto;border-radius:16px\"/><figcaption>Ilustrasi konsep dijana AI: ukuran berbeza tidak boleh disamakan. Bukan tangkapan aplikasi, data RTP atau bukti pembayaran.</figcaption></figure><h2>Tiga label yang perlu dipisahkan</h2><ul><li><strong>RTP teori:</strong> ukuran pulangan jangka panjang dalam reka bentuk permainan. Ia bukan keputusan yang dijanjikan untuk satu sesi. Rujukan <a href=\"https://www.gamblingcommission.gov.uk/public-and-players/guide/return-to-player-how-much-gaming-machines-payout\" target=\"_blank\" rel=\"noopener noreferrer\">UK Gambling Commission tentang RTP</a> menegaskan bahawa purata itu melibatkan banyak permainan, bukan setiap kali seseorang bermain.</li><li><strong>Pulangan dalam rekod tertentu:</strong> jumlah bayaran dibahagi jumlah pertaruhan bagi set rekod yang ditetapkan, kemudian didarab 100. <a href=\"https://www.gamblingcommission.gov.uk/licensees-and-businesses/guide/page/how-to-calculate-return-to-player-rtp\" target=\"_blank\" rel=\"noopener noreferrer\">Panduan pengiraan UKGC</a> membezakan pencapaian sebenar dengan nilai reka bentuk; jumlah permainan dan variasi hasil mempengaruhi tafsirannya. Satu sampel pendek tidak mengesahkan nilai teori.</li><li><strong>Kekerapan menerima bayaran dalam contoh:</strong> bilangan pusingan dengan bayaran dibahagi semua pusingan yang direkodkan. Ini kiraan kejadian, bukan jumlah wang. Menerima bayaran juga tidak semestinya untung jika bayaran lebih kecil daripada pertaruhan.</li></ul><p>Rujukan UKGC digunakan untuk konsep dan pengiraan umum. Ia bukan bukti Mega888 berlesen di UK, diaudit oleh UKGC atau menggunakan konfigurasi tertentu. Kami tidak mengesahkan angka RTP, RNG atau sejarah keputusan mana-mana aplikasi Mega888 melalui panduan ini.</p><h2>Contoh rekaan: banyak pusingan berbayar, tetapi masih rugi</h2><p><strong>Ini latihan aritmetik sahaja, bukan ujian aplikasi atau cadangan bermain.</strong> Bayangkan satu rekod lengkap rekaan mengandungi sepuluh pusingan, setiap satunya mempertaruhkan RM2. Jumlah pertaruhan ialah RM20. Enam pusingan membayar RM1 setiap satu; empat lagi tidak membayar apa-apa. Maka:</p><ul><li>Bilangan pusingan berbayar: 6 daripada 10, bersamaan 60% dalam rekod rekaan ini.</li><li>Jumlah bayaran: 6 × RM1 = RM6.</li><li>Nisbah pulangan rekod: RM6 ÷ RM20 × 100 = 30%.</li><li>Hasil bersih: RM6 − RM20 = kerugian RM14.</li></ul><p>Dalam contoh itu, label “enam kali menang” boleh mengelirukan jika maksudnya sekadar enam kali menerima bayaran. Keenam-enam bayaran masih lebih kecil daripada kos pusingan masing-masing. Angka 60% dan 30% sama-sama hasil kiraan yang betul untuk soalan berbeza; kedua-duanya bukan ramalan spin seterusnya atau nilai RTP sebenar sesuatu permainan. Jangan gunakan contoh ini untuk menganggarkan peluang Mega888.</p><h2>Deposit bukan jumlah pertaruhan terkumpul</h2><p>Untuk melihat beza istilah tanpa bermain, gunakan rekod rekaan kedua: seseorang memasukkan RM10, mempertaruhkan RM2 dan menerima RM1. Baki menjadi RM9. Apabila RM2 dipertaruhkan lagi, jumlah pertaruhan terkumpul menjadi RM4 walaupun deposit asal kekal RM10. Kredit boleh digunakan berulang kali; sebab itu membahagi bayaran dengan deposit menjawab soalan lain daripada membahaginya dengan semua pertaruhan.</p><p>Jangan mencampurkan bonus, tambah nilai, pengeluaran dan baki akhir seolah-olah semuanya hadiah permainan. Jika sesuatu rekod tidak menjelaskan kategorinya, tulis “tidak dapat dibandingkan”. Anda tidak perlu membuat deposit atau bermain untuk melengkapkan maklumat yang hilang.</p><h2>Semak dakwaan “RTP live” tanpa mencuba taruhan</h2><ol><li><strong>Simpan ayat asal:</strong> adakah ia mendakwa pulangan reka bentuk, rekod lampau atau peluang menang anda? Jangan tukar maksud angka ketika berkongsi semula.</li><li><strong>Kenal pasti skop:</strong> nama permainan, versi atau konfigurasi yang dimaksudkan, tempoh rekod dan sama ada semua hasil dimasukkan. Nama jenama sahaja tidak menjawab semua soalan ini.</li><li><strong>Semak asas kiraan:</strong> apa pembilang dan penyebutnya? Jika hanya screenshot satu bayaran ditunjukkan, jumlah pertaruhan dan hasil lain masih tidak diketahui.</li><li><strong>Bezakan label dengan bukti:</strong> nombor yang bergerak, warna hijau atau cap masa baru tidak dengan sendirinya membuktikan sambungan kepada data operator. Minta sumber yang boleh diperiksa tanpa memberikan ID, kata laluan atau OTP.</li><li><strong>Nyatakan had:</strong> jika sumber atau kaedah tiada, keputusan semakan ialah “dakwaan belum disahkan”, bukan “pasti benar” atau tuduhan bahawa setiap kumpulan menipu.</li></ol><p>Di laman ini, output scanner ialah indikatif berasaskan katalog/simulasi, bukan pengukuran RTP langsung operator. Baca <a href=\"/info\">penerangan metodologi</a>. Jangan gunakan skor tersebut sebagai bukti keputusan akaun atau alasan mengejar kerugian.</p><h2>Kad semakan ringkas untuk mesej kumpulan</h2><p>Salin templat ini ke nota peribadi: <strong>Ayat dakwaan — maksud peratus — sumber asal — tempoh dan skop — jumlah bayaran — jumlah pertaruhan — perkara tidak diketahui — kesimpulan terhad.</strong> Isi “tiada maklumat” jika medan kosong; jangan mereka angka. Padam butiran akaun dan maklumat peribadi sebelum berkongsi nota. Templat ini menilai kejelasan bukti, bukan mengesahkan platform atau memberi skor keselamatan.</p><p>Untuk dakwaan pola dan waktu bertuah, lihat <a href=\"/blog/cara-menang-mega888\">mitos spin dan janji “80% menang”</a>. Jika perbualan berubah menjadi desakan membayar caj tambahan, rujuk <a href=\"/blog/mega888-scam-elak\">langkah menghentikan bayaran dan menyimpan bukti</a>. Jangan mengejar kerugian atau menggunakan wang komitmen dan pinjaman. Tiada peratus, pola spin atau kumpulan boleh menjamin kemenangan.</p></section>",
+  "faq": [
+    {
+      "q": "Adakah RTP 96% bermaksud 96 daripada 100 spin akan menang?",
+      "a": "Tidak. RTP mengukur pulangan nilai jangka panjang, bukan bilangan pusingan menang. Angka 96% di sini hanyalah contoh istilah, bukan kadar Mega888 yang disahkan."
+    },
+    {
+      "q": "Bolehkah screenshot kemenangan mengesahkan RTP?",
+      "a": "Tidak. Satu bayaran tidak menunjukkan jumlah pertaruhan, semua hasil atau konfigurasi permainan. Rekod pendek juga tidak mengesahkan RTP teori."
+    },
+    {
+      "q": "Adakah scanner laman ini membaca RTP langsung operator?",
+      "a": "Tidak. Output ialah indikatif katalog/simulasi, bukan sejarah keputusan operator atau jaminan kemenangan."
+    }
+  ]
+},
   { slug: 'top-slot-mega888', title: 'Top 20 Slot Mega888 Terbaik 2026: Ranking Lengkap', category: 'tips',
     keywords: ['slot mega888', 'mega888 slot', 'game mega888 terbaik', 'senarai game mega888'],
     description: 'Senarai ranking 20 slot Mega888 terbaik 2026 berdasarkan RTP, populariti, dan peluang jackpot. Analisis mendalam setiap game.',
@@ -687,7 +707,7 @@ blogArticles.forEach((article, i) => {
     .map(a => a.slug);
   article.relatedGames = allGames.slice(i * 3, i * 3 + 5).map(g => g.slug);
   article.publishedAt = '2026-02-01';
-  article.updatedAt = article.slug === 'mega888-scam-elak' ? '2026-10-26' : article.slug === 'cara-menang-mega888' ? '2026-10-25' : '2026-02-19';
+  article.updatedAt = article.slug === 'apa-itu-rtp-mega888' ? '2026-10-27' : article.slug === 'mega888-scam-elak' ? '2026-10-26' : article.slug === 'cara-menang-mega888' ? '2026-10-25' : '2026-02-19';
 });
 
 // ─── Write gamePages.ts ───
