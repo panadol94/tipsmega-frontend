@@ -1,5 +1,5 @@
 // Content dates reflect substantive publication, not build time.
-export const HUB_UPDATED = "2026-10-29";
+export const HUB_UPDATED = "2026-10-30";
 export const HUB_GUIDES = [
   {
     "component": "ConnectionChecklist",
