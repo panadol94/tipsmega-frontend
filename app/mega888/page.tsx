@@ -56,9 +56,9 @@ const HUB_LINKS = [
   {title: "RTP Mega888: Bukan Peluang Menang Setiap Spin", href: "/blog/apa-itu-rtp-mega888", note: "Bezakan pulangan, kekerapan bayaran dan untung bersih melalui contoh rekaan serta kad semakan dakwaan."},
   {title: "Scam Mega888 di WhatsApp: Henti Bayaran Tambahan dan Simpan Bukti", href: "/blog/mega888-scam-elak", note: "Batas Semak Mule, laporan Malaysia dan semakan tawaran pemulihan wang tanpa bayaran pendahuluan atau pendedahan rahsia."},
   {
-    title: "Tips Game Mega888 Hari Ini",
+    title: "Tips Menang Spin: Mitos, Fakta dan Near-Miss",
     href: "/blog/cara-menang-mega888",
-    note: "Checklist semasa, cara menilai game, memahami RTP dan menetapkan had bajet.",
+    note: "Semak dakwaan 80% menang dan hampir menang: asingkan paparan, tafsiran dan permintaan bayaran.",
   },
   {
     title: "Cara Baca RTP Scanner Mega888",
