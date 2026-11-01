@@ -58,7 +58,7 @@ const HUB_LINKS = [
   {
     title: "Tips Menang Spin: Mitos, Fakta dan Near-Miss",
     href: "/blog/cara-menang-mega888",
-    note: "Semak dakwaan 80% menang dan hampir menang: asingkan paparan, tafsiran dan permintaan bayaran.",
+    note: "Semak mitos spin, hampir menang serta bunyi dan animasi: persembahan klip bukan bukti untung bersih.",
   },
   {
     title: "Cara Baca RTP Scanner Mega888",
