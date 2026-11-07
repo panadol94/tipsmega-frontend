@@ -54,7 +54,7 @@ const HUB_LINKS = [
   {title: "Mega888 Modal Kecil: Risiko Tambah Nilai dan Mengejar Kerugian", href: "/blog/game-mega888-untuk-pemula-modal-kecil", note: "Contoh jumlah terkumpul dan catatan berhenti untuk melindungi wang keperluan, tanpa cadangan taruhan."},
   {title: "Group WhatsApp Mega888: Semak Testimoni, Bukan Kira Pujian", href: "/blog/group-whatsapp-mega888-malaysia-2026", note: "Semak testimoni serta permintaan kod daripada admin: identiti dikenali bukan kebenaran menyerahkan akses."},
   {title: "RTP Mega888: Bukan Peluang Menang Setiap Spin", href: "/blog/apa-itu-rtp-mega888", note: "Bezakan pulangan, kekerapan bayaran dan untung bersih melalui contoh rekaan serta kad semakan dakwaan."},
-  {title: "Scam Mega888 di WhatsApp: Henti Bayaran Tambahan dan Simpan Bukti", href: "/blog/mega888-scam-elak", note: "Semak hasil carian, iklan dan HTTPS: kedudukan teratas serta sambungan selamat bukan pengesahan ejen. Termasuk suara admin, surat caj dan refund."},
+  {title: "Scam Mega888 di WhatsApp: Henti Bayaran Tambahan dan Simpan Bukti", href: "/blog/mega888-scam-elak", note: "OTP tanpa diminta bukan bukti admin sah. Bezakan menerima kod, berkongsi rahsia dan meluluskan akses; semak juga hasil carian, HTTPS serta refund."},
   {
     title: "Tips Menang Spin: Mitos, Fakta dan Near-Miss",
     href: "/blog/cara-menang-mega888",
