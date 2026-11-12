@@ -54,7 +54,7 @@ const HUB_LINKS = [
   {title: "Mega888 Withdraw: Status Bukan Bukti Penerimaan", href: "/blog/mega888-withdraw-cepat-malaysia-2026", note: "Padankan permintaan, dakwaan transfer dan pemerhatian sendiri tanpa bayaran tambahan atau janji cuci pantas."},
   {title: "Mega888 Test ID: Demo Bukan Bukti Menang", href: "/blog/mega888-test-id-percuma-cara-guna-2026", note: "Bezakan label demo, kredit dan ramalan hasil. Kad semakan serta contoh rekaan tanpa deposit percubaan."},
   {title: "Mega888 Modal Kecil: Risiko Tambah Nilai dan Mengejar Kerugian", href: "/blog/game-mega888-untuk-pemula-modal-kecil", note: "Contoh jumlah terkumpul dan catatan berhenti untuk melindungi wang keperluan, tanpa cadangan taruhan."},
-  {title: "Group WhatsApp Mega888: Semak Testimoni, Bukan Kira Pujian", href: "/blog/group-whatsapp-mega888-malaysia-2026", note: "Semak testimoni serta permintaan kod daripada admin: identiti dikenali bukan kebenaran menyerahkan akses."},
+  {title: "Group WhatsApp Mega888: Semak Testimoni, Bukan Kira Pujian", href: "/blog/group-whatsapp-mega888-malaysia-2026", note: "Mesej group hilang bukan jawapan tentang kebenaran testimoni. Bezakan ciri privasi, jurang rekod dan perkara yang belum disahkan."},
   {title: "RTP Mega888: Bukan Peluang Menang Setiap Spin", href: "/blog/apa-itu-rtp-mega888", note: "Bezakan pulangan, kekerapan bayaran dan untung bersih melalui contoh rekaan serta kad semakan dakwaan."},
   {title: "Scam Mega888 di WhatsApp: Henti Bayaran Tambahan dan Simpan Bukti", href: "/blog/mega888-scam-elak", note: "Screenshot Semak Mule merujuk nombor siapa? Padankan jenis butiran, sumber, masa dan perubahan penerima tanpa menganggap tiada rekod sebagai jaminan."},
   {
